@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8">
+		<title>商品资料</title>
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.el-header {
+			    background-color: #39CEDE;
+			}
+			  
+			.el-aside {
+				color: #333;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="container-fluid" id="ctx">
+			
+			<el-row>
+				<el-col :span="17">
+					<h1 class="" style="color: #9E9899;">商品资料</h1>
+				</el-col>
+				<el-col :span="7">
+					<el-input style="width: 200px;"
+					  placeholder="请输入内容"
+					  v-model="input"
+					  clearable>
+					</el-input>
+					<el-button type="warning" icon="el-icon-search">搜索</el-button>
+					<el-button type="info">关闭</el-button>
+				</el-col>
+			</el-row>
+			
+			<el-divider></el-divider>
+			
+			<el-row style="margin-bottom: 10px;">
+				<el-col :span="6">
+					<el-link  @click="dialogFormVisible = true" style="font-size: 20px; margin-right: 10px;" icon="el-icon-s-fold" :underline="false">增加</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-edit" :underline="false">修改</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-circle-close" :underline="false">删除</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-set-up" :underline="false">查询</el-link>
+				</el-col>
+				<el-col :span="12">
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-bottom" :underline="false">下页</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-printer" :underline="false">导出</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-picture" :underline="false">照片</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-c-scale-to-original" :underline="false">条码</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-tickets" :underline="false">套件商品</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-s-claim" :underline="false">分类设置</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-setting" :underline="false">字段设置</el-link>
+				</el-col>
+			</el-row>
+			
+			<el-container style="height: 600px; border: 1px solid #eee">
+			 
+			  <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+			    <el-menu :default-openeds="['1', '3']">
+			  		<el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
+			  		<el-tree class="filter-tree" :data="data" :props="defaultProps" default-expand-all :filter-node-method="filterNode" ref="tree"></el-tree>
+			    </el-menu>
+			  </el-aside>
+			  
+			  <el-container content="true">
+				<el-table
+				  :header-cell-style="{background:'#39CEDE',color:'#606266'}"
+				  ref="multipleTable"
+				  :data="tableData"
+				  tooltip-effect="dark"
+				  style="width: 100%"
+				  @selection-change="handleSelectionChange">
+				  <el-table-column
+					type="selection"
+					width="55">
+				  </el-table-column>
+				  <el-table-column
+					label="日期"
+					width="120">
+					<template slot-scope="scope">{{ scope.row.date }}</template>
+				  </el-table-column>
+				  <el-table-column
+					prop="name"
+					label="姓名"
+					width="120">
+				  </el-table-column>
+				  <el-table-column prop="address"
+					label="地址"
+					show-overflow-tooltip>
+				  </el-table-column>
+				</el-table>
+			 <el-footer>
+				 <el-pagination
+				   background
+				   layout="prev, pager, next"
+				   :total="1000">
+				 </el-pagination>
+			 </el-footer>
+			 </el-container>
+			</el-container>
+			
+			<el-dialog title="商品资料编辑" :visible.sync="dialogFormVisible" width="60%">
+			  <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
+			    
+				<el-row type="flex">
+					<el-form-item label="商品编码">
+					  <el-input style="width: 180px;" v-model="formInline.user" placeholder="商品编码"></el-input>
+					</el-form-item>
+					<el-form-item label="商品名称">
+					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="商品名称"></el-input>
+					</el-form-item>
+					<el-form-item label="商品品牌">
+					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="商品品牌">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-form-item label="适用车型">
+					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="适用车型"></el-input>
+					</el-form-item>
+					<el-form-item label="数量单位">
+					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="数量单位">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+					<el-form-item label="商品大类">
+					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="商品大类">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-form-item label="收入分类">
+					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="收入分类">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+					<el-form-item label="原厂副厂">
+					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="原厂副厂">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+					<el-form-item label="商品等级">
+					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="商品等级">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+					<el-form-item label="商品产地">
+					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="商品产地">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-form-item label="厂商名称">
+					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="厂商名称">
+					    <el-option label="区域一" value="shanghai"></el-option>
+					    <el-option label="区域二" value="beijing"></el-option>
+					  </el-select>
+					</el-form-item>
+					<el-form-item label="原厂编码">
+					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="原厂编码"></el-input>
+					</el-form-item>
+					<el-form-item label="条形码">
+					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="条形码"></el-input>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-form-item label="包装规格">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="包装规格"></el-input>
+					</el-form-item>
+					<el-form-item label="体积A">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="体积A"></el-input>
+					</el-form-item>
+					<el-form-item label="毛重">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="毛重"></el-input>
+					</el-form-item>
+					<el-form-item label="净重">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="净重"></el-input>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-form-item label="进货价">
+					  <el-input v-model="formInline.user" placeholder="进货价"></el-input>
+					</el-form-item>
+					<el-form-item label="售价表">
+					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="售价表">
+					    <el-option label="售价表" value="1"></el-option>
+					    <el-option label="加价率" value="2"></el-option>
+					  </el-select>
+					</el-form-item>
+					<el-form-item label="加价率">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="加价率"></el-input>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-form-item label="互换码">
+					  <el-input v-model="formInline.user" placeholder="互换码"></el-input>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-form-item label="标准价">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="标准价"></el-input>
+					</el-form-item>
+					<el-form-item label="会员价">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="会员价"></el-input>
+					</el-form-item>
+					<el-form-item label="VIP价">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="VIP价"></el-input>
+					</el-form-item>
+					<el-form-item label="协议价">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="协议价"></el-input>
+					</el-form-item>
+					<el-form-item label="索赔价">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="索赔价"></el-input>
+					</el-form-item>
+					<el-form-item label="保险价">
+					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="保险价"></el-input>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-col :offset="20">
+						<el-form-item>
+						  <el-button type="primary" @click="onSubmit">保存</el-button>
+						</el-form-item>
+					</el-col>
+				</el-row>
+			  </el-form>
+			</el-dialog>
+			
+		</div>
+		
+		
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#ctx",
+				watch: {
+				      filterText(val) {
+				        this.$refs.tree.filter(val);
+				      }
+				    },
+				methods: {
+					onSubmit() {
+					        console.log('submit!');
+					},
+					filterNode(value, data) {
+						if (!value) return true;
+						return data.label.indexOf(value) !== -1;
+					},
+					handleSelectionChange(val) {
+					  this.multipleSelection = val;
+					}
+				},
+				data() {
+					const item = {
+					        date: '2016-05-02',
+					        name: '王小虎',
+					        address: '上海市普陀区金沙江路 1518 弄'
+					};
+				    return {
+						labelPosition:'right',
+						 formInline: {
+						          user: '',
+						          region: ''
+						},
+						dialogFormVisible: false,
+						formLabelWidth: '120px',
+						filterText: '',
+						input: '',
+						data: [{
+						  id: 1,
+						  label: '一级 1',
+						  children: [{
+							id: 4,
+							label: '二级 1-1',
+							children: [{
+							  id: 9,
+							  label: '三级 1-1-1'
+							}, {
+							  id: 10,
+							  label: '三级 1-1-2'
+							}]
+						  }]
+						}, {
+						  id: 2,
+						  label: '一级 2',
+						  children: [{
+							id: 5,
+							label: '二级 2-1'
+						  }, {
+							id: 6,
+							label: '二级 2-2'
+						  }]
+						}, {
+						  id: 3,
+						  label: '一级 3',
+						  children: [{
+							id: 7,
+							label: '二级 3-1'
+						  }, {
+							id: 8,
+							label: '二级 3-2'
+						  }]
+						}],
+						defaultProps: {
+						  children: 'children',
+						  label: 'label'
+						},
+						tableData: Array(10).fill(item),
+						multipleSelection: []
+				    }
+				},
+			});
+		</script>
+	</body>
+</html>
