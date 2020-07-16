@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>结算中心</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+	</head>
+	<style>
+		.tou input{
+			width: 120px;
+			height: 26px;
+		}
+		.tou span{
+			color:#40AFFF;
+			margin-right: 10px;
+			
+		}
+	</style>
+	<body>
+		<div class="container-fluid" id="ctx">
+				<div class="panel panel-default" >
+				  <div class="panel-heading" style="position: relative;background-color: #F7FFFF;">
+				    <h3 class="panel-title" style="font-size: 20px;">结算中心</h3>
+					<div style="position: absolute; right: 0px;top:5px;">
+						<el-button size="mini" type="success">搜索</el-button>
+						<el-button size="mini" type="info">关闭</el-button>
+					</div>
+				  </div>
+				  <div class="panel-body" style="position: relative;height: 130px;background-color: #F7F7F7; ">
+					  <div class="tou" style="background-color: #F7FFFF; border-top:#4AC6D7 2px solid ; padding: 10px 10px ;">
+						  <span>开单日期</span><input type="date"/>☞<input type="date"/>
+						  <span>销售单号</span><input  />
+						  <span>结算状态</span>
+						  <select @change="xljs(val)" v-model="val" style="width: 120px;height: 26px;">
+							  <option value="1">已结算</option>
+							  <option value="2">未结算</option>
+						  </select>
+						  <span>车牌号</span><input  />
+						  <div style="margin-top: 10px;">
+							  <span>客户名称</span>
+							  <select style="width: 120px;height: 26px;">		
+							  </select>
+							  <span>服务顾问</span>
+							  <select style="width: 120px;height: 26px;">		
+							  </select>
+							  <span>业务类型</span>
+							  <select style="width: 120px;height: 26px;">		
+							  </select>
+							  <span>单据类型</span>
+							  <select style="width: 120px;height: 26px;">		
+							  </select>
+						  </div>
+						  
+					  </div>
+					  <div style="position: absolute; right: 0px; bottom: 0px;">
+						  <span v-if="ok1"  style="margin-right: 20px;">
+							  <span  class="el-icon-document-copy" style="color: #fbb347;"></span><span>收银</span>
+						  </span>
+						  <span v-if="ok" style="margin-right: 20px;">
+						  		<span  class="glyphicon glyphicon-copy " style="color: #fbb347;"></span><span>回滚</span>
+						  </span>
+						  <span style="margin-right: 20px;">
+						  		<span  class="el-icon-copy-document " style="color: #fbb347;"></span><span>打开单据</span>
+						  </span>
+						  <span style="margin-right: 20px;">
+						  		<span  class="glyphicon glyphicon-export " style="color: #fbb347;"></span><span>导出</span>
+						  </span>
+						  
+					  </div>
+				  </div>
+				</div>
+				<div>
+					<template>
+					  <el-table :header-cell-style="{background:'#39CEDE',color:'#606266'}"  ref="singleTable"  :data="tableData" highlight-current-row style="width: 100%">
+					    <el-table-column   type="index"    width="50"></el-table-column>
+					    <el-table-column  property="date"  label="日期"  width="120"></el-table-column>
+					    <el-table-column  property="name"  label="姓名" width="120"></el-table-column>
+					    <el-table-column  property="address"      label="地址"></el-table-column>
+					  </el-table>
+					</template>
+					<el-pagination style="margin:30px 0px 0px 500px;" background  layout="prev, pager, next"  :total="1000"></el-pagination>
+				</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.12.4.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../elementui/index.js"></script>
+	<script>
+			var vm=new Vue({
+				el:"#ctx",
+				data(){
+					return{
+						val:0,
+						ok:false,
+						ok1:true,
+						tableData: [{
+						          date: '2016-05-02',
+						          name: '王小虎',
+						          address: '上海市普陀区金沙江路 1518 弄'
+						        }, {
+						          date: '2016-05-04',
+						          name: '王小虎',
+						          address: '上海市普陀区金沙江路 1517 弄'
+						        }, {
+						          date: '2016-05-01',
+						          name: '王小虎',
+						          address: '上海市普陀区金沙江路 1519 弄'
+						        }, {
+						          date: '2016-05-03',
+						          name: '王小虎',
+						          address: '上海市普陀区金沙江路 1516 弄'
+						        }],
+						        currentRow: null
+					}
+				},
+				methods: {
+					xljs(va){
+						if(va==2){
+							this.ok=true;
+							this.ok1=false;
+						}else{
+							this.ok=false;
+							this.ok1=true;
+						}
+					}  
+				}
+				
+			})
+	</script>
+</html>

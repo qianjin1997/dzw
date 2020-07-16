@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>维修单</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+	</head>
+	<style>
+		#wx span{
+			margin: 0px 10px 0px 20px;
+		}
+		#wx div{
+			margin: 10px 0px;
+		}
+		#wx select{
+			width: 178.4px;height: 26px;background-color: #EBEBE4;
+		}
+	</style>
+	<body>
+		<div class="container-fluid" id="ctx">
+			<div class="panel panel-default" >
+			  <div class="panel-heading" >
+			    <h3 class="panel-title" style="font-size: 20px;">维修单</h3>
+				<div style="position: absolute; right: 20px;top:5px;	">
+					<button type="button" class="btn btn-danger">关闭</button>
+				</div>
+			  </div>
+			  <div class="panel-body" style="position: relative;height: 50px;background-color: #F7F7F7; ">
+				 
+				  <el-row>
+					  <el-col :span="2">
+						  <span style="font-size: 17px;	">单号：</span><span>123456789</span>
+					  </el-col>
+				    <el-col :offset="18" :span="4">
+						<span class="grid-content bg-purple" >
+							<span class="el-icon-s-promotion" style="color: #fbb347;"></span>
+							<span >委托书</span>
+						</span>
+						<span class="grid-content bg-purple">
+							<span class="el-icon-printer" style="color: #fbb347;"></span>
+							<span>结算单</span>
+						</span>
+						<span class="grid-content bg-purple">
+							<span class="el-icon-picture" style="color: #fbb347;"></span>
+							<span>照片</span>
+						</span>
+						<span class="grid-content bg-purple">
+							<span class="el-icon-user-solid" style="color: #fbb347;"></span>
+							<span>附单</span>
+						</span>
+					</el-col>
+				  </el-row>
+			  </div>
+			  <div style="border-top: 2px solid #00FFFF;" id="wx">
+					<div>
+						<span>车牌号码</span><input disabled="disabled"/>
+						<span>车架号</span><input disabled="disabled"/>
+						<span style="margin-left: 40px;">车辆型号</span><input disabled="disabled"/>
+						<span >车辆品牌</span><input disabled="disabled"/>
+					</div>
+					<div>
+						<span >车牌号码</span><input disabled="disabled"/>
+						<span style="margin-left: 180px;">发动机品牌</span><input style="width: 100px;" disabled="disabled"/><input disabled="disabled"/>
+						<span >服务顾问</span>
+						<select >	
+						</select>
+					</div>
+					<div>
+						<span >车主姓名</span><input style="width: 100px;" disabled="disabled"/><input disabled="disabled"/>
+						<span style="margin-left: 205px;">驾驶员</span><input disabled="disabled"/>
+						<span >联系电话</span><input disabled="disabled"/>
+					</div>
+					<div>
+						<span >进厂里程</span><input disabled="disabled"/>
+						<span >进厂油量</span>
+						<select></select>
+						<span >上次里程</span><input disabled="disabled"/>
+						<span >进场时间</span><input disabled="disabled"/>
+					</div>
+					<div>
+						<span >业务类别</span>
+						<select></select>
+						<span >施工班次</span>
+						<select></select>
+						<span >接车人</span><input disabled="disabled"/>
+						<span >预计完工</span><input disabled="disabled"/>
+					</div>
+					<div>
+						<span >结算方式</span>
+						<select></select>
+						<span >赔款公司</span>
+						<select></select>
+						<span >完工时间</span><input disabled="disabled"/>
+						<span >上次进厂</span>
+						<select></select>
+					</div>
+			  </div>
+		</div>
+		</div>
+	</body>
+	<script src="../js/jquery-1.12.4.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../elementui/index.js"></script>
+	<script>
+		var vm=new Vue({
+			el:"#ctx",
+			data(){
+				return{
+				 
+				}
+			},
+			methods:{
+				
+			},
+			created(){
+				
+			}
+		})
+	</script>
+</html>

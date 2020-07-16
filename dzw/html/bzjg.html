@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>班组技工</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		
+		<style>
+			/* 用来设置当前页面element全局table 选中某行时的背景色
+			.el-table__body tr.current-row>td{
+			  background-color: #f19944 !important;
+			  /* color: #f19944; */  /* 设置文字颜色，可以选择不设置 } */
+			
+			/* 用来设置当前页面element全局table 鼠标移入某行时的背景色*/
+			/* .el-table--enable-row-hover .el-table__body tr:hover>td {
+			  background-color: #f19944;
+			  /* color: #f19944; */ /* 设置文字颜色，可以选择不设置 }  */
+			 .el-dropdown-link {
+			    cursor: pointer;
+			    color: #409EFF;
+			  }
+			  .el-icon-arrow-down {
+			    font-size: 12px;
+			  }
+			  #zj span{
+				  color:#40AFFF;
+			  }
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid" id="ctx">
+			<div class="panel panel-default">
+			  <div class="panel-heading" style="position: relative;background-color: #F7FFFF;">
+			    <h3 class="panel-title" style="font-size: 20px;font-weight: 800;">班组技工</h3>
+				<div style="position: absolute; right: 20px;top:5px">
+					<input  placeholder="匹配工号/手机/姓名" />
+					 <el-button size="mini" type="success">成功按钮</el-button>
+					<el-button size="mini" type="info">关闭</el-button>
+					
+				</div>
+			  </div>
+			  <div class="panel-body" style="background-color: #F7F7F7;">
+				  <el-row :gutter="24">
+					<el-col :span="1.5">
+						<span   style="color: #fbb347;"  class="glyphicon glyphicon-eye-open" ></span>
+						<span @click="dialogVisible1 = true">增加员工</span> 
+					</el-col>
+					<el-col :span="1.5">
+						<span  style="color: #fbb347;" class="glyphicon glyphicon-edit" ></span>
+						<span @click="dialogVisible = true">修改</span>
+					</el-col>
+					<el-col :span="1.5">
+						<span  style="color: #fbb347;" class="glyphicon glyphicon-remove-sign" ></span>
+						<span>删除</span>
+					</el-col>
+					<el-col :span="1.5">
+						<span style="color: #fbb347;" class="glyphicon glyphicon-search" ></span>
+						<span>查询</span>
+					</el-col>
+					<el-col :span="1.5">
+						<span style="color: #fbb347;"  class="glyphicon glyphicon-lock" ></span>
+						<span>制空密码</span>
+					</el-col>
+					<el-col :span="1.5">
+						<span style="color: #fbb347;" class="glyphicon glyphicon-globe" ></span>
+						<span @click="dialogTableVisible = true">班组权重</span>
+					</el-col>
+					<el-col :span="1.5">
+						<span  style="color: #fbb347;" class="glyphicon glyphicon-export"></span>
+						<span >导出</span>
+					</el-col>
+				  </el-row>
+			  </div>
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-2" >
+						<el-tree :data="data" :props="defaultProps" ></el-tree>
+					</div>
+					<div class="col-md-10">
+						<template >
+						  <el-table  :header-cell-style="{background:'#39CEDE',color:'#606266'}"  ref="singleTable"  :data="tableData"  highlight-current-row   style="width: 100%;height: 500px;">
+						    <el-table-column  type="index"  width="50"></el-table-column>
+						    <el-table-column  property="date"  label="日期"  width="120"></el-table-column>
+						    <el-table-column  property="name"  label="姓名"  width="120"> </el-table-column>
+						    <el-table-column  property="address"  label="地址"></el-table-column>
+						  </el-table>
+						</template>
+						<el-pagination  style="margin: 10px 0px 0px 300px;" background  layout="prev, pager, next"  :total="1000"></el-pagination>
+					</div>
+				</div>
+				
+				<div class="row" style=" background-color:#FAFAFA ">
+					<h5 >共计：8条</h5>
+				</div>
+			</div>
+			
+			<!--  单击增加按钮打开-->
+			<el-dialog title="技工添加" :visible.sync="dialogVisible1" width="45%" :before-close="handleClose">
+				  <div style="background-color: #FAFAFA ;" id="zj">
+					  <span style="margin-right: 10px;">技工编号<input disabled="disabled"/></span>
+					  <span style="margin-right: 10px;">技工名称<input /></span>
+					  <span  style="margin-right: 10px;" class="dropdown">
+						   <span>性别</span>
+						   <select  style="width: 50px;height: 26px;">
+							   <option>男</option>
+							   <option>女</option>
+							   <option>人妖</option>
+							   
+						   </select>
+						   
+					 </span>
+					 <input type="checkbox" /><span>组长</span><br/>
+					 <div style="margin: 10px 0px;">
+						 <span>所在班组</span>
+						 <input disabled="disabled"/>
+						 <span style="margin: 0px 10px 0px -20px;" @click="dialogVisible3= true"  class="el-icon-caret-bottom"></span>
+						 <span style="margin-right: 10px; ">手机<input style="width: 140px;" /></span>
+						 <span style="margin-right: 10px; ">登录账号<input style="width: 140px;"/></span>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px; ">地址<input style="margin-left: 20px;" /></span>
+						  <span style="margin-right: 10px; ">出生日期<input style="width: 140px;" type="date"/></span>
+						  <span style="margin-right: 10px; ">微信号<input style="width: 140px;"/></span>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px; ">身份证号<input/></span>
+						  <span style="margin-right: 10px; ">户口地址<input/></span>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span>开户银行</span>
+						  <select style="margin-right: 10px;width: 140px;height: 26px;">
+						  		<option>1</option>
+						  </select>
+						  <span style="margin-right: 10px; ">银行账号<input style="width: 140px;" /></span>
+						  <span>技工星级</span>
+						  <select style="margin-right: 10px;width: 140px;height: 26px;">
+						  		
+						  </select>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px;">维修工种</span><input style="width: 80%;"/>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px;">维修品牌</span><input style="width: 80%;"/>
+					  </div>
+				  </div>
+				  <span slot="footer" class="dialog-footer">
+					<el-button @click="dialogVisible1 = false">取 消</el-button>
+					<el-button type="primary" >确 定</el-button>
+				  </span>
+			</el-dialog>
+			<!--下拉事件触发-->
+			<el-dialog title="维修班组"  :visible.sync="dialogVisible3"  width="30%"  :before-close="handleClose">
+			  <div>
+				  <el-tree :data="data" :props="defaultProps" ></el-tree>
+			  </div>
+			  <span slot="footer" class="dialog-footer">
+			    <el-button @click="dialogVisible3 = false">取 消</el-button>
+			    <el-button type="primary" >选择</el-button>
+			  </span>
+			</el-dialog>
+			
+			<!--单击修改按钮打开-->
+			<el-dialog title="技工资料" :visible.sync="dialogVisible" width="45%" :before-close="handleClose">
+				  <div style="background-color: #FAFAFA ;" id="zj">
+					  <span style="margin-right: 10px;">技工编号<input disabled="disabled"/></span>
+					  <span style="margin-right: 10px;">技工名称<input/></span>
+					  <span  style="margin-right: 10px;" class="dropdown">
+						   <select  style="width: 50px;height: 26px;">
+						   							   <option>男</option>
+						   							   <option>女</option>
+						   							   <option>人妖</option>
+						   							   
+						   </select>
+					 </span>
+					 <input type="checkbox" /><span>组长</span><br/>
+					 <div style="margin: 10px 0px;">
+						 <span>所在班组</span>
+						 <input disabled="disabled"/>
+						 <span style="margin: 0px 10px 0px -20px;" @click="dialogVisible3= true"  class="el-icon-caret-bottom"></span>
+						 <span style="margin-right: 10px; ">手机<input style="width: 140px;" /></span>
+						 <span style="margin-right: 10px; ">登录账号<input style="width: 140px;"/></span>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px; ">地址<input style="margin-left: 20px;" /></span>
+						  <span style="margin-right: 10px; ">出生日期<input style="width: 140px;" type="date"/></span>
+						  <span style="margin-right: 10px; ">微信号<input style="width: 140px;"/></span>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px; ">身份证号<input/></span>
+						  <span style="margin-right: 10px; ">户口地址<input/></span>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span>开户银行</span>
+						  <select style="margin-right: 10px;width: 140px;height: 26px;">
+						  		<option>1</option>
+						  </select>
+						  <span style="margin-right: 10px; ">银行账号<input style="width: 140px;" /></span>
+						  <span>技工星级</span>
+						  <select style="margin-right: 10px;width: 140px;height: 26px;">
+						  		<option>1</option>
+						  </select>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px;">维修工种</span><input style="width: 80%;"/>
+					  </div>
+					  <div style="margin: 10px 0px;">
+						  <span style="margin-right: 10px;">维修品牌</span><input style="width: 80%;"/>
+					  </div>
+				  </div>
+				  <span slot="footer" class="dialog-footer">
+					<el-button @click="dialogVisible = false">取 消</el-button>
+					<el-button type="primary" >确 定</el-button>
+				  </span>
+			</el-dialog>
+			
+			<!--单击班组权重时打开-->
+			<el-dialog title="班组权重" :visible.sync="dialogTableVisible" >
+				<div class="panel panel-default">
+				  <div class="panel-heading" style="position: relative">
+				    <h3 class="panel-title">班组权重</h3>
+					<div style="position: absolute; right: 0px;top:5px">
+						<input   />
+						<el-button size="mini" type="success">搜索</el-button>
+						<el-button @click="dialogTableVisible = false"  size="mini" type="info">关闭</el-button>
+					</div>
+				  </div>
+				  <div class="panel-body">
+					  <span class="glyphicon glyphicon-search" style="margin-right: 20px;">查询</span>
+					  <span class="el-icon-document-checked" style="margin-right: 20px;">全部选择</span>
+					  <span class="el-icon-document-delete" style="margin-right: 20px;">全部取消</span>
+					  <span class="el-icon-dish-1" style="margin-right: 20px;">保存</span>
+				  </div>
+				</div>
+				<div class="row">
+					<div class="col-md-3" style="border: 1px solid red; ">
+						<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+					</div>
+					<div class="col-md-9">
+						<template>
+						  <el-table ref="multipleTable"  height="300"  :data="tableData" tooltip-effect="dark"style="width: 100%" >
+						    <el-table-column type="selection"width="55"></el-table-column>
+						    <el-table-column label="日期" width="120"><template slot-scope="scope">{{ scope.row.date }}</template></el-table-column>
+						    <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
+						    <el-table-column  prop="address"  label="地址"  show-overflow-tooltip></el-table-column>
+							<el-table-column prop="b"label="四" width="120"></el-table-column>
+							<el-table-column prop="a"label="四" width="120"></el-table-column>
+							
+						  </el-table>
+						</template>
+						<el-footer>
+							<el-pagination background  layout="prev, pager, next"  :total="1000"></el-pagination>
+						</el-footer>
+					</div>
+				</div>
+				<div class="row" style=" background-color:#FAFAFA ">
+					<h5 >共计：8条</h5>
+				</div>
+			</el-dialog>	
+			
+		</div>
+		<script src="../js/jquery-1.12.4.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/vue.js"></script>
+		<script src="../elementui/index.js"></script>
+		<script type="text/javascript">
+			/** a有效注释 */
+			var vm = new Vue({
+				el:"#ctx",
+				data(){
+					return {
+						/** 关闭模态框判断使用 */
+						dialogVisible: false,
+						dialogVisible1: false,
+						dialogVisible3:false,
+						dialogTableVisible: false,
+						 tableData: [{
+							  date: '2016-05-03',
+							  name: '王小虎',
+							  address: '上海市普陀区金沙江路 1518 弄',
+							  b: '1',
+							  a: '1',
+							  s: '1',
+							  d: '1',
+							  f: '1',
+							  g: '1'
+							}, {
+							  date: '2016-05-02',
+							  name: '王小虎',
+							  address: '上海市普陀区金沙江路 1518 弄',
+							  b: '1',
+							  a: '1',
+							  s: '1',
+							  d: '1',
+							  f: '1',
+							  g: '1'
+							}, {
+							  date: '2016-05-04',
+							  name: '王小虎',
+							  address: '上海市普陀区金沙江路 1518 弄',
+							  b: '1',
+							  a: '1',
+							  s: '1',
+							  d: '1',
+							  f: '1',
+							  g: '1'
+							}],
+							data: [{
+							          label: '一级 1',
+							          children: [{
+							            label: '二级 1-1',
+							            children: [{
+							              label: '三级 1-1-1'
+							            }]
+							          }]
+							        }, {
+							          label: '一级 2',
+							          children: [{
+							            label: '二级 2-1',
+							            children: [{
+							              label: '三级 2-1-1'
+							            }]
+							          }, {
+							            label: '二级 2-2',
+							            children: [{
+							              label: '三级 2-2-1'
+							            }]
+							          }]
+							        }, {
+							          label: '一级 3',
+							          children: [{
+							            label: '二级 3-1',
+							            children: [{
+							              label: '三级 3-1-1'
+							            }]
+							          }, {
+							            label: '二级 3-2',
+							            children: [{
+							              label: '三级 3-2-1'
+							            }]
+							          }]
+							        }],
+							        defaultProps: {
+							          children: 'children',
+							          label: 'label'
+							        }
+					}		
+				},
+				methods: {
+				      handleNodeClick(data) {
+				        console.log(data);
+				      },
+					  rowclick(){
+						  console.log(222);
+					  },
+					  /** 关闭模态框时判断 */
+					  handleClose(done) {
+								this.$confirm('确认关闭？')
+					            .then(_ => {
+					              done();
+					            })
+					            .catch(_ => {});
+					  }
+				}
+			
+			});
+		</script>
+	</body>
+</html>
