@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8">
+		<title>竣工检验</title>
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.el-header {
+			    background-color: #39CEDE;
+			}
+			  
+			.el-aside {
+				color: #333;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="container-fluid" id="ctx">
+			
+			<el-row style="margin-top: 20px;">
+				<el-col :span="17">
+					<h1 class="" style="color: #9E9899;">竣工检验</h1>
+				</el-col>
+				<el-col :span="7">
+					<el-input style="width: 200px;"
+					  placeholder="请输入内容"
+					  v-model="input"
+					  clearable>
+					</el-input>
+					<el-button type="warning" icon="el-icon-search">搜索</el-button>
+					<el-button type="info">关闭</el-button>
+				</el-col>
+			</el-row>
+			
+			<el-divider></el-divider>
+			
+			 <el-row>
+				 <el-col :span="6">
+					 <template>
+					   <div class="block">
+					     <span class="demonstration">开单日期</span>
+					     <el-date-picker
+						   style="width: 260px;"
+					       v-model="value1"
+					       type="daterange"
+					       range-separator="至"
+					       start-placeholder="开始日期"
+					       end-placeholder="结束日期">
+					     </el-date-picker>
+					   </div>
+					 </template>
+				 </el-col>
+				 <el-col :span="16">
+					 <el-form :inline="true" :model="formInline" class="demo-form-inline">
+					   <el-form-item label="维修单号">
+					     <el-input style="width: 150px;" v-model="formInline.user" placeholder="维修单号"></el-input>
+					   </el-form-item>
+					   <el-form-item label="单据状态">
+					     <el-select style="width: 150px;" v-model="formInline.region" placeholder="单据状态">
+					       <el-option label="区域一" value="shanghai"></el-option>
+					       <el-option label="区域二" value="beijing"></el-option>
+					     </el-select>
+					   </el-form-item>
+					   <el-form-item label="车牌号">
+					     <el-input style="width: 150px;" v-model="formInline.user" placeholder="车牌号"></el-input>
+					   </el-form-item>
+					   <el-form-item label="车架号">
+					     <el-input style="width: 150px;" v-model="formInline.user" placeholder="车架号"></el-input>
+					   </el-form-item>
+					 </el-form>
+				 </el-col>
+				 <el-col :span="2">
+					 <el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-picture" :underline="false">打开单据</el-link>
+				 </el-col>
+			 </el-row>
+			
+			<el-container style="height: 550px; border: 1px solid #eee">
+			  
+			  <el-container content="true">
+				<template>
+				  <el-table
+				    :header-cell-style="{background:'#39CEDE',color:'white'}"
+				    ref="singleTable"
+				    :data="tableData"
+				    highlight-current-row
+				    @current-change="handleCurrentChange"
+				    style="width: 100%;">
+				    <el-table-column
+				      type="index"
+				      width="50">
+				    </el-table-column>
+				    <el-table-column
+				      property="date"
+				      label="日期"
+				      width="120">
+				    </el-table-column>
+				    <el-table-column
+				      property="name"
+				      label="姓名"
+				      width="120">
+				    </el-table-column>
+				    <el-table-column
+				      property="address"
+				      label="地址">
+				    </el-table-column>
+				  </el-table>
+				</template>
+			 <el-footer>
+				 <el-pagination
+				   background
+				   layout="prev, pager, next"
+				   :total="1000">
+				 </el-pagination>
+			 </el-footer>
+			 </el-container>
+			</el-container>
+			
+		</div>
+		
+		
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#ctx",
+				methods: {
+					onSubmit() {
+					        console.log('submit!');
+					},
+					handleCurrentChange(val) {
+						this.currentRow = val;
+					}
+				},
+				data() {
+				    return {
+						value1: '',
+						value2: '',
+						labelPosition:'right',
+						 formInline: {
+						          user: '',
+						          region: ''
+						},
+						formLabelWidth: '120px',
+						input: '',
+						tableData: [{
+						  date: '2016-05-02',
+						  name: '王小虎',
+						  address: '上海市普陀区金沙江路 1518 弄'
+						}, {
+						  date: '2016-05-04',
+						  name: '王小虎',
+						  address: '上海市普陀区金沙江路 1517 弄'
+						}, {
+						  date: '2016-05-01',
+						  name: '王小虎',
+						  address: '上海市普陀区金沙江路 1519 弄'
+						}, {
+						  date: '2016-05-03',
+						  name: '王小虎',
+						  address: '上海市普陀区金沙江路 1516 弄'
+						}],
+						currentRow: null
+				    }
+				},
+			});
+		</script>
+	</body>
+</html>

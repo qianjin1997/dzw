@@ -1,0 +1,45 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+.el-header {
+	background-color: #39CEDE;
+}
+  
+.el-aside {
+	color: #333;
+}
+h2{
+	color: #5E5E5E;
+	font-family:"宋体",
+	font-size: 26px;
+	font-weight: 400;
+	border: 0px red solid;
+	margin: 10px 0 0 10px;
+}
+
+.seek{
+	margin: 10px 0 0 0;
+}
+
+.bitbtn{
+	font-size:18px; 
+	margin-right: 10px;
+}
+.bit{
+	color: #FDAB25;
+}
+
+.tbt{
+	display: inline-block;
+}
+
+.tsave{
+	margin-left: 280px;
+	margin-bottom: 10px;
+}
+
+.ty{
+	margin-left: 200px;
+}
+ /* "宋体", "黑体", Arial; */
