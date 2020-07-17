@@ -21,8 +21,8 @@
 					  v-model="input"
 					  clearable>
 					</el-input>
-					<el-button type="warning" icon="el-icon-search">搜索</el-button>
-					<el-button type="info">关闭</el-button>
+					<el-button type="warning" size="medium">搜索</el-button>
+					<el-button type="info" size="medium">关闭</el-button>
 				</el-col>
 			</el-row>
 			
@@ -30,23 +30,18 @@
 			
 			<el-row style="margin-bottom: 10px;">
 				<el-col :span="6">
-					<!-- <a @click="dialogFormVisible = true" class="bitbtn"><i class="el-icon-s-fold bit"></i>增加</a> -->
 					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
-					<span class="bitbtn"><i class="el-icon-edit bit"></i>修改</span>
-					<span class="bitbtn"><i class="el-icon-circle-close bit"></i>删除</span>
-					<span class="bitbtn"><i class="el-icon-set-up bit"></i>查询</span>
-					<!-- <el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-edit" :underline="false">修改</el-link>
-					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-circle-close" :underline="false">删除</el-link>
-					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-set-up" :underline="false">查询</el-link> -->
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-set-up bit"></i>查询</el-link>
 				</el-col>
 				<el-col :span="12">
-					<el-link type="info" style="font-size: 20px; margin-right: 10px;" icon="el-icon-bottom" :underline="false">下页</el-link>
-					<el-link type="danger" style="font-size: 20px; margin-right: 10px;" icon="el-icon-printer" :underline="false">导出</el-link>
-					<el-link type="warning" style="font-size: 20px; margin-right: 10px;" icon="el-icon-picture" :underline="false">照片</el-link>
-					<el-link type="success" style="font-size: 20px; margin-right: 10px;" icon="el-icon-c-scale-to-original" :underline="false">条码</el-link>
-					<el-link type="primary" style="font-size: 20px; margin-right: 10px;" icon="el-icon-tickets" :underline="false">套件商品</el-link>
-					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-s-claim" :underline="false">分类设置</el-link>
-					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-setting" :underline="false">字段设置</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-picture bit"></i>照片</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-c-scale-to-original bit"></i>条码</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-tickets bit"></i>套件商品</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-s-claim bit"></i>分类设置</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-setting bit"></i>字段设置</el-link>
 				</el-col>
 			</el-row>
 			
@@ -98,8 +93,19 @@
 			 </el-container>
 			</el-container>
 			
-			<el-dialog title="商品资料编辑" :visible.sync="dialogFormVisible" width="60%">
-			  <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
+			<el-dialog :visible.sync="dialogFormVisible" width="60%">
+				<template slot="title">
+					 <div>
+						 <h2 class="tbt">商品资料编辑</h2>
+						 <template>
+						   <!-- `checked` 为 true 或 false -->
+						   <el-checkbox class="ty" v-model="checked">停用</el-checkbox>
+						 </template>
+						 <el-button class="tsave" type="success" icon="el-icon-folder-checked" size="medium" @click="onSubmit">保存</el-button>
+					</div>
+				</template>
+				
+			    <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
 			    
 				<el-row type="flex">
 					<el-form-item label="商品编码">
@@ -232,14 +238,6 @@
 					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="保险价"></el-input>
 					</el-form-item>
 				</el-row>
-				
-				<el-row type="flex">
-					<el-col :offset="20">
-						<el-form-item>
-						  <el-button type="primary" @click="onSubmit">保存</el-button>
-						</el-form-item>
-					</el-col>
-				</el-row>
 			  </el-form>
 			</el-dialog>
 			
@@ -272,6 +270,7 @@
 				},
 				data() {
 				    return {
+						checked: false,
 						labelPosition:'right',
 						 formInline: {
 						          user: '',
