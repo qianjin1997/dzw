@@ -87,7 +87,9 @@
 					  <el-table
 					    :data="tableData"
 					    style="width: 100%"
-					    height="350">
+					    height="350"
+						border
+						 :header-cell-style="{background:'#39CEDE',color:'white'}">
 					    <el-table-column
 					      fixed
 					      prop="date"
@@ -163,7 +165,8 @@
 							  <el-table
 							    :data="tableData1"
 							    style="width: 100%"
-							    height="150">
+							    height="150"
+								 :header-cell-style="{background:'#39CEDE',color:'white'}">
 							    <el-table-column
 							      fixed
 							      prop="date"
@@ -228,7 +231,8 @@
 							  <el-table
 							    :data="tableData1"
 							    style="width: 100%"
-							    height="150">
+							    height="150"
+								 :header-cell-style="{background:'#39CEDE',color:'white'}">
 							    <el-table-column
 							      fixed
 							      prop="date"
@@ -305,7 +309,8 @@
 			    title="车辆新增"
 			    :visible.sync="dialogVisible"
 			    width="60%"
-			    :before-close="handleClose">
+			    :before-close="handleClose"
+				>
 			    <span></span>
 				<div id="mtk">
 					<span>车辆号码</span><el-select style="width: 150px;" v-model="value" >
@@ -361,7 +366,8 @@
 					<span class="demonstration">上牌日期</span><el-date-picker
 				      v-model="value4"
 				      type="date"
-				      placeholder="选择日期">
+				      placeholder="选择日期"
+					  >
 				    </el-date-picker>
 					<span>车间到期</span><el-input style="width: 140px;"></el-input>
 					<span>燃油类别</span><el-input style="width: 140px;"></el-input>
@@ -504,7 +510,7 @@
 			</el-dialog>
 			
 			<el-dialog title="车辆保养登记" :visible.sync="dialogTableVisible"  width="60%">
-				<div style="background-color: gainsboro;height: 50px; line-height: 50px;" >
+				<div style="background-color: ghostwhite;height: 50px; line-height: 50px;" >
 				<span style="margin-right: 520px;">车牌号：张三</span>
 				
 				 <i class="layui-icon layui-icon-add-circle" style="font-size: 18px; color: #F0AD4E;"@click="dialogVisible11 = true" >新增</i>
@@ -512,7 +518,7 @@
 				 <i class="layui-icon layui-icon-delete" style="font-size: 18px; color: #F0AD4E;">删除</i>
 				 <i class="layui-icon layui-icon-export" style="font-size: 18px; color: #F0AD4E;">导出</i>
 				 </div>
-			  <el-table :data="gridData" style="height: 300px;">
+			  <el-table :data="gridData" style="height: 300px;" :header-cell-style="{background:'#39CEDE',color:'white'}">
 			    <el-table-column property="date" label="车牌号" width="100"></el-table-column>
 			    <el-table-column property="name" label="保养计划" width="200"></el-table-column>
 			    <el-table-column property="address" label="计划日期"></el-table-column>
@@ -549,11 +555,11 @@
 			  width="60%"
 			  :before-close="handleClose" >
 			  <el-container style="background-color: ghostwhite;">
-			    <el-aside width="300px">
+			    <el-aside width="280px">
 					<div class="layui-row">
 						<div class="navbar-form navbar-left" class="layui-col-md6 ">
 							<div class="form-group">
-							  <input type="text" class="form-control" placeholder="查询车型" style="width: 120px;">
+							  <input type="text" class="form-control" placeholder="查询车型" style="width: 170px;">
 							</div>
 							  <el-button type="warning" class="small">搜索</el-button>
 						</div>		
@@ -561,11 +567,14 @@
 						 <template>
 						    <el-table
 						      :data="tableData2"
-						      style="width: 100% ;">
+							  border
+						      style="width: 100% ;"
+							   :header-cell-style="{background:'#39CEDE',color:'white'}">
 						      <el-table-column
 						        prop="date"
 						        label="编码"
-						        width="60">
+						        width="60"
+								>
 						      </el-table-column>
 						      <el-table-column
 						        prop="name"
@@ -574,7 +583,8 @@
 						      </el-table-column>
 						      <el-table-column
 						        prop="address"
-						        label="首字母">
+						        label="首字母"
+								width="80">
 						      </el-table-column>
 						    </el-table>
 						  </template>
@@ -591,7 +601,9 @@
 						 <template>
 						    <el-table
 						      :data="tableData3"
-						      style="width: 100% ;">
+							  border
+						      style="width: 100% ;"
+							  :header-cell-style="{background:'#39CEDE',color:'white'}">
 						      <el-table-column
 						        prop="date"
 						        label="车型ID"
