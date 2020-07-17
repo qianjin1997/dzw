@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8">
+		<title>维修接车</title>
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.el-header {
+			    background-color: #39CEDE;
+			}
+			  
+			.el-aside {
+				color: #333;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="container-fluid" id="ctx">
+			
+			<el-row style="margin-top: 20px;">
+				<el-col :span="17">
+					<h1 class="" style="color: #9E9899;">接车登记</h1>
+				</el-col>
+				<el-col :span="7">
+					<el-input style="width: 200px;"
+					  placeholder="请输入内容"
+					  v-model="input"
+					  clearable>
+					</el-input>
+					<el-button type="warning" icon="el-icon-search">搜索</el-button>
+					<el-button type="info">关闭</el-button>
+				</el-col>
+			</el-row>
+			
+			<el-row style="margin-top: 10px;">
+				<el-col :offset="18" :span="6">
+					<el-link  @click="dialogFormVisible = true" style="font-size: 20px; margin-right: 10px;" icon="el-icon-s-fold" :underline="false">维修接车</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-edit" :underline="false">救援开单</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-circle-close" :underline="false">关注公众号</el-link>
+				</el-col>
+			</el-row>
+			
+			<el-divider></el-divider>
+			
+			 <el-row>
+				 <el-col :span="5">
+					<span style="color: #39CEDE;">公众号会员码</span>
+					<input style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
+					<table>
+						<tr style="color: #39CEDE;">
+							<td style="padding-right: 15px;">车主信息</td>
+							<td>一般客户</td>
+						</tr>
+						<tr>
+							<td>姓名：</td>
+							<td>--</td>
+						</tr>
+						<tr>
+							<td>地址：</td>
+							<td>--</td>
+						</tr>
+						<tr>
+							<td>驾驶员：</td>
+							<td>--</td>
+						</tr>
+					</table>
+				 </el-col>
+				 <el-col :span="5">
+					<span style="color: #39CEDE;">车牌号<i class="el-icon-caret-bottom"></i></span>
+					<input style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
+					<table>
+						<tr style="color: #39CEDE;">
+							<td>车主信息</td>
+						</tr>
+						<tr>
+							<td>品牌：</td>
+							<td>--</td>
+						</tr>
+						<tr>
+							<td>发动机品牌：</td>
+							<td>----------------------------</td>
+						</tr>
+						<tr>
+							<td>保险日期：</td>
+							<td>--</td>
+						</tr>
+					</table>
+				 </el-col>
+				 <el-col :span="5">
+					<table style="color: red;">
+						<tr>
+							<td>积分：</td>
+							<td>--</td>
+						</tr>
+						<tr>
+							<td>储存卡余额：</td>
+							<td>----------------------------</td>
+						</tr>
+						<tr>
+							<td>挂账余额：</td>
+							<td>--</td>
+						</tr>
+						<tr>
+							<td>保险日期：</td>
+							<td>--</td>
+						</tr>
+					</table>
+				 </el-col>
+			 </el-row>
+			
+			<template>
+			  <el-tabs v-model="activeName" @tab-click="handleClick">
+			    <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+			    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+			    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+			    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+			  </el-tabs>
+			</template>
+			
+			<el-container style="height: 380px; border: 1px solid #eee">
+			  
+			  <el-container content="true">
+				<template>
+				  <el-table
+				    :header-cell-style="{background:'#39CEDE',color:'white'}"
+				    ref="singleTable"
+				    :data="tableData"
+				    highlight-current-row
+				    @current-change="handleCurrentChange"
+				    style="width: 100%;">
+				    <el-table-column
+				      type="index"
+				      width="50">
+				    </el-table-column>
+				    <el-table-column
+				      property="date"
+				      label="日期"
+				      width="120">
+				    </el-table-column>
+				    <el-table-column
+				      property="name"
+				      label="姓名"
+				      width="120">
+				    </el-table-column>
+				    <el-table-column
+				      property="address"
+				      label="地址">
+				    </el-table-column>
+				  </el-table>
+				</template>
+			 <el-footer>
+				 <el-pagination
+				   background
+				   layout="prev, pager, next"
+				   :total="1000">
+				 </el-pagination>
+			 </el-footer>
+			 </el-container>
+			</el-container>
+			
+		</div>
+		
+		
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#ctx",
+				methods: {
+					onSubmit() {
+					        console.log('submit!');
+					},
+					handleCurrentChange(val) {
+						this.currentRow = val;
+					},
+					handleClick(tab, event) {
+					        console.log(tab, event);
+					}
+				},
+				data() {
+					const item = {
+					        date: '2016-05-02',
+					        name: '王小虎',
+					        address: '上海市普陀区金沙江路 1518 弄'
+					};
+				    return {
+						activeName: 'second',
+						value1: '',
+						value2: '',
+						labelPosition:'right',
+						 formInline: {
+						          user: '',
+						          region: ''
+						},
+						formLabelWidth: '120px',
+						input: '',
+						tableData: Array(5).fill(item),
+						multipleSelection: []
+				    }
+				},
+			});
+		</script>
+	</body>
+</html>
