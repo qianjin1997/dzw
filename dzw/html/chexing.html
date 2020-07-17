@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>车型档案</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/goods.css" />
+		<style type="text/css">
+			.choseed {
+				background-color: aquamarine;
+			}
+			
+			.el-table .warning-row {
+				background: oldlace;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container" style="width: 1500px;">
+			<br />
+			<br />
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：左边品牌placeholder="匹配品牌编码/品牌名称/首字母"
+            -->
+			<div class="row">
+				<div class="col-md-4" style="height: 100%;">
+					<el-row style="margin-left: 40px; margin-bottom: 12px;">
+						<el-col>
+							<el-link @click="showBrandAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加品牌</el-link>
+							<el-link type="info" class="bitbtn" :underline="false" @click="showBrandUpdate()"><i class="el-icon-edit bit"></i>修改</el-link>
+							<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+						</el-col>
+					</el-row>
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="inputPassword" class="col-sm-3 control-label">品牌编码</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="inputPassword" placeholder="匹配品牌编码/品牌名称/首字母">
+							</div>
+							<div class="col-sm-3">
+								<button type="button" class="btn btn-warning">搜索</button>
+							</div>
+						</div>
+					</form>
+					<!--<table class="table table-bordered table-hover" id="table">
+						<tr>
+							<td class="success col-sm-1">#</td>
+							<td class="active col-sm-2">编码</td>
+							<td class="info col-sm-2">品牌名称</td>
+							<td class="danger col-sm-2">首字母</td>
+							<td class="col-sm-2 warning">操作</td>
+						</tr>
+						<tr class="chose">
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="showBrandUpdate()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click=""></span>
+							</td>
+						</tr>
+						<tr class="chose">
+
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="showBrandUpdate()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+							</td>
+						</tr>
+						<tr class="chose">
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="showBrandUpdate()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+							</td>
+						</tr>
+					</table>-->
+					<template>
+						<el-table ref="singleTable"  height="240" :header-cell-style="{background:'#39CEDE',color:'white'}" :data="tableData" border  highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
+							<!--<el-table-column type="index" width="50">
+							</el-table-column>-->
+							<el-table-column property="date" label="编码"  >
+							</el-table-column>
+							<el-table-column property="name" label="品牌名称" >
+							</el-table-column>
+							<el-table-column property="address" label="首字母">
+							</el-table-column>
+						</el-table>
+						<!--<div style="margin-top: 20px">
+							<el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
+							<el-button @click="setCurrent()">取消选择</el-button>
+						</div>-->
+					</template>
+				</div>
+				<!--
+                	作者：2511549159@qq.com
+                	时间：2020-07-10
+                	描述：右边详情
+                -->
+				<div class="col-md-8" style="height: 100%;">
+					<el-row style="margin-left:0px; margin-bottom: 10px;">
+						<el-col :span="6">
+							<el-link @click="showBrandXqAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加车型</el-link>
+							<el-link type="info" class="bitbtn" :underline="false" @click="showBrandXqUpdate()"><i class="el-icon-edit bit"></i>修改</el-link>
+							<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+						</el-col>
+					</el-row>
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="exampleInputName2">发电机品牌分类代码</label>
+							<input type="text" class="form-control" id="exampleInputName2" placeholder="匹配车型编码/车型名称">
+						</div>
+						<button type="button" class="btn btn-warning">搜索</button>
+					</form>
+					<br />
+					<table class="table table-hover">
+						<tr style="background: rgb(57, 206, 222);">
+							<td>车型ID</td>
+							<td>车型名称</td>
+							<td>发动机品牌</td>
+							<td>参考价格</td>
+							<td>车辆年款</td>
+							<td>功率</td>
+							<td>进口/国产</td>
+							<td>燃油标号</td>
+							<td>载重</td>
+							<td>发动机品牌</td>
+							<td>操作</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="showBrandXqUpdate()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="showBrandXqUpdate()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+							</td>
+						</tr>
+					</table>
+					<el-pagination background layout="prev, pager, next" :total="1000" style="margin: auto; width: 330px;">
+					</el-pagination>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示新增品牌弹出框
+            -->
+			<div class="modal fade" id="showBrandAdd" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">品牌定义</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">品牌编码</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">品牌名称</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">首字母</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">新增</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示休息品牌弹出框
+            -->
+			<div class="modal fade" id="showBrandUpdate" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">品牌修改</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">品牌编码</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">品牌名称</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">首字母</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示新增品牌详情弹出框
+            -->
+			<div class="modal fade" id="showBrandXqAdd" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">车型定义</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">车辆品牌</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">车型ID</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">车型名称</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">进口/国产</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">参考价格</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">车辆年款</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">功率</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">燃油标号</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">载重</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">发动机品牌</label>
+								<div class="col-sm-8">
+									<select class="form-control">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示休息品牌详情
+            -->
+			<div class="modal fade" id="showBrandXqUpdate" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">车型修改</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">车辆品牌</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">车型ID</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">车型名称</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">进口/国产</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">参考价格</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">车辆年款</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">功率</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">燃油标号</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">载重</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">发动机品牌</label>
+								<div class="col-sm-8">
+									<select class="form-control">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(".chose").click(function() {
+					$("#table tr").removeClass("choseed")
+					$(this).addClass("choseed")
+				})
+			})
+			var vm = new Vue({
+				el: ".container",
+				data() {
+					return {
+						tableData: [{
+							date: '1',
+							name: '宝马',
+							address: 'B'
+						}, {
+							date: '2',
+							name: '奔驰',
+							address: 'B'
+						}, {
+							date: '3',
+							name: '奥迪',
+							address: 'A'
+						}, {
+							date: '4',
+							name: '兰博基尼',
+							address: 'L'
+						}],
+						currentRow: null
+					}
+				},
+				methods: {
+					showBrandAdd() {
+						$("#showBrandAdd").modal("show");
+					},
+					showBrandUpdate() {
+						$("#showBrandUpdate").modal("show");
+					},
+					showBrandXqAdd() {
+						$("#showBrandXqAdd").modal("show");
+					},
+					showBrandXqUpdate() {
+						$("#showBrandXqUpdate").modal("show");
+					},
+					setCurrent(row) {
+						this.$refs.singleTable.setCurrentRow(row);
+					},
+					handleCurrentChange(val) {
+						this.currentRow = val;
+					}
+
+				},
+				created() {
+
+				}
+			})
+		</script>
+	</body>
+
+</html>

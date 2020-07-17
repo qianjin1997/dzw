@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>供货单位</title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/goods.css" />
+		<style type="text/css">
+			ul {
+				padding: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container" style="width: 70%;">
+			<div class="row">
+				<br />
+				<div class="col-md-3" style="height: 100%;">
+					<br />
+					<br />
+					<!--<el-button type="text">删除</el-button>
+					<el-button type="text" @click="showZjTypeAdd()">增加子级</el-button>
+					<br />
+					<el-button type="text" @click="showTypeUpdate()">修改</el-button>
+					<el-button type="text" @click="showTjTypeAdd()">增加同级</el-button>   show-checkbox-->
+					<el-link @click="showBrandAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加供货单位地址</el-link>
+					<div class="block">
+						<el-tree :data="data" node-key="id" default-expand-all :expand-on-click-node="false">
+							<span class="custom-tree-node" slot-scope="{ node, data }">
+		        				<span>{{ node.label }}</span>
+							<span>
+			          				<el-button
+							            type="text"
+							            size="mini"
+							            @click="() => append(data)">
+							            	增加
+							        </el-button>
+							        </el-button>
+								        <el-button
+								         type="text"
+								         size="mini"
+								         @click="() => showTypeUpdate()">
+								          		修改
+							        </el-button>
+								    <el-button
+								         type="text"
+								         size="mini"
+								         @click="() => remove(node, data)">
+								          		删除
+							        </el-button>
+							        
+		        				</span>
+							</span>
+						</el-tree>
+					</div>
+				</div>
+				<div class="col-md-9" style="height: 100%;">
+
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="inputPassword" class="col-sm-3 control-label">品牌编码</label>
+							<div class="col-sm-5	">
+								<input type="text" class="form-control" id="inputPassword" placeholder="匹配名称/联系人/简称/手机+号实现双条件查询">
+							</div>
+							<div class="col-sm-3">
+								<button type="button" class="btn btn-warning">搜索</button>
+							</div>
+						</div>
+					</form>
+					<el-col :span="19" style="width: 100%;">
+						<el-link @click="showAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加供货单位</el-link>
+						<el-link type="info" class="bitbtn" :underline="false" @click="showBrandUpdate()"><i class="el-icon-edit bit"></i>修改</el-link>
+						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
+						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-picture bit"></i>照片</el-link>
+						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-c-scale-to-original bit"></i>条码</el-link>
+						<el-link type="info" class="bitbtn" :underline="false" @click="showAdd()"><i class="el-icon-user-solid bit"></i>联系人</el-link>
+						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-setting bit"></i>字段设置</el-link>
+					</el-col>
+					<table class="table  table-hover">
+						<tr style="background: rgb(57, 206, 222);">
+							<td>厂商代码</td>
+							<td>厂商名称</td>
+							<td>地址</td>
+							<td>经验情况</td>
+							<td>网址</td>
+							<td>开户行</td>
+							<td>银行账号</td>
+							<td>付款方式</td>
+							<td>厂商等级</td>
+							<td>经营品牌</td>
+							<td>厂商类别</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="updateAddress()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+								<span type="button" class="glyphicon glyphicon-user" @click="showAddPerson()"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="updateAddress()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+								<span type="button" class="glyphicon glyphicon-user" @click="showAddPerson()"></span>
+							</td>
+						</tr>
+					</table>
+					<el-pagination background layout="prev, pager, next" :total="1000" style="margin: auto; width: 330px;">
+					</el-pagination>
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<table class="table  table-hover" style="width: 700px;">
+						<tr style="background: rgb(57, 206, 222);">
+							<td>联系人</td>
+							<td>职位</td>
+							<td>手机</td>
+							<td>电话</td>
+							<td>Email</td>
+							<td>操作</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="showUpdatePerson()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>12312</td>
+							<td>宝马</td>
+							<td>宝马</td>
+							<td>宝马</td>
+
+							<td>
+								<span type="button" class="glyphicon glyphicon-edit" @click="showUpdatePerson()"></span>
+								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
+							</td>
+						</tr>
+					</table>
+					<el-pagination background layout="prev, pager, next" :total="1000">
+					</el-pagination>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示同级厂商分类弹出框
+            -->
+			<!--<div class="modal fade" id="showTjTypeAdd" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">厂商分类1</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类编码</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类名称</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>-->
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示子级厂商分类弹出框
+            -->
+			<div class="modal fade" id="showZjTypeAdd" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">厂商分类</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类编码</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类名称</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示同级厂商分类弹出框修改
+            -->
+			<div class="modal fade" id="showTypeUpdate" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">厂商分类修改</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类编码</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类名称</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示增加供货单位
+            -->
+			<div class="modal fade" id="showAdds" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">增加供货单位</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">厂商代码</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">厂商名称</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">地址</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-1 control-label">网址</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">开户行</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">银行账号</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">付款方式</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>现金</option>
+										<option>微信</option>
+										<option>支付宝</option>
+										<option>刷卡</option>
+									</select>
+								</div>
+
+								<label for="inputPassword" class="col-sm-2 control-label">厂商等级</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>A</option>
+										<option>B</option>
+										<option>C</option>
+										<option>D</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">经营品牌</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">厂商类别</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>北京</option>
+										<option>上海</option>
+										<option>深圳</option>
+										<option>广州</option>
+									</select>
+								</div>
+
+							</div>
+							<hr />
+							<el-link type="info" class="bitbtn" :underline="false" @click="appendPerson()"><i class="el-icon-user-solid bit"></i></el-link>
+							<!--<button type="button" class="btn btn-primary" @click="appendPerson()">增加联系人</button>-->
+							<div v-for="item in person">
+								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">联系人</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.name">
+									</div>
+									<label for="inputPassword" class="col-sm-1 control-label">电话</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.call">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">手机</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.phone">
+									</div>
+									<label for="inputPassword" class="col-sm-1 control-label">Email</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.email">
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-16
+            	描述：修改供货地址弹出框
+            -->
+			<div class="modal fade" id="updateAddress" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">修改供货单位</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">厂商代码</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">厂商名称</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">地址</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-1 control-label">网址</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">开户行</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">银行账号</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">付款方式</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>现金</option>
+										<option>微信</option>
+										<option>支付宝</option>
+										<option>刷卡</option>
+									</select>
+								</div>
+
+								<label for="inputPassword" class="col-sm-2 control-label">厂商等级</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>A</option>
+										<option>B</option>
+										<option>C</option>
+										<option>D</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">经营品牌</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">厂商类别</label>
+								<div class="col-sm-3">
+									<select class="form-control">
+										<option>北京</option>
+										<option>上海</option>
+										<option>深圳</option>
+										<option>广州</option>
+									</select>
+								</div>
+
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-16
+            	描述：新增供货单位联系人
+            -->
+			<div class="modal fade" id="showAddPerson" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">增加供货单位联系人</h4>
+						</div>
+						<form class="form-horizontal">
+							<div v-for="item in person">
+								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">联系人</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.name">
+									</div>
+									<label for="inputPassword" class="col-sm-1 control-label">电话</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.call">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">手机</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.phone">
+									</div>
+									<label for="inputPassword" class="col-sm-1 control-label">Email</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.email">
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-16
+            	描述：修改供货单位联系人
+            -->
+			<div class="modal fade" id="showUpdatePerson" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">增加供货单位联系人</h4>
+						</div>
+						<form class="form-horizontal">
+							<div v-for="item in person">
+								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">联系人</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.name">
+									</div>
+									<label for="inputPassword" class="col-sm-1 control-label">电话</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.call">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">手机</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.phone">
+									</div>
+									<label for="inputPassword" class="col-sm-1 control-label">Email</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="person.email">
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: ".container",
+				data() {
+					return {
+						data: [{
+							id: 1,
+							label: '一级 1',
+							children: [{
+								id: 4,
+								label: '二级 1-1',
+								children: [{
+									id: 9,
+									label: '三级 1-1-1'
+								}, {
+									id: 10,
+									label: '三级 1-1-2',
+									children: [{
+										id: 11,
+										label: '四级 1-1-1-1'
+									}, {
+										id: 12,
+										label: '四级 1-1-1-2',
+									}]
+								}]
+							}]
+						}, {
+							id: 2,
+							label: '一级 2',
+							children: [{
+								id: 5,
+								label: '二级 2-1'
+							}, {
+								id: 6,
+								label: '二级 2-2'
+							}]
+						}, {
+							id: 3,
+							label: '一级 3',
+							children: [{
+								id: 7,
+								label: '二级 3-1'
+							}, {
+								id: 8,
+								label: '二级 3-2'
+							}]
+						}],
+						person: [{}]
+
+					}
+				},
+				methods: {
+					handleNodeClick(data) {
+						console.log(data);
+					},
+					showAdd() {
+						$("#showAdds").modal("show");
+					},
+					updateAddress() {
+						$("#updateAddress").modal("show");
+					},
+					showTypeUpdate() {
+						$("#showTypeUpdate").modal("show");
+					},
+					showAddPerson() {
+						$("#showAddPerson").modal("show");
+					},
+					showUpdatePerson() {
+						$("#showUpdatePerson").modal("show");
+					},
+					append(data) {
+						console.log(data)
+						$("#showZjTypeAdd").modal("show");
+						/*const newChild = { id: id++, label: 'testtest', children: [] };
+						console.log(newChild)
+						if(!data.children) {
+							this.$set(data, 'children', []);
+						}
+						data.children.push(newChild);*/
+					},
+					remove(node, data) {
+						const parent = node.parent;
+						const children = parent.data.children || parent.data;
+						if(data.children != undefined) {
+							if(data.children == "") {
+								const index = children.findIndex(d => d.id === data.id);
+								children.splice(index, 0);
+							} else {
+								alert("有子级不能删除")
+								return;
+							}
+						}
+						if(data.id > 0) {
+							const index = children.findIndex(d => d.id === data.id);
+							children.splice(index, 1);
+							return;
+						}
+
+					},
+					appendPerson() {
+						this.person.push(null);
+					}
+				},
+				created() {
+
+				}
+			})
+		</script>
+	</body>
+
+</html>
