@@ -35,7 +35,7 @@
 			    <h3 class="panel-title" style="font-size: 20px;font-weight: 800;">班组技工</h3>
 				<div style="position: absolute; right: 20px;top:5px">
 					<input  placeholder="匹配工号/手机/姓名" />
-					 <el-button size="mini" type="success">成功按钮</el-button>
+					<el-button size="mini" type="warning">搜索</el-button>
 					<el-button size="mini" type="info">关闭</el-button>
 					
 				</div>
@@ -98,6 +98,7 @@
 			
 			<!--  单击增加按钮打开-->
 			<el-dialog title="技工添加" :visible.sync="dialogVisible1" width="45%" :before-close="handleClose">
+				  <!-- <el-button type="primary" icon="el-icon-search">搜索</el-button> -->
 				  <div style="background-color: #FAFAFA ;" id="zj">
 					  <span style="margin-right: 10px;">技工编号<input disabled="disabled"/></span>
 					  <span style="margin-right: 10px;">技工名称<input /></span>
@@ -169,9 +170,9 @@
 					  <span style="margin-right: 10px;">技工名称<input/></span>
 					  <span  style="margin-right: 10px;" class="dropdown">
 						   <select  style="width: 50px;height: 26px;">
-						   							   <option>男</option>
-						   							   <option>女</option>
-						   							   <option>人妖</option>
+						   			<option>男</option>
+						   			<option>女</option>
+						   			<option>人妖</option>
 						   							   
 						   </select>
 					 </span>
