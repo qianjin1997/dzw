@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="../elementui/index.css">
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.head-left{
+				width: 200px;
+				height: 60px;
+				text-align: center;
+				line-height: 60px;
+				background-color: #18304A;
+				color: #FFFFFF;
+			}
+			.head-right{
+				height: 50px;
+				line-height: 50px;
+				background-color: #18304A;
+				color: #FFFFFF;
+			}
+			.menu-a{
+				height: 50px;
+			}.div1{
+				height: 100px; width: 200px; background: #18304A; position: fixed; bottom: 0; left: 0; color: #fff;
+			}
+			.logo{
+				height: 100%; 
+				background: #18304A;
+			}
+			html,body{
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body >
+		<div id="app"  style="height: 100%;">
+			
+			<el-container  style="height: 100%;">
+			  <el-aside width="200px" class="logo">
+				<div class="head-left">
+					德召文
+				</div>
+				<el-menu
+				      default-active="2"
+				      class="el-menu-vertical-demo"
+				      @open="handleOpen"
+				      @close="handleClose"
+					  @select="handleSelectLeft"
+					  :collapse="isCollapse"
+					  >
+				      <el-menu-item index="1">
+				        <i class="el-icon-menu"></i>
+				        <span slot="title">首页</span>
+				      </el-menu-item>
+					  
+					  <div v-if="o.children!=null" v-for="(o,i) in menub" >
+						  <el-submenu :index="o.id">
+						          <template slot="title">
+						            <i :class="o.icon"></i>
+						            <span>{{o.cname}}</span>
+						          </template>
+						          <el-menu-item-group v-for="os in o.children" >
+						            <el-menu-item :index="os.id">{{os.cname}}</el-menu-item>
+						          </el-menu-item-group>
+						          
+						        </el-submenu>
+					  </div>
+					  <div v-else>
+						  <el-menu-item :index="o.id" v-for="(o,i) in menub">
+						      <i :class="o.icon"></i>
+						      <span slot="title">{{o.cname}}</span>
+						    </el-menu-item>
+						  </el-menu>
+					  </div>
+					  
+				    <div class="div1">1</div>
+			  </el-aside>
+			  <el-main style="padding: 0;">
+				<el-row class="head-right">
+				  <el-col :span="24">
+					 <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+					   <el-menu-item :index="o.id"  v-for="(o,i) in menua" >{{o.name}}</el-menu-item>
+					 </el-menu>
+				  </el-col>
+				</el-row>
+				
+				<el-row>
+					<el-col :span="24">
+						<el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+						  <el-tab-pane
+							v-for="(item, index) in editableTabs"
+							:key="item.id"
+							:label="item.cname"
+							:name="item.name"
+						  >
+							<iframe :src="item.url" width="100%" style="border: 0px;" height="800px"  frameborder="0"></iframe>
+						  </el-tab-pane>
+						</el-tabs>
+					</el-col>
+				</el-row>
+			  </el-main>
+			</el-container>
+		</div>
+		<!-- 引入组件库 -->
+		<script src="../js/vue.js"></script>
+		<script src="../elementui/index.js"></script>
+		<script>
+			 new Vue({
+				el: '#app',
+				data: function() {
+					return { 
+						menua:[{id:"1",name:"菜单1"},{id:"2",name:"菜单2"}],
+						menub:[{id:"3",name:"left1",cname:"左侧菜单1",icon:"el-icon-setting",url:"msi.html",children:[{id:"4",name:"left1s",cname:"左侧菜单1子菜单",icon:"el-icon-setting",url:"msi.html",children:null}]},{id:"5",name:"left2",cname:"左侧菜单2",icon:"el-icon-setting",url:"msi.html",}],
+						activeIndex: '1',
+						isCollapse: false,
+						
+						editableTabsValue: '2',
+						editableTabs: [],
+						tabIndex: 2
+					}
+				 },
+				methods: {
+						handleSelect(key, keyPath) {
+					         console.log(key, keyPath);
+							 if(key==2){
+							 	this.menub=[{id:"3",name:"left1",cname:"第二左侧菜单1",icon:"el-icon-setting",url:"11",children:[{id:"4",name:"left1s",cname:"第二左侧菜单1子菜单",icon:"el-icon-setting",url:"11",children:null}]},{id:"5",name:"left2",cname:"第二左侧菜单2",icon:"el-icon-setting",url:"11",}];
+							 }
+							 if(key==1){
+							 	this.menub=[{id:"3",name:"left1",cname:"左侧菜单1",icon:"el-icon-setting",url:"msi.html",children:[{id:"4",name:"left1s",cname:"左侧菜单1子菜单",icon:"el-icon-setting",url:"msi.html",children:null}]},{id:"5",name:"left2",cname:"左侧菜单2",icon:"el-icon-setting",url:"msi.html",}];
+							 }
+						},
+						handleSelectLeft(key, keyPath) {
+					         console.log(key, keyPath);
+							var that = this;
+							 this.menub.forEach(function(val,index,arr){
+							    
+								 if(val.id==key){
+									 console.log(val);
+									  that.addTab(val);
+								 }else if(val.children!=null){
+									 val.children.forEach(function(va,index,arr){
+										if(va.id==key){
+											console.log(va);
+											that.addTab(va);
+										}
+									 });
+								 }
+							 });
+						},
+						handleOpen(key, keyPath) {
+							console.log(key, keyPath);
+						},
+						handleClose(key, keyPath) {
+							console.log(key, keyPath);
+							
+						},
+						
+						addTab(obj) {
+							var bol= false;
+							var that = this;
+							this.editableTabs.forEach(function(val,index,arr){
+							   
+							 if(val.id==obj.id){
+								 that.editableTabsValue = obj.name;
+								 console.log(obj.name);
+								 bol=true;
+								}
+							});
+							if(bol){
+								return;
+							}
+							this.editableTabs.push(obj);
+							this.editableTabsValue = obj.name;
+						},
+						removeTab(targetName) {
+							let tabs = this.editableTabs;
+							let activeName = this.editableTabsValue;
+							if (activeName === targetName) {
+							  tabs.forEach((tab, index) => {
+								if (tab.name === targetName) {
+								  let nextTab = tabs[index + 1] || tabs[index - 1];
+								  if (nextTab) {
+									activeName = nextTab.name;
+								  }
+								}
+							  });
+							}
+							
+							this.editableTabsValue = activeName;
+							this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+						}
+				}
+			})
+			
+			
+		</script>
+	</body>
+</html>

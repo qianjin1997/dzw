@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8">
+		<title>技工星级</title>
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.el-header {
+			    background-color: #39CEDE;
+			}
+			  
+			.el-aside {
+				color: #333;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="container-fluid" id="ctx">
+			
+			<el-row style="margin-top: 20px;">
+				<el-col :span="17">
+					<h1 class="" style="color: #9E9899;">技工星级</h1>
+				</el-col>
+				<el-col :span="7">
+					<el-input style="width: 200px;"
+					  placeholder="请输入内容"
+					  v-model="input"
+					  clearable>
+					</el-input>
+					<el-button type="warning" icon="el-icon-search">搜索</el-button>
+					<el-button type="info">关闭</el-button>
+				</el-col>
+			</el-row>
+			
+			<el-divider></el-divider>
+			
+			<el-row style="margin-bottom: 10px;">
+				<el-col :span="8" :offset="16">
+					<el-link @click="dialogFormVisible = true" style="font-size: 20px; margin-right: 10px;" icon="el-icon-s-fold" :underline="false">增加</el-link>
+					
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-picture" :underline="false">保存</el-link>
+					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-printer" :underline="false">导出</el-link>
+				</el-col>
+			</el-row>
+			
+			<el-container style="height: 595px; border: 1px solid #eee">
+			 
+			  
+			  <el-container content="true">
+				<template>
+				  <el-table
+				    :header-cell-style="{background:'#39CEDE',color:'white'}"
+				    ref="singleTable"
+				    :data="tableData"
+				    highlight-current-row
+				    @current-change="handleCurrentChange"
+				    style="width: 100%;">
+				    <el-table-column
+				      property="id"
+				      label="等级编码"
+				      width="120">
+				    </el-table-column>
+				    <el-table-column
+				      property="name"
+				      label="等级名称"
+				      width="120">
+				    </el-table-column>
+				    <el-table-column
+				      property="weight"
+				      label="等级权重">
+				    </el-table-column>
+				    
+				</template>
+			 <el-footer>
+				 <el-pagination
+				   background
+				   layout="prev, pager, next"
+				   :total="1000">
+				 </el-pagination>
+			 </el-footer>
+			 </el-container>
+			</el-container>
+			
+			<el-dialog title="添加星级" :visible.sync="dialogFormVisible" width="20%">
+			  <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
+			    
+			    <el-row type="flex">
+			    	<el-form-item label="等级编码">
+			    	  <el-input  v-model="formInline.id" placeholder="等级编码"></el-input>
+			    	</el-form-item>
+			    </el-row>
+				<el-row type="flex">
+					<el-form-item label="等级名称">
+					  <el-input   v-model="formInline.name" placeholder="等级名称"></el-input>
+					</el-form-item>
+				</el-row>
+				<el-row type="flex">
+					<el-form-item label="等级权重">
+					  <el-input  v-model="formInline.weight" placeholder="等级权重"></el-input>
+					</el-form-item>
+				</el-row>
+				
+				<el-row type="flex">
+					<el-button type="primary" @click="add" style="width: 100%;">提交</el-button>
+				</er-row>
+			  </el-form>
+			</el-dialog>
+			
+		</div>
+		
+		
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#ctx",
+				watch: {
+				      filterText(val) {
+				        this.$refs.tree.filter(val);
+				      }
+				    },
+				methods: {
+					onSubmit() {
+					        console.log('submit!');
+					},
+					filterNode(value, data) {
+						if (!value) return true;
+						return data.label.indexOf(value) !== -1;
+					},
+					handleCurrentChange(val) {
+						this.currentRow = val;
+					}
+				},
+				data() {
+					const item = {
+					        id: '1',
+					        name: '一级',
+					        weight: '111'
+					};
+				    return {
+						labelPosition:'right',
+						 formInline: {
+					        id: '',
+					        name: '',
+					        weight: ''
+						},
+						dialogFormVisible: false,
+						dialogPriceVisible: false,
+						formLabelWidth: '120px',
+						filterText: '',
+						input: '',
+						tableData: Array(1).fill(item),
+						multipleSelection: []
+				    }
+				},
+				methods:{
+					add(){
+						this.tableData.push(this.formInline);
+						this.dialogFormVisible=false;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
