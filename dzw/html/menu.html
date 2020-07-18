@@ -99,7 +99,7 @@
 							:label="item.cname"
 							:name="item.name"
 						  >
-							<iframe :src="item.url" width="100%" style="border: 0px;" height="800px"  frameborder="0"></iframe>
+							<iframe :src="item.url" width="100%" style="border: 0px;" height="633px" frameborder="0"></iframe>
 						  </el-tab-pane>
 						</el-tabs>
 					</el-col>
@@ -115,8 +115,10 @@
 				el: '#app',
 				data: function() {
 					return { 
-						menua:[{id:"1",name:"菜单1"},{id:"2",name:"菜单2"}],
-						menub:[{id:"3",name:"left1",cname:"左侧菜单1",icon:"el-icon-setting",url:"msi.html",children:[{id:"4",name:"left1s",cname:"左侧菜单1子菜单",icon:"el-icon-setting",url:"msi.html",children:null}]},{id:"5",name:"left2",cname:"左侧菜单2",icon:"el-icon-setting",url:"msi.html",}],
+						menua:[{id:"1",name:"服务接待"},{id:"2",name:"结算中心"},
+						{id:"3",name:"客户档案"},{id:"4",name:"基础数据"},
+						{id:"5",name:"行政人事"},{id:"6",name:"系统设置"}],
+						menub:[{id:"7",name:"left1",cname:"维修救援",icon:"el-icon-setting",url:"11",children:[{id:"8",name:"left1a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},{id:"9",name:"left1b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}],
 						activeIndex: '1',
 						isCollapse: false,
 						
@@ -127,13 +129,45 @@
 				 },
 				methods: {
 						handleSelect(key, keyPath) {
-					         console.log(key, keyPath);
-							 if(key==2){
-							 	this.menub=[{id:"3",name:"left1",cname:"第二左侧菜单1",icon:"el-icon-setting",url:"11",children:[{id:"4",name:"left1s",cname:"第二左侧菜单1子菜单",icon:"el-icon-setting",url:"11",children:null}]},{id:"5",name:"left2",cname:"第二左侧菜单2",icon:"el-icon-setting",url:"11",}];
-							 }
-							 if(key==1){
-							 	this.menub=[{id:"3",name:"left1",cname:"左侧菜单1",icon:"el-icon-setting",url:"msi.html",children:[{id:"4",name:"left1s",cname:"左侧菜单1子菜单",icon:"el-icon-setting",url:"msi.html",children:null}]},{id:"5",name:"left2",cname:"左侧菜单2",icon:"el-icon-setting",url:"msi.html",}];
-							 }
+					        console.log(key, keyPath);
+							if(key==1){
+							 	this.menub=[{id:"7",name:"left1",cname:"维修救援",icon:"el-icon-setting",url:"11",
+							 	children:[{id:"8",name:"left1a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},
+							 	{id:"9",name:"left1b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}];
+							}
+							if(key==2){
+							 	this.menub=[{id:"10",name:"left2",cname:"前台结算",icon:"el-icon-setting",url:"11",
+							 	children:[{id:"11",name:"left2a",cname:"结算中心",icon:"el-icon-setting",url:"zhongxin.html",children:null}]}];
+							}
+							if(key==3){
+							  	this.menub=[{id:"12",name:"left3",cname:"客户档案",icon:"el-icon-setting",url:"11",
+							  	children:[{id:"13",name:"left3a",cname:"客户资料",icon:"el-icon-setting",url:"custom.html",children:null},
+							  	{id:"14",name:"left3b",cname:"车辆资料",icon:"el-icon-setting",url:"cara.html",children:null}]}];
+							}
+							if(key==4){
+							  	this.menub=[{id:"15",name:"left4",cname:"主数据",icon:"el-icon-setting",url:"11",
+							  	children:[{id:"16",name:"left4a",cname:"发动机品牌",icon:"el-icon-setting",url:"index.html",children:null},
+							  	{id:"17",name:"left4b",cname:"车型档案",icon:"el-icon-setting",url:"chexing.html",children:null},
+								{id:"18",name:"left4c",cname:"维修项目",icon:"el-icon-setting",url:"msi.html",children:null},
+								{id:"19",name:"left4d",cname:"商品资料",icon:"el-icon-setting",url:"goods.html",children:null},
+								{id:"20",name:"left4e",cname:"供货单位",icon:"el-icon-setting",url:"gonghuo.html",children:null}]}];
+							}
+							if(key==5){
+							   	this.menub=[{id:"21",name:"left5",cname:"员工资料",icon:"el-icon-setting",url:"11",
+							   	children:[{id:"22",name:"left5a",cname:"组织机构",icon:"el-icon-setting",url:"register.html",children:null},
+							   	{id:"23",name:"left5b",cname:"岗位定义",icon:"el-icon-setting",url:"checkout.html",children:null},
+								{id:"24",name:"left5c",cname:"离职登记",icon:"el-icon-setting",url:"checkout.html",children:null},
+								{id:"25",name:"left5d",cname:"通讯名录",icon:"el-icon-setting",url:"checkout.html",children:null}]},
+								{id:"26",name:"left6",cname:"技工管理",icon:"el-icon-setting",url:"11",
+								children:[{id:"27",name:"left6a",cname:"技工星级",icon:"el-icon-setting",url:"grade.html",children:null},
+								{id:"28",name:"left6b",cname:"班组技工",icon:"el-icon-setting",url:"bzjg.html",children:null},
+								{id:"29",name:"left6c",cname:"外勤车辆",icon:"el-icon-setting",url:"car.html",children:null}]}];
+							}
+							if(key==6){
+							   	this.menub=[{id:"30",name:"left7",cname:"系统设置",icon:"el-icon-setting",url:"11",
+							   	children:[{id:"31",name:"left7a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},
+							   	{id:"32",name:"left7b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}];
+							}
 						},
 						handleSelectLeft(key, keyPath) {
 					         console.log(key, keyPath);

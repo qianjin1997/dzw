@@ -24,11 +24,11 @@
 		
 		<div class="container-fluid" id="ctx">
 			
-			<el-row style="margin-top: 20px;">
-				<el-col :span="16">
+			<el-row>
+				<el-col :span="15">
 					<h2>接车登记</h2>
 				</el-col>
-				<el-col :span="88">
+				<el-col :span="9">
 					<el-input style="width: 300px;"
 					  placeholder="请输入内容"
 					  v-model="input"
@@ -50,7 +50,7 @@
 			<el-divider></el-divider>
 			
 			 <el-row>
-				 <el-col :span="5">
+				 <el-col :span="6">
 					<span style="color: #39CEDE;">公众号会员码</span>
 					<input style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
 					<table>
@@ -72,7 +72,7 @@
 						</tr>
 					</table>
 				 </el-col>
-				 <el-col :span="5">
+				 <el-col :span="6">
 					<span style="color: #39CEDE;">车牌号<i class="el-icon-caret-bottom"></i></span>
 					<input style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
 					<table>
@@ -93,7 +93,7 @@
 						</tr>
 					</table>
 				 </el-col>
-				 <el-col :span="5">
+				 <el-col :span="6">
 					<table style="color: red;">
 						<tr>
 							<td>积分：</td>
@@ -117,14 +117,14 @@
 			
 			<template>
 			  <el-tabs v-model="activeName" @tab-click="handleClick">
-			    <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-			    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-			    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-			    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+			    <el-tab-pane label="用户管理" name="first"></el-tab-pane>
+			    <el-tab-pane label="配置管理" name="second"></el-tab-pane>
+			    <el-tab-pane label="角色管理" name="third"></el-tab-pane>
+			    <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
 			  </el-tabs>
 			</template>
 			
-			<el-container style="height: 380px; border: 1px solid #eee">
+			<el-container style="height: 310px; border: 1px solid #eee">
 			  
 			  <el-container content="true">
 				<template>
@@ -188,6 +188,7 @@
 				},
 				data() {
 				    return {
+						dialogFormVisible:false,
 						activeName: 'second',
 						value1: '',
 						value2: '',
