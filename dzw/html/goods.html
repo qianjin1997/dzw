@@ -32,7 +32,7 @@
 			<el-row style="margin-bottom: 10px;">
 				<el-col :span="6">
 					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
-					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
+					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-set-up bit"></i>查询</el-link>
 				</el-col>
@@ -103,7 +103,7 @@
 						   <!-- `checked` 为 true 或 false -->
 						   <el-checkbox class="ty" v-model="checked">停用</el-checkbox>
 						 </template>
-						 <el-button class="tsave" type="success" icon="el-icon-folder-checked" size="medium" @click="onSubmit">保存</el-button>
+						 <el-button style="margin-left: 180px;" class="tsave" type="success" icon="el-icon-folder-checked" size="medium" @click="onSubmit">保存</el-button>
 					</div>
 				</template>
 				

@@ -44,7 +44,7 @@
 			<el-row style="margin-bottom: 10px;">
 				<el-col :span="8" :offset="16">
 					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
-					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
+					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
 					<el-link @click="dialogPriceVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-bottom bit"></i>调价</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-picture bit"></i>保存</el-link>
@@ -105,7 +105,7 @@
 				<template slot="title">
 					 <div>
 						 <h2 class="tbt">商品资料编辑</h2>
-						 <el-button style="margin-left: 410px;" class="tsave" type="success" icon="el-icon-folder-checked" size="medium" @click="onSubmit">保存</el-button>
+						 <el-button style="margin-left: 310px;" class="tsave" type="success" icon="el-icon-folder-checked" size="medium" @click="onSubmit">保存</el-button>
 					</div>
 				</template>
 			  <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
