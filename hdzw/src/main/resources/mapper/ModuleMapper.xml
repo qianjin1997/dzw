@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.ModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Module" >
+    <id column="did" property="did" jdbcType="INTEGER" />
+    <result column="dename" property="dename" jdbcType="VARCHAR" />
+    <result column="dcname" property="dcname" jdbcType="VARCHAR" />
+    <result column="dpath" property="dpath" jdbcType="VARCHAR" />
+    <result column="dcatalog" property="dcatalog" jdbcType="INTEGER" />
+    <result column="dparentid" property="dparentid" jdbcType="INTEGER" />
+    <result column="dmeth" property="dmeth" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    did, dename, dcname, dpath, dcatalog, dparentid, dmeth
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ModuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from module
+    where did = #{did,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from module
+    where did = #{did,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ModuleExample" >
+    delete from module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Module" >
+    insert into module (did, dename, dcname, 
+      dpath, dcatalog, dparentid, 
+      dmeth)
+    values (#{did,jdbcType=INTEGER}, #{dename,jdbcType=VARCHAR}, #{dcname,jdbcType=VARCHAR}, 
+      #{dpath,jdbcType=VARCHAR}, #{dcatalog,jdbcType=INTEGER}, #{dparentid,jdbcType=INTEGER}, 
+      #{dmeth,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Module" >
+    insert into module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="dename != null" >
+        dename,
+      </if>
+      <if test="dcname != null" >
+        dcname,
+      </if>
+      <if test="dpath != null" >
+        dpath,
+      </if>
+      <if test="dcatalog != null" >
+        dcatalog,
+      </if>
+      <if test="dparentid != null" >
+        dparentid,
+      </if>
+      <if test="dmeth != null" >
+        dmeth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="dename != null" >
+        #{dename,jdbcType=VARCHAR},
+      </if>
+      <if test="dcname != null" >
+        #{dcname,jdbcType=VARCHAR},
+      </if>
+      <if test="dpath != null" >
+        #{dpath,jdbcType=VARCHAR},
+      </if>
+      <if test="dcatalog != null" >
+        #{dcatalog,jdbcType=INTEGER},
+      </if>
+      <if test="dparentid != null" >
+        #{dparentid,jdbcType=INTEGER},
+      </if>
+      <if test="dmeth != null" >
+        #{dmeth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ModuleExample" resultType="java.lang.Integer" >
+    select count(*) from module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update module
+    <set >
+      <if test="record.did != null" >
+        did = #{record.did,jdbcType=INTEGER},
+      </if>
+      <if test="record.dename != null" >
+        dename = #{record.dename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dcname != null" >
+        dcname = #{record.dcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dpath != null" >
+        dpath = #{record.dpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dcatalog != null" >
+        dcatalog = #{record.dcatalog,jdbcType=INTEGER},
+      </if>
+      <if test="record.dparentid != null" >
+        dparentid = #{record.dparentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dmeth != null" >
+        dmeth = #{record.dmeth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update module
+    set did = #{record.did,jdbcType=INTEGER},
+      dename = #{record.dename,jdbcType=VARCHAR},
+      dcname = #{record.dcname,jdbcType=VARCHAR},
+      dpath = #{record.dpath,jdbcType=VARCHAR},
+      dcatalog = #{record.dcatalog,jdbcType=INTEGER},
+      dparentid = #{record.dparentid,jdbcType=INTEGER},
+      dmeth = #{record.dmeth,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Module" >
+    update module
+    <set >
+      <if test="dename != null" >
+        dename = #{dename,jdbcType=VARCHAR},
+      </if>
+      <if test="dcname != null" >
+        dcname = #{dcname,jdbcType=VARCHAR},
+      </if>
+      <if test="dpath != null" >
+        dpath = #{dpath,jdbcType=VARCHAR},
+      </if>
+      <if test="dcatalog != null" >
+        dcatalog = #{dcatalog,jdbcType=INTEGER},
+      </if>
+      <if test="dparentid != null" >
+        dparentid = #{dparentid,jdbcType=INTEGER},
+      </if>
+      <if test="dmeth != null" >
+        dmeth = #{dmeth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Module" >
+    update module
+    set dename = #{dename,jdbcType=VARCHAR},
+      dcname = #{dcname,jdbcType=VARCHAR},
+      dpath = #{dpath,jdbcType=VARCHAR},
+      dcatalog = #{dcatalog,jdbcType=INTEGER},
+      dparentid = #{dparentid,jdbcType=INTEGER},
+      dmeth = #{dmeth,jdbcType=VARCHAR}
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+</mapper>
