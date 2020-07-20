@@ -104,10 +104,10 @@
 					   <el-menu-item :index="o.id"  v-for="(o,i) in menua" >{{o.name}}</el-menu-item>
 					 </el-menu>
 				  </el-col>
-				  <el-col :span="4" style="height: 60px;background-color: #FFFFFF; color: #000;">
+				  <el-col style="text-decoration: none;" :span="4" style="height: 60px;background-color: #FFFFFF; color: #000;">
 					<el-row style="line-height: 60px;" :span="24">
 						<el-col :span="18" style="text-align: right; ">
-							阿
+							设置
 						</el-col>
 						<el-col :span="6" style="padding-left: 20px;">
 							退出
@@ -115,7 +115,7 @@
 					</el-row>
 				  </el-col>
 				</el-row>
-				
+				<div id="pwin"></div>
 				<el-row>
 					<el-col :span="24">
 						<el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
@@ -180,10 +180,10 @@
 							}
 							if(key==5){
 							   	this.menub=[{id:"21",name:"left5",cname:"员工资料",icon:"el-icon-setting",url:"11",
-							   	children:[{id:"22",name:"left5a",cname:"组织机构",icon:"el-icon-setting",url:"register.html",children:null},
-							   	{id:"23",name:"left5b",cname:"岗位定义",icon:"el-icon-setting",url:"checkout.html",children:null},
-								{id:"24",name:"left5c",cname:"离职登记",icon:"el-icon-setting",url:"checkout.html",children:null},
-								{id:"25",name:"left5d",cname:"通讯名录",icon:"el-icon-setting",url:"checkout.html",children:null}]},
+							   	children:[{id:"22",name:"left5a",cname:"组织机构",icon:"el-icon-setting",url:"zuzhi.html",children:null},
+							   	{id:"23",name:"left5b",cname:"岗位定义",icon:"el-icon-setting",url:"postdefine.html",children:null},
+								{id:"24",name:"left5c",cname:"离职登记",icon:"el-icon-setting",url:"dimission.html",children:null},
+								{id:"25",name:"left5d",cname:"通讯名录",icon:"el-icon-setting",url:"tx.html",children:null}]},
 								{id:"26",name:"left6",cname:"技工管理",icon:"el-icon-setting",url:"11",
 								children:[{id:"27",name:"left6a",cname:"技工星级",icon:"el-icon-setting",url:"grade.html",children:null},
 								{id:"28",name:"left6b",cname:"班组技工",icon:"el-icon-setting",url:"bzjg.html",children:null},

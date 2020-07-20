@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.WaresMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Wares" >
+    <id column="afid" property="afid" jdbcType="INTEGER" />
+    <result column="afvendorcode" property="afvendorcode" jdbcType="VARCHAR" />
+    <result column="aftradename" property="aftradename" jdbcType="VARCHAR" />
+    <result column="afaddress" property="afaddress" jdbcType="VARCHAR" />
+    <result column="afoperation" property="afoperation" jdbcType="VARCHAR" />
+    <result column="afurl" property="afurl" jdbcType="VARCHAR" />
+    <result column="afopeningbank" property="afopeningbank" jdbcType="VARCHAR" />
+    <result column="afbankaccount" property="afbankaccount" jdbcType="VARCHAR" />
+    <result column="affkmethod" property="affkmethod" jdbcType="VARCHAR" />
+    <result column="afvendorrating" property="afvendorrating" jdbcType="VARCHAR" />
+    <result column="afrunbrand" property="afrunbrand" jdbcType="VARCHAR" />
+    <result column="afvendortype" property="afvendortype" jdbcType="VARCHAR" />
+    <result column="aflinkman" property="aflinkman" jdbcType="VARCHAR" />
+    <result column="afcall" property="afcall" jdbcType="VARCHAR" />
+    <result column="afphone" property="afphone" jdbcType="VARCHAR" />
+    <result column="afemail" property="afemail" jdbcType="VARCHAR" />
+    <result column="afpaymentdays" property="afpaymentdays" jdbcType="INTEGER" />
+    <result column="afremark" property="afremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    afid, afvendorcode, aftradename, afaddress, afoperation, afurl, afopeningbank, afbankaccount, 
+    affkmethod, afvendorrating, afrunbrand, afvendortype, aflinkman, afcall, afphone, 
+    afemail, afpaymentdays, afremark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.WaresExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wares
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wares
+    where afid = #{afid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wares
+    where afid = #{afid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.WaresExample" >
+    delete from wares
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Wares" >
+    insert into wares (afid, afvendorcode, aftradename, 
+      afaddress, afoperation, afurl, 
+      afopeningbank, afbankaccount, affkmethod, 
+      afvendorrating, afrunbrand, afvendortype, 
+      aflinkman, afcall, afphone, 
+      afemail, afpaymentdays, afremark
+      )
+    values (#{afid,jdbcType=INTEGER}, #{afvendorcode,jdbcType=VARCHAR}, #{aftradename,jdbcType=VARCHAR}, 
+      #{afaddress,jdbcType=VARCHAR}, #{afoperation,jdbcType=VARCHAR}, #{afurl,jdbcType=VARCHAR}, 
+      #{afopeningbank,jdbcType=VARCHAR}, #{afbankaccount,jdbcType=VARCHAR}, #{affkmethod,jdbcType=VARCHAR}, 
+      #{afvendorrating,jdbcType=VARCHAR}, #{afrunbrand,jdbcType=VARCHAR}, #{afvendortype,jdbcType=VARCHAR}, 
+      #{aflinkman,jdbcType=VARCHAR}, #{afcall,jdbcType=VARCHAR}, #{afphone,jdbcType=VARCHAR}, 
+      #{afemail,jdbcType=VARCHAR}, #{afpaymentdays,jdbcType=INTEGER}, #{afremark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Wares" >
+    insert into wares
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="afid != null" >
+        afid,
+      </if>
+      <if test="afvendorcode != null" >
+        afvendorcode,
+      </if>
+      <if test="aftradename != null" >
+        aftradename,
+      </if>
+      <if test="afaddress != null" >
+        afaddress,
+      </if>
+      <if test="afoperation != null" >
+        afoperation,
+      </if>
+      <if test="afurl != null" >
+        afurl,
+      </if>
+      <if test="afopeningbank != null" >
+        afopeningbank,
+      </if>
+      <if test="afbankaccount != null" >
+        afbankaccount,
+      </if>
+      <if test="affkmethod != null" >
+        affkmethod,
+      </if>
+      <if test="afvendorrating != null" >
+        afvendorrating,
+      </if>
+      <if test="afrunbrand != null" >
+        afrunbrand,
+      </if>
+      <if test="afvendortype != null" >
+        afvendortype,
+      </if>
+      <if test="aflinkman != null" >
+        aflinkman,
+      </if>
+      <if test="afcall != null" >
+        afcall,
+      </if>
+      <if test="afphone != null" >
+        afphone,
+      </if>
+      <if test="afemail != null" >
+        afemail,
+      </if>
+      <if test="afpaymentdays != null" >
+        afpaymentdays,
+      </if>
+      <if test="afremark != null" >
+        afremark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="afid != null" >
+        #{afid,jdbcType=INTEGER},
+      </if>
+      <if test="afvendorcode != null" >
+        #{afvendorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="aftradename != null" >
+        #{aftradename,jdbcType=VARCHAR},
+      </if>
+      <if test="afaddress != null" >
+        #{afaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="afoperation != null" >
+        #{afoperation,jdbcType=VARCHAR},
+      </if>
+      <if test="afurl != null" >
+        #{afurl,jdbcType=VARCHAR},
+      </if>
+      <if test="afopeningbank != null" >
+        #{afopeningbank,jdbcType=VARCHAR},
+      </if>
+      <if test="afbankaccount != null" >
+        #{afbankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="affkmethod != null" >
+        #{affkmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="afvendorrating != null" >
+        #{afvendorrating,jdbcType=VARCHAR},
+      </if>
+      <if test="afrunbrand != null" >
+        #{afrunbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="afvendortype != null" >
+        #{afvendortype,jdbcType=VARCHAR},
+      </if>
+      <if test="aflinkman != null" >
+        #{aflinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="afcall != null" >
+        #{afcall,jdbcType=VARCHAR},
+      </if>
+      <if test="afphone != null" >
+        #{afphone,jdbcType=VARCHAR},
+      </if>
+      <if test="afemail != null" >
+        #{afemail,jdbcType=VARCHAR},
+      </if>
+      <if test="afpaymentdays != null" >
+        #{afpaymentdays,jdbcType=INTEGER},
+      </if>
+      <if test="afremark != null" >
+        #{afremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.WaresExample" resultType="java.lang.Integer" >
+    select count(*) from wares
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wares
+    <set >
+      <if test="record.afid != null" >
+        afid = #{record.afid,jdbcType=INTEGER},
+      </if>
+      <if test="record.afvendorcode != null" >
+        afvendorcode = #{record.afvendorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aftradename != null" >
+        aftradename = #{record.aftradename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afaddress != null" >
+        afaddress = #{record.afaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afoperation != null" >
+        afoperation = #{record.afoperation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afurl != null" >
+        afurl = #{record.afurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afopeningbank != null" >
+        afopeningbank = #{record.afopeningbank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afbankaccount != null" >
+        afbankaccount = #{record.afbankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affkmethod != null" >
+        affkmethod = #{record.affkmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afvendorrating != null" >
+        afvendorrating = #{record.afvendorrating,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afrunbrand != null" >
+        afrunbrand = #{record.afrunbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afvendortype != null" >
+        afvendortype = #{record.afvendortype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aflinkman != null" >
+        aflinkman = #{record.aflinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afcall != null" >
+        afcall = #{record.afcall,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afphone != null" >
+        afphone = #{record.afphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afemail != null" >
+        afemail = #{record.afemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afpaymentdays != null" >
+        afpaymentdays = #{record.afpaymentdays,jdbcType=INTEGER},
+      </if>
+      <if test="record.afremark != null" >
+        afremark = #{record.afremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wares
+    set afid = #{record.afid,jdbcType=INTEGER},
+      afvendorcode = #{record.afvendorcode,jdbcType=VARCHAR},
+      aftradename = #{record.aftradename,jdbcType=VARCHAR},
+      afaddress = #{record.afaddress,jdbcType=VARCHAR},
+      afoperation = #{record.afoperation,jdbcType=VARCHAR},
+      afurl = #{record.afurl,jdbcType=VARCHAR},
+      afopeningbank = #{record.afopeningbank,jdbcType=VARCHAR},
+      afbankaccount = #{record.afbankaccount,jdbcType=VARCHAR},
+      affkmethod = #{record.affkmethod,jdbcType=VARCHAR},
+      afvendorrating = #{record.afvendorrating,jdbcType=VARCHAR},
+      afrunbrand = #{record.afrunbrand,jdbcType=VARCHAR},
+      afvendortype = #{record.afvendortype,jdbcType=VARCHAR},
+      aflinkman = #{record.aflinkman,jdbcType=VARCHAR},
+      afcall = #{record.afcall,jdbcType=VARCHAR},
+      afphone = #{record.afphone,jdbcType=VARCHAR},
+      afemail = #{record.afemail,jdbcType=VARCHAR},
+      afpaymentdays = #{record.afpaymentdays,jdbcType=INTEGER},
+      afremark = #{record.afremark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Wares" >
+    update wares
+    <set >
+      <if test="afvendorcode != null" >
+        afvendorcode = #{afvendorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="aftradename != null" >
+        aftradename = #{aftradename,jdbcType=VARCHAR},
+      </if>
+      <if test="afaddress != null" >
+        afaddress = #{afaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="afoperation != null" >
+        afoperation = #{afoperation,jdbcType=VARCHAR},
+      </if>
+      <if test="afurl != null" >
+        afurl = #{afurl,jdbcType=VARCHAR},
+      </if>
+      <if test="afopeningbank != null" >
+        afopeningbank = #{afopeningbank,jdbcType=VARCHAR},
+      </if>
+      <if test="afbankaccount != null" >
+        afbankaccount = #{afbankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="affkmethod != null" >
+        affkmethod = #{affkmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="afvendorrating != null" >
+        afvendorrating = #{afvendorrating,jdbcType=VARCHAR},
+      </if>
+      <if test="afrunbrand != null" >
+        afrunbrand = #{afrunbrand,jdbcType=VARCHAR},
+      </if>
+      <if test="afvendortype != null" >
+        afvendortype = #{afvendortype,jdbcType=VARCHAR},
+      </if>
+      <if test="aflinkman != null" >
+        aflinkman = #{aflinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="afcall != null" >
+        afcall = #{afcall,jdbcType=VARCHAR},
+      </if>
+      <if test="afphone != null" >
+        afphone = #{afphone,jdbcType=VARCHAR},
+      </if>
+      <if test="afemail != null" >
+        afemail = #{afemail,jdbcType=VARCHAR},
+      </if>
+      <if test="afpaymentdays != null" >
+        afpaymentdays = #{afpaymentdays,jdbcType=INTEGER},
+      </if>
+      <if test="afremark != null" >
+        afremark = #{afremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where afid = #{afid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Wares" >
+    update wares
+    set afvendorcode = #{afvendorcode,jdbcType=VARCHAR},
+      aftradename = #{aftradename,jdbcType=VARCHAR},
+      afaddress = #{afaddress,jdbcType=VARCHAR},
+      afoperation = #{afoperation,jdbcType=VARCHAR},
+      afurl = #{afurl,jdbcType=VARCHAR},
+      afopeningbank = #{afopeningbank,jdbcType=VARCHAR},
+      afbankaccount = #{afbankaccount,jdbcType=VARCHAR},
+      affkmethod = #{affkmethod,jdbcType=VARCHAR},
+      afvendorrating = #{afvendorrating,jdbcType=VARCHAR},
+      afrunbrand = #{afrunbrand,jdbcType=VARCHAR},
+      afvendortype = #{afvendortype,jdbcType=VARCHAR},
+      aflinkman = #{aflinkman,jdbcType=VARCHAR},
+      afcall = #{afcall,jdbcType=VARCHAR},
+      afphone = #{afphone,jdbcType=VARCHAR},
+      afemail = #{afemail,jdbcType=VARCHAR},
+      afpaymentdays = #{afpaymentdays,jdbcType=INTEGER},
+      afremark = #{afremark,jdbcType=VARCHAR}
+    where afid = #{afid,jdbcType=INTEGER}
+  </update>
+</mapper>
