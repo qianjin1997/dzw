@@ -26,6 +26,7 @@
     <result column="hnextmileage" property="hnextmileage" jdbcType="INTEGER" />
     <result column="hmileagedate" property="hmileagedate" jdbcType="DATE" />
   </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
