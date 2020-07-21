@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Dimission {
     private Integer amid;
 
@@ -10,8 +12,13 @@ public class Dimission {
     private Integer amyid;
 
     private String amcause;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date amldate;
+    
+    private Section section;
+    
+    private Staff staff;
 
     public Integer getAmid() {
         return amid;
@@ -52,4 +59,20 @@ public class Dimission {
     public void setAmldate(Date amldate) {
         this.amldate = amldate;
     }
+
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
 }
