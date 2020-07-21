@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CarMapper {
+	Car findById(Integer vcarid);
+	
     int countByExample(CarExample example);
 
     int deleteByExample(CarExample example);

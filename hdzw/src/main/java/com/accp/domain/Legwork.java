@@ -6,8 +6,18 @@ public class Legwork {
     private Integer vcarid;
 
     private Integer vteamid;
+    
+    private Car car;
+    
+    public Car getCar() {
+		return car;
+	}
 
-    public Integer getVid() {
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public Integer getVid() {
         return vid;
     }
 

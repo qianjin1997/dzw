@@ -27,6 +27,11 @@
     <result column="hmileagedate" property="hmileagedate" jdbcType="DATE" />
     <result column="huid" property="huid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <select id="findById" resultMap="BaseResultMap">
+  			SELECT * FROM `car` WHERE `hid`=#{hid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
