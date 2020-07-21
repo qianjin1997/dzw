@@ -49,6 +49,8 @@ public class Car {
 
     private Date hmileagedate;
 
+    private Integer huid;
+
     public Integer getHid() {
         return hid;
     }
@@ -231,5 +233,13 @@ public class Car {
 
     public void setHmileagedate(Date hmileagedate) {
         this.hmileagedate = hmileagedate;
+    }
+
+    public Integer getHuid() {
+        return huid;
+    }
+
+    public void setHuid(Integer huid) {
+        this.huid = huid;
     }
 }
