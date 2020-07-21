@@ -1551,6 +1551,66 @@ public class CarExample {
             addCriterionForJDBCDate("hmileagedate not between", value1, value2, "hmileagedate");
             return (Criteria) this;
         }
+
+        public Criteria andHuidIsNull() {
+            addCriterion("huid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidIsNotNull() {
+            addCriterion("huid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidEqualTo(Integer value) {
+            addCriterion("huid =", value, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidNotEqualTo(Integer value) {
+            addCriterion("huid <>", value, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidGreaterThan(Integer value) {
+            addCriterion("huid >", value, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("huid >=", value, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidLessThan(Integer value) {
+            addCriterion("huid <", value, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidLessThanOrEqualTo(Integer value) {
+            addCriterion("huid <=", value, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidIn(List<Integer> values) {
+            addCriterion("huid in", values, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidNotIn(List<Integer> values) {
+            addCriterion("huid not in", values, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidBetween(Integer value1, Integer value2) {
+            addCriterion("huid between", value1, value2, "huid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHuidNotBetween(Integer value1, Integer value2) {
+            addCriterion("huid not between", value1, value2, "huid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
