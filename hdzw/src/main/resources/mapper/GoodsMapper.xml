@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Goods" >
+    <id column="abid" property="abid" jdbcType="INTEGER" />
+    <result column="abregisterstores" property="abregisterstores" jdbcType="VARCHAR" />
+    <result column="abimagename" property="abimagename" jdbcType="VARCHAR" />
+    <result column="abcode" property="abcode" jdbcType="VARCHAR" />
+    <result column="abshopname" property="abshopname" jdbcType="VARCHAR" />
+    <result column="abshopbrandid" property="abshopbrandid" jdbcType="INTEGER" />
+    <result column="abarctic" property="abarctic" jdbcType="VARCHAR" />
+    <result column="abuoq" property="abuoq" jdbcType="INTEGER" />
+    <result column="abshoplid" property="abshoplid" jdbcType="INTEGER" />
+    <result column="abincome" property="abincome" jdbcType="INTEGER" />
+    <result column="abOriginal" property="aboriginal" jdbcType="INTEGER" />
+    <result column="abshopgrade" property="abshopgrade" jdbcType="INTEGER" />
+    <result column="abshoparea" property="abshoparea" jdbcType="INTEGER" />
+    <result column="abtradename" property="abtradename" jdbcType="INTEGER" />
+    <result column="abofcode" property="abofcode" jdbcType="VARCHAR" />
+    <result column="abbarcode" property="abbarcode" jdbcType="VARCHAR" />
+    <result column="absize" property="absize" jdbcType="VARCHAR" />
+    <result column="abbulk" property="abbulk" jdbcType="VARCHAR" />
+    <result column="abroughweight" property="abroughweight" jdbcType="REAL" />
+    <result column="absuttle" property="absuttle" jdbcType="REAL" />
+    <result column="abpercentage" property="abpercentage" jdbcType="REAL" />
+    <result column="abpcode" property="abpcode" jdbcType="VARCHAR" />
+    <result column="abaccording" property="abaccording" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    abid, abregisterstores, abimagename, abcode, abshopname, abshopbrandid, abarctic, 
+    abuoq, abshoplid, abincome, abOriginal, abshopgrade, abshoparea, abtradename, abofcode, 
+    abbarcode, absize, abbulk, abroughweight, absuttle, abpercentage, abpcode, abaccording
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.GoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where abid = #{abid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods
+    where abid = #{abid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.GoodsExample" >
+    delete from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Goods" >
+    insert into goods (abid, abregisterstores, abimagename, 
+      abcode, abshopname, abshopbrandid, 
+      abarctic, abuoq, abshoplid, 
+      abincome, abOriginal, abshopgrade, 
+      abshoparea, abtradename, abofcode, 
+      abbarcode, absize, abbulk, 
+      abroughweight, absuttle, abpercentage, 
+      abpcode, abaccording)
+    values (#{abid,jdbcType=INTEGER}, #{abregisterstores,jdbcType=VARCHAR}, #{abimagename,jdbcType=VARCHAR}, 
+      #{abcode,jdbcType=VARCHAR}, #{abshopname,jdbcType=VARCHAR}, #{abshopbrandid,jdbcType=INTEGER}, 
+      #{abarctic,jdbcType=VARCHAR}, #{abuoq,jdbcType=INTEGER}, #{abshoplid,jdbcType=INTEGER}, 
+      #{abincome,jdbcType=INTEGER}, #{aboriginal,jdbcType=INTEGER}, #{abshopgrade,jdbcType=INTEGER}, 
+      #{abshoparea,jdbcType=INTEGER}, #{abtradename,jdbcType=INTEGER}, #{abofcode,jdbcType=VARCHAR}, 
+      #{abbarcode,jdbcType=VARCHAR}, #{absize,jdbcType=VARCHAR}, #{abbulk,jdbcType=VARCHAR}, 
+      #{abroughweight,jdbcType=REAL}, #{absuttle,jdbcType=REAL}, #{abpercentage,jdbcType=REAL}, 
+      #{abpcode,jdbcType=VARCHAR}, #{abaccording,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="abid != null" >
+        abid,
+      </if>
+      <if test="abregisterstores != null" >
+        abregisterstores,
+      </if>
+      <if test="abimagename != null" >
+        abimagename,
+      </if>
+      <if test="abcode != null" >
+        abcode,
+      </if>
+      <if test="abshopname != null" >
+        abshopname,
+      </if>
+      <if test="abshopbrandid != null" >
+        abshopbrandid,
+      </if>
+      <if test="abarctic != null" >
+        abarctic,
+      </if>
+      <if test="abuoq != null" >
+        abuoq,
+      </if>
+      <if test="abshoplid != null" >
+        abshoplid,
+      </if>
+      <if test="abincome != null" >
+        abincome,
+      </if>
+      <if test="aboriginal != null" >
+        abOriginal,
+      </if>
+      <if test="abshopgrade != null" >
+        abshopgrade,
+      </if>
+      <if test="abshoparea != null" >
+        abshoparea,
+      </if>
+      <if test="abtradename != null" >
+        abtradename,
+      </if>
+      <if test="abofcode != null" >
+        abofcode,
+      </if>
+      <if test="abbarcode != null" >
+        abbarcode,
+      </if>
+      <if test="absize != null" >
+        absize,
+      </if>
+      <if test="abbulk != null" >
+        abbulk,
+      </if>
+      <if test="abroughweight != null" >
+        abroughweight,
+      </if>
+      <if test="absuttle != null" >
+        absuttle,
+      </if>
+      <if test="abpercentage != null" >
+        abpercentage,
+      </if>
+      <if test="abpcode != null" >
+        abpcode,
+      </if>
+      <if test="abaccording != null" >
+        abaccording,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="abid != null" >
+        #{abid,jdbcType=INTEGER},
+      </if>
+      <if test="abregisterstores != null" >
+        #{abregisterstores,jdbcType=VARCHAR},
+      </if>
+      <if test="abimagename != null" >
+        #{abimagename,jdbcType=VARCHAR},
+      </if>
+      <if test="abcode != null" >
+        #{abcode,jdbcType=VARCHAR},
+      </if>
+      <if test="abshopname != null" >
+        #{abshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="abshopbrandid != null" >
+        #{abshopbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="abarctic != null" >
+        #{abarctic,jdbcType=VARCHAR},
+      </if>
+      <if test="abuoq != null" >
+        #{abuoq,jdbcType=INTEGER},
+      </if>
+      <if test="abshoplid != null" >
+        #{abshoplid,jdbcType=INTEGER},
+      </if>
+      <if test="abincome != null" >
+        #{abincome,jdbcType=INTEGER},
+      </if>
+      <if test="aboriginal != null" >
+        #{aboriginal,jdbcType=INTEGER},
+      </if>
+      <if test="abshopgrade != null" >
+        #{abshopgrade,jdbcType=INTEGER},
+      </if>
+      <if test="abshoparea != null" >
+        #{abshoparea,jdbcType=INTEGER},
+      </if>
+      <if test="abtradename != null" >
+        #{abtradename,jdbcType=INTEGER},
+      </if>
+      <if test="abofcode != null" >
+        #{abofcode,jdbcType=VARCHAR},
+      </if>
+      <if test="abbarcode != null" >
+        #{abbarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="absize != null" >
+        #{absize,jdbcType=VARCHAR},
+      </if>
+      <if test="abbulk != null" >
+        #{abbulk,jdbcType=VARCHAR},
+      </if>
+      <if test="abroughweight != null" >
+        #{abroughweight,jdbcType=REAL},
+      </if>
+      <if test="absuttle != null" >
+        #{absuttle,jdbcType=REAL},
+      </if>
+      <if test="abpercentage != null" >
+        #{abpercentage,jdbcType=REAL},
+      </if>
+      <if test="abpcode != null" >
+        #{abpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="abaccording != null" >
+        #{abaccording,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.GoodsExample" resultType="java.lang.Integer" >
+    select count(*) from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goods
+    <set >
+      <if test="record.abid != null" >
+        abid = #{record.abid,jdbcType=INTEGER},
+      </if>
+      <if test="record.abregisterstores != null" >
+        abregisterstores = #{record.abregisterstores,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abimagename != null" >
+        abimagename = #{record.abimagename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abcode != null" >
+        abcode = #{record.abcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abshopname != null" >
+        abshopname = #{record.abshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abshopbrandid != null" >
+        abshopbrandid = #{record.abshopbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="record.abarctic != null" >
+        abarctic = #{record.abarctic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abuoq != null" >
+        abuoq = #{record.abuoq,jdbcType=INTEGER},
+      </if>
+      <if test="record.abshoplid != null" >
+        abshoplid = #{record.abshoplid,jdbcType=INTEGER},
+      </if>
+      <if test="record.abincome != null" >
+        abincome = #{record.abincome,jdbcType=INTEGER},
+      </if>
+      <if test="record.aboriginal != null" >
+        abOriginal = #{record.aboriginal,jdbcType=INTEGER},
+      </if>
+      <if test="record.abshopgrade != null" >
+        abshopgrade = #{record.abshopgrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.abshoparea != null" >
+        abshoparea = #{record.abshoparea,jdbcType=INTEGER},
+      </if>
+      <if test="record.abtradename != null" >
+        abtradename = #{record.abtradename,jdbcType=INTEGER},
+      </if>
+      <if test="record.abofcode != null" >
+        abofcode = #{record.abofcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abbarcode != null" >
+        abbarcode = #{record.abbarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.absize != null" >
+        absize = #{record.absize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abbulk != null" >
+        abbulk = #{record.abbulk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abroughweight != null" >
+        abroughweight = #{record.abroughweight,jdbcType=REAL},
+      </if>
+      <if test="record.absuttle != null" >
+        absuttle = #{record.absuttle,jdbcType=REAL},
+      </if>
+      <if test="record.abpercentage != null" >
+        abpercentage = #{record.abpercentage,jdbcType=REAL},
+      </if>
+      <if test="record.abpcode != null" >
+        abpcode = #{record.abpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abaccording != null" >
+        abaccording = #{record.abaccording,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goods
+    set abid = #{record.abid,jdbcType=INTEGER},
+      abregisterstores = #{record.abregisterstores,jdbcType=VARCHAR},
+      abimagename = #{record.abimagename,jdbcType=VARCHAR},
+      abcode = #{record.abcode,jdbcType=VARCHAR},
+      abshopname = #{record.abshopname,jdbcType=VARCHAR},
+      abshopbrandid = #{record.abshopbrandid,jdbcType=INTEGER},
+      abarctic = #{record.abarctic,jdbcType=VARCHAR},
+      abuoq = #{record.abuoq,jdbcType=INTEGER},
+      abshoplid = #{record.abshoplid,jdbcType=INTEGER},
+      abincome = #{record.abincome,jdbcType=INTEGER},
+      abOriginal = #{record.aboriginal,jdbcType=INTEGER},
+      abshopgrade = #{record.abshopgrade,jdbcType=INTEGER},
+      abshoparea = #{record.abshoparea,jdbcType=INTEGER},
+      abtradename = #{record.abtradename,jdbcType=INTEGER},
+      abofcode = #{record.abofcode,jdbcType=VARCHAR},
+      abbarcode = #{record.abbarcode,jdbcType=VARCHAR},
+      absize = #{record.absize,jdbcType=VARCHAR},
+      abbulk = #{record.abbulk,jdbcType=VARCHAR},
+      abroughweight = #{record.abroughweight,jdbcType=REAL},
+      absuttle = #{record.absuttle,jdbcType=REAL},
+      abpercentage = #{record.abpercentage,jdbcType=REAL},
+      abpcode = #{record.abpcode,jdbcType=VARCHAR},
+      abaccording = #{record.abaccording,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Goods" >
+    update goods
+    <set >
+      <if test="abregisterstores != null" >
+        abregisterstores = #{abregisterstores,jdbcType=VARCHAR},
+      </if>
+      <if test="abimagename != null" >
+        abimagename = #{abimagename,jdbcType=VARCHAR},
+      </if>
+      <if test="abcode != null" >
+        abcode = #{abcode,jdbcType=VARCHAR},
+      </if>
+      <if test="abshopname != null" >
+        abshopname = #{abshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="abshopbrandid != null" >
+        abshopbrandid = #{abshopbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="abarctic != null" >
+        abarctic = #{abarctic,jdbcType=VARCHAR},
+      </if>
+      <if test="abuoq != null" >
+        abuoq = #{abuoq,jdbcType=INTEGER},
+      </if>
+      <if test="abshoplid != null" >
+        abshoplid = #{abshoplid,jdbcType=INTEGER},
+      </if>
+      <if test="abincome != null" >
+        abincome = #{abincome,jdbcType=INTEGER},
+      </if>
+      <if test="aboriginal != null" >
+        abOriginal = #{aboriginal,jdbcType=INTEGER},
+      </if>
+      <if test="abshopgrade != null" >
+        abshopgrade = #{abshopgrade,jdbcType=INTEGER},
+      </if>
+      <if test="abshoparea != null" >
+        abshoparea = #{abshoparea,jdbcType=INTEGER},
+      </if>
+      <if test="abtradename != null" >
+        abtradename = #{abtradename,jdbcType=INTEGER},
+      </if>
+      <if test="abofcode != null" >
+        abofcode = #{abofcode,jdbcType=VARCHAR},
+      </if>
+      <if test="abbarcode != null" >
+        abbarcode = #{abbarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="absize != null" >
+        absize = #{absize,jdbcType=VARCHAR},
+      </if>
+      <if test="abbulk != null" >
+        abbulk = #{abbulk,jdbcType=VARCHAR},
+      </if>
+      <if test="abroughweight != null" >
+        abroughweight = #{abroughweight,jdbcType=REAL},
+      </if>
+      <if test="absuttle != null" >
+        absuttle = #{absuttle,jdbcType=REAL},
+      </if>
+      <if test="abpercentage != null" >
+        abpercentage = #{abpercentage,jdbcType=REAL},
+      </if>
+      <if test="abpcode != null" >
+        abpcode = #{abpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="abaccording != null" >
+        abaccording = #{abaccording,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where abid = #{abid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Goods" >
+    update goods
+    set abregisterstores = #{abregisterstores,jdbcType=VARCHAR},
+      abimagename = #{abimagename,jdbcType=VARCHAR},
+      abcode = #{abcode,jdbcType=VARCHAR},
+      abshopname = #{abshopname,jdbcType=VARCHAR},
+      abshopbrandid = #{abshopbrandid,jdbcType=INTEGER},
+      abarctic = #{abarctic,jdbcType=VARCHAR},
+      abuoq = #{abuoq,jdbcType=INTEGER},
+      abshoplid = #{abshoplid,jdbcType=INTEGER},
+      abincome = #{abincome,jdbcType=INTEGER},
+      abOriginal = #{aboriginal,jdbcType=INTEGER},
+      abshopgrade = #{abshopgrade,jdbcType=INTEGER},
+      abshoparea = #{abshoparea,jdbcType=INTEGER},
+      abtradename = #{abtradename,jdbcType=INTEGER},
+      abofcode = #{abofcode,jdbcType=VARCHAR},
+      abbarcode = #{abbarcode,jdbcType=VARCHAR},
+      absize = #{absize,jdbcType=VARCHAR},
+      abbulk = #{abbulk,jdbcType=VARCHAR},
+      abroughweight = #{abroughweight,jdbcType=REAL},
+      absuttle = #{absuttle,jdbcType=REAL},
+      abpercentage = #{abpercentage,jdbcType=REAL},
+      abpcode = #{abpcode,jdbcType=VARCHAR},
+      abaccording = #{abaccording,jdbcType=VARCHAR}
+    where abid = #{abid,jdbcType=INTEGER}
+  </update>
+</mapper>

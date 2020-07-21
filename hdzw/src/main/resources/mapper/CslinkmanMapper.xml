@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.CslinkmanMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Cslinkman" >
+    <id column="aoid" property="aoid" jdbcType="INTEGER" />
+    <result column="aocontactName" property="aocontactname" jdbcType="VARCHAR" />
+    <result column="aoposition" property="aoposition" jdbcType="VARCHAR" />
+    <result column="aophone" property="aophone" jdbcType="INTEGER" />
+    <result column="aocall" property="aocall" jdbcType="INTEGER" />
+    <result column="aoemail" property="aoemail" jdbcType="VARCHAR" />
+    <result column="aofactoryId" property="aofactoryid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    aoid, aocontactName, aoposition, aophone, aocall, aoemail, aofactoryId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CslinkmanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cslinkman
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cslinkman
+    where aoid = #{aoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cslinkman
+    where aoid = #{aoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CslinkmanExample" >
+    delete from cslinkman
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Cslinkman" >
+    insert into cslinkman (aoid, aocontactName, aoposition, 
+      aophone, aocall, aoemail, 
+      aofactoryId)
+    values (#{aoid,jdbcType=INTEGER}, #{aocontactname,jdbcType=VARCHAR}, #{aoposition,jdbcType=VARCHAR}, 
+      #{aophone,jdbcType=INTEGER}, #{aocall,jdbcType=INTEGER}, #{aoemail,jdbcType=VARCHAR}, 
+      #{aofactoryid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Cslinkman" >
+    insert into cslinkman
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aoid != null" >
+        aoid,
+      </if>
+      <if test="aocontactname != null" >
+        aocontactName,
+      </if>
+      <if test="aoposition != null" >
+        aoposition,
+      </if>
+      <if test="aophone != null" >
+        aophone,
+      </if>
+      <if test="aocall != null" >
+        aocall,
+      </if>
+      <if test="aoemail != null" >
+        aoemail,
+      </if>
+      <if test="aofactoryid != null" >
+        aofactoryId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aoid != null" >
+        #{aoid,jdbcType=INTEGER},
+      </if>
+      <if test="aocontactname != null" >
+        #{aocontactname,jdbcType=VARCHAR},
+      </if>
+      <if test="aoposition != null" >
+        #{aoposition,jdbcType=VARCHAR},
+      </if>
+      <if test="aophone != null" >
+        #{aophone,jdbcType=INTEGER},
+      </if>
+      <if test="aocall != null" >
+        #{aocall,jdbcType=INTEGER},
+      </if>
+      <if test="aoemail != null" >
+        #{aoemail,jdbcType=VARCHAR},
+      </if>
+      <if test="aofactoryid != null" >
+        #{aofactoryid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CslinkmanExample" resultType="java.lang.Integer" >
+    select count(*) from cslinkman
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cslinkman
+    <set >
+      <if test="record.aoid != null" >
+        aoid = #{record.aoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aocontactname != null" >
+        aocontactName = #{record.aocontactname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aoposition != null" >
+        aoposition = #{record.aoposition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aophone != null" >
+        aophone = #{record.aophone,jdbcType=INTEGER},
+      </if>
+      <if test="record.aocall != null" >
+        aocall = #{record.aocall,jdbcType=INTEGER},
+      </if>
+      <if test="record.aoemail != null" >
+        aoemail = #{record.aoemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aofactoryid != null" >
+        aofactoryId = #{record.aofactoryid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cslinkman
+    set aoid = #{record.aoid,jdbcType=INTEGER},
+      aocontactName = #{record.aocontactname,jdbcType=VARCHAR},
+      aoposition = #{record.aoposition,jdbcType=VARCHAR},
+      aophone = #{record.aophone,jdbcType=INTEGER},
+      aocall = #{record.aocall,jdbcType=INTEGER},
+      aoemail = #{record.aoemail,jdbcType=VARCHAR},
+      aofactoryId = #{record.aofactoryid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Cslinkman" >
+    update cslinkman
+    <set >
+      <if test="aocontactname != null" >
+        aocontactName = #{aocontactname,jdbcType=VARCHAR},
+      </if>
+      <if test="aoposition != null" >
+        aoposition = #{aoposition,jdbcType=VARCHAR},
+      </if>
+      <if test="aophone != null" >
+        aophone = #{aophone,jdbcType=INTEGER},
+      </if>
+      <if test="aocall != null" >
+        aocall = #{aocall,jdbcType=INTEGER},
+      </if>
+      <if test="aoemail != null" >
+        aoemail = #{aoemail,jdbcType=VARCHAR},
+      </if>
+      <if test="aofactoryid != null" >
+        aofactoryId = #{aofactoryid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where aoid = #{aoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Cslinkman" >
+    update cslinkman
+    set aocontactName = #{aocontactname,jdbcType=VARCHAR},
+      aoposition = #{aoposition,jdbcType=VARCHAR},
+      aophone = #{aophone,jdbcType=INTEGER},
+      aocall = #{aocall,jdbcType=INTEGER},
+      aoemail = #{aoemail,jdbcType=VARCHAR},
+      aofactoryId = #{aofactoryid,jdbcType=INTEGER}
+    where aoid = #{aoid,jdbcType=INTEGER}
+  </update>
+</mapper>

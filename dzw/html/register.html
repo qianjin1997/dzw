@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<title>维修接车</title>
 		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/goods.css"/>
 		<style type="text/css">
 			*{
 				margin: 0px;
@@ -23,25 +24,14 @@
 		
 		<div class="container-fluid" id="ctx">
 			
-			<el-row style="margin-top: 20px;">
-				<el-col :span="17">
-					<h1 class="" style="color: #9E9899;">接车登记</h1>
+			<el-row>
+				<el-col :span="15">
+					<h2>接车登记</h2>
 				</el-col>
-				<el-col :span="7">
-					<el-input style="width: 200px;"
+				<el-col :span="9">
+					<el-input style="width: 300px;"
 					  placeholder="请输入内容"
 					  v-model="input"
-					  
-					  
-					  
-					  
-					  
-					  
-					  
-					  
-					  
-					  
-					  
 					  clearable>
 					</el-input>
 					<el-button type="warning" icon="el-icon-search">搜索</el-button>
@@ -51,16 +41,16 @@
 			
 			<el-row style="margin-top: 10px;">
 				<el-col :offset="18" :span="6">
-					<el-link  @click="dialogFormVisible = true" style="font-size: 20px; margin-right: 10px;" icon="el-icon-s-fold" :underline="false">维修接车</el-link>
-					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-edit" :underline="false">救援开单</el-link>
-					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-circle-close" :underline="false">关注公众号</el-link>
+					<el-link href="keep.html" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>维修接车</el-link>
+					<el-link href="keep.html" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>救援开单</el-link>
+					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-help bit"></i>关注公众号</el-link>
 				</el-col>
 			</el-row>
 			
 			<el-divider></el-divider>
 			
 			 <el-row>
-				 <el-col :span="5">
+				 <el-col :span="6">
 					<span style="color: #39CEDE;">公众号会员码</span>
 					<input style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
 					<table>
@@ -82,8 +72,8 @@
 						</tr>
 					</table>
 				 </el-col>
-				 <el-col :span="5">
-					<span style="color: #39CEDE;">车牌号<i class="el-icon-caret-bottom"></i></span>
+				 <el-col :span="6">
+					<a href="cara.html" style="color: #39CEDE;">车牌号<i class="el-icon-caret-bottom"></i></a>
 					<input style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
 					<table>
 						<tr style="color: #39CEDE;">
@@ -103,7 +93,7 @@
 						</tr>
 					</table>
 				 </el-col>
-				 <el-col :span="5">
+				 <el-col :span="6">
 					<table style="color: red;">
 						<tr>
 							<td>积分：</td>
@@ -127,18 +117,19 @@
 			
 			<template>
 			  <el-tabs v-model="activeName" @tab-click="handleClick">
-			    <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-			    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-			    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-			    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+			    <el-tab-pane label="用户管理" name="first"></el-tab-pane>
+			    <el-tab-pane label="配置管理" name="second"></el-tab-pane>
+			    <el-tab-pane label="角色管理" name="third"></el-tab-pane>
+			    <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
 			  </el-tabs>
 			</template>
 			
-			<el-container style="height: 380px; border: 1px solid #eee">
+			<el-container style="height: 310px; border: 1px solid #eee">
 			  
 			  <el-container content="true">
 				<template>
 				  <el-table
+					border
 				    :header-cell-style="{background:'#39CEDE',color:'white'}"
 				    ref="singleTable"
 				    :data="tableData"

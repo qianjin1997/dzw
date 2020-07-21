@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<title>竣工检验</title>
 		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/goods.css"/>
 		<style type="text/css">
 			*{
 				margin: 0px;
@@ -24,11 +25,11 @@
 		<div class="container-fluid" id="ctx">
 			
 			<el-row style="margin-top: 20px;">
-				<el-col :span="17">
-					<h1 class="" style="color: #9E9899;">竣工检验</h1>
+				<el-col :span="15">
+					<h2>竣工检验</h2>
 				</el-col>
-				<el-col :span="7">
-					<el-input style="width: 200px;"
+				<el-col :span="9">
+					<el-input style="width: 300px;"
 					  placeholder="请输入内容"
 					  v-model="input"
 					  clearable>
@@ -56,7 +57,7 @@
 					   </div>
 					 </template>
 				 </el-col>
-				 <el-col :span="16">
+				 <el-col :span="18">
 					 <el-form :inline="true" :model="formInline" class="demo-form-inline">
 					   <el-form-item label="维修单号">
 					     <el-input style="width: 150px;" v-model="formInline.user" placeholder="维修单号"></el-input>
@@ -74,17 +75,16 @@
 					     <el-input style="width: 150px;" v-model="formInline.user" placeholder="车架号"></el-input>
 					   </el-form-item>
 					 </el-form>
-				 </el-col>
-				 <el-col :span="2">
-					 <el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-picture" :underline="false">打开单据</el-link>
+					 <el-link href="keep.html" style="margin-left: 880px;" type="info" class="bitbtn" :underline="false"><i class="el-icon-picture bit"></i>打开单据</el-link>
 				 </el-col>
 			 </el-row>
 			
-			<el-container style="height: 550px; border: 1px solid #eee">
+			<el-container style="height: 433px; border: 1px solid #eee">
 			  
 			  <el-container content="true">
 				<template>
 				  <el-table
+					border
 				    :header-cell-style="{background:'#39CEDE',color:'white'}"
 				    ref="singleTable"
 				    :data="tableData"
