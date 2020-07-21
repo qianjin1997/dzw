@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.accp.dao.GoodsMapper;
 import com.accp.domain.Goods;
 import com.github.pagehelper.Page;
-
+/*aaaa*/
 @Service
 @Transactional
 public class GoodsService {
