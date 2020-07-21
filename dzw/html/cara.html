@@ -87,7 +87,7 @@
 					</div>
 					<template>
 					  <el-table
-					    :data="tableData"
+					    :data="page.list"
 					    style="width: 100%"
 					    height="350"
 						border
@@ -235,7 +235,7 @@
 					    <el-tab-pane label="客户信息" name="first">
 							<template>
 							  <el-table
-							    :data="tableData1"
+							    :data="page.list"
 							    style="width: 100%"
 							    height="150"
 								 :header-cell-style="{background:'#39CEDE',color:'white'}">
@@ -849,6 +849,7 @@
 								value6: '',
 								value7: '',
 								value9: '',
+								page:{},
 			          tableData: [{
 			            date: '2016-05-03',
 			            name: '王小虎',
@@ -962,11 +963,20 @@
 					              done();
 					            })
 					            .catch(_ => {});
-					        }
-					
+					        },
+					findcar(currertPage){
+						var that=this;
+						var url="http://localhost:8888/wsbcar/findbypage/1/3";
+						$.ajax({
+							url:url,
+							success:function(result){
+								that.page=result;
+							}
+						})
+					}
 				  },
 				  created() {
-				  	
+				  	this.findcar(1);
 				  }
 		  });
 		 
