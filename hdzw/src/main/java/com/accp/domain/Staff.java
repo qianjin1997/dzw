@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Staff {
     private Integer pid;
 
@@ -46,17 +48,23 @@ public class Staff {
     private String pphone;
 
     private String pthisaddress;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date ptrialdate;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date pentrydate;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date pbirthdate;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date pbegindate;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date poverdate;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date pbirthday;
 
     private Integer page;
