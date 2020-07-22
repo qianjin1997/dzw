@@ -6,6 +6,13 @@
     <result column="vcarid" property="vcarid" jdbcType="INTEGER" />
     <result column="vteamid" property="vteamid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap id="BaseResultMapcsy" extends="BaseResultMap"  type="">
+  		<association property="car" column="vcarid" javaType="com.accp.domain.Car" select="com.accp.dao.CarMapper.findById">
+  		
+  		 </association>
+  </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface LegworkMapper {
+	List<Legwork> chasy();
     int countByExample(LegworkExample example);
 
     int deleteByExample(LegworkExample example);
