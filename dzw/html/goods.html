@@ -6,6 +6,7 @@
 		<title>商品资料</title>
 		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/goods.css"/>
+		
 	</head>
 	<body>
 		
@@ -22,7 +23,7 @@
 					  v-model="input"
 					  clearable>
 					</el-input>
-					<el-button type="warning" size="medium">搜索</el-button>
+					<el-button @click="find" type="warning" size="medium">搜索</el-button>
 					<el-button type="info" size="medium">关闭</el-button>
 				</el-col>
 			</el-row>
@@ -31,9 +32,9 @@
 			
 			<el-row style="margin-bottom: 10px;">
 				<el-col :span="6">
-					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
-					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
-					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+					<el-link @click="toCreate" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
+					<el-link @click="toUpdate" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
+					<el-link @click="removeGoods" type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-set-up bit"></i>查询</el-link>
 				</el-col>
 				<el-col :span="12">
@@ -61,35 +62,154 @@
 					border
 				    :header-cell-style="{background:'#39CEDE',color:'white'}"
 				    ref="singleTable"
-				    :data="tableData"
+				    :data="page.list"
 				    highlight-current-row
 				    @current-change="handleCurrentChange"
 				    style="width: 100%;">
 				    <el-table-column
-				      type="index"
+					  show-overflow-tooltip
+				      type="abid"
 				      width="50">
 				    </el-table-column>
+					<el-table-column
+					  show-overflow-tooltip
+					  property="abid"
+					  label="id"
+					  width="120">
+					</el-table-column>
 				    <el-table-column
-				      property="date"
-				      label="日期"
+					  show-overflow-tooltip
+				      property="abregisterstores"
+				      label="登记门店"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="name"
-				      label="姓名"
+					  show-overflow-tooltip
+				      property="abimagename"
+				      label="照片名"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="address"
-				      label="地址">
+					show-overflow-tooltip
+				      property="abcode"
+				      label="商品编码">
 				    </el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abshopname"
+					  label="商品名称">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abshopbrandid"
+					  label="商品品牌">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abarctic"
+					  label="使用车型">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abuoq"
+					  label="数量单位">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abshoplid"
+					  label="商品大类">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abshoplid"
+					  label="商品中类">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abshoplid"
+					  label="商品小类">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abincome"
+					  label="收入分类">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abOriginal"
+					  label="原厂分厂">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abshopgrade"
+					  label="商品等级">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abshoparea"
+					  label="商品产地">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abtradename"
+					  label="厂商名称">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abofcode"
+					  label="原厂编码">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abbarcode"
+					  label="条形码">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="absize"
+					  label="包装规格">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abbulk"
+					  label="体积A">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abroughweight"
+					  label="毛重">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="absuttle"
+					  label="净重">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abpercentage"
+					  label="加价率">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abpcode"
+					  label="互换码">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="abaccording"
+					  label="售价按">
+					</el-table-column>
 				  </el-table>
+				  
 				</template>
 			 <el-footer>
 				 <el-pagination
+					style="text-align: center;"
+				   @current-change="fyhandleCurrentChange"
 				   background
 				   layout="prev, pager, next"
-				   :total="1000">
+				   :page-size="8"
+				   :total="page.total">
 				 </el-pagination>
 			 </el-footer>
 			 </el-container>
@@ -110,134 +230,135 @@
 			    <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
 			    
 				<el-row type="flex">
+					<input type="hidden" v-model="formInline.abid"></input>
 					<el-form-item label="商品编码">
-					  <el-input style="width: 180px;" v-model="formInline.user" placeholder="商品编码"></el-input>
+					  <el-input style="width: 180px;" v-model="formInline.abcode" placeholder="商品编码"></el-input>
 					</el-form-item>
 					<el-form-item label="商品名称">
-					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="商品名称"></el-input>
+					  <el-input  style="width: 180px;" v-model="formInline.abshopname" placeholder="商品名称"></el-input>
 					</el-form-item>
 					<el-form-item label="商品品牌">
-					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="商品品牌">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 180px;" v-model="formInline.abshopbrandid" placeholder="商品品牌">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="适用车型">
-					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="适用车型"></el-input>
+					  <el-input  style="width: 180px;" v-model="formInline.abarctic" placeholder="适用车型"></el-input>
 					</el-form-item>
 					<el-form-item label="数量单位">
-					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="数量单位">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 180px;" v-model="formInline.abuoq" placeholder="数量单位">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="商品大类">
-					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="商品大类">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 180px;" v-model="formInline.abshoplid" placeholder="商品大类">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="收入分类">
-					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="收入分类">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 120px;" v-model="formInline.abincome" placeholder="收入分类">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="原厂副厂">
-					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="原厂副厂">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 120px;" v-model="formInline.abOriginal" placeholder="原厂副厂">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="商品等级">
-					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="商品等级">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 120px;" v-model="formInline.abshopgrade" placeholder="商品等级">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="商品产地">
-					  <el-select  style="width: 120px;" v-model="formInline.region" placeholder="商品产地">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 120px;" v-model="formInline.abshoparea" placeholder="商品产地">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="厂商名称">
-					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="厂商名称">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 180px;" v-model="formInline.abtradename" placeholder="厂商名称">
+					    <el-option label="区域一" value="1"></el-option>
+					    <el-option label="区域二" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="原厂编码">
-					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="原厂编码"></el-input>
+					  <el-input  style="width: 180px;" v-model="formInline.abofcode" placeholder="原厂编码"></el-input>
 					</el-form-item>
 					<el-form-item label="条形码">
-					  <el-input  style="width: 180px;" v-model="formInline.user" placeholder="条形码"></el-input>
+					  <el-input  style="width: 180px;" v-model="formInline.abbarcode" placeholder="条形码"></el-input>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="包装规格">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="包装规格"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.absize" placeholder="包装规格"></el-input>
 					</el-form-item>
 					<el-form-item label="体积A">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="体积A"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.abbulk" placeholder="体积A"></el-input>
 					</el-form-item>
 					<el-form-item label="毛重">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="毛重"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.abroughweight" placeholder="毛重"></el-input>
 					</el-form-item>
 					<el-form-item label="净重">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="净重"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.absuttle" placeholder="净重"></el-input>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="进货价">
-					  <el-input v-model="formInline.user" placeholder="进货价"></el-input>
+					  <el-input placeholder="进货价"></el-input>
 					</el-form-item>
 					<el-form-item label="售价表">
-					  <el-select  style="width: 180px;" v-model="formInline.region" placeholder="售价表">
+					  <el-select  style="width: 180px;" v-model="formInline.abaccording" placeholder="售价表">
 					    <el-option label="售价表" value="1"></el-option>
 					    <el-option label="加价率" value="2"></el-option>
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="加价率">
-					  <el-input style="width: 120px;" v-model="formInline.user" placeholder="加价率"></el-input>
+					  <el-input style="width: 120px;" v-model="formInline.abpercentage" placeholder="加价率"></el-input>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="互换码">
-					  <el-input style="width: 770px;" v-model="formInline.user" placeholder="互换码"></el-input>
+					  <el-input style="width: 770px;" v-model="formInline.abpcode" placeholder="互换码"></el-input>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="标准价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="标准价"></el-input>
+					  <el-input  style="width: 120px;" placeholder="标准价"></el-input>
 					</el-form-item>
 					<el-form-item label="会员价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="会员价"></el-input>
+					  <el-input  style="width: 120px;" placeholder="会员价"></el-input>
 					</el-form-item>
 					<el-form-item label="VIP价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="VIP价"></el-input>
+					  <el-input  style="width: 120px;" placeholder="VIP价"></el-input>
 					</el-form-item>
 					<el-form-item label="协议价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="协议价"></el-input>
+					  <el-input  style="width: 120px;" placeholder="协议价"></el-input>
 					</el-form-item>
 					<el-form-item label="索赔价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="索赔价"></el-input>
+					  <el-input  style="width: 120px;" placeholder="索赔价"></el-input>
 					</el-form-item>
 					<el-form-item label="保险价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="保险价"></el-input>
+					  <el-input  style="width: 120px;" placeholder="保险价"></el-input>
 					</el-form-item>
 				</el-row>
 			  </el-form>
@@ -259,8 +380,25 @@
 				      }
 				    },
 				methods: {
+					//保存商品信息
 					onSubmit() {
-					        console.log('submit!');
+					    console.log(this.formInline);
+					    var that = this;
+					    $.ajax({
+					    	url:"http://localhost:8888/goods",
+					    	data:that.formInline,
+					    	method:"post",
+					    	success:function(result){
+					    		console.log(result);
+					    		if(result=="00000"){
+					    			alert("保存成功！");
+					    		}else{
+					    			alert("保存失败");
+					    		}
+					    		that.getPage(that.pageNum);
+					    		this.dialogFormVisible = false;
+					    	}
+					    });
 					},
 					filterNode(value, data) {
 						if (!value) return true;
@@ -268,15 +406,96 @@
 					},
 					handleCurrentChange(val) {
 						this.currentRow = val;
+					},
+					fyhandleCurrentChange(val) {
+						this.pageNum = val;
+						this.getPage(val);
+					},
+					//查找方法
+					find(){
+						console.log(this.input);
+						this.goods.abshopname = this.input;
+						this.getPage(1);
+					},
+					//加载商品资料信息
+					getPage(pageNum){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/goods/"+pageNum+"/8",
+							data:that.goods,
+							success:function(result){
+								that.page = result;
+							}
+						});
+					},
+					//删除商品资料信息
+					removeGoods(){
+						if(this.currentRow == null){
+							alert("请选择商品");
+							return;
+						}
+						var that = this;
+						var id = this.currentRow.abid;
+						console.log(id);
+						$.ajax({
+							url:"http://localhost:8888/goods/"+id,
+							method:"post",
+							success:function(result){
+								if(result=="00001"){
+									alert("删除失败！");
+								}else{
+									alert("删除成功！");
+								}
+								that.getPage(that.pageNum);
+							}
+						});
+					},
+					//打开新增模态框
+					toCreate(){
+						this.formInline={abid:0};
+						this.dialogFormVisible = true;
+					},
+					//打开修改模态框
+					toUpdate(){
+						if(this.currentRow == null){
+							alert("请选择商品");
+							return;
+						}
+						this.dialogFormVisible = true;
+						this.formInline = this.currentRow;
 					}
 				},
 				data() {
 				    return {
+						pageNum:0,
+						page:{},
+						goods:{},
 						checked: false,
 						labelPosition:'right',
-						 formInline: {
-						          user: '',
-						          region: ''
+						formInline: {
+							abaccording: "",
+							abarctic: "",
+							abbarcode: "",
+							abbulk: "",
+							abcode: "",
+							abid: 0,
+							abimagename: "",
+							abincome: "",
+							abofcode: "",
+							aboriginal: "",
+							abpcode: "",
+							abpercentage: "",
+							abregisterstores: "",
+							abroughweight: "",
+							abshoparea: "",
+							abshopbrandid: "",
+							abshopgrade: "",
+							abshoplid: "",
+							abshopname: "",
+							absize: "",
+							absuttle: "",
+							abtradename: "",
+							abuoq: ""
 						},
 						dialogFormVisible: false,
 						formLabelWidth: '120px',
@@ -321,26 +540,13 @@
 						  children: 'children',
 						  label: 'label'
 						},
-						tableData: [{
-							  date: '2016-05-02',
-							  name: '王小虎',
-							  address: '上海市普陀区金沙江路 1518 弄'
-							}, {
-							  date: '2016-05-04',
-							  name: '王小虎',
-							  address: '上海市普陀区金沙江路 1517 弄'
-							}, {
-							  date: '2016-05-01',
-							  name: '王小虎',
-							  address: '上海市普陀区金沙江路 1519 弄'
-							}, {
-							  date: '2016-05-03',
-							  name: '王小虎',
-							  address: '上海市普陀区金沙江路 1516 弄'
-						}],
+						tableData: [],
 						currentRow: null
-				}
+					}
 				},
+				created(){
+					this.getPage(1);
+				}
 			});
 		</script>
 	</body>
