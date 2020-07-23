@@ -6,6 +6,15 @@
     <result column="qname" property="qname" jdbcType="VARCHAR" />
     <result column="qparentid" property="qparentid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap extends="BaseResultMap" id="BaseResultMapExtends" type="com.accp.domain.Section">
+  	 <collection property="children" column="qid" ofType="com.accp.domain.Section" javaType="java.util.ArrayList" select="find"></collection>
+  </resultMap>
+  
+  <select id="find" resultMap="BaseResultMapExtends">
+  	select * from section where qparentid = #{parentid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -2,12 +2,14 @@ package com.accp.domain;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class Staff {
     private Integer pid;
 
     private String pjobid;
+    
+    private Section section;
+    
+    private Gpost gpost;
 
     private String pname;
 
@@ -15,7 +17,9 @@ public class Staff {
 
     private String psex;
 
-    private String pjobname;
+    private Integer pgjobid;
+    
+    private String pgname;
 
     private String pbodystatus;
 
@@ -48,23 +52,17 @@ public class Staff {
     private String pphone;
 
     private String pthisaddress;
-    
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+
     private Date ptrialdate;
-    
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+
     private Date pentrydate;
-    
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+
     private Date pbirthdate;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date pbegindate;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date poverdate;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date pbirthday;
 
     private Integer page;
@@ -111,12 +109,12 @@ public class Staff {
         this.psex = psex;
     }
 
-    public String getPjobname() {
-        return pjobname;
+    public Integer getPgjobid() {
+        return pgjobid;
     }
 
-    public void setPjobname(String pjobname) {
-        this.pjobname = pjobname;
+    public void setPgjobid(Integer pgjobid) {
+        this.pgjobid = pgjobid;
     }
 
     public String getPbodystatus() {
@@ -310,4 +308,28 @@ public class Staff {
     public void setPuid(Integer puid) {
         this.puid = puid;
     }
+
+	public String getPgname() {
+		return pgname;
+	}
+
+	public void setPgname(String pgname) {
+		this.pgname = pgname;
+	}
+
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
+
+	public Gpost getGpost() {
+		return gpost;
+	}
+
+	public void setGpost(Gpost gpost) {
+		this.gpost = gpost;
+	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SectionMapper {
+	List<Section> find(Integer parentid);
+	
     int countByExample(SectionExample example);
 
     int deleteByExample(SectionExample example);

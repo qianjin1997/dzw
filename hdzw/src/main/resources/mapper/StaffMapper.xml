@@ -7,7 +7,7 @@
     <result column="pname" property="pname" jdbcType="VARCHAR" />
     <result column="psectionid" property="psectionid" jdbcType="INTEGER" />
     <result column="psex" property="psex" jdbcType="VARCHAR" />
-    <result column="pjobname" property="pjobname" jdbcType="VARCHAR" />
+    <result column="pgjobid" property="pgjobid" jdbcType="INTEGER" />
     <result column="pbodystatus" property="pbodystatus" jdbcType="VARCHAR" />
     <result column="pheight" property="pheight" jdbcType="VARCHAR" />
     <result column="pOrigo" property="porigo" jdbcType="VARCHAR" />
@@ -92,7 +92,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    pid, pjobid, pname, psectionid, psex, pjobname, pbodystatus, pheight, pOrigo, pethnic, 
+    pid, pjobid, pname, psectionid, psex, pgjobid, pbodystatus, pheight, pOrigo, pethnic, 
     pmaritalstatus, peducation, pSchoolTag, pprofession, pqualification, pdegree, pstaffing, 
     pidnumber, paccountadd, ppostcode, pphone, pthisaddress, ptrialdate, pentrydate, 
     pbirthdate, pbegindate, poverdate, pbirthday, page, puid
@@ -129,7 +129,7 @@
   </delete>
   <insert id="insert" parameterType="com.accp.domain.Staff" >
     insert into staff (pid, pjobid, pname, 
-      psectionid, psex, pjobname, 
+      psectionid, psex, pgjobid, 
       pbodystatus, pheight, pOrigo, 
       pethnic, pmaritalstatus, peducation, 
       pSchoolTag, pprofession, pqualification, 
@@ -139,7 +139,7 @@
       pbirthdate, pbegindate, poverdate, 
       pbirthday, page, puid)
     values (#{pid,jdbcType=INTEGER}, #{pjobid,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, 
-      #{psectionid,jdbcType=INTEGER}, #{psex,jdbcType=VARCHAR}, #{pjobname,jdbcType=VARCHAR}, 
+      #{psectionid,jdbcType=INTEGER}, #{psex,jdbcType=VARCHAR}, #{pgjobid,jdbcType=INTEGER}, 
       #{pbodystatus,jdbcType=VARCHAR}, #{pheight,jdbcType=VARCHAR}, #{porigo,jdbcType=VARCHAR}, 
       #{pethnic,jdbcType=VARCHAR}, #{pmaritalstatus,jdbcType=VARCHAR}, #{peducation,jdbcType=VARCHAR}, 
       #{pschooltag,jdbcType=VARCHAR}, #{pprofession,jdbcType=VARCHAR}, #{pqualification,jdbcType=VARCHAR}, 
@@ -167,8 +167,8 @@
       <if test="psex != null" >
         psex,
       </if>
-      <if test="pjobname != null" >
-        pjobname,
+      <if test="pgjobid != null" >
+        pgjobid,
       </if>
       <if test="pbodystatus != null" >
         pbodystatus,
@@ -259,8 +259,8 @@
       <if test="psex != null" >
         #{psex,jdbcType=VARCHAR},
       </if>
-      <if test="pjobname != null" >
-        #{pjobname,jdbcType=VARCHAR},
+      <if test="pgjobid != null" >
+        #{pgjobid,jdbcType=INTEGER},
       </if>
       <if test="pbodystatus != null" >
         #{pbodystatus,jdbcType=VARCHAR},
@@ -360,8 +360,8 @@
       <if test="record.psex != null" >
         psex = #{record.psex,jdbcType=VARCHAR},
       </if>
-      <if test="record.pjobname != null" >
-        pjobname = #{record.pjobname,jdbcType=VARCHAR},
+      <if test="record.pgjobid != null" >
+        pgjobid = #{record.pgjobid,jdbcType=INTEGER},
       </if>
       <if test="record.pbodystatus != null" >
         pbodystatus = #{record.pbodystatus,jdbcType=VARCHAR},
@@ -447,7 +447,7 @@
       pname = #{record.pname,jdbcType=VARCHAR},
       psectionid = #{record.psectionid,jdbcType=INTEGER},
       psex = #{record.psex,jdbcType=VARCHAR},
-      pjobname = #{record.pjobname,jdbcType=VARCHAR},
+      pgjobid = #{record.pgjobid,jdbcType=INTEGER},
       pbodystatus = #{record.pbodystatus,jdbcType=VARCHAR},
       pheight = #{record.pheight,jdbcType=VARCHAR},
       pOrigo = #{record.porigo,jdbcType=VARCHAR},
@@ -491,8 +491,8 @@
       <if test="psex != null" >
         psex = #{psex,jdbcType=VARCHAR},
       </if>
-      <if test="pjobname != null" >
-        pjobname = #{pjobname,jdbcType=VARCHAR},
+      <if test="pgjobid != null" >
+        pgjobid = #{pgjobid,jdbcType=INTEGER},
       </if>
       <if test="pbodystatus != null" >
         pbodystatus = #{pbodystatus,jdbcType=VARCHAR},
@@ -575,7 +575,7 @@
       pname = #{pname,jdbcType=VARCHAR},
       psectionid = #{psectionid,jdbcType=INTEGER},
       psex = #{psex,jdbcType=VARCHAR},
-      pjobname = #{pjobname,jdbcType=VARCHAR},
+      pgjobid = #{pgjobid,jdbcType=INTEGER},
       pbodystatus = #{pbodystatus,jdbcType=VARCHAR},
       pheight = #{pheight,jdbcType=VARCHAR},
       pOrigo = #{porigo,jdbcType=VARCHAR},
