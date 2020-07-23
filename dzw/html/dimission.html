@@ -181,7 +181,7 @@
 									<p>
 										<span style="color: #29BECE; font-size: 16px;">员工姓名</span>
 										<select v-model="pname" style="margin-top: 5px;margin-left:5px;width: 300px; display: inline-block; " class="form-control">
-											  <option v-for="item in staffs">{{item.pname}}</option>
+											  <option  v-for="item in staffs">{{item.pname}}</option>
 										</select>
 										<span style="margin-left: 5px;color: #29BECE; font-size: 16px;">离职日期</span>
 										<input v-model="zstaff.amldate" id="lzdate" style="margin-top: 5px;margin-left:5px;width: 150px; display: inline-block; " class="form-control" type="date">
@@ -234,7 +234,7 @@
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-trash"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">删除</a>
+						<a @click="del()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">删除</a>
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-globe"></span>
@@ -263,7 +263,7 @@
 					<td style=" font-size: 16px; width: 250px;">{{item.amyid}}</td>
 					<td style=" font-size: 16px; width: 250px;">{{item.staff.pname}}</td>
 					<td style=" font-size: 16px; width: 250px;">{{item.staff.psex}}</td>
-					<td style=" font-size: 16px; width: 250px;">{{item.staff.pjobname}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.staff.pgname}}</td>
 					<td style=" font-size: 16px; width: 250px;">{{item.amldate}}</td>
 					<td style=" font-size: 16px; width: 250px;">{{item.amcause}}</td>
 				</tr>
@@ -280,7 +280,7 @@
 				</nav>
 			</div>
 		</div>
-		<span style="font-size: 16px; color: #6B696B;">合计:{{list.pages}}条记录</span>
+		<span style="font-size: 16px; color: #6B696B;">合计:{{count}}条记录</span>
 	</div>
 	
 	<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -293,6 +293,7 @@
 				el:".tit",
 				data(){
 					return {
+						count:0, //总记录数
 						list:{},
 						jihe:{
 							staff:{},
@@ -304,23 +305,66 @@
 						dimssions:[], //离职表所有数据
 						staffs:[], //除离职员工数据
 						pname:""  //离职员工姓名
-						
-						
 					};
 				},
 				methods:{
+					del(){
+						var that = this;
+						console.log(that.jihe.amyid)
+						this.$confirm('是否将员工所有信息删除?', '提示', {
+						          confirmButtonText: '确定',
+						          cancelButtonText: '取消',
+						          type: 'warning'
+						        }).then(() => {
+									$.ajax({
+										url:"http://127.0.0.1:8888/dimission/delall?id="+that.jihe.amyid,
+										type:"get",
+										dataType:"text",
+										success:function(result){
+											if(result=="000"){
+												alert("删除成功");
+												that.findall();
+												that.jihe={
+													staff:{},
+													section:{},
+													amyid:0
+												}
+												that.findbypage(1);
+											}
+											else{
+												alert("删除失败")
+											}
+										}
+									})
+						        }).catch(() => {
+						          this.$message({
+						            type: 'info',
+						            message: '已取消删除'
+						          });          
+						        });
+					},
+					//点击确认离职按钮触发事件
 					oklizhi(){
+						
 						var that = this
-						//var dis = JSON.stringify(that.zstaff);
-						//console.log(dis)
+						var dis = JSON.stringify(that.zstaff);
 						$.ajax({
 							url:"http://127.0.0.1:8888/dimission/disadd/"+that.pname,
-							//data:"post",
-							data:that.zstaff,
-							//contentType:"application/json;charset=utf-8",
+							type:"post",
+							data:dis,
+							dataType:"text",
+							contentType:"application/json;charset=utf-8",
 							success:function(result){
-							//	console.log(result)
-								that.dimssions =result;
+								if(result=="000"){
+									alert("成功离职");
+									that.findbypage(1);
+									that.staffs = {};
+									that.findall();
+									$('#two').modal('hide');
+								}
+								else{
+									alert("离职失败");
+								}
 							}	
 						})
 					},
@@ -350,13 +394,18 @@
 							success:function(result){
 								for(var i=0;i<result.length;i++){
 									for(var j=0;j<that.dimssions.length;j++){
-										if(result[i].pid==that.dimssions[j].amid){
+										if(result[i].pid==that.dimssions[j].amyid){
+										//	alert(that.dimssions[that.dimssions.length-1].amid)
 											result.splice(i,1);
 										}
 									}
 								}
 								console.log(result)
 								that.staffs =result;
+								//console.log(that.staffs)
+								if(that.staffs.length>0){
+									that.pname = that.staffs[0].pname;
+								}
 							}	
 						})
 						var time = new Date();
@@ -374,7 +423,8 @@
 							url:"http://127.0.0.1:8888/dimission/findall",
 							type:"get",
 							success:function(result){
-							//	console.log(result)
+								console.log(result)
+								that.count = result.length;
 								that.dimssions =result;
 							}	
 						})
@@ -418,7 +468,14 @@
 										dataType:"text",
 										success:function(result){
 											if(result=="000"){
-												alert("回滚成功")
+												alert("回滚成功");
+												//that.staffs={}
+												that.findall();
+												that.jihe={
+													staff:{},
+													section:{},
+													amyid:0
+												}
 												that.findbypage(1);
 											}
 											else{
@@ -437,7 +494,7 @@
 					bian(item){
 						var that = this;
 						that.jihe = item;
-						console.log(that.jihe.staff.pname);
+						alert(that.jihe.staff.pid);
 					}
 				},
 				created(){
