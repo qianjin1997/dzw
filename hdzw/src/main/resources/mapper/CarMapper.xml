@@ -27,7 +27,18 @@
     <result column="hmileagedate" property="hmileagedate" jdbcType="DATE" />
     <result column="huid" property="huid" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Car" id="BaseResultMapExtends"><!--  -->
+  	<association property="carbrand" column="hbrandid" javaType="com.accp.domain.Carbrand" select="com.accp.dao.CarbrandMapper.findByid"></association><!--车辆品牌  -->
+  	<association property="customer" column="huid" javaType="com.accp.domain.Customer" select="com.accp.dao.CustomerMapper.findByid"></association><!-- 客户 -->
+  	<association property="driver" column="hdriverid" javaType="com.accp.domain.Driver" select="com.accp.dao.DriverMapper.findByid"></association><!--驾驶员  -->
+  	<association property="cartype" column="htypeid" javaType="com.accp.domain.Cartype" select="com.accp.dao.CartypeMapper.findByid"></association><!--车辆型号  -->
+  	<association property="fuel" column="hfueltype" javaType="com.accp.domain.Fuel" select="com.accp.dao.FuelMapper.findByid"></association><!--燃油型号  -->
+  	
   
+  </resultMap>
+  <select id="findAll" resultMap="BaseResultMapExtends" >
+  	select * from car
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
