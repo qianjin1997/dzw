@@ -6,6 +6,19 @@
     <result column="ibrandname" property="ibrandname" jdbcType="VARCHAR" />
     <result column="iinitial" property="iinitial" jdbcType="VARCHAR" />
   </resultMap>
+  
+  	<!-- <select id="findCarBrand" resultMap="BaseResultMapExtends">
+  			SELECT *FROM `carbrand`
+  			<if test="iid != null" >
+        		where iid=#{iid}
+      		</if>
+      		<if test="ibrandname != null" >
+        		where ibrandname=#{ibrandname}
+      		</if>
+      		<if test="ibrandname != null" >
+        		where iinitial=#{iinitial}
+      		</if>
+  	</select> -->
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
