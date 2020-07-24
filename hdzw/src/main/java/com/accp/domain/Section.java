@@ -8,6 +8,8 @@ public class Section {
     private String qname;
 
     private Integer qparentid;
+
+    private Integer qjudge;
     
     private List<Section> children;
     
@@ -35,6 +37,14 @@ public class Section {
 
     public void setQparentid(Integer qparentid) {
         this.qparentid = qparentid;
+    }
+
+    public Integer getQjudge() {
+        return qjudge;
+    }
+
+    public void setQjudge(Integer qjudge) {
+        this.qjudge = qjudge;
     }
 
 	public List<Section> getChildren() {
