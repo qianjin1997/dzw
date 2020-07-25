@@ -1,5 +1,7 @@
 package com.accp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,17 @@ public class RepairService {
 
 	@Autowired
 	private RepairMapper mapper;
+	
+	//查询所有信息
+	public List<Repair> findAll(String repair) {
+		if(repair != "") {
+			RepairExample example = new RepairExample();
+			example.or(example.createCriteria().andWmnameLike("%"+repair+"%"));
+			return mapper.selectByExample(example);
+		} else {
+			return mapper.selectByExample(null);
+		}
+	}
 	
 	//维修项目分页查询
 	public PageInfo<Repair> findByPage(Integer pageNum, Integer pageSize, Repair repair){

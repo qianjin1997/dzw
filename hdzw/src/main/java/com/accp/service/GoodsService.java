@@ -1,5 +1,7 @@
 package com.accp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,19 @@ public class GoodsService {
 	
 	@Autowired
 	GoodsMapper mapper;
+	
+	//查询所有信息
+	public List<Goods> findAll(String goods) {
+		if(goods != "") {
+			GoodsExample example = new GoodsExample();
+			example.or(example.createCriteria().andAbcodeLike("%"+goods+"%"));
+			example.or(example.createCriteria().andAbshopnameLike("%"+goods+"%"));
+			
+			return mapper.selectByExample(example);
+		} else {
+			return mapper.selectByExample(null);
+		}
+	}
 	
 	//商品资料的分页查询
 	public PageInfo<Goods> findByPage(Integer pageNum, Integer pageSize, Goods goods){

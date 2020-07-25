@@ -5,7 +5,7 @@ import java.util.Date;
 public class Checkout {
     private Integer alid;
 
-    private String alcarid;
+    private Integer alcarid;
 
     private String alcarownername;
 
@@ -59,11 +59,11 @@ public class Checkout {
         this.alid = alid;
     }
 
-    public String getAlcarid() {
+    public Integer getAlcarid() {
         return alcarid;
     }
 
-    public void setAlcarid(String alcarid) {
+    public void setAlcarid(Integer alcarid) {
         this.alcarid = alcarid;
     }
 

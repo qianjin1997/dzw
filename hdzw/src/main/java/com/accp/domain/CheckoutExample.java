@@ -202,62 +202,52 @@ public class CheckoutExample {
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridEqualTo(String value) {
+        public Criteria andAlcaridEqualTo(Integer value) {
             addCriterion("alcarid =", value, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridNotEqualTo(String value) {
+        public Criteria andAlcaridNotEqualTo(Integer value) {
             addCriterion("alcarid <>", value, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridGreaterThan(String value) {
+        public Criteria andAlcaridGreaterThan(Integer value) {
             addCriterion("alcarid >", value, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridGreaterThanOrEqualTo(String value) {
+        public Criteria andAlcaridGreaterThanOrEqualTo(Integer value) {
             addCriterion("alcarid >=", value, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridLessThan(String value) {
+        public Criteria andAlcaridLessThan(Integer value) {
             addCriterion("alcarid <", value, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridLessThanOrEqualTo(String value) {
+        public Criteria andAlcaridLessThanOrEqualTo(Integer value) {
             addCriterion("alcarid <=", value, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridLike(String value) {
-            addCriterion("alcarid like", value, "alcarid");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlcaridNotLike(String value) {
-            addCriterion("alcarid not like", value, "alcarid");
-            return (Criteria) this;
-        }
-
-        public Criteria andAlcaridIn(List<String> values) {
+        public Criteria andAlcaridIn(List<Integer> values) {
             addCriterion("alcarid in", values, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridNotIn(List<String> values) {
+        public Criteria andAlcaridNotIn(List<Integer> values) {
             addCriterion("alcarid not in", values, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridBetween(String value1, String value2) {
+        public Criteria andAlcaridBetween(Integer value1, Integer value2) {
             addCriterion("alcarid between", value1, value2, "alcarid");
             return (Criteria) this;
         }
 
-        public Criteria andAlcaridNotBetween(String value1, String value2) {
+        public Criteria andAlcaridNotBetween(Integer value1, Integer value2) {
             addCriterion("alcarid not between", value1, value2, "alcarid");
             return (Criteria) this;
         }

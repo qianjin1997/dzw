@@ -3,7 +3,7 @@
 <mapper namespace="com.accp.dao.CheckoutMapper" >
   <resultMap id="BaseResultMap" type="com.accp.domain.Checkout" >
     <id column="alid" property="alid" jdbcType="INTEGER" />
-    <result column="alcarid" property="alcarid" jdbcType="VARCHAR" />
+    <result column="alcarid" property="alcarid" jdbcType="INTEGER" />
     <result column="alcarownername" property="alcarownername" jdbcType="VARCHAR" />
     <result column="albusinessid" property="albusinessid" jdbcType="INTEGER" />
     <result column="alclearingform" property="alclearingform" jdbcType="VARCHAR" />
@@ -131,7 +131,7 @@
       alstaffid, aldispatchdate, alrange, 
       alcompletedate, alstatement, aliscomplete
       )
-    values (#{alid,jdbcType=INTEGER}, #{alcarid,jdbcType=VARCHAR}, #{alcarownername,jdbcType=VARCHAR}, 
+    values (#{alid,jdbcType=INTEGER}, #{alcarid,jdbcType=INTEGER}, #{alcarownername,jdbcType=VARCHAR}, 
       #{albusinessid,jdbcType=INTEGER}, #{alclearingform,jdbcType=VARCHAR}, #{aldepartdate,jdbcType=DATE}, 
       #{alroadworkdate,jdbcType=DATE}, #{alestimatemoney,jdbcType=REAL}, #{aldriveid,jdbcType=INTEGER}, 
       #{aldivisions,jdbcType=VARCHAR}, #{alpkcompany,jdbcType=VARCHAR}, #{aldepartaddress,jdbcType=VARCHAR}, 
@@ -222,7 +222,7 @@
         #{alid,jdbcType=INTEGER},
       </if>
       <if test="alcarid != null" >
-        #{alcarid,jdbcType=VARCHAR},
+        #{alcarid,jdbcType=INTEGER},
       </if>
       <if test="alcarownername != null" >
         #{alcarownername,jdbcType=VARCHAR},
@@ -305,7 +305,7 @@
         alid = #{record.alid,jdbcType=INTEGER},
       </if>
       <if test="record.alcarid != null" >
-        alcarid = #{record.alcarid,jdbcType=VARCHAR},
+        alcarid = #{record.alcarid,jdbcType=INTEGER},
       </if>
       <if test="record.alcarownername != null" >
         alcarownername = #{record.alcarownername,jdbcType=VARCHAR},
@@ -381,7 +381,7 @@
   <update id="updateByExample" parameterType="map" >
     update checkout
     set alid = #{record.alid,jdbcType=INTEGER},
-      alcarid = #{record.alcarid,jdbcType=VARCHAR},
+      alcarid = #{record.alcarid,jdbcType=INTEGER},
       alcarownername = #{record.alcarownername,jdbcType=VARCHAR},
       albusinessid = #{record.albusinessid,jdbcType=INTEGER},
       alclearingform = #{record.alclearingform,jdbcType=VARCHAR},
@@ -412,7 +412,7 @@
     update checkout
     <set >
       <if test="alcarid != null" >
-        alcarid = #{alcarid,jdbcType=VARCHAR},
+        alcarid = #{alcarid,jdbcType=INTEGER},
       </if>
       <if test="alcarownername != null" >
         alcarownername = #{alcarownername,jdbcType=VARCHAR},
@@ -485,7 +485,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.accp.domain.Checkout" >
     update checkout
-    set alcarid = #{alcarid,jdbcType=VARCHAR},
+    set alcarid = #{alcarid,jdbcType=INTEGER},
       alcarownername = #{alcarownername,jdbcType=VARCHAR},
       albusinessid = #{albusinessid,jdbcType=INTEGER},
       alclearingform = #{alclearingform,jdbcType=VARCHAR},
