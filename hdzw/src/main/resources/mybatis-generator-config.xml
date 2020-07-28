@@ -20,7 +20,7 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.accp.dao"
 			targetProject="src/main/java" type="XMLMAPPER" />
-		<table catalog="dzw" schema="root"  tableName="section">
+		<table catalog="dzw" schema="root"  tableName="gpost">
 			<property name="ignoreQualifiersAtRuntime" value="true"/>
 		</table>
 	</context>
