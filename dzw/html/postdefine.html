@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>岗位定义</title>
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../elementui/index.css">
 		<style>
 			*{
 				margin: 0;
@@ -12,7 +13,7 @@
 		</style>
 	</head>
 	<body>
-		<div >
+		<div class="tit">
 			<div style="background-color: #F7FFFF;border: 1px solid #E7E7E7;">
 				<h3 style="margin:15px; color: #737173; line-height: 15px;">岗位定义</h3>
 			</div>
@@ -20,15 +21,15 @@
 				<div style=" height: 30px;line-height: 30px; text-align: right;">
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-folder-close"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">增加</a>
+						<a @click="gpostadd()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">增加</a>
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-magnet"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">删除</a>
+						<a @click="del()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">删除</a>
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-thumbs-up"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">保存</a>
+						<a @click="update()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">保存</a>
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-thumbs-down"></span>
@@ -36,19 +37,253 @@
 					</span>
 				</div>
 				<span style="color: #73D7DE; margin-left: 20px; font-size: 16px;">岗位编码</span>
-				<input style="width: 150px; display: inline-block; margin:35px 50px 0px 20px" class="form-control" type="text">
+				<input class="apno" ref="apno" :value="gpost.apno" style="width: 150px; display: inline-block; margin:35px 50px 0px 20px" class="form-control" type="text">
 				<span style="color: #73D7DE; font-size: 16px;">岗位名称</span>
-				<input style="width: 250px; display: inline-block; margin:35px 50px 0px 20px" class="form-control" type="text">
+				<input class="apgname" ref="apgname" :value="gpost.apgname" style="width: 250px; display: inline-block; margin:35px 50px 0px 20px" class="form-control" type="text">
+				<input v-model="gpost.id" type="hidden">
 			</div>
 			<table style="width: 400px;"  class="table table-bordered">
-				<tr style="background-color: #39CFDE; ">
+				<tr style="background-color: #39CFDE;">
 					<td> </td>
 					<td style="color: #FFFFFF; font-size: 16px;">岗位编码</td>
 					<td style="color: #FFFFFF; font-size: 16px; width: 250px;">岗位名称</td>
 				</tr>
+				<tr class="bcolor" ref="bcolor" @click="bian(item,index)" style="text-align: center;background-color: #FFFFFF;" v-for="(item,index) in list">
+					<td style="background-color: #D6D7CE;"> </td>
+					<td style="font-size: 16px;">{{item.apno}}</td>
+					<td style="font-size: 16px; width: 250px;">{{item.apgname}}</td>
+				</tr>
 			</table>
-			
+			<span style="font-size: 16px; color: #6B696B;">合计:{{count}}条记录</span>
 		</div>
-		<span style="font-size: 16px; color: #6B696B;">合计:5条记录</span>
+		
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			var vm = new Vue({
+					el:".tit",
+					data(){
+						return {
+							count:0, //总记录数
+							list:[],
+							gpost:{},
+							tgpost:{},
+							staffs:[]
+						};
+					},
+					methods:{
+						findstaff(){
+							var that =this;
+							$.ajax({
+								url:"http://127.0.0.1:8888/staff/find",
+								type:"get",
+								success:function(result){
+									that.staffs = result;
+								}	
+							})
+						},
+						update(){
+							var that = this;
+							//alert(gposts)
+							if(that.gpost.id==undefined){
+								that.$message('请先选择一条数据进行修改');
+							}
+							else{
+								this.$confirm('是否修改该岗位的内容', '提示', {
+								          confirmButtonText: '确定',
+								          cancelButtonText: '取消',
+								          type: 'warning'
+								}).then(() => {
+									that.tgpost.apno = that.$refs.apno.value;
+									that.tgpost.apgname = that.$refs.apgname.value;
+									that.tgpost.id=that.gpost.id;
+									var gposts = JSON.stringify(that.tgpost);
+									$.ajax({
+										url: "http://127.0.0.1:8888/gpost/update",
+										type: "post",
+										data:gposts,
+										dataType: "text",
+										contentType:"application/json;charset=utf-8",
+										success: function(result) {
+											if(result=="000"){
+												that.$message('修改成功');
+												that.gpost={};
+												for(var o =0; o<that.$refs.bcolor.length;o++){
+													that.$refs.bcolor[o].style.backgroundColor="rgb(255, 255, 255)";
+												}
+												that.findpost("第一次查询");
+											}
+											else{
+												that.$message('修改失败');
+											}
+										}
+									})
+									}).catch(() => {
+									  this.$message({
+									    type: 'info',
+									    message: '已取消修改'
+									  });          
+									});
+								}
+						},
+						del(){
+							var that = this;
+							var bool = true;
+							for(var u=0;u<that.staffs.length;u++){
+								if(that.staffs[u].pgjobid==that.gpost.id){
+									that.$message('该岗位有员工任职不能直接删除');
+									bool=false;
+									return;
+								}
+							}
+							if(bool){
+								if(that.gpost.id==undefined){
+									that.$message('请先选择一条数据');
+								}
+								else{
+									this.$confirm('是否将该岗位删除吗?', '提示', {
+									          confirmButtonText: '确定',
+									          cancelButtonText: '取消',
+									          type: 'warning'
+									}).then(() => {
+										$.ajax({
+											url: "http://127.0.0.1:8888/gpost/del?id="+that.gpost.id,
+											type: "get",
+											dataType: "text",
+											success: function(result) {
+												if(result=="000"){
+													that.$message('删除成功');
+													that.gpost={};
+													for(var o =0; o<that.$refs.bcolor.length;o++){
+														that.$refs.bcolor[o].style.backgroundColor="rgb(255, 255, 255)";
+													}
+													that.findpost("第一次查询");
+												}
+												else{
+													that.$message('删除失败');
+												}
+											}
+										})
+										}).catch(() => {
+										  this.$message({
+										    type: 'info',
+										    message: '已取消删除'
+										  });          
+										});
+								}
+							}
+							
+						},
+						findpost(choose){
+							var that = this;
+							$.ajax({
+								url: "http://127.0.0.1:8888/gpost/findall",
+								type: "get",
+								dataType: "json",
+								success: function(result) {
+									console.log(result)
+									var hezi = {};
+									if(choose=="第一次查询"){
+										
+										that.list=result;
+									}
+									else{
+										that.list = result;
+										hezi = that.list[that.list.length-1];
+										for(var i=that.list.length-2;i>=0;i--){
+											that.list[i+1] = that.list[i];
+										}
+										that.list[0] = hezi;
+										that.bian(that.list[0],0);
+									}
+									/*var hezi = {};
+									for(var i=0;i<result.length-1;i++){
+										//alert("第一"+no1)
+										for(var j=0;j<result.length-1-i;j++){
+											var no1 = parseInt(result[j].apno);
+											var no2 = parseInt(result[j+1].apno);
+										//	alert("第二"+no2)
+											if(no1>no2){
+												hezi = result[j];
+												result[j] = result[j+1];
+												result[j+1] = hezi;
+											}
+										}
+									}*/
+									that.count = that.list.length;
+								}
+							})
+						},
+						bian(item,index){
+							var that = this;
+							//console.log(that.gpost);
+							for(var s=0;s<that.$refs.bcolor.length;s++){
+								if(s==index){
+									that.$refs.bcolor[s].style.backgroundColor="rgb(187, 255, 255)";
+									for(var o =0; o<that.$refs.bcolor.length;o++){
+										if(that.$refs.bcolor[s]!=that.$refs.bcolor[o]){
+											that.$refs.bcolor[o].style.backgroundColor="rgb(255, 255, 255)";
+										}
+									}
+								}
+							}
+							that.gpost=item;
+						},
+						gpostadd(){
+							var that = this;
+							if(that.gpost.id==undefined){
+								that.$message('请先输入内容后点击添加');
+							}
+							else{
+								var bool=true;
+								for(var t=0;t<that.list.length;t++){
+									if(that.list[t].apno==that.$refs.apno.value&&that.list[t].apgname!=that.$refs.apgname.value){
+										that.$message('岗位编号已存在了请修改添加内容');
+										bool = false;
+									}
+									else if(that.list[t].apgname==that.$refs.apgname.value&&that.list[t].apno!=that.$refs.apno.value){
+										that.$message('岗位名称已存在了请修改添加内容');
+										bool = false;
+									}
+									else if(that.list[t].apno==that.$refs.apno.value&&that.list[t].apgname==that.$refs.apgname.value){
+										that.$message('岗位编号和名称都已存在了请修改添加内容');
+										bool = false;
+									}
+								}
+								if(bool){
+									that.tgpost.apno = that.$refs.apno.value;
+									that.tgpost.apgname = that.$refs.apgname.value;
+									that.tgpost.id=that.list.length+1;
+									var gposts = JSON.stringify(that.tgpost);
+									$.ajax({
+										url: "http://127.0.0.1:8888/gpost/gpostadd",
+										type: "post",
+										data:gposts,
+										dataType: "text",
+										contentType:"application/json;charset=utf-8",
+										success: function(result) {
+											if(result=="000"){
+												that.$message('添加成功');
+												that.findpost("添加后");
+											}
+											else{
+												that.$message('添加失败');
+											}
+										}
+									})
+								}
+							}
+							
+						}
+					},
+					created(){
+						this.findpost("第一次查询");
+						this.findstaff();
+					}
+				});
+		</script>
 	</body>
 </html>

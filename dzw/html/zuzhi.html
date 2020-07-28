@@ -411,6 +411,12 @@
 					},
 					updatestaff(){
 						var that = this;
+						console.log(that.jihe);
+						for(var i=0;i<that.gpost.length;i++){
+							if(that.gpost[i].apgname==that.jihe.pgname){
+								that.jihe.pgjobid = that.gpost[i].id;
+							}
+						}
 						var staff = JSON.stringify(that.jihe);
 						$.ajax({
 							url: "http://127.0.0.1:8888/staff/updatestaff",
@@ -470,7 +476,8 @@
 					},
 					bian(item,index){
 						var that = this;
-					//	console.log(that.$refs.bcolor);
+						console.log(that.gpost);
+						
 						for(var s=0;s<that.$refs.bcolor.length;s++){
 							if(s==index){
 								that.$refs.bcolor[s].style.backgroundColor="rgb(187, 255, 255)";
@@ -517,6 +524,7 @@
 									that.addstaffs={
 										section:{}
 									}
+									that.pdata =[];
 									$('#two').modal('hide');
 									that.findall();
 								}
@@ -534,7 +542,7 @@
 								if(that.pdata.qparentid==1||that.pdata.qparentid==0){
 									this.$message('不能直接在部门添加员工噢，必须明确到小组');
 								}
-								else if(that.pdata.length==0){
+								else if(that.pdata.length==0||that.pdata==null){
 									this.$message('请先选择一个小组');
 								}
 								else{
@@ -558,7 +566,7 @@
 						
 					},
 					handleNodeClick(data, node) {
-						console.log(node);
+						console.log(data);
 						var that = this;
 						that.pdata=data;
 						

@@ -12,7 +12,7 @@
 		</style>
 	</head>
 	<body>
-		<div >
+		<div class="tit">
 			<div style="background-color: #F7FFFF;border: 1px solid #E7E7E7;">
 				<h3 style="margin:15px; color: #737173; line-height: 15px;">通讯名录</h3>
 			</div>
@@ -53,19 +53,31 @@
 					<td style=" font-size: 16px; width: 250px;">个人股份</td>
 					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
 				</tr>
-				<tr style="text-align: center;">
-					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">1346908155</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
-				</tr>
 			</table>
-			
+			<span style="font-size: 16px; color: #6B696B;">合计:5条记录</span>
 		</div>
-		<span style="font-size: 16px; color: #6B696B;">合计:5条记录</span>
+		
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script>
+			var vm = new Vue({
+					el:".tit",
+					data(){
+						return {
+							
+						};
+					},
+					methods:{
+						open(){
+							$('#two').modal('show');
+						}
+					},
+					created(){
+						
+					}
+				});
+		</script>
 	</body>
 </html>
