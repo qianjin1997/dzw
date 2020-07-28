@@ -311,37 +311,43 @@
 					del(){
 						var that = this;
 						console.log(that.jihe.amyid)
-						this.$confirm('是否将员工所有信息删除?', '提示', {
-						          confirmButtonText: '确定',
-						          cancelButtonText: '取消',
-						          type: 'warning'
-						        }).then(() => {
-									$.ajax({
-										url:"http://127.0.0.1:8888/dimission/delall?id="+that.jihe.amyid,
-										type:"get",
-										dataType:"text",
-										success:function(result){
-											if(result=="000"){
-												alert("删除成功");
-												that.findall();
-												that.jihe={
-													staff:{},
-													section:{},
-													amyid:0
+						if(that.jihe.amyid==0){
+							that.$message('请先选择一名员工信息');
+						}
+						else{
+							this.$confirm('是否将员工所有信息删除?', '提示', {
+							          confirmButtonText: '确定',
+							          cancelButtonText: '取消',
+							          type: 'warning'
+							        }).then(() => {
+										$.ajax({
+											url:"http://127.0.0.1:8888/dimission/delall?id="+that.jihe.amyid,
+											type:"get",
+											dataType:"text",
+											success:function(result){
+												if(result=="000"){
+													alert("删除成功");
+													that.findall();
+													that.jihe={
+														staff:{},
+														section:{},
+														amyid:0
+													}
+													that.findbypage(1);
 												}
-												that.findbypage(1);
+												else{
+													alert("删除失败")
+												}
 											}
-											else{
-												alert("删除失败")
-											}
-										}
-									})
-						        }).catch(() => {
-						          this.$message({
-						            type: 'info',
-						            message: '已取消删除'
-						          });          
-						        });
+										})
+							        }).catch(() => {
+							          this.$message({
+							            type: 'info',
+							            message: '已取消删除'
+							          });          
+							        });
+						}
+						
 					},
 					//点击确认离职按钮触发事件
 					oklizhi(){
@@ -380,9 +386,7 @@
 					},
 					//当没有选中员工时候触发事件
 					 openn() {
-					        this.$alert('请先选择一位员工', '提示', {
-					          confirmButtonText: '确定',
-					        });
+					        this.$message('请先选择一名员工信息');
 					 },
 					 //点击离职触发事件
 					lizhi(){
