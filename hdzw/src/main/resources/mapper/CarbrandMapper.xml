@@ -6,6 +6,9 @@
     <result column="ibrandname" property="ibrandname" jdbcType="VARCHAR" />
     <result column="iinitial" property="iinitial" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="findByid" resultMap="BaseResultMap">
+		select * from Carbrand where iid=#{hbrandid}  
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

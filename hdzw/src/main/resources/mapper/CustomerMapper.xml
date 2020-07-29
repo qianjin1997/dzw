@@ -31,6 +31,9 @@
     <result column="ereststhree" property="ereststhree" jdbcType="VARCHAR" />
     <result column="erestsfour" property="erestsfour" jdbcType="VARCHAR" />
   </resultMap>
+ <select id="findByid" resultMap="BaseResultMap">
+		select * from customer where eid=#{huid}  
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
