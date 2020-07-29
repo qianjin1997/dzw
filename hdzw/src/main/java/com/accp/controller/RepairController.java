@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.Goods;
+import com.accp.domain.Income;
+import com.accp.domain.Maintainxm;
 import com.accp.domain.Repair;
 import com.accp.service.RepairService;
 import com.github.pagehelper.PageInfo;
@@ -166,5 +168,20 @@ public class RepairController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	//----------------下拉框查询----------------------
+	@GetMapping("/find1")
+	public List<Maintainxm> find1() {
+		return service.find1();
+	}
+	@GetMapping("/find2")
+	public List<Income> find2() {
+		return service.find2();
+	}
+	
+	//左侧菜单
+	@GetMapping("/leftFind")
+	public List<Maintainxm> leftFind() {
+		return service.findALL();
 	}
 }

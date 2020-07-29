@@ -51,6 +51,10 @@ public class Checkout {
 
     private Integer aliscomplete;
 
+    private String alweidan;
+
+    private String aldantype;
+
     public Integer getAlid() {
         return alid;
     }
@@ -241,5 +245,21 @@ public class Checkout {
 
     public void setAliscomplete(Integer aliscomplete) {
         this.aliscomplete = aliscomplete;
+    }
+
+    public String getAlweidan() {
+        return alweidan;
+    }
+
+    public void setAlweidan(String alweidan) {
+        this.alweidan = alweidan;
+    }
+
+    public String getAldantype() {
+        return aldantype;
+    }
+
+    public void setAldantype(String aldantype) {
+        this.aldantype = aldantype;
     }
 }

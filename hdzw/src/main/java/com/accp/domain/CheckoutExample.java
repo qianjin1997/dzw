@@ -1681,6 +1681,146 @@ public class CheckoutExample {
             addCriterion("aliscomplete not between", value1, value2, "aliscomplete");
             return (Criteria) this;
         }
+
+        public Criteria andAlweidanIsNull() {
+            addCriterion("alweidan is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanIsNotNull() {
+            addCriterion("alweidan is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanEqualTo(String value) {
+            addCriterion("alweidan =", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanNotEqualTo(String value) {
+            addCriterion("alweidan <>", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanGreaterThan(String value) {
+            addCriterion("alweidan >", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanGreaterThanOrEqualTo(String value) {
+            addCriterion("alweidan >=", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanLessThan(String value) {
+            addCriterion("alweidan <", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanLessThanOrEqualTo(String value) {
+            addCriterion("alweidan <=", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanLike(String value) {
+            addCriterion("alweidan like", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanNotLike(String value) {
+            addCriterion("alweidan not like", value, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanIn(List<String> values) {
+            addCriterion("alweidan in", values, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanNotIn(List<String> values) {
+            addCriterion("alweidan not in", values, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanBetween(String value1, String value2) {
+            addCriterion("alweidan between", value1, value2, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlweidanNotBetween(String value1, String value2) {
+            addCriterion("alweidan not between", value1, value2, "alweidan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeIsNull() {
+            addCriterion("aldantype is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeIsNotNull() {
+            addCriterion("aldantype is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeEqualTo(String value) {
+            addCriterion("aldantype =", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeNotEqualTo(String value) {
+            addCriterion("aldantype <>", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeGreaterThan(String value) {
+            addCriterion("aldantype >", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeGreaterThanOrEqualTo(String value) {
+            addCriterion("aldantype >=", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeLessThan(String value) {
+            addCriterion("aldantype <", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeLessThanOrEqualTo(String value) {
+            addCriterion("aldantype <=", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeLike(String value) {
+            addCriterion("aldantype like", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeNotLike(String value) {
+            addCriterion("aldantype not like", value, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeIn(List<String> values) {
+            addCriterion("aldantype in", values, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeNotIn(List<String> values) {
+            addCriterion("aldantype not in", values, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeBetween(String value1, String value2) {
+            addCriterion("aldantype between", value1, value2, "aldantype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAldantypeNotBetween(String value1, String value2) {
+            addCriterion("aldantype not between", value1, value2, "aldantype");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

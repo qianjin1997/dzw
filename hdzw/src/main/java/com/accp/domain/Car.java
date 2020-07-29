@@ -51,6 +51,8 @@ public class Car {
 
     private Integer huid;
 
+    private Integer hweiid;
+
     public Integer getHid() {
         return hid;
     }
@@ -241,5 +243,13 @@ public class Car {
 
     public void setHuid(Integer huid) {
         this.huid = huid;
+    }
+
+    public Integer getHweiid() {
+        return hweiid;
+    }
+
+    public void setHweiid(Integer hweiid) {
+        this.hweiid = hweiid;
     }
 }

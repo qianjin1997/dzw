@@ -26,6 +26,8 @@
     <result column="alcompletedate" property="alcompletedate" jdbcType="DATE" />
     <result column="alstatement" property="alstatement" jdbcType="VARCHAR" />
     <result column="aliscomplete" property="aliscomplete" jdbcType="INTEGER" />
+    <result column="alweidan" property="alweidan" jdbcType="VARCHAR" />
+    <result column="aldantype" property="aldantype" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -89,7 +91,7 @@
     alid, alcarid, alcarownername, albusinessid, alclearingform, aldepartdate, alroadworkdate, 
     alestimatemoney, aldriveid, aldivisions, alpkcompany, aldepartaddress, alrescueaddress, 
     alwxremake, alphone, althemileage, aldrivecar, alcrew, alstaffid, aldispatchdate, 
-    alrange, alcompletedate, alstatement, aliscomplete
+    alrange, alcompletedate, alstatement, aliscomplete, alweidan, aldantype
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CheckoutExample" >
     select
@@ -129,8 +131,8 @@
       alrescueaddress, alwxremake, alphone, 
       althemileage, aldrivecar, alcrew, 
       alstaffid, aldispatchdate, alrange, 
-      alcompletedate, alstatement, aliscomplete
-      )
+      alcompletedate, alstatement, aliscomplete, 
+      alweidan, aldantype)
     values (#{alid,jdbcType=INTEGER}, #{alcarid,jdbcType=INTEGER}, #{alcarownername,jdbcType=VARCHAR}, 
       #{albusinessid,jdbcType=INTEGER}, #{alclearingform,jdbcType=VARCHAR}, #{aldepartdate,jdbcType=DATE}, 
       #{alroadworkdate,jdbcType=DATE}, #{alestimatemoney,jdbcType=REAL}, #{aldriveid,jdbcType=INTEGER}, 
@@ -138,8 +140,8 @@
       #{alrescueaddress,jdbcType=VARCHAR}, #{alwxremake,jdbcType=VARCHAR}, #{alphone,jdbcType=VARCHAR}, 
       #{althemileage,jdbcType=INTEGER}, #{aldrivecar,jdbcType=VARCHAR}, #{alcrew,jdbcType=VARCHAR}, 
       #{alstaffid,jdbcType=INTEGER}, #{aldispatchdate,jdbcType=DATE}, #{alrange,jdbcType=INTEGER}, 
-      #{alcompletedate,jdbcType=DATE}, #{alstatement,jdbcType=VARCHAR}, #{aliscomplete,jdbcType=INTEGER}
-      )
+      #{alcompletedate,jdbcType=DATE}, #{alstatement,jdbcType=VARCHAR}, #{aliscomplete,jdbcType=INTEGER}, 
+      #{alweidan,jdbcType=VARCHAR}, #{aldantype,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Checkout" >
     insert into checkout
@@ -216,6 +218,12 @@
       <if test="aliscomplete != null" >
         aliscomplete,
       </if>
+      <if test="alweidan != null" >
+        alweidan,
+      </if>
+      <if test="aldantype != null" >
+        aldantype,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="alid != null" >
@@ -289,6 +297,12 @@
       </if>
       <if test="aliscomplete != null" >
         #{aliscomplete,jdbcType=INTEGER},
+      </if>
+      <if test="alweidan != null" >
+        #{alweidan,jdbcType=VARCHAR},
+      </if>
+      <if test="aldantype != null" >
+        #{aldantype,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -373,6 +387,12 @@
       <if test="record.aliscomplete != null" >
         aliscomplete = #{record.aliscomplete,jdbcType=INTEGER},
       </if>
+      <if test="record.alweidan != null" >
+        alweidan = #{record.alweidan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aldantype != null" >
+        aldantype = #{record.aldantype,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -403,7 +423,9 @@
       alrange = #{record.alrange,jdbcType=INTEGER},
       alcompletedate = #{record.alcompletedate,jdbcType=DATE},
       alstatement = #{record.alstatement,jdbcType=VARCHAR},
-      aliscomplete = #{record.aliscomplete,jdbcType=INTEGER}
+      aliscomplete = #{record.aliscomplete,jdbcType=INTEGER},
+      alweidan = #{record.alweidan,jdbcType=VARCHAR},
+      aldantype = #{record.aldantype,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -480,6 +502,12 @@
       <if test="aliscomplete != null" >
         aliscomplete = #{aliscomplete,jdbcType=INTEGER},
       </if>
+      <if test="alweidan != null" >
+        alweidan = #{alweidan,jdbcType=VARCHAR},
+      </if>
+      <if test="aldantype != null" >
+        aldantype = #{aldantype,jdbcType=VARCHAR},
+      </if>
     </set>
     where alid = #{alid,jdbcType=INTEGER}
   </update>
@@ -507,7 +535,9 @@
       alrange = #{alrange,jdbcType=INTEGER},
       alcompletedate = #{alcompletedate,jdbcType=DATE},
       alstatement = #{alstatement,jdbcType=VARCHAR},
-      aliscomplete = #{aliscomplete,jdbcType=INTEGER}
+      aliscomplete = #{aliscomplete,jdbcType=INTEGER},
+      alweidan = #{alweidan,jdbcType=VARCHAR},
+      aldantype = #{aldantype,jdbcType=VARCHAR}
     where alid = #{alid,jdbcType=INTEGER}
   </update>
 </mapper>

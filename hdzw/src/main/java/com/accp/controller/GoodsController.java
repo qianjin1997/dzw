@@ -22,8 +22,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.accp.dao.IncomeMapper;
+import com.accp.dao.MaintainxmMapper;
+import com.accp.domain.Brackets;
 import com.accp.domain.Goods;
+import com.accp.domain.Goodsbrand;
+import com.accp.domain.Goodsdj;
+import com.accp.domain.Goodsplace;
+import com.accp.domain.Goodstype;
+import com.accp.domain.Income;
+import com.accp.domain.Maintainxm;
+import com.accp.domain.Original;
 import com.accp.domain.Repair;
+import com.accp.domain.Unit;
+import com.accp.domain.Wares;
 import com.accp.service.GoodsService;
 import com.github.pagehelper.PageInfo;
 
@@ -37,7 +49,7 @@ public class GoodsController {
 	//商品资料信息查询
 	@GetMapping("/{pageNum}/{pageSize}")
 	public PageInfo<Goods> findByPage(Goods goods,@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
-		return service.findByPage(pageNum, pageSize, goods);
+		return service.findAll2(pageNum, pageSize, goods);
 	}
 	
 	//删除方法
@@ -51,7 +63,7 @@ public class GoodsController {
 	}
 	
 	//增加修改商品资料
-	@PostMapping
+	@PostMapping("/create")
 	public String create(Goods goods) {
 		//当id=0时进行新增操作
 		if(goods.getAbid()==0) {
@@ -69,6 +81,42 @@ public class GoodsController {
 		return "00001";
 	}
 	
+	
+	//下拉框查询--------------------
+	@GetMapping("/find1")
+	public List<Goodsbrand> find1(){
+		return service.find1();
+	}
+	@GetMapping("/find2")
+	public List<Unit> find2(){
+		return service.find2();
+	}
+	@GetMapping("/find3")
+	public List<Goodstype> find3(){
+		return service.find3();
+	}
+	@GetMapping("/find4")
+	public List<Brackets> find4(){
+		return service.find4();
+	}
+	@GetMapping("/find5")
+	public List<Original> find5(){
+		return service.find5();
+	}
+	@GetMapping("/find6")
+	public List<Goodsdj> find6(){
+		return service.find6();
+	}
+	@GetMapping("/find7")
+	public List<Goodsplace> find7(){
+		return service.find7();
+	}
+	@GetMapping("/find8")
+	public List<Wares> find8(){
+		return service.find8();
+	}
+	
+	//导出方法
 	@GetMapping("/exportExcel")
 	public ResponseEntity<byte []> exportExcel(String goods) {
 		try {

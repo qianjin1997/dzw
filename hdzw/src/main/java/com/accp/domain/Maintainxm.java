@@ -1,12 +1,24 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Maintainxm {
     private Integer xid;
 
     private String xmaintainname;
 
     private Integer xparentid;
-
+    
+    private List<Maintainxm> ma;
+    
+    public List<Maintainxm> getMa() {
+		return ma;
+	}
+    
+    public void setMa(List<Maintainxm> ma) {
+		this.ma = ma;
+	}
+    
     public Integer getXid() {
         return xid;
     }

@@ -23,6 +23,9 @@
 		<table catalog="dzw" schema="root"  tableName="checkout">
 			<property name="ignoreQualifiersAtRuntime" value="true"/>
 		</table>
+		<table catalog="dzw" schema="root"  tableName="car">
+			<property name="ignoreQualifiersAtRuntime" value="true"/>
+		</table>
 	</context>
 </generatorConfiguration>
 

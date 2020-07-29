@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.dao.IncomeMapper;
+import com.accp.dao.MaintainxmMapper;
 import com.accp.dao.RepairMapper;
 import com.accp.domain.Goods;
+import com.accp.domain.Income;
+import com.accp.domain.Maintainxm;
 import com.accp.domain.Repair;
 import com.accp.domain.RepairExample;
 import com.github.pagehelper.Page;
@@ -35,12 +39,10 @@ public class RepairService {
 	//维修项目分页查询
 	public PageInfo<Repair> findByPage(Integer pageNum, Integer pageSize, Repair repair){
 		Page<Repair> page = PageHelper.startPage(pageNum, pageSize);
-		if(repair.getWmname() != null) {
-			RepairExample example = new RepairExample();
-			example.or(example.createCriteria().andWmnameLike("%"+repair.getWmname()+"%"));
-			mapper.selectByExample(example);
+		if(repair.getWmid() != null) {
+			mapper.findAlls1(repair.getWmid());
 		}else {
-			mapper.selectByExample(null);
+			mapper.findAlls(repair.getWmname());
 		}
 		return page.toPageInfo();
 	}
@@ -58,5 +60,24 @@ public class RepairService {
 	//修改商品资料
 	public int update(Repair repair) {
 		return mapper.updateByPrimaryKey(repair);
+	}
+	
+	//----------------下拉框查询----------------------
+	@Autowired
+	private MaintainxmMapper r2;
+	@Autowired
+	private IncomeMapper r3;
+	
+	public List<Maintainxm> find1() {
+		return r2.selectByExample(null);
+	}
+	
+	public List<Income> find2() {
+		return r3.selectByExample(null);
+	}
+	
+	//左侧菜单查询
+	public List<Maintainxm> findALL() {
+		return r2.findAll(0);
 	}
 }
