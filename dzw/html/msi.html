@@ -48,7 +48,7 @@
 					<el-link @click="removeRepair" type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
 					<el-link @click="dialogPriceVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-bottom bit"></i>调价</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-picture bit"></i>保存</el-link>
-					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
+					<el-link @click="exportExcel" type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
 				</el-col>
 			</el-row>
 			
@@ -57,7 +57,7 @@
 			  <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
 			    <el-menu :default-openeds="['1', '3']">
 			  		<el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
-			  		<el-tree class="filter-tree" :data="data" :props="defaultProps" default-expand-all :filter-node-method="filterNode" ref="tree"></el-tree>
+			  		<el-tree @current-change="xz" class="filter-tree" :data="data" :props="defaultProps" default-expand-all :filter-node-method="filterNode" ref="tree" :default-expand-all="false"></el-tree>
 			    </el-menu>
 			  </el-aside>
 			  
@@ -77,7 +77,7 @@
 				    </el-table-column>
 				    <el-table-column
 					show-overflow-tooltip
-				      property="wmid"
+				      property="r2.xmaintainname"
 				      label="项目类别"
 				      width="120">
 				    </el-table-column>
@@ -94,12 +94,12 @@
 				    </el-table-column>
 					<el-table-column
 					show-overflow-tooltip
-					  property="wmid"
+					  property="wremark"
 					  label="售价按">
 					</el-table-column>
 					<el-table-column
 					show-overflow-tooltip
-					  property="wincomeid"
+					  property="r3.yname"
 					  label="收入种类">
 					</el-table-column>
 					<el-table-column
@@ -167,15 +167,21 @@
 				
 				<el-row type="flex">
 					<el-form-item label="收入种类">
-					  <el-select  style="width: 245px;" v-model="formInline.wincomeid" placeholder="收入种类">
-					    <el-option label="区域一" value="1"></el-option>
-					    <el-option label="区域二" value="2"></el-option>
+					  <el-select  style="width: 245px;" value-key="yid" v-model="formInline.wincomeid" placeholder="收入种类">
+					   <el-option
+						 v-for="item in income"
+						 :key="item.yid"
+						 :label="item.yname"
+						 :value="item.yid">  
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="项目类别">
-					  <el-select  style="width: 245px;" v-model="formInline.wmid" placeholder="项目类别">
-					    <el-option label="区域一" value="1"></el-option>
-					    <el-option label="区域二" value="2"></el-option>
+					  <el-select  style="width: 245px;" value-key="xid" v-model="formInline.wmid" placeholder="项目类别"> 
+						<el-option
+						  v-for="item in maintainxm"
+						  :key="item.xid"
+						  :label="item.xmaintainname"
+						  :value="item.xid">
 					  </el-select>
 					</el-form-item>
 				</el-row>
@@ -250,16 +256,26 @@
 				      }
 				    },
 				methods: {
+					//根据左侧菜单进行查询
+					xz(val,data){
+						// console.log(val);
+						// console.log(data);
+						this.repair.wmid = val.xid;
+						// console.log(this.repair);
+						this.getPage(1);
+					},
 					//保存商品信息
 					onSubmit() {
-					    console.log(this.formInline);
+						this.formInline.r2 = {};
+						this.formInline.r3 = {};
 					    var that = this;
+						// console.log(this.formInline);
 					    $.ajax({
 							url:"http://localhost:8888/repair",
 							data:that.formInline,
 							method:"post",
 							success:function(result){
-								console.log(result);
+								// console.log(result);
 								if(result=="00000"){
 									alert("保存成功！");
 								}else{
@@ -272,15 +288,16 @@
 					},
 					filterNode(value, data) {
 						if (!value) return true;
-						return data.label.indexOf(value) !== -1;
+						return data.xmaintainname.indexOf(value) !== -1;
 					},
 					handleCurrentChange(val) {
 						this.currentRow = val;
-						console.log(this.currentRow);
+						// console.log(this.currentRow);
 					},
 					//查找方法
 					find(){
-						console.log(this.input);
+						// console.log(this.input);
+						this.repair = {};
 						this.repair.wmname = this.input;
 						this.getPage(1);
 					},
@@ -335,10 +352,45 @@
 						}
 						this.dialogFormVisible = true;
 						this.formInline = this.currentRow;
+					},
+					//导出方法
+					exportExcel(){
+						window.location.href="http://localhost:8888/repair/exportExcel?repair="+this.input;
+					},
+					//下拉框查询方法
+					getFind1(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/repair/find1",
+							success:function(result){
+								that.maintainxm = result;
+							}
+						});
+					},
+					getFind2(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/repair/find2",
+							success:function(result){
+								that.income = result;
+							}
+						});
+					},
+					//加载左侧菜单
+					getLeft(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/repair/leftFind",
+							success:function(result){
+								that.data = result;
+							}
+						});
 					}
 				},
 				data() {
 				    return {
+						maintainxm:[],
+						income:[],
 						repair:{},
 						pageNum:0,
 						page:{},
@@ -361,51 +413,21 @@
 						formLabelWidth: '120px',
 						filterText: '',
 						input: '',
-						data: [{
-						  id: 1,
-						  label: '一级 1',
-						  children: [{
-							id: 4,
-							label: '二级 1-1',
-							children: [{
-							  id: 9,
-							  label: '三级 1-1-1'
-							}, {
-							  id: 10,
-							  label: '三级 1-1-2'
-							}]
-						  }]
-						}, {
-						  id: 2,
-						  label: '一级 2',
-						  children: [{
-							id: 5,
-							label: '二级 2-1'
-						  }, {
-							id: 6,
-							label: '二级 2-2'
-						  }]
-						}, {
-						  id: 3,
-						  label: '一级 3',
-						  children: [{
-							id: 7,
-							label: '二级 3-1'
-						  }, {
-							id: 8,
-							label: '二级 3-2'
-						  }]
-						}],
+						data: [],
 						defaultProps: {
-						  children: 'children',
-						  label: 'label'
+						  id:'xid',
+						  children: 'ma',
+						  label: 'xmaintainname'
 						},
 						tableData: [],
 						currentRow: null
 					}
 				},
 				created(){
-					this.getPage(1)
+					this.getPage(1);
+					this.getFind1();
+					this.getFind2();
+					this.getLeft();
 				}
 			});
 		</script>
