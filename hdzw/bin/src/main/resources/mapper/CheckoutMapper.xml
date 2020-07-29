@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.CheckoutMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Checkout" >
+    <id column="alid" property="alid" jdbcType="INTEGER" />
+    <result column="alcarid" property="alcarid" jdbcType="VARCHAR" />
+    <result column="alcarownername" property="alcarownername" jdbcType="VARCHAR" />
+    <result column="albusinessid" property="albusinessid" jdbcType="INTEGER" />
+    <result column="alclearingform" property="alclearingform" jdbcType="VARCHAR" />
+    <result column="aldepartdate" property="aldepartdate" jdbcType="DATE" />
+    <result column="alroadworkdate" property="alroadworkdate" jdbcType="DATE" />
+    <result column="alestimatemoney" property="alestimatemoney" jdbcType="REAL" />
+    <result column="aldriveid" property="aldriveid" jdbcType="INTEGER" />
+    <result column="aldivisions" property="aldivisions" jdbcType="VARCHAR" />
+    <result column="alpkcompany" property="alpkcompany" jdbcType="VARCHAR" />
+    <result column="aldepartaddress" property="aldepartaddress" jdbcType="VARCHAR" />
+    <result column="alrescueaddress" property="alrescueaddress" jdbcType="VARCHAR" />
+    <result column="alwxremake" property="alwxremake" jdbcType="VARCHAR" />
+    <result column="alphone" property="alphone" jdbcType="VARCHAR" />
+    <result column="althemileage" property="althemileage" jdbcType="INTEGER" />
+    <result column="aldrivecar" property="aldrivecar" jdbcType="VARCHAR" />
+    <result column="alcrew" property="alcrew" jdbcType="VARCHAR" />
+    <result column="alstaffid" property="alstaffid" jdbcType="INTEGER" />
+    <result column="aldispatchdate" property="aldispatchdate" jdbcType="DATE" />
+    <result column="alrange" property="alrange" jdbcType="INTEGER" />
+    <result column="alcompletedate" property="alcompletedate" jdbcType="DATE" />
+    <result column="alstatement" property="alstatement" jdbcType="VARCHAR" />
+    <result column="aliscomplete" property="aliscomplete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    alid, alcarid, alcarownername, albusinessid, alclearingform, aldepartdate, alroadworkdate, 
+    alestimatemoney, aldriveid, aldivisions, alpkcompany, aldepartaddress, alrescueaddress, 
+    alwxremake, alphone, althemileage, aldrivecar, alcrew, alstaffid, aldispatchdate, 
+    alrange, alcompletedate, alstatement, aliscomplete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CheckoutExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from checkout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from checkout
+    where alid = #{alid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from checkout
+    where alid = #{alid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CheckoutExample" >
+    delete from checkout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Checkout" >
+    insert into checkout (alid, alcarid, alcarownername, 
+      albusinessid, alclearingform, aldepartdate, 
+      alroadworkdate, alestimatemoney, aldriveid, 
+      aldivisions, alpkcompany, aldepartaddress, 
+      alrescueaddress, alwxremake, alphone, 
+      althemileage, aldrivecar, alcrew, 
+      alstaffid, aldispatchdate, alrange, 
+      alcompletedate, alstatement, aliscomplete
+      )
+    values (#{alid,jdbcType=INTEGER}, #{alcarid,jdbcType=VARCHAR}, #{alcarownername,jdbcType=VARCHAR}, 
+      #{albusinessid,jdbcType=INTEGER}, #{alclearingform,jdbcType=VARCHAR}, #{aldepartdate,jdbcType=DATE}, 
+      #{alroadworkdate,jdbcType=DATE}, #{alestimatemoney,jdbcType=REAL}, #{aldriveid,jdbcType=INTEGER}, 
+      #{aldivisions,jdbcType=VARCHAR}, #{alpkcompany,jdbcType=VARCHAR}, #{aldepartaddress,jdbcType=VARCHAR}, 
+      #{alrescueaddress,jdbcType=VARCHAR}, #{alwxremake,jdbcType=VARCHAR}, #{alphone,jdbcType=VARCHAR}, 
+      #{althemileage,jdbcType=INTEGER}, #{aldrivecar,jdbcType=VARCHAR}, #{alcrew,jdbcType=VARCHAR}, 
+      #{alstaffid,jdbcType=INTEGER}, #{aldispatchdate,jdbcType=DATE}, #{alrange,jdbcType=INTEGER}, 
+      #{alcompletedate,jdbcType=DATE}, #{alstatement,jdbcType=VARCHAR}, #{aliscomplete,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Checkout" >
+    insert into checkout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="alid != null" >
+        alid,
+      </if>
+      <if test="alcarid != null" >
+        alcarid,
+      </if>
+      <if test="alcarownername != null" >
+        alcarownername,
+      </if>
+      <if test="albusinessid != null" >
+        albusinessid,
+      </if>
+      <if test="alclearingform != null" >
+        alclearingform,
+      </if>
+      <if test="aldepartdate != null" >
+        aldepartdate,
+      </if>
+      <if test="alroadworkdate != null" >
+        alroadworkdate,
+      </if>
+      <if test="alestimatemoney != null" >
+        alestimatemoney,
+      </if>
+      <if test="aldriveid != null" >
+        aldriveid,
+      </if>
+      <if test="aldivisions != null" >
+        aldivisions,
+      </if>
+      <if test="alpkcompany != null" >
+        alpkcompany,
+      </if>
+      <if test="aldepartaddress != null" >
+        aldepartaddress,
+      </if>
+      <if test="alrescueaddress != null" >
+        alrescueaddress,
+      </if>
+      <if test="alwxremake != null" >
+        alwxremake,
+      </if>
+      <if test="alphone != null" >
+        alphone,
+      </if>
+      <if test="althemileage != null" >
+        althemileage,
+      </if>
+      <if test="aldrivecar != null" >
+        aldrivecar,
+      </if>
+      <if test="alcrew != null" >
+        alcrew,
+      </if>
+      <if test="alstaffid != null" >
+        alstaffid,
+      </if>
+      <if test="aldispatchdate != null" >
+        aldispatchdate,
+      </if>
+      <if test="alrange != null" >
+        alrange,
+      </if>
+      <if test="alcompletedate != null" >
+        alcompletedate,
+      </if>
+      <if test="alstatement != null" >
+        alstatement,
+      </if>
+      <if test="aliscomplete != null" >
+        aliscomplete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="alid != null" >
+        #{alid,jdbcType=INTEGER},
+      </if>
+      <if test="alcarid != null" >
+        #{alcarid,jdbcType=VARCHAR},
+      </if>
+      <if test="alcarownername != null" >
+        #{alcarownername,jdbcType=VARCHAR},
+      </if>
+      <if test="albusinessid != null" >
+        #{albusinessid,jdbcType=INTEGER},
+      </if>
+      <if test="alclearingform != null" >
+        #{alclearingform,jdbcType=VARCHAR},
+      </if>
+      <if test="aldepartdate != null" >
+        #{aldepartdate,jdbcType=DATE},
+      </if>
+      <if test="alroadworkdate != null" >
+        #{alroadworkdate,jdbcType=DATE},
+      </if>
+      <if test="alestimatemoney != null" >
+        #{alestimatemoney,jdbcType=REAL},
+      </if>
+      <if test="aldriveid != null" >
+        #{aldriveid,jdbcType=INTEGER},
+      </if>
+      <if test="aldivisions != null" >
+        #{aldivisions,jdbcType=VARCHAR},
+      </if>
+      <if test="alpkcompany != null" >
+        #{alpkcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="aldepartaddress != null" >
+        #{aldepartaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="alrescueaddress != null" >
+        #{alrescueaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="alwxremake != null" >
+        #{alwxremake,jdbcType=VARCHAR},
+      </if>
+      <if test="alphone != null" >
+        #{alphone,jdbcType=VARCHAR},
+      </if>
+      <if test="althemileage != null" >
+        #{althemileage,jdbcType=INTEGER},
+      </if>
+      <if test="aldrivecar != null" >
+        #{aldrivecar,jdbcType=VARCHAR},
+      </if>
+      <if test="alcrew != null" >
+        #{alcrew,jdbcType=VARCHAR},
+      </if>
+      <if test="alstaffid != null" >
+        #{alstaffid,jdbcType=INTEGER},
+      </if>
+      <if test="aldispatchdate != null" >
+        #{aldispatchdate,jdbcType=DATE},
+      </if>
+      <if test="alrange != null" >
+        #{alrange,jdbcType=INTEGER},
+      </if>
+      <if test="alcompletedate != null" >
+        #{alcompletedate,jdbcType=DATE},
+      </if>
+      <if test="alstatement != null" >
+        #{alstatement,jdbcType=VARCHAR},
+      </if>
+      <if test="aliscomplete != null" >
+        #{aliscomplete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CheckoutExample" resultType="java.lang.Integer" >
+    select count(*) from checkout
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update checkout
+    <set >
+      <if test="record.alid != null" >
+        alid = #{record.alid,jdbcType=INTEGER},
+      </if>
+      <if test="record.alcarid != null" >
+        alcarid = #{record.alcarid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alcarownername != null" >
+        alcarownername = #{record.alcarownername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.albusinessid != null" >
+        albusinessid = #{record.albusinessid,jdbcType=INTEGER},
+      </if>
+      <if test="record.alclearingform != null" >
+        alclearingform = #{record.alclearingform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aldepartdate != null" >
+        aldepartdate = #{record.aldepartdate,jdbcType=DATE},
+      </if>
+      <if test="record.alroadworkdate != null" >
+        alroadworkdate = #{record.alroadworkdate,jdbcType=DATE},
+      </if>
+      <if test="record.alestimatemoney != null" >
+        alestimatemoney = #{record.alestimatemoney,jdbcType=REAL},
+      </if>
+      <if test="record.aldriveid != null" >
+        aldriveid = #{record.aldriveid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aldivisions != null" >
+        aldivisions = #{record.aldivisions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alpkcompany != null" >
+        alpkcompany = #{record.alpkcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aldepartaddress != null" >
+        aldepartaddress = #{record.aldepartaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alrescueaddress != null" >
+        alrescueaddress = #{record.alrescueaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alwxremake != null" >
+        alwxremake = #{record.alwxremake,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alphone != null" >
+        alphone = #{record.alphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.althemileage != null" >
+        althemileage = #{record.althemileage,jdbcType=INTEGER},
+      </if>
+      <if test="record.aldrivecar != null" >
+        aldrivecar = #{record.aldrivecar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alcrew != null" >
+        alcrew = #{record.alcrew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alstaffid != null" >
+        alstaffid = #{record.alstaffid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aldispatchdate != null" >
+        aldispatchdate = #{record.aldispatchdate,jdbcType=DATE},
+      </if>
+      <if test="record.alrange != null" >
+        alrange = #{record.alrange,jdbcType=INTEGER},
+      </if>
+      <if test="record.alcompletedate != null" >
+        alcompletedate = #{record.alcompletedate,jdbcType=DATE},
+      </if>
+      <if test="record.alstatement != null" >
+        alstatement = #{record.alstatement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aliscomplete != null" >
+        aliscomplete = #{record.aliscomplete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update checkout
+    set alid = #{record.alid,jdbcType=INTEGER},
+      alcarid = #{record.alcarid,jdbcType=VARCHAR},
+      alcarownername = #{record.alcarownername,jdbcType=VARCHAR},
+      albusinessid = #{record.albusinessid,jdbcType=INTEGER},
+      alclearingform = #{record.alclearingform,jdbcType=VARCHAR},
+      aldepartdate = #{record.aldepartdate,jdbcType=DATE},
+      alroadworkdate = #{record.alroadworkdate,jdbcType=DATE},
+      alestimatemoney = #{record.alestimatemoney,jdbcType=REAL},
+      aldriveid = #{record.aldriveid,jdbcType=INTEGER},
+      aldivisions = #{record.aldivisions,jdbcType=VARCHAR},
+      alpkcompany = #{record.alpkcompany,jdbcType=VARCHAR},
+      aldepartaddress = #{record.aldepartaddress,jdbcType=VARCHAR},
+      alrescueaddress = #{record.alrescueaddress,jdbcType=VARCHAR},
+      alwxremake = #{record.alwxremake,jdbcType=VARCHAR},
+      alphone = #{record.alphone,jdbcType=VARCHAR},
+      althemileage = #{record.althemileage,jdbcType=INTEGER},
+      aldrivecar = #{record.aldrivecar,jdbcType=VARCHAR},
+      alcrew = #{record.alcrew,jdbcType=VARCHAR},
+      alstaffid = #{record.alstaffid,jdbcType=INTEGER},
+      aldispatchdate = #{record.aldispatchdate,jdbcType=DATE},
+      alrange = #{record.alrange,jdbcType=INTEGER},
+      alcompletedate = #{record.alcompletedate,jdbcType=DATE},
+      alstatement = #{record.alstatement,jdbcType=VARCHAR},
+      aliscomplete = #{record.aliscomplete,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Checkout" >
+    update checkout
+    <set >
+      <if test="alcarid != null" >
+        alcarid = #{alcarid,jdbcType=VARCHAR},
+      </if>
+      <if test="alcarownername != null" >
+        alcarownername = #{alcarownername,jdbcType=VARCHAR},
+      </if>
+      <if test="albusinessid != null" >
+        albusinessid = #{albusinessid,jdbcType=INTEGER},
+      </if>
+      <if test="alclearingform != null" >
+        alclearingform = #{alclearingform,jdbcType=VARCHAR},
+      </if>
+      <if test="aldepartdate != null" >
+        aldepartdate = #{aldepartdate,jdbcType=DATE},
+      </if>
+      <if test="alroadworkdate != null" >
+        alroadworkdate = #{alroadworkdate,jdbcType=DATE},
+      </if>
+      <if test="alestimatemoney != null" >
+        alestimatemoney = #{alestimatemoney,jdbcType=REAL},
+      </if>
+      <if test="aldriveid != null" >
+        aldriveid = #{aldriveid,jdbcType=INTEGER},
+      </if>
+      <if test="aldivisions != null" >
+        aldivisions = #{aldivisions,jdbcType=VARCHAR},
+      </if>
+      <if test="alpkcompany != null" >
+        alpkcompany = #{alpkcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="aldepartaddress != null" >
+        aldepartaddress = #{aldepartaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="alrescueaddress != null" >
+        alrescueaddress = #{alrescueaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="alwxremake != null" >
+        alwxremake = #{alwxremake,jdbcType=VARCHAR},
+      </if>
+      <if test="alphone != null" >
+        alphone = #{alphone,jdbcType=VARCHAR},
+      </if>
+      <if test="althemileage != null" >
+        althemileage = #{althemileage,jdbcType=INTEGER},
+      </if>
+      <if test="aldrivecar != null" >
+        aldrivecar = #{aldrivecar,jdbcType=VARCHAR},
+      </if>
+      <if test="alcrew != null" >
+        alcrew = #{alcrew,jdbcType=VARCHAR},
+      </if>
+      <if test="alstaffid != null" >
+        alstaffid = #{alstaffid,jdbcType=INTEGER},
+      </if>
+      <if test="aldispatchdate != null" >
+        aldispatchdate = #{aldispatchdate,jdbcType=DATE},
+      </if>
+      <if test="alrange != null" >
+        alrange = #{alrange,jdbcType=INTEGER},
+      </if>
+      <if test="alcompletedate != null" >
+        alcompletedate = #{alcompletedate,jdbcType=DATE},
+      </if>
+      <if test="alstatement != null" >
+        alstatement = #{alstatement,jdbcType=VARCHAR},
+      </if>
+      <if test="aliscomplete != null" >
+        aliscomplete = #{aliscomplete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where alid = #{alid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Checkout" >
+    update checkout
+    set alcarid = #{alcarid,jdbcType=VARCHAR},
+      alcarownername = #{alcarownername,jdbcType=VARCHAR},
+      albusinessid = #{albusinessid,jdbcType=INTEGER},
+      alclearingform = #{alclearingform,jdbcType=VARCHAR},
+      aldepartdate = #{aldepartdate,jdbcType=DATE},
+      alroadworkdate = #{alroadworkdate,jdbcType=DATE},
+      alestimatemoney = #{alestimatemoney,jdbcType=REAL},
+      aldriveid = #{aldriveid,jdbcType=INTEGER},
+      aldivisions = #{aldivisions,jdbcType=VARCHAR},
+      alpkcompany = #{alpkcompany,jdbcType=VARCHAR},
+      aldepartaddress = #{aldepartaddress,jdbcType=VARCHAR},
+      alrescueaddress = #{alrescueaddress,jdbcType=VARCHAR},
+      alwxremake = #{alwxremake,jdbcType=VARCHAR},
+      alphone = #{alphone,jdbcType=VARCHAR},
+      althemileage = #{althemileage,jdbcType=INTEGER},
+      aldrivecar = #{aldrivecar,jdbcType=VARCHAR},
+      alcrew = #{alcrew,jdbcType=VARCHAR},
+      alstaffid = #{alstaffid,jdbcType=INTEGER},
+      aldispatchdate = #{aldispatchdate,jdbcType=DATE},
+      alrange = #{alrange,jdbcType=INTEGER},
+      alcompletedate = #{alcompletedate,jdbcType=DATE},
+      alstatement = #{alstatement,jdbcType=VARCHAR},
+      aliscomplete = #{aliscomplete,jdbcType=INTEGER}
+    where alid = #{alid,jdbcType=INTEGER}
+  </update>
+</mapper>

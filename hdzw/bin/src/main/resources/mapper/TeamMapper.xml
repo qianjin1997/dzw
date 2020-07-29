@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.TeamMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Team" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="uteamid" property="uteamid" jdbcType="INTEGER" />
+    <result column="uZnbai" property="uznbai" jdbcType="REAL" />
+    <result column="uZnwan" property="uznwan" jdbcType="REAL" />
+    <result column="uZwbai" property="uzwbai" jdbcType="REAL" />
+    <result column="uZwwan" property="uzwwan" jdbcType="REAL" />
+    <result column="uZtbai" property="uztbai" jdbcType="REAL" />
+    <result column="uZtwan" property="uztwan" jdbcType="REAL" />
+    <result column="uRanyouf" property="uranyouf" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uid, uteamid, uZnbai, uZnwan, uZwbai, uZwwan, uZtbai, uZtwan, uRanyouf
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.TeamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from team
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from team
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.TeamExample" >
+    delete from team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Team" >
+    insert into team (uid, uteamid, uZnbai, 
+      uZnwan, uZwbai, uZwwan, uZtbai, 
+      uZtwan, uRanyouf)
+    values (#{uid,jdbcType=INTEGER}, #{uteamid,jdbcType=INTEGER}, #{uznbai,jdbcType=REAL}, 
+      #{uznwan,jdbcType=REAL}, #{uzwbai,jdbcType=REAL}, #{uzwwan,jdbcType=REAL}, #{uztbai,jdbcType=REAL}, 
+      #{uztwan,jdbcType=REAL}, #{uranyouf,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Team" >
+    insert into team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="uteamid != null" >
+        uteamid,
+      </if>
+      <if test="uznbai != null" >
+        uZnbai,
+      </if>
+      <if test="uznwan != null" >
+        uZnwan,
+      </if>
+      <if test="uzwbai != null" >
+        uZwbai,
+      </if>
+      <if test="uzwwan != null" >
+        uZwwan,
+      </if>
+      <if test="uztbai != null" >
+        uZtbai,
+      </if>
+      <if test="uztwan != null" >
+        uZtwan,
+      </if>
+      <if test="uranyouf != null" >
+        uRanyouf,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uteamid != null" >
+        #{uteamid,jdbcType=INTEGER},
+      </if>
+      <if test="uznbai != null" >
+        #{uznbai,jdbcType=REAL},
+      </if>
+      <if test="uznwan != null" >
+        #{uznwan,jdbcType=REAL},
+      </if>
+      <if test="uzwbai != null" >
+        #{uzwbai,jdbcType=REAL},
+      </if>
+      <if test="uzwwan != null" >
+        #{uzwwan,jdbcType=REAL},
+      </if>
+      <if test="uztbai != null" >
+        #{uztbai,jdbcType=REAL},
+      </if>
+      <if test="uztwan != null" >
+        #{uztwan,jdbcType=REAL},
+      </if>
+      <if test="uranyouf != null" >
+        #{uranyouf,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.TeamExample" resultType="java.lang.Integer" >
+    select count(*) from team
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update team
+    <set >
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uteamid != null" >
+        uteamid = #{record.uteamid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uznbai != null" >
+        uZnbai = #{record.uznbai,jdbcType=REAL},
+      </if>
+      <if test="record.uznwan != null" >
+        uZnwan = #{record.uznwan,jdbcType=REAL},
+      </if>
+      <if test="record.uzwbai != null" >
+        uZwbai = #{record.uzwbai,jdbcType=REAL},
+      </if>
+      <if test="record.uzwwan != null" >
+        uZwwan = #{record.uzwwan,jdbcType=REAL},
+      </if>
+      <if test="record.uztbai != null" >
+        uZtbai = #{record.uztbai,jdbcType=REAL},
+      </if>
+      <if test="record.uztwan != null" >
+        uZtwan = #{record.uztwan,jdbcType=REAL},
+      </if>
+      <if test="record.uranyouf != null" >
+        uRanyouf = #{record.uranyouf,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update team
+    set uid = #{record.uid,jdbcType=INTEGER},
+      uteamid = #{record.uteamid,jdbcType=INTEGER},
+      uZnbai = #{record.uznbai,jdbcType=REAL},
+      uZnwan = #{record.uznwan,jdbcType=REAL},
+      uZwbai = #{record.uzwbai,jdbcType=REAL},
+      uZwwan = #{record.uzwwan,jdbcType=REAL},
+      uZtbai = #{record.uztbai,jdbcType=REAL},
+      uZtwan = #{record.uztwan,jdbcType=REAL},
+      uRanyouf = #{record.uranyouf,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Team" >
+    update team
+    <set >
+      <if test="uteamid != null" >
+        uteamid = #{uteamid,jdbcType=INTEGER},
+      </if>
+      <if test="uznbai != null" >
+        uZnbai = #{uznbai,jdbcType=REAL},
+      </if>
+      <if test="uznwan != null" >
+        uZnwan = #{uznwan,jdbcType=REAL},
+      </if>
+      <if test="uzwbai != null" >
+        uZwbai = #{uzwbai,jdbcType=REAL},
+      </if>
+      <if test="uzwwan != null" >
+        uZwwan = #{uzwwan,jdbcType=REAL},
+      </if>
+      <if test="uztbai != null" >
+        uZtbai = #{uztbai,jdbcType=REAL},
+      </if>
+      <if test="uztwan != null" >
+        uZtwan = #{uztwan,jdbcType=REAL},
+      </if>
+      <if test="uranyouf != null" >
+        uRanyouf = #{uranyouf,jdbcType=REAL},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Team" >
+    update team
+    set uteamid = #{uteamid,jdbcType=INTEGER},
+      uZnbai = #{uznbai,jdbcType=REAL},
+      uZnwan = #{uznwan,jdbcType=REAL},
+      uZwbai = #{uzwbai,jdbcType=REAL},
+      uZwwan = #{uzwwan,jdbcType=REAL},
+      uZtbai = #{uztbai,jdbcType=REAL},
+      uZtwan = #{uztwan,jdbcType=REAL},
+      uRanyouf = #{uranyouf,jdbcType=REAL}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>

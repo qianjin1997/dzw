@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.MaintainMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Maintain" >
+    <id column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="rinvoicestype" property="rinvoicestype" jdbcType="VARCHAR" />
+    <result column="rsaleno" property="rsaleno" jdbcType="VARCHAR" />
+    <result column="rlicenseno" property="rlicenseno" jdbcType="VARCHAR" />
+    <result column="rfactorydate" property="rfactorydate" jdbcType="DATE" />
+    <result column="rokdate" property="rokdate" jdbcType="DATE" />
+    <result column="rclosedate" property="rclosedate" jdbcType="DATE" />
+    <result column="rclosemoney" property="rclosemoney" jdbcType="REAL" />
+    <result column="rcarid" property="rcarid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rid, rinvoicestype, rsaleno, rlicenseno, rfactorydate, rokdate, rclosedate, rclosemoney, 
+    rcarid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.MaintainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from maintain
+    where rid = #{rid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from maintain
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.MaintainExample" >
+    delete from maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Maintain" >
+    insert into maintain (rid, rinvoicestype, rsaleno, 
+      rlicenseno, rfactorydate, rokdate, 
+      rclosedate, rclosemoney, rcarid
+      )
+    values (#{rid,jdbcType=INTEGER}, #{rinvoicestype,jdbcType=VARCHAR}, #{rsaleno,jdbcType=VARCHAR}, 
+      #{rlicenseno,jdbcType=VARCHAR}, #{rfactorydate,jdbcType=DATE}, #{rokdate,jdbcType=DATE}, 
+      #{rclosedate,jdbcType=DATE}, #{rclosemoney,jdbcType=REAL}, #{rcarid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Maintain" >
+    insert into maintain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="rinvoicestype != null" >
+        rinvoicestype,
+      </if>
+      <if test="rsaleno != null" >
+        rsaleno,
+      </if>
+      <if test="rlicenseno != null" >
+        rlicenseno,
+      </if>
+      <if test="rfactorydate != null" >
+        rfactorydate,
+      </if>
+      <if test="rokdate != null" >
+        rokdate,
+      </if>
+      <if test="rclosedate != null" >
+        rclosedate,
+      </if>
+      <if test="rclosemoney != null" >
+        rclosemoney,
+      </if>
+      <if test="rcarid != null" >
+        rcarid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="rinvoicestype != null" >
+        #{rinvoicestype,jdbcType=VARCHAR},
+      </if>
+      <if test="rsaleno != null" >
+        #{rsaleno,jdbcType=VARCHAR},
+      </if>
+      <if test="rlicenseno != null" >
+        #{rlicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="rfactorydate != null" >
+        #{rfactorydate,jdbcType=DATE},
+      </if>
+      <if test="rokdate != null" >
+        #{rokdate,jdbcType=DATE},
+      </if>
+      <if test="rclosedate != null" >
+        #{rclosedate,jdbcType=DATE},
+      </if>
+      <if test="rclosemoney != null" >
+        #{rclosemoney,jdbcType=REAL},
+      </if>
+      <if test="rcarid != null" >
+        #{rcarid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.MaintainExample" resultType="java.lang.Integer" >
+    select count(*) from maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update maintain
+    <set >
+      <if test="record.rid != null" >
+        rid = #{record.rid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rinvoicestype != null" >
+        rinvoicestype = #{record.rinvoicestype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsaleno != null" >
+        rsaleno = #{record.rsaleno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rlicenseno != null" >
+        rlicenseno = #{record.rlicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rfactorydate != null" >
+        rfactorydate = #{record.rfactorydate,jdbcType=DATE},
+      </if>
+      <if test="record.rokdate != null" >
+        rokdate = #{record.rokdate,jdbcType=DATE},
+      </if>
+      <if test="record.rclosedate != null" >
+        rclosedate = #{record.rclosedate,jdbcType=DATE},
+      </if>
+      <if test="record.rclosemoney != null" >
+        rclosemoney = #{record.rclosemoney,jdbcType=REAL},
+      </if>
+      <if test="record.rcarid != null" >
+        rcarid = #{record.rcarid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update maintain
+    set rid = #{record.rid,jdbcType=INTEGER},
+      rinvoicestype = #{record.rinvoicestype,jdbcType=VARCHAR},
+      rsaleno = #{record.rsaleno,jdbcType=VARCHAR},
+      rlicenseno = #{record.rlicenseno,jdbcType=VARCHAR},
+      rfactorydate = #{record.rfactorydate,jdbcType=DATE},
+      rokdate = #{record.rokdate,jdbcType=DATE},
+      rclosedate = #{record.rclosedate,jdbcType=DATE},
+      rclosemoney = #{record.rclosemoney,jdbcType=REAL},
+      rcarid = #{record.rcarid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Maintain" >
+    update maintain
+    <set >
+      <if test="rinvoicestype != null" >
+        rinvoicestype = #{rinvoicestype,jdbcType=VARCHAR},
+      </if>
+      <if test="rsaleno != null" >
+        rsaleno = #{rsaleno,jdbcType=VARCHAR},
+      </if>
+      <if test="rlicenseno != null" >
+        rlicenseno = #{rlicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="rfactorydate != null" >
+        rfactorydate = #{rfactorydate,jdbcType=DATE},
+      </if>
+      <if test="rokdate != null" >
+        rokdate = #{rokdate,jdbcType=DATE},
+      </if>
+      <if test="rclosedate != null" >
+        rclosedate = #{rclosedate,jdbcType=DATE},
+      </if>
+      <if test="rclosemoney != null" >
+        rclosemoney = #{rclosemoney,jdbcType=REAL},
+      </if>
+      <if test="rcarid != null" >
+        rcarid = #{rcarid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Maintain" >
+    update maintain
+    set rinvoicestype = #{rinvoicestype,jdbcType=VARCHAR},
+      rsaleno = #{rsaleno,jdbcType=VARCHAR},
+      rlicenseno = #{rlicenseno,jdbcType=VARCHAR},
+      rfactorydate = #{rfactorydate,jdbcType=DATE},
+      rokdate = #{rokdate,jdbcType=DATE},
+      rclosedate = #{rclosedate,jdbcType=DATE},
+      rclosemoney = #{rclosemoney,jdbcType=REAL},
+      rcarid = #{rcarid,jdbcType=INTEGER}
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>

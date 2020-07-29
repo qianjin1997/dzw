@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.RepairMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Repair" >
+    <id column="wid" property="wid" jdbcType="INTEGER" />
+    <result column="wmid" property="wmid" jdbcType="INTEGER" />
+    <result column="wmname" property="wmname" jdbcType="VARCHAR" />
+    <result column="wincomeid" property="wincomeid" jdbcType="INTEGER" />
+    <result column="wremark" property="wremark" jdbcType="VARCHAR" />
+    <result column="wsprice" property="wsprice" jdbcType="REAL" />
+    <result column="wmemberprice" property="wmemberprice" jdbcType="REAL" />
+    <result column="wvipice" property="wvipice" jdbcType="REAL" />
+    <result column="wdeal" property="wdeal" jdbcType="REAL" />
+    <result column="wclaim" property="wclaim" jdbcType="REAL" />
+    <result column="wicbcprice" property="wicbcprice" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    wid, wmid, wmname, wincomeid, wremark, wsprice, wmemberprice, wvipice, wdeal, wclaim, 
+    wicbcprice
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.RepairExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from repair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from repair
+    where wid = #{wid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from repair
+    where wid = #{wid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.RepairExample" >
+    delete from repair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Repair" >
+    insert into repair (wid, wmid, wmname, 
+      wincomeid, wremark, wsprice, 
+      wmemberprice, wvipice, wdeal, 
+      wclaim, wicbcprice)
+    values (#{wid,jdbcType=INTEGER}, #{wmid,jdbcType=INTEGER}, #{wmname,jdbcType=VARCHAR}, 
+      #{wincomeid,jdbcType=INTEGER}, #{wremark,jdbcType=VARCHAR}, #{wsprice,jdbcType=REAL}, 
+      #{wmemberprice,jdbcType=REAL}, #{wvipice,jdbcType=REAL}, #{wdeal,jdbcType=REAL}, 
+      #{wclaim,jdbcType=REAL}, #{wicbcprice,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Repair" >
+    insert into repair
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
+        wid,
+      </if>
+      <if test="wmid != null" >
+        wmid,
+      </if>
+      <if test="wmname != null" >
+        wmname,
+      </if>
+      <if test="wincomeid != null" >
+        wincomeid,
+      </if>
+      <if test="wremark != null" >
+        wremark,
+      </if>
+      <if test="wsprice != null" >
+        wsprice,
+      </if>
+      <if test="wmemberprice != null" >
+        wmemberprice,
+      </if>
+      <if test="wvipice != null" >
+        wvipice,
+      </if>
+      <if test="wdeal != null" >
+        wdeal,
+      </if>
+      <if test="wclaim != null" >
+        wclaim,
+      </if>
+      <if test="wicbcprice != null" >
+        wicbcprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wid != null" >
+        #{wid,jdbcType=INTEGER},
+      </if>
+      <if test="wmid != null" >
+        #{wmid,jdbcType=INTEGER},
+      </if>
+      <if test="wmname != null" >
+        #{wmname,jdbcType=VARCHAR},
+      </if>
+      <if test="wincomeid != null" >
+        #{wincomeid,jdbcType=INTEGER},
+      </if>
+      <if test="wremark != null" >
+        #{wremark,jdbcType=VARCHAR},
+      </if>
+      <if test="wsprice != null" >
+        #{wsprice,jdbcType=REAL},
+      </if>
+      <if test="wmemberprice != null" >
+        #{wmemberprice,jdbcType=REAL},
+      </if>
+      <if test="wvipice != null" >
+        #{wvipice,jdbcType=REAL},
+      </if>
+      <if test="wdeal != null" >
+        #{wdeal,jdbcType=REAL},
+      </if>
+      <if test="wclaim != null" >
+        #{wclaim,jdbcType=REAL},
+      </if>
+      <if test="wicbcprice != null" >
+        #{wicbcprice,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.RepairExample" resultType="java.lang.Integer" >
+    select count(*) from repair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update repair
+    <set >
+      <if test="record.wid != null" >
+        wid = #{record.wid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wmid != null" >
+        wmid = #{record.wmid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wmname != null" >
+        wmname = #{record.wmname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wincomeid != null" >
+        wincomeid = #{record.wincomeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wremark != null" >
+        wremark = #{record.wremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wsprice != null" >
+        wsprice = #{record.wsprice,jdbcType=REAL},
+      </if>
+      <if test="record.wmemberprice != null" >
+        wmemberprice = #{record.wmemberprice,jdbcType=REAL},
+      </if>
+      <if test="record.wvipice != null" >
+        wvipice = #{record.wvipice,jdbcType=REAL},
+      </if>
+      <if test="record.wdeal != null" >
+        wdeal = #{record.wdeal,jdbcType=REAL},
+      </if>
+      <if test="record.wclaim != null" >
+        wclaim = #{record.wclaim,jdbcType=REAL},
+      </if>
+      <if test="record.wicbcprice != null" >
+        wicbcprice = #{record.wicbcprice,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update repair
+    set wid = #{record.wid,jdbcType=INTEGER},
+      wmid = #{record.wmid,jdbcType=INTEGER},
+      wmname = #{record.wmname,jdbcType=VARCHAR},
+      wincomeid = #{record.wincomeid,jdbcType=INTEGER},
+      wremark = #{record.wremark,jdbcType=VARCHAR},
+      wsprice = #{record.wsprice,jdbcType=REAL},
+      wmemberprice = #{record.wmemberprice,jdbcType=REAL},
+      wvipice = #{record.wvipice,jdbcType=REAL},
+      wdeal = #{record.wdeal,jdbcType=REAL},
+      wclaim = #{record.wclaim,jdbcType=REAL},
+      wicbcprice = #{record.wicbcprice,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Repair" >
+    update repair
+    <set >
+      <if test="wmid != null" >
+        wmid = #{wmid,jdbcType=INTEGER},
+      </if>
+      <if test="wmname != null" >
+        wmname = #{wmname,jdbcType=VARCHAR},
+      </if>
+      <if test="wincomeid != null" >
+        wincomeid = #{wincomeid,jdbcType=INTEGER},
+      </if>
+      <if test="wremark != null" >
+        wremark = #{wremark,jdbcType=VARCHAR},
+      </if>
+      <if test="wsprice != null" >
+        wsprice = #{wsprice,jdbcType=REAL},
+      </if>
+      <if test="wmemberprice != null" >
+        wmemberprice = #{wmemberprice,jdbcType=REAL},
+      </if>
+      <if test="wvipice != null" >
+        wvipice = #{wvipice,jdbcType=REAL},
+      </if>
+      <if test="wdeal != null" >
+        wdeal = #{wdeal,jdbcType=REAL},
+      </if>
+      <if test="wclaim != null" >
+        wclaim = #{wclaim,jdbcType=REAL},
+      </if>
+      <if test="wicbcprice != null" >
+        wicbcprice = #{wicbcprice,jdbcType=REAL},
+      </if>
+    </set>
+    where wid = #{wid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Repair" >
+    update repair
+    set wmid = #{wmid,jdbcType=INTEGER},
+      wmname = #{wmname,jdbcType=VARCHAR},
+      wincomeid = #{wincomeid,jdbcType=INTEGER},
+      wremark = #{wremark,jdbcType=VARCHAR},
+      wsprice = #{wsprice,jdbcType=REAL},
+      wmemberprice = #{wmemberprice,jdbcType=REAL},
+      wvipice = #{wvipice,jdbcType=REAL},
+      wdeal = #{wdeal,jdbcType=REAL},
+      wclaim = #{wclaim,jdbcType=REAL},
+      wicbcprice = #{wicbcprice,jdbcType=REAL}
+    where wid = #{wid,jdbcType=INTEGER}
+  </update>
+</mapper>

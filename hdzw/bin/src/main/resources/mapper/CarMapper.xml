@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.CarMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Car" >
+    <id column="hid" property="hid" jdbcType="INTEGER" />
+    <result column="hlicenseno" property="hlicenseno" jdbcType="VARCHAR" />
+    <result column="hbrandid" property="hbrandid" jdbcType="INTEGER" />
+    <result column="htypeid" property="htypeid" jdbcType="INTEGER" />
+    <result column="hdriverid" property="hdriverid" jdbcType="INTEGER" />
+    <result column="hvehicleownership" property="hvehicleownership" jdbcType="INTEGER" />
+    <result column="hvin" property="hvin" jdbcType="VARCHAR" />
+    <result column="hengineid" property="hengineid" jdbcType="INTEGER" />
+    <result column="hengineno" property="hengineno" jdbcType="VARCHAR" />
+    <result column="hcarmj" property="hcarmj" jdbcType="REAL" />
+    <result column="hmileage" property="hmileage" jdbcType="INTEGER" />
+    <result column="hcarseries" property="hcarseries" jdbcType="VARCHAR" />
+    <result column="hbuydate" property="hbuydate" jdbcType="DATE" />
+    <result column="hbldate" property="hbldate" jdbcType="DATE" />
+    <result column="hsoidate" property="hsoidate" jdbcType="DATE" />
+    <result column="hjqxicbc" property="hjqxicbc" jdbcType="INTEGER" />
+    <result column="hjqxexpire" property="hjqxexpire" jdbcType="DATE" />
+    <result column="hsyxicbc" property="hsyxicbc" jdbcType="INTEGER" />
+    <result column="hsyxlastdate" property="hsyxlastdate" jdbcType="DATE" />
+    <result column="hicar" property="hicar" jdbcType="INTEGER" />
+    <result column="hfueltype" property="hfueltype" jdbcType="INTEGER" />
+    <result column="hnextmileage" property="hnextmileage" jdbcType="INTEGER" />
+    <result column="hmileagedate" property="hmileagedate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hid, hlicenseno, hbrandid, htypeid, hdriverid, hvehicleownership, hvin, hengineid, 
+    hengineno, hcarmj, hmileage, hcarseries, hbuydate, hbldate, hsoidate, hjqxicbc, hjqxexpire, 
+    hsyxicbc, hsyxlastdate, hicar, hfueltype, hnextmileage, hmileagedate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CarExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from car
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from car
+    where hid = #{hid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from car
+    where hid = #{hid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CarExample" >
+    delete from car
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Car" >
+    insert into car (hid, hlicenseno, hbrandid, 
+      htypeid, hdriverid, hvehicleownership, 
+      hvin, hengineid, hengineno, 
+      hcarmj, hmileage, hcarseries, 
+      hbuydate, hbldate, hsoidate, 
+      hjqxicbc, hjqxexpire, hsyxicbc, 
+      hsyxlastdate, hicar, hfueltype, 
+      hnextmileage, hmileagedate)
+    values (#{hid,jdbcType=INTEGER}, #{hlicenseno,jdbcType=VARCHAR}, #{hbrandid,jdbcType=INTEGER}, 
+      #{htypeid,jdbcType=INTEGER}, #{hdriverid,jdbcType=INTEGER}, #{hvehicleownership,jdbcType=INTEGER}, 
+      #{hvin,jdbcType=VARCHAR}, #{hengineid,jdbcType=INTEGER}, #{hengineno,jdbcType=VARCHAR}, 
+      #{hcarmj,jdbcType=REAL}, #{hmileage,jdbcType=INTEGER}, #{hcarseries,jdbcType=VARCHAR}, 
+      #{hbuydate,jdbcType=DATE}, #{hbldate,jdbcType=DATE}, #{hsoidate,jdbcType=DATE}, 
+      #{hjqxicbc,jdbcType=INTEGER}, #{hjqxexpire,jdbcType=DATE}, #{hsyxicbc,jdbcType=INTEGER}, 
+      #{hsyxlastdate,jdbcType=DATE}, #{hicar,jdbcType=INTEGER}, #{hfueltype,jdbcType=INTEGER}, 
+      #{hnextmileage,jdbcType=INTEGER}, #{hmileagedate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Car" >
+    insert into car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hid != null" >
+        hid,
+      </if>
+      <if test="hlicenseno != null" >
+        hlicenseno,
+      </if>
+      <if test="hbrandid != null" >
+        hbrandid,
+      </if>
+      <if test="htypeid != null" >
+        htypeid,
+      </if>
+      <if test="hdriverid != null" >
+        hdriverid,
+      </if>
+      <if test="hvehicleownership != null" >
+        hvehicleownership,
+      </if>
+      <if test="hvin != null" >
+        hvin,
+      </if>
+      <if test="hengineid != null" >
+        hengineid,
+      </if>
+      <if test="hengineno != null" >
+        hengineno,
+      </if>
+      <if test="hcarmj != null" >
+        hcarmj,
+      </if>
+      <if test="hmileage != null" >
+        hmileage,
+      </if>
+      <if test="hcarseries != null" >
+        hcarseries,
+      </if>
+      <if test="hbuydate != null" >
+        hbuydate,
+      </if>
+      <if test="hbldate != null" >
+        hbldate,
+      </if>
+      <if test="hsoidate != null" >
+        hsoidate,
+      </if>
+      <if test="hjqxicbc != null" >
+        hjqxicbc,
+      </if>
+      <if test="hjqxexpire != null" >
+        hjqxexpire,
+      </if>
+      <if test="hsyxicbc != null" >
+        hsyxicbc,
+      </if>
+      <if test="hsyxlastdate != null" >
+        hsyxlastdate,
+      </if>
+      <if test="hicar != null" >
+        hicar,
+      </if>
+      <if test="hfueltype != null" >
+        hfueltype,
+      </if>
+      <if test="hnextmileage != null" >
+        hnextmileage,
+      </if>
+      <if test="hmileagedate != null" >
+        hmileagedate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hid != null" >
+        #{hid,jdbcType=INTEGER},
+      </if>
+      <if test="hlicenseno != null" >
+        #{hlicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="hbrandid != null" >
+        #{hbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="htypeid != null" >
+        #{htypeid,jdbcType=INTEGER},
+      </if>
+      <if test="hdriverid != null" >
+        #{hdriverid,jdbcType=INTEGER},
+      </if>
+      <if test="hvehicleownership != null" >
+        #{hvehicleownership,jdbcType=INTEGER},
+      </if>
+      <if test="hvin != null" >
+        #{hvin,jdbcType=VARCHAR},
+      </if>
+      <if test="hengineid != null" >
+        #{hengineid,jdbcType=INTEGER},
+      </if>
+      <if test="hengineno != null" >
+        #{hengineno,jdbcType=VARCHAR},
+      </if>
+      <if test="hcarmj != null" >
+        #{hcarmj,jdbcType=REAL},
+      </if>
+      <if test="hmileage != null" >
+        #{hmileage,jdbcType=INTEGER},
+      </if>
+      <if test="hcarseries != null" >
+        #{hcarseries,jdbcType=VARCHAR},
+      </if>
+      <if test="hbuydate != null" >
+        #{hbuydate,jdbcType=DATE},
+      </if>
+      <if test="hbldate != null" >
+        #{hbldate,jdbcType=DATE},
+      </if>
+      <if test="hsoidate != null" >
+        #{hsoidate,jdbcType=DATE},
+      </if>
+      <if test="hjqxicbc != null" >
+        #{hjqxicbc,jdbcType=INTEGER},
+      </if>
+      <if test="hjqxexpire != null" >
+        #{hjqxexpire,jdbcType=DATE},
+      </if>
+      <if test="hsyxicbc != null" >
+        #{hsyxicbc,jdbcType=INTEGER},
+      </if>
+      <if test="hsyxlastdate != null" >
+        #{hsyxlastdate,jdbcType=DATE},
+      </if>
+      <if test="hicar != null" >
+        #{hicar,jdbcType=INTEGER},
+      </if>
+      <if test="hfueltype != null" >
+        #{hfueltype,jdbcType=INTEGER},
+      </if>
+      <if test="hnextmileage != null" >
+        #{hnextmileage,jdbcType=INTEGER},
+      </if>
+      <if test="hmileagedate != null" >
+        #{hmileagedate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CarExample" resultType="java.lang.Integer" >
+    select count(*) from car
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update car
+    <set >
+      <if test="record.hid != null" >
+        hid = #{record.hid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hlicenseno != null" >
+        hlicenseno = #{record.hlicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hbrandid != null" >
+        hbrandid = #{record.hbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="record.htypeid != null" >
+        htypeid = #{record.htypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hdriverid != null" >
+        hdriverid = #{record.hdriverid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hvehicleownership != null" >
+        hvehicleownership = #{record.hvehicleownership,jdbcType=INTEGER},
+      </if>
+      <if test="record.hvin != null" >
+        hvin = #{record.hvin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hengineid != null" >
+        hengineid = #{record.hengineid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hengineno != null" >
+        hengineno = #{record.hengineno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hcarmj != null" >
+        hcarmj = #{record.hcarmj,jdbcType=REAL},
+      </if>
+      <if test="record.hmileage != null" >
+        hmileage = #{record.hmileage,jdbcType=INTEGER},
+      </if>
+      <if test="record.hcarseries != null" >
+        hcarseries = #{record.hcarseries,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hbuydate != null" >
+        hbuydate = #{record.hbuydate,jdbcType=DATE},
+      </if>
+      <if test="record.hbldate != null" >
+        hbldate = #{record.hbldate,jdbcType=DATE},
+      </if>
+      <if test="record.hsoidate != null" >
+        hsoidate = #{record.hsoidate,jdbcType=DATE},
+      </if>
+      <if test="record.hjqxicbc != null" >
+        hjqxicbc = #{record.hjqxicbc,jdbcType=INTEGER},
+      </if>
+      <if test="record.hjqxexpire != null" >
+        hjqxexpire = #{record.hjqxexpire,jdbcType=DATE},
+      </if>
+      <if test="record.hsyxicbc != null" >
+        hsyxicbc = #{record.hsyxicbc,jdbcType=INTEGER},
+      </if>
+      <if test="record.hsyxlastdate != null" >
+        hsyxlastdate = #{record.hsyxlastdate,jdbcType=DATE},
+      </if>
+      <if test="record.hicar != null" >
+        hicar = #{record.hicar,jdbcType=INTEGER},
+      </if>
+      <if test="record.hfueltype != null" >
+        hfueltype = #{record.hfueltype,jdbcType=INTEGER},
+      </if>
+      <if test="record.hnextmileage != null" >
+        hnextmileage = #{record.hnextmileage,jdbcType=INTEGER},
+      </if>
+      <if test="record.hmileagedate != null" >
+        hmileagedate = #{record.hmileagedate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update car
+    set hid = #{record.hid,jdbcType=INTEGER},
+      hlicenseno = #{record.hlicenseno,jdbcType=VARCHAR},
+      hbrandid = #{record.hbrandid,jdbcType=INTEGER},
+      htypeid = #{record.htypeid,jdbcType=INTEGER},
+      hdriverid = #{record.hdriverid,jdbcType=INTEGER},
+      hvehicleownership = #{record.hvehicleownership,jdbcType=INTEGER},
+      hvin = #{record.hvin,jdbcType=VARCHAR},
+      hengineid = #{record.hengineid,jdbcType=INTEGER},
+      hengineno = #{record.hengineno,jdbcType=VARCHAR},
+      hcarmj = #{record.hcarmj,jdbcType=REAL},
+      hmileage = #{record.hmileage,jdbcType=INTEGER},
+      hcarseries = #{record.hcarseries,jdbcType=VARCHAR},
+      hbuydate = #{record.hbuydate,jdbcType=DATE},
+      hbldate = #{record.hbldate,jdbcType=DATE},
+      hsoidate = #{record.hsoidate,jdbcType=DATE},
+      hjqxicbc = #{record.hjqxicbc,jdbcType=INTEGER},
+      hjqxexpire = #{record.hjqxexpire,jdbcType=DATE},
+      hsyxicbc = #{record.hsyxicbc,jdbcType=INTEGER},
+      hsyxlastdate = #{record.hsyxlastdate,jdbcType=DATE},
+      hicar = #{record.hicar,jdbcType=INTEGER},
+      hfueltype = #{record.hfueltype,jdbcType=INTEGER},
+      hnextmileage = #{record.hnextmileage,jdbcType=INTEGER},
+      hmileagedate = #{record.hmileagedate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Car" >
+    update car
+    <set >
+      <if test="hlicenseno != null" >
+        hlicenseno = #{hlicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="hbrandid != null" >
+        hbrandid = #{hbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="htypeid != null" >
+        htypeid = #{htypeid,jdbcType=INTEGER},
+      </if>
+      <if test="hdriverid != null" >
+        hdriverid = #{hdriverid,jdbcType=INTEGER},
+      </if>
+      <if test="hvehicleownership != null" >
+        hvehicleownership = #{hvehicleownership,jdbcType=INTEGER},
+      </if>
+      <if test="hvin != null" >
+        hvin = #{hvin,jdbcType=VARCHAR},
+      </if>
+      <if test="hengineid != null" >
+        hengineid = #{hengineid,jdbcType=INTEGER},
+      </if>
+      <if test="hengineno != null" >
+        hengineno = #{hengineno,jdbcType=VARCHAR},
+      </if>
+      <if test="hcarmj != null" >
+        hcarmj = #{hcarmj,jdbcType=REAL},
+      </if>
+      <if test="hmileage != null" >
+        hmileage = #{hmileage,jdbcType=INTEGER},
+      </if>
+      <if test="hcarseries != null" >
+        hcarseries = #{hcarseries,jdbcType=VARCHAR},
+      </if>
+      <if test="hbuydate != null" >
+        hbuydate = #{hbuydate,jdbcType=DATE},
+      </if>
+      <if test="hbldate != null" >
+        hbldate = #{hbldate,jdbcType=DATE},
+      </if>
+      <if test="hsoidate != null" >
+        hsoidate = #{hsoidate,jdbcType=DATE},
+      </if>
+      <if test="hjqxicbc != null" >
+        hjqxicbc = #{hjqxicbc,jdbcType=INTEGER},
+      </if>
+      <if test="hjqxexpire != null" >
+        hjqxexpire = #{hjqxexpire,jdbcType=DATE},
+      </if>
+      <if test="hsyxicbc != null" >
+        hsyxicbc = #{hsyxicbc,jdbcType=INTEGER},
+      </if>
+      <if test="hsyxlastdate != null" >
+        hsyxlastdate = #{hsyxlastdate,jdbcType=DATE},
+      </if>
+      <if test="hicar != null" >
+        hicar = #{hicar,jdbcType=INTEGER},
+      </if>
+      <if test="hfueltype != null" >
+        hfueltype = #{hfueltype,jdbcType=INTEGER},
+      </if>
+      <if test="hnextmileage != null" >
+        hnextmileage = #{hnextmileage,jdbcType=INTEGER},
+      </if>
+      <if test="hmileagedate != null" >
+        hmileagedate = #{hmileagedate,jdbcType=DATE},
+      </if>
+    </set>
+    where hid = #{hid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Car" >
+    update car
+    set hlicenseno = #{hlicenseno,jdbcType=VARCHAR},
+      hbrandid = #{hbrandid,jdbcType=INTEGER},
+      htypeid = #{htypeid,jdbcType=INTEGER},
+      hdriverid = #{hdriverid,jdbcType=INTEGER},
+      hvehicleownership = #{hvehicleownership,jdbcType=INTEGER},
+      hvin = #{hvin,jdbcType=VARCHAR},
+      hengineid = #{hengineid,jdbcType=INTEGER},
+      hengineno = #{hengineno,jdbcType=VARCHAR},
+      hcarmj = #{hcarmj,jdbcType=REAL},
+      hmileage = #{hmileage,jdbcType=INTEGER},
+      hcarseries = #{hcarseries,jdbcType=VARCHAR},
+      hbuydate = #{hbuydate,jdbcType=DATE},
+      hbldate = #{hbldate,jdbcType=DATE},
+      hsoidate = #{hsoidate,jdbcType=DATE},
+      hjqxicbc = #{hjqxicbc,jdbcType=INTEGER},
+      hjqxexpire = #{hjqxexpire,jdbcType=DATE},
+      hsyxicbc = #{hsyxicbc,jdbcType=INTEGER},
+      hsyxlastdate = #{hsyxlastdate,jdbcType=DATE},
+      hicar = #{hicar,jdbcType=INTEGER},
+      hfueltype = #{hfueltype,jdbcType=INTEGER},
+      hnextmileage = #{hnextmileage,jdbcType=INTEGER},
+      hmileagedate = #{hmileagedate,jdbcType=DATE}
+    where hid = #{hid,jdbcType=INTEGER}
+  </update>
+</mapper>

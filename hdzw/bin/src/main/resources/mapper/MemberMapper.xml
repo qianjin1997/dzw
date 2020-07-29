@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Member" >
+    <id column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="gcard" property="gcard" jdbcType="VARCHAR" />
+    <result column="gadmissiondate" property="gadmissiondate" jdbcType="DATE" />
+    <result column="gmembershipdue" property="gmembershipdue" jdbcType="DATE" />
+    <result column="gcustomertypeid" property="gcustomertypeid" jdbcType="INTEGER" />
+    <result column="gtypeid" property="gtypeid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gid, gcard, gadmissiondate, gmembershipdue, gcustomertypeid, gtypeid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member
+    where gid = #{gid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.MemberExample" >
+    delete from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Member" >
+    insert into member (gid, gcard, gadmissiondate, 
+      gmembershipdue, gcustomertypeid, gtypeid
+      )
+    values (#{gid,jdbcType=INTEGER}, #{gcard,jdbcType=VARCHAR}, #{gadmissiondate,jdbcType=DATE}, 
+      #{gmembershipdue,jdbcType=DATE}, #{gcustomertypeid,jdbcType=INTEGER}, #{gtypeid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Member" >
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="gcard != null" >
+        gcard,
+      </if>
+      <if test="gadmissiondate != null" >
+        gadmissiondate,
+      </if>
+      <if test="gmembershipdue != null" >
+        gmembershipdue,
+      </if>
+      <if test="gcustomertypeid != null" >
+        gcustomertypeid,
+      </if>
+      <if test="gtypeid != null" >
+        gtypeid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="gcard != null" >
+        #{gcard,jdbcType=VARCHAR},
+      </if>
+      <if test="gadmissiondate != null" >
+        #{gadmissiondate,jdbcType=DATE},
+      </if>
+      <if test="gmembershipdue != null" >
+        #{gmembershipdue,jdbcType=DATE},
+      </if>
+      <if test="gcustomertypeid != null" >
+        #{gcustomertypeid,jdbcType=INTEGER},
+      </if>
+      <if test="gtypeid != null" >
+        #{gtypeid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.MemberExample" resultType="java.lang.Integer" >
+    select count(*) from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update member
+    <set >
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gcard != null" >
+        gcard = #{record.gcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gadmissiondate != null" >
+        gadmissiondate = #{record.gadmissiondate,jdbcType=DATE},
+      </if>
+      <if test="record.gmembershipdue != null" >
+        gmembershipdue = #{record.gmembershipdue,jdbcType=DATE},
+      </if>
+      <if test="record.gcustomertypeid != null" >
+        gcustomertypeid = #{record.gcustomertypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gtypeid != null" >
+        gtypeid = #{record.gtypeid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member
+    set gid = #{record.gid,jdbcType=INTEGER},
+      gcard = #{record.gcard,jdbcType=VARCHAR},
+      gadmissiondate = #{record.gadmissiondate,jdbcType=DATE},
+      gmembershipdue = #{record.gmembershipdue,jdbcType=DATE},
+      gcustomertypeid = #{record.gcustomertypeid,jdbcType=INTEGER},
+      gtypeid = #{record.gtypeid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Member" >
+    update member
+    <set >
+      <if test="gcard != null" >
+        gcard = #{gcard,jdbcType=VARCHAR},
+      </if>
+      <if test="gadmissiondate != null" >
+        gadmissiondate = #{gadmissiondate,jdbcType=DATE},
+      </if>
+      <if test="gmembershipdue != null" >
+        gmembershipdue = #{gmembershipdue,jdbcType=DATE},
+      </if>
+      <if test="gcustomertypeid != null" >
+        gcustomertypeid = #{gcustomertypeid,jdbcType=INTEGER},
+      </if>
+      <if test="gtypeid != null" >
+        gtypeid = #{gtypeid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Member" >
+    update member
+    set gcard = #{gcard,jdbcType=VARCHAR},
+      gadmissiondate = #{gadmissiondate,jdbcType=DATE},
+      gmembershipdue = #{gmembershipdue,jdbcType=DATE},
+      gcustomertypeid = #{gcustomertypeid,jdbcType=INTEGER},
+      gtypeid = #{gtypeid,jdbcType=INTEGER}
+    where gid = #{gid,jdbcType=INTEGER}
+  </update>
+</mapper>
