@@ -1821,6 +1821,406 @@ public class CheckoutExample {
             addCriterion("aldantype not between", value1, value2, "aldantype");
             return (Criteria) this;
         }
+
+        public Criteria andAlwugongIsNull() {
+            addCriterion("alwugong is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongIsNotNull() {
+            addCriterion("alwugong is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongEqualTo(String value) {
+            addCriterion("alwugong =", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongNotEqualTo(String value) {
+            addCriterion("alwugong <>", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongGreaterThan(String value) {
+            addCriterion("alwugong >", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongGreaterThanOrEqualTo(String value) {
+            addCriterion("alwugong >=", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongLessThan(String value) {
+            addCriterion("alwugong <", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongLessThanOrEqualTo(String value) {
+            addCriterion("alwugong <=", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongLike(String value) {
+            addCriterion("alwugong like", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongNotLike(String value) {
+            addCriterion("alwugong not like", value, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongIn(List<String> values) {
+            addCriterion("alwugong in", values, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongNotIn(List<String> values) {
+            addCriterion("alwugong not in", values, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongBetween(String value1, String value2) {
+            addCriterion("alwugong between", value1, value2, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlwugongNotBetween(String value1, String value2) {
+            addCriterion("alwugong not between", value1, value2, "alwugong");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianIsNull() {
+            addCriterion("alzhijian is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianIsNotNull() {
+            addCriterion("alzhijian is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianEqualTo(String value) {
+            addCriterion("alzhijian =", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianNotEqualTo(String value) {
+            addCriterion("alzhijian <>", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianGreaterThan(String value) {
+            addCriterion("alzhijian >", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianGreaterThanOrEqualTo(String value) {
+            addCriterion("alzhijian >=", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianLessThan(String value) {
+            addCriterion("alzhijian <", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianLessThanOrEqualTo(String value) {
+            addCriterion("alzhijian <=", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianLike(String value) {
+            addCriterion("alzhijian like", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianNotLike(String value) {
+            addCriterion("alzhijian not like", value, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianIn(List<String> values) {
+            addCriterion("alzhijian in", values, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianNotIn(List<String> values) {
+            addCriterion("alzhijian not in", values, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianBetween(String value1, String value2) {
+            addCriterion("alzhijian between", value1, value2, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzhijianNotBetween(String value1, String value2) {
+            addCriterion("alzhijian not between", value1, value2, "alzhijian");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenIsNull() {
+            addCriterion("alzeren is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenIsNotNull() {
+            addCriterion("alzeren is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenEqualTo(String value) {
+            addCriterion("alzeren =", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenNotEqualTo(String value) {
+            addCriterion("alzeren <>", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenGreaterThan(String value) {
+            addCriterion("alzeren >", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenGreaterThanOrEqualTo(String value) {
+            addCriterion("alzeren >=", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenLessThan(String value) {
+            addCriterion("alzeren <", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenLessThanOrEqualTo(String value) {
+            addCriterion("alzeren <=", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenLike(String value) {
+            addCriterion("alzeren like", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenNotLike(String value) {
+            addCriterion("alzeren not like", value, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenIn(List<String> values) {
+            addCriterion("alzeren in", values, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenNotIn(List<String> values) {
+            addCriterion("alzeren not in", values, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenBetween(String value1, String value2) {
+            addCriterion("alzeren between", value1, value2, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlzerenNotBetween(String value1, String value2) {
+            addCriterion("alzeren not between", value1, value2, "alzeren");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaIsNull() {
+            addCriterion("alchufa is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaIsNotNull() {
+            addCriterion("alchufa is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaEqualTo(Float value) {
+            addCriterion("alchufa =", value, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaNotEqualTo(Float value) {
+            addCriterion("alchufa <>", value, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaGreaterThan(Float value) {
+            addCriterion("alchufa >", value, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaGreaterThanOrEqualTo(Float value) {
+            addCriterion("alchufa >=", value, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaLessThan(Float value) {
+            addCriterion("alchufa <", value, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaLessThanOrEqualTo(Float value) {
+            addCriterion("alchufa <=", value, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaIn(List<Float> values) {
+            addCriterion("alchufa in", values, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaNotIn(List<Float> values) {
+            addCriterion("alchufa not in", values, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaBetween(Float value1, Float value2) {
+            addCriterion("alchufa between", value1, value2, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlchufaNotBetween(Float value1, Float value2) {
+            addCriterion("alchufa not between", value1, value2, "alchufa");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanIsNull() {
+            addCriterion("alfanyuan is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanIsNotNull() {
+            addCriterion("alfanyuan is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanEqualTo(String value) {
+            addCriterion("alfanyuan =", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanNotEqualTo(String value) {
+            addCriterion("alfanyuan <>", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanGreaterThan(String value) {
+            addCriterion("alfanyuan >", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanGreaterThanOrEqualTo(String value) {
+            addCriterion("alfanyuan >=", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanLessThan(String value) {
+            addCriterion("alfanyuan <", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanLessThanOrEqualTo(String value) {
+            addCriterion("alfanyuan <=", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanLike(String value) {
+            addCriterion("alfanyuan like", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanNotLike(String value) {
+            addCriterion("alfanyuan not like", value, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanIn(List<String> values) {
+            addCriterion("alfanyuan in", values, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanNotIn(List<String> values) {
+            addCriterion("alfanyuan not in", values, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanBetween(String value1, String value2) {
+            addCriterion("alfanyuan between", value1, value2, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfanyuanNotBetween(String value1, String value2) {
+            addCriterion("alfanyuan not between", value1, value2, "alfanyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumIsNull() {
+            addCriterion("alfannum is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumIsNotNull() {
+            addCriterion("alfannum is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumEqualTo(Integer value) {
+            addCriterion("alfannum =", value, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumNotEqualTo(Integer value) {
+            addCriterion("alfannum <>", value, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumGreaterThan(Integer value) {
+            addCriterion("alfannum >", value, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("alfannum >=", value, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumLessThan(Integer value) {
+            addCriterion("alfannum <", value, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumLessThanOrEqualTo(Integer value) {
+            addCriterion("alfannum <=", value, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumIn(List<Integer> values) {
+            addCriterion("alfannum in", values, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumNotIn(List<Integer> values) {
+            addCriterion("alfannum not in", values, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumBetween(Integer value1, Integer value2) {
+            addCriterion("alfannum between", value1, value2, "alfannum");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlfannumNotBetween(Integer value1, Integer value2) {
+            addCriterion("alfannum not between", value1, value2, "alfannum");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

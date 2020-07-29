@@ -28,7 +28,65 @@
     <result column="aliscomplete" property="aliscomplete" jdbcType="INTEGER" />
     <result column="alweidan" property="alweidan" jdbcType="VARCHAR" />
     <result column="aldantype" property="aldantype" jdbcType="VARCHAR" />
+    <result column="alwugong" property="alwugong" jdbcType="VARCHAR" />
+    <result column="alzhijian" property="alzhijian" jdbcType="VARCHAR" />
+    <result column="alzeren" property="alzeren" jdbcType="VARCHAR" />
+    <result column="alchufa" property="alchufa" jdbcType="REAL" />
+    <result column="alfanyuan" property="alfanyuan" jdbcType="VARCHAR" />
+    <result column="alfannum" property="alfannum" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.Checkout" id="BaseResultMapTwo" extends="BaseResultMap">
+  	<association property="c2" column="alcarid" javaType="com.accp.domain.Car">
+  		<id column="hid" property="hid" jdbcType="INTEGER" />
+	    <result column="hlicenseno" property="hlicenseno" jdbcType="VARCHAR" />
+	    <result column="hbrandid" property="hbrandid" jdbcType="INTEGER" />
+	    <result column="htypeid" property="htypeid" jdbcType="INTEGER" />
+	    <result column="hdriverid" property="hdriverid" jdbcType="INTEGER" />
+	    <result column="hvehicleownership" property="hvehicleownership" jdbcType="INTEGER" />
+	    <result column="hvin" property="hvin" jdbcType="VARCHAR" />
+	    <result column="hengineid" property="hengineid" jdbcType="INTEGER" />
+	    <result column="hengineno" property="hengineno" jdbcType="VARCHAR" />
+	    <result column="hcarmj" property="hcarmj" jdbcType="REAL" />
+	    <result column="hmileage" property="hmileage" jdbcType="INTEGER" />
+	    <result column="hcarseries" property="hcarseries" jdbcType="VARCHAR" />
+	    <result column="hbuydate" property="hbuydate" jdbcType="DATE" />
+	    <result column="hbldate" property="hbldate" jdbcType="DATE" />
+	    <result column="hsoidate" property="hsoidate" jdbcType="DATE" />
+	    <result column="hjqxicbc" property="hjqxicbc" jdbcType="INTEGER" />
+	    <result column="hjqxexpire" property="hjqxexpire" jdbcType="DATE" />
+	    <result column="hsyxicbc" property="hsyxicbc" jdbcType="INTEGER" />
+	    <result column="hsyxlastdate" property="hsyxlastdate" jdbcType="DATE" />
+	    <result column="hicar" property="hicar" jdbcType="INTEGER" />
+	    <result column="hfueltype" property="hfueltype" jdbcType="INTEGER" />
+	    <result column="hnextmileage" property="hnextmileage" jdbcType="INTEGER" />
+	    <result column="hmileagedate" property="hmileagedate" jdbcType="DATE" />
+	    <result column="huid" property="huid" jdbcType="INTEGER" />
+	    <result column="hweiid" property="hweiid" jdbcType="INTEGER" />
+  	</association>
+  	<association property="c3" column="albusinessid" javaType="com.accp.domain.Maintainxm">
+  		<id column="xid" property="xid" jdbcType="INTEGER" />
+	    <result column="xmaintainname" property="xmaintainname" jdbcType="VARCHAR" />
+	    <result column="xparentid" property="xparentid" jdbcType="INTEGER" />
+  	</association>
+  	<association property="c4" column="aldriveid" javaType="com.accp.domain.Driver">
+  		<id column="oid" property="oid" jdbcType="INTEGER" />
+	    <result column="oname" property="oname" jdbcType="VARCHAR" />
+	    <result column="ophone" property="ophone" jdbcType="VARCHAR" />
+	    <result column="obirthday" property="obirthday" jdbcType="DATE" />
+	    <result column="oexpire" property="oexpire" jdbcType="DATE" />
+  	</association>
+  </resultMap>
+  
+  <select id="findAlls" resultMap="BaseResultMapTwo">
+  	SELECT * FROM checkout AS c1 INNER JOIN car AS c2 ON(c1.`alcarid` = c2.`hid`)
+	INNER JOIN maintainxm AS c3 ON(c1.`albusinessid` = c3.`xid`)
+	INNER JOIN driver AS c4 ON(c1.`aldriveid` = c4.`oid`)
+	<where>
+		if<if test=""></if>
+	</where>
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -91,7 +149,8 @@
     alid, alcarid, alcarownername, albusinessid, alclearingform, aldepartdate, alroadworkdate, 
     alestimatemoney, aldriveid, aldivisions, alpkcompany, aldepartaddress, alrescueaddress, 
     alwxremake, alphone, althemileage, aldrivecar, alcrew, alstaffid, aldispatchdate, 
-    alrange, alcompletedate, alstatement, aliscomplete, alweidan, aldantype
+    alrange, alcompletedate, alstatement, aliscomplete, alweidan, aldantype, alwugong, 
+    alzhijian, alzeren, alchufa, alfanyuan, alfannum
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CheckoutExample" >
     select
@@ -132,7 +191,9 @@
       althemileage, aldrivecar, alcrew, 
       alstaffid, aldispatchdate, alrange, 
       alcompletedate, alstatement, aliscomplete, 
-      alweidan, aldantype)
+      alweidan, aldantype, alwugong, 
+      alzhijian, alzeren, alchufa, 
+      alfanyuan, alfannum)
     values (#{alid,jdbcType=INTEGER}, #{alcarid,jdbcType=INTEGER}, #{alcarownername,jdbcType=VARCHAR}, 
       #{albusinessid,jdbcType=INTEGER}, #{alclearingform,jdbcType=VARCHAR}, #{aldepartdate,jdbcType=DATE}, 
       #{alroadworkdate,jdbcType=DATE}, #{alestimatemoney,jdbcType=REAL}, #{aldriveid,jdbcType=INTEGER}, 
@@ -141,7 +202,9 @@
       #{althemileage,jdbcType=INTEGER}, #{aldrivecar,jdbcType=VARCHAR}, #{alcrew,jdbcType=VARCHAR}, 
       #{alstaffid,jdbcType=INTEGER}, #{aldispatchdate,jdbcType=DATE}, #{alrange,jdbcType=INTEGER}, 
       #{alcompletedate,jdbcType=DATE}, #{alstatement,jdbcType=VARCHAR}, #{aliscomplete,jdbcType=INTEGER}, 
-      #{alweidan,jdbcType=VARCHAR}, #{aldantype,jdbcType=VARCHAR})
+      #{alweidan,jdbcType=VARCHAR}, #{aldantype,jdbcType=VARCHAR}, #{alwugong,jdbcType=VARCHAR}, 
+      #{alzhijian,jdbcType=VARCHAR}, #{alzeren,jdbcType=VARCHAR}, #{alchufa,jdbcType=REAL}, 
+      #{alfanyuan,jdbcType=VARCHAR}, #{alfannum,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Checkout" >
     insert into checkout
@@ -224,6 +287,24 @@
       <if test="aldantype != null" >
         aldantype,
       </if>
+      <if test="alwugong != null" >
+        alwugong,
+      </if>
+      <if test="alzhijian != null" >
+        alzhijian,
+      </if>
+      <if test="alzeren != null" >
+        alzeren,
+      </if>
+      <if test="alchufa != null" >
+        alchufa,
+      </if>
+      <if test="alfanyuan != null" >
+        alfanyuan,
+      </if>
+      <if test="alfannum != null" >
+        alfannum,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="alid != null" >
@@ -303,6 +384,24 @@
       </if>
       <if test="aldantype != null" >
         #{aldantype,jdbcType=VARCHAR},
+      </if>
+      <if test="alwugong != null" >
+        #{alwugong,jdbcType=VARCHAR},
+      </if>
+      <if test="alzhijian != null" >
+        #{alzhijian,jdbcType=VARCHAR},
+      </if>
+      <if test="alzeren != null" >
+        #{alzeren,jdbcType=VARCHAR},
+      </if>
+      <if test="alchufa != null" >
+        #{alchufa,jdbcType=REAL},
+      </if>
+      <if test="alfanyuan != null" >
+        #{alfanyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="alfannum != null" >
+        #{alfannum,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -393,6 +492,24 @@
       <if test="record.aldantype != null" >
         aldantype = #{record.aldantype,jdbcType=VARCHAR},
       </if>
+      <if test="record.alwugong != null" >
+        alwugong = #{record.alwugong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alzhijian != null" >
+        alzhijian = #{record.alzhijian,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alzeren != null" >
+        alzeren = #{record.alzeren,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alchufa != null" >
+        alchufa = #{record.alchufa,jdbcType=REAL},
+      </if>
+      <if test="record.alfanyuan != null" >
+        alfanyuan = #{record.alfanyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alfannum != null" >
+        alfannum = #{record.alfannum,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -425,7 +542,13 @@
       alstatement = #{record.alstatement,jdbcType=VARCHAR},
       aliscomplete = #{record.aliscomplete,jdbcType=INTEGER},
       alweidan = #{record.alweidan,jdbcType=VARCHAR},
-      aldantype = #{record.aldantype,jdbcType=VARCHAR}
+      aldantype = #{record.aldantype,jdbcType=VARCHAR},
+      alwugong = #{record.alwugong,jdbcType=VARCHAR},
+      alzhijian = #{record.alzhijian,jdbcType=VARCHAR},
+      alzeren = #{record.alzeren,jdbcType=VARCHAR},
+      alchufa = #{record.alchufa,jdbcType=REAL},
+      alfanyuan = #{record.alfanyuan,jdbcType=VARCHAR},
+      alfannum = #{record.alfannum,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -508,6 +631,24 @@
       <if test="aldantype != null" >
         aldantype = #{aldantype,jdbcType=VARCHAR},
       </if>
+      <if test="alwugong != null" >
+        alwugong = #{alwugong,jdbcType=VARCHAR},
+      </if>
+      <if test="alzhijian != null" >
+        alzhijian = #{alzhijian,jdbcType=VARCHAR},
+      </if>
+      <if test="alzeren != null" >
+        alzeren = #{alzeren,jdbcType=VARCHAR},
+      </if>
+      <if test="alchufa != null" >
+        alchufa = #{alchufa,jdbcType=REAL},
+      </if>
+      <if test="alfanyuan != null" >
+        alfanyuan = #{alfanyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="alfannum != null" >
+        alfannum = #{alfannum,jdbcType=INTEGER},
+      </if>
     </set>
     where alid = #{alid,jdbcType=INTEGER}
   </update>
@@ -537,7 +678,13 @@
       alstatement = #{alstatement,jdbcType=VARCHAR},
       aliscomplete = #{aliscomplete,jdbcType=INTEGER},
       alweidan = #{alweidan,jdbcType=VARCHAR},
-      aldantype = #{aldantype,jdbcType=VARCHAR}
+      aldantype = #{aldantype,jdbcType=VARCHAR},
+      alwugong = #{alwugong,jdbcType=VARCHAR},
+      alzhijian = #{alzhijian,jdbcType=VARCHAR},
+      alzeren = #{alzeren,jdbcType=VARCHAR},
+      alchufa = #{alchufa,jdbcType=REAL},
+      alfanyuan = #{alfanyuan,jdbcType=VARCHAR},
+      alfannum = #{alfannum,jdbcType=INTEGER}
     where alid = #{alid,jdbcType=INTEGER}
   </update>
 </mapper>
