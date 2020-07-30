@@ -9,6 +9,9 @@
     <result column="gcustomertypeid" property="gcustomertypeid" jdbcType="INTEGER" />
     <result column="gtypeid" property="gtypeid" jdbcType="INTEGER" />
   </resultMap>
+   <select id="findBy" resultMap="BaseResultMap">
+		select * from member where gid=#{ememberid}  
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

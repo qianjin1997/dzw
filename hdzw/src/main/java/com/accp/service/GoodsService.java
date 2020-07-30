@@ -32,6 +32,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import com.accp.domain.Goods;
+import com.github.pagehelper.Page;
 
 @Service
 @Transactional
@@ -143,4 +145,7 @@ public class GoodsService {
 		return g9mapper.selectByExample(null);
 	}
 	
+	public Page<Goods> findByPage(Integer pageNum, Integer pageSize){
+		return null;
+	}
 }

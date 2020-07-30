@@ -14,7 +14,7 @@
 			.el-header {
 			    background-color: #39CEDE;
 			}
-			  
+			
 			.el-aside {
 				color: #333;
 			}
@@ -79,7 +79,7 @@
 				 </el-col>
 			 </el-row>
 			
-			<el-container style="height: 433px; border: 1px solid #eee">
+			<el-container style="height: 460px; border: 1px solid #eee">
 			  
 			  <el-container content="true">
 				<template>
@@ -87,35 +87,106 @@
 					border
 				    :header-cell-style="{background:'#39CEDE',color:'white'}"
 				    ref="singleTable"
-				    :data="tableData"
+				    :data="page.list"
 				    highlight-current-row
 				    @current-change="handleCurrentChange"
 				    style="width: 100%;">
 				    <el-table-column
-				      type="index"
+				      type="alid"
 				      width="50">
 				    </el-table-column>
 				    <el-table-column
-				      property="date"
-				      label="日期"
+					show-overflow-tooltip
+				      property="alid"
+				      label="维修单号"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="name"
-				      label="姓名"
+					show-overflow-tooltip
+				      property="alclearingform"
+				      label="单据类型"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="address"
-				      label="地址">
+					show-overflow-tooltip
+				      property="albusinessid"
+				      label="业务类型">
 				    </el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="aldivisions"
+					  label="施工班次">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alcarownername"
+					  label="车主姓名">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alcarid"
+					  label="车牌号">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alcarid"
+					  label="车型">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alcarid"
+					  label="车架号">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="aldepartdate"
+					  label="接车时间">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alroadworkdate"
+					  label="预计完工">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alroadworkdate"
+					  label="完工时间">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alroadworkdate"
+					  label="误工原因">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alroadworkdate"
+					  label="返工数">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alroadworkdate"
+					  label="返工原因">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alroadworkdate"
+					  label="责任人">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alwxremake"
+					  label="处罚金额">
+					</el-table-column>
 				  </el-table>
 				</template>
 			 <el-footer>
 				 <el-pagination
+					style="text-align: center;"
+				   @current-change="fyhandleCurrentChange"
 				   background
 				   layout="prev, pager, next"
-				   :total="1000">
+				   :page-size="7"
+				   :total="page.total">
 				 </el-pagination>
 			 </el-footer>
 			 </el-container>
@@ -137,10 +208,26 @@
 					},
 					handleCurrentChange(val) {
 						this.currentRow = val;
+					},
+					fyhandleCurrentChange(val){
+						this.getPage(val);
+					},
+					//加载函数
+					getPage(pageNum){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/checkout/"+pageNum+"/7",
+							data:that.chechout,
+							success:function(result){
+								that.page = result;
+							}
+						});
 					}
 				},
 				data() {
 				    return {
+						chechout:{},
+						page:{},
 						value1: '',
 						value2: '',
 						labelPosition:'right',
@@ -150,26 +237,13 @@
 						},
 						formLabelWidth: '120px',
 						input: '',
-						tableData: [{
-						  date: '2016-05-02',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1518 弄'
-						}, {
-						  date: '2016-05-04',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1517 弄'
-						}, {
-						  date: '2016-05-01',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1519 弄'
-						}, {
-						  date: '2016-05-03',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1516 弄'
-						}],
+						tableData: [],
 						currentRow: null
 				    }
 				},
+				created(){
+					this.getPage(1);
+				}
 			});
 		</script>
 	</body>

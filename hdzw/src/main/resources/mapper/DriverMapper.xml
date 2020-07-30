@@ -8,6 +8,9 @@
     <result column="obirthday" property="obirthday" jdbcType="DATE" />
     <result column="oexpire" property="oexpire" jdbcType="DATE" />
   </resultMap>
+  <select id="findByid" resultMap="BaseResultMap">
+		select * from driver where oid=#{hdriverid} 
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -99,7 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Driver" >
+  <insert id="insert" parameterType="com.accp.domain.Driver" keyColumn="oid"  keyProperty="oid" useGeneratedKeys="true">
     insert into driver (oid, oname, ophone, 
       obirthday, oexpire)
     values (#{oid,jdbcType=INTEGER}, #{oname,jdbcType=VARCHAR}, #{ophone,jdbcType=VARCHAR}, 

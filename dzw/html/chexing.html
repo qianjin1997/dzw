@@ -291,11 +291,8 @@
 								<label for="inputPassword" class="col-sm-2 control-label">进口/国产</label>
 								<div class="col-sm-3">
 									<select class="form-control">
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+										<option value="1">进口</option>
+										<option value="2">国产</option>
 									</select>
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">参考价格</label>
@@ -437,12 +434,12 @@
 		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			$(function() {
+			/*$(function() {
 				$(".chose").click(function() {
 					$("#table tr").removeClass("choseed")
 					$(this).addClass("choseed")
 				})
-			})
+			})*/
 			var vm = new Vue({
 				el: ".container",
 				data() {

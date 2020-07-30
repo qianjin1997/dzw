@@ -43,8 +43,8 @@
 			<el-row style="margin-bottom: 10px;">
 				<el-col :span="8" :offset="16">
 					<el-link @click="dialogFormVisible = true" style="font-size: 20px; margin-right: 10px;" icon="el-icon-s-fold" :underline="false">增加</el-link>
-					<el-link @click="dialogEdit = true" style="font-size: 20px; margin-right: 10px;" icon="el-icon-edit" :underline="false">修改</el-link>
-					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-circle-close" :underline="false">删除</el-link>
+					<el-link @click="toedit" style="font-size: 20px; margin-right: 10px;" icon="el-icon-edit" :underline="false">修改</el-link>
+					<el-link @click="del" style="font-size: 20px; margin-right: 10px;" icon="el-icon-circle-close" :underline="false">删除</el-link>
 					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-picture" :underline="false">保存</el-link>
 					<el-link style="font-size: 20px; margin-right: 10px;" icon="el-icon-printer" :underline="false">导出</el-link>
 				</el-col>
@@ -59,8 +59,8 @@
 				    :header-cell-style="{background:'#39CEDE',color:'white'}"
 				    ref="singleTable"
 				    :data="tableData"
+					@current-change="handleCurrentChange"
 				    highlight-current-row
-				    @current-change="handleCurrentChange"
 				    style="width: 100%;">
 				    <el-table-column
 				      property="id"
@@ -68,12 +68,12 @@
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="name"
+				      property="tgradename"
 				      label="等级名称"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="weight"
+				      property="tgradeweight"
 				      label="等级权重">
 				    </el-table-column>
 				    
@@ -91,19 +91,14 @@
 			<el-dialog title="添加星级" :visible.sync="dialogFormVisible" width="20%">
 			  <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
 			    
-			    <el-row type="flex">
-			    	<el-form-item label="等级编码">
-			    	  <el-input  v-model="formInline.id" placeholder="等级编码"></el-input>
-			    	</el-form-item>
-			    </el-row>
 				<el-row type="flex">
 					<el-form-item label="等级名称">
-					  <el-input   v-model="formInline.name" placeholder="等级名称"></el-input>
+					  <el-input   v-model="formInline.tgradename" placeholder="等级名称"></el-input>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex">
 					<el-form-item label="等级权重">
-					  <el-input  v-model="formInline.weight" placeholder="等级权重"></el-input>
+					  <el-input  v-model="formInline.tgradeweight" placeholder="等级权重"></el-input>
 					</el-form-item>
 				</el-row>
 				
@@ -117,19 +112,15 @@
 			<el-dialog title="修改星级" :visible.sync="dialogEdit" width="20%">
 			  <el-form size="small" :inline="true" :model="formInline" class="demo-form-inline" :label-position="labelPosition" label-width="80px">
 			    
-			    <el-row type="flex">
-			    	<el-form-item label="等级编码">
-			    	  <el-input  v-model="formInline.id" placeholder="等级编码"></el-input>
-			    	</el-form-item>
-			    </el-row>
+			      <input type="hidden"  v-model="formupdate.tid" />
 				<el-row type="flex">
 					<el-form-item label="等级名称">
-					  <el-input   v-model="formInline.name" placeholder="等级名称"></el-input>
+					  <el-input   v-model="formupdate.tgradename" placeholder="等级名称"></el-input>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex">
 					<el-form-item label="等级权重">
-					  <el-input  v-model="formInline.weight" placeholder="等级权重"></el-input>
+					  <el-input  v-model="formupdate.tgradeweight" placeholder="等级权重"></el-input>
 					</el-form-item>
 				</el-row>
 				
@@ -167,17 +158,17 @@
 					}
 				},
 				data() {
-					const item = {
-					        id: '1',
-					        name: '一级',
-					        weight: '111'
-					};
+					
 				    return {
 						labelPosition:'right',
 						 formInline: {
-					        id: '',
-					        name: '',
-					        weight: ''
+					        tgradename: '',
+					        tgradeweight: ''
+						},
+						formupdate: {
+							tid:0,
+						    tgradename: '',
+						    tgradeweight: ''
 						},
 						dialogFormVisible: false,
 						dialogPriceVisible: false,
@@ -185,16 +176,116 @@
 						formLabelWidth: '120px',
 						filterText: '',
 						input: '',
-						tableData: Array(1).fill(item),
-						multipleSelection: []
+						tableData: [],
+						multipleSelection: [],
+						currentRow: {
+							tid:0,
+						    tgradename: '',
+						    tgradeweight: ''
+						}
 				    }
 				},
 				methods:{
 					add(){
-						this.tableData.push(this.formInline);
-						this.dialogFormVisible=false;
+						var that = this;
+						
+						var str = JSON.stringify(this.formInline);
+						$.ajax({
+							url:"http://127.0.0.1:8888/artisan",
+							method:"post",
+							xhrFields: {
+					　　　　　　withCredentials: true
+					　　　　},
+							data:that.formInline,
+							success:function(result){
+								if(result=="0000"){
+									
+									this.dialogFormVisible=false;
+								}else{
+									
+								}
+								
+							}
+						});
 					},
+					handleCurrentChange(val) {
+						this.currentRow = val;
+						console.log(val);
+					},
+					getAll(){
+						var that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/artisan",
+							method:"get",
+							xhrFields: {
+					　　　　　　withCredentials: true
+					　　　　},
+							success:function(result){
+								console.log(result)
+								var it=[];
+								for(var i=0;i<result.length;i++){
+									var temp = {};
+									temp = result[i];
+									temp.id = temp.tid.toString();
+									it.push(temp);
+								}
+								that.tableData = it;
+							}
+						});
+					},edit(){
+						var that =this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/artisan/edit",
+							method:"post",
+							xhrFields: {
+					　　　　　　withCredentials: true
+					　　　　},
+							data:that.formupdate,
+							success:function(result){
+								if(result=="0000"){
+									
+									that.dialogEdit=false;
+								}else{
+									
+								}
+								
+							}
+						});
+						this.getAll();
+					},toedit(){
+						if(this.currentRow.tid!=0){
+							
+							this.formupdate = this.currentRow
+							
+							this.dialogEdit = true;
+						}else{
+							alert("请选择");
+						}
+					},del(){
+						if(this.currentRow.tid!=0){
+							var that =this;
+							$.ajax({
+									url:"http://127.0.0.1:8888/artisan/remove/"+that.currentRow.tid,
+									method:"post",
+									xhrFields: {
+							　　　　　　withCredentials: true
+							　　　　},
+									success:function(result){
+									if(result=="0000"){
+										alert("成功");
+									}else{
+										
+									}
+								}
+							});
+							this.getAll();
+						}else{
+							alert("请选择");
+						}
+					}
 					
+				},created() {
+					this.getAll();
 				}
 			});
 		</script>

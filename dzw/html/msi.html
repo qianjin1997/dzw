@@ -34,7 +34,7 @@
 					  v-model="input"
 					  clearable>
 					</el-input>
-					<el-button type="warning" icon="el-icon-search">搜索</el-button>
+					<el-button @click="find" type="warning" icon="el-icon-search">搜索</el-button>
 					<el-button type="info">关闭</el-button>
 				</el-col>
 			</el-row>
@@ -43,12 +43,12 @@
 			
 			<el-row style="margin-bottom: 10px;">
 				<el-col :span="8" :offset="16">
-					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
-					<el-link @click="dialogFormVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
-					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+					<el-link @click="toCreate" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
+					<el-link @click="toUpdate" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>修改</el-link>
+					<el-link @click="removeRepair" type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
 					<el-link @click="dialogPriceVisible = true" type="info" class="bitbtn" :underline="false"><i class="el-icon-bottom bit"></i>调价</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-picture bit"></i>保存</el-link>
-					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
+					<el-link @click="exportExcel" type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
 				</el-col>
 			</el-row>
 			
@@ -57,7 +57,7 @@
 			  <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
 			    <el-menu :default-openeds="['1', '3']">
 			  		<el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
-			  		<el-tree class="filter-tree" :data="data" :props="defaultProps" default-expand-all :filter-node-method="filterNode" ref="tree"></el-tree>
+			  		<el-tree @current-change="xz" class="filter-tree" :data="data" :props="defaultProps" default-expand-all :filter-node-method="filterNode" ref="tree" :default-expand-all="false"></el-tree>
 			    </el-menu>
 			  </el-aside>
 			  
@@ -67,36 +67,82 @@
 					border
 				    :header-cell-style="{background:'#39CEDE',color:'white'}"
 				    ref="singleTable"
-				    :data="tableData"
+				    :data="page.list"
 				    highlight-current-row
 				    @current-change="handleCurrentChange"
 				    style="width: 100%;">
 				    <el-table-column
-				      type="index"
+				      type="wid"
 				      width="50">
 				    </el-table-column>
 				    <el-table-column
-				      property="date"
-				      label="日期"
+					show-overflow-tooltip
+				      property="r2.xmaintainname"
+				      label="项目类别"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="name"
-				      label="姓名"
+					show-overflow-tooltip
+				      property="wid"
+				      label="项目编码"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
-				      property="address"
-				      label="地址">
+					show-overflow-tooltip
+				      property="wmname"
+				      label="项目名称">
 				    </el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wremark"
+					  label="售价按">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="r3.yname"
+					  label="收入种类">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wsprice"
+					  label="标准价">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wmemberprice"
+					  label="会员价">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wvipice"
+					  label="VIP价">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wdeal"
+					  label="协议价">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wclaim"
+					  label="索赔价">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wicbcprice"
+					  label="保险价">
+					</el-table-column>
 				  </el-table>
 				</template>
 			 <el-footer>
-				 <el-pagination
-				   background
-				   layout="prev, pager, next"
-				   :total="1000">
-				 </el-pagination>
+				<el-pagination
+				style="text-align: center;"
+				  @current-change="fyhandleCurrentChange"
+				  background
+				  layout="prev, pager, next"
+				  :page-size="8"
+				  :total="page.total">
+				</el-pagination>
 			 </el-footer>
 			 </el-container>
 			</el-container>
@@ -104,7 +150,7 @@
 			<el-dialog :visible.sync="dialogFormVisible" width="50%">
 				<template slot="title">
 					 <div>
-						 <h2 class="tbt">商品资料编辑</h2>
+						 <h2 class="tbt">服务项目定义</h2>
 						 <el-button style="margin-left: 310px;" class="tsave" type="success" icon="el-icon-folder-checked" size="medium" @click="onSubmit">保存</el-button>
 					</div>
 				</template>
@@ -112,55 +158,61 @@
 			    
 				<el-row type="flex">
 					<el-form-item label="项目编码">
-					  <el-input style="width: 245px;" v-model="formInline.user" placeholder="项目编码"></el-input>
+					  <el-input :disabled="true" style="width: 245px;" v-model="formInline.wid" placeholder="项目编码"></el-input>
 					</el-form-item>
 					<el-form-item label="项目名称">
-					  <el-input  style="width: 245px;" v-model="formInline.user" placeholder="项目名称"></el-input>
+					  <el-input  style="width: 245px;" v-model="formInline.wmname" placeholder="项目名称"></el-input>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="收入种类">
-					  <el-select  style="width: 245px;" v-model="formInline.region" placeholder="收入种类">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 245px;" value-key="yid" v-model="formInline.wincomeid" placeholder="收入种类">
+					   <el-option
+						 v-for="item in income"
+						 :key="item.yid"
+						 :label="item.yname"
+						 :value="item.yid">  
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="项目类别">
-					  <el-select  style="width: 245px;" v-model="formInline.region" placeholder="项目类别">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					  <el-select  style="width: 245px;" value-key="xid" v-model="formInline.wmid" placeholder="项目类别"> 
+						<el-option
+						  v-for="item in maintainxm"
+						  :key="item.xid"
+						  :label="item.xmaintainname"
+						  :value="item.xid">
 					  </el-select>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="备注">
-					  <el-input style="width: 580px;" v-model="formInline.user" placeholder="备注"></el-input>
+					  <el-input style="width: 580px;" v-model="formInline.wremark" placeholder="备注"></el-input>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="标准价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="标准价"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.wsprice" placeholder="标准价"></el-input>
 					</el-form-item>
 					<el-form-item label="会员价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="会员价"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.wmemberprice" placeholder="会员价"></el-input>
 					</el-form-item>
 					<el-form-item label="VIP价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="VIP价"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.wvipice" placeholder="VIP价"></el-input>
 					</el-form-item>
 					<el-form-item label="协议价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="协议价"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.wdeal" placeholder="协议价"></el-input>
 					</el-form-item>
 				</el-row>
 				
 				<el-row type="flex">
 					<el-form-item label="索赔价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="索赔价"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.wclaim" placeholder="索赔价"></el-input>
 					</el-form-item>
 					<el-form-item label="保险价">
-					  <el-input  style="width: 120px;" v-model="formInline.user" placeholder="保险价"></el-input>
+					  <el-input  style="width: 120px;" v-model="formInline.wicbcprice" placeholder="保险价"></el-input>
 					</el-form-item>
 				</el-row>
 			  </el-form>
@@ -169,7 +221,7 @@
 			<el-dialog :visible.sync="dialogPriceVisible" width="45%">
 				<template slot="title">
 					 <div>
-						 <h2 class="tbt">商品资料编辑</h2>
+						 <h2 class="tbt">调价</h2>
 						 <el-button style="margin-left: 330px;" class="tsave" type="success" icon="el-icon-folder-checked" size="medium" @click="onSubmit">保存</el-button>
 					</div>
 				</template>
@@ -177,8 +229,8 @@
 				<el-row type="flex">
 					<el-form-item label="">
 					  <el-select  style="width: 245px;" v-model="formInline.region" placeholder="收入种类">
-					    <el-option label="区域一" value="shanghai"></el-option>
-					    <el-option label="区域二" value="beijing"></el-option>
+					    <el-option label="1" value="shanghai"></el-option>
+					    <el-option label="2" value="beijing"></el-option>
 					  </el-select>
 					</el-form-item>
 					<el-form-item label="=标准价*">
@@ -204,88 +256,179 @@
 				      }
 				    },
 				methods: {
+					//根据左侧菜单进行查询
+					xz(val,data){
+						// console.log(val);
+						// console.log(data);
+						this.repair.wmid = val.xid;
+						// console.log(this.repair);
+						this.getPage(1);
+					},
+					//保存商品信息
 					onSubmit() {
-					        console.log('submit!');
+						this.formInline.r2 = {};
+						this.formInline.r3 = {};
+					    var that = this;
+						// console.log(this.formInline);
+					    $.ajax({
+							url:"http://localhost:8888/repair",
+							data:that.formInline,
+							method:"post",
+							success:function(result){
+								// console.log(result);
+								if(result=="00000"){
+									alert("保存成功！");
+								}else{
+									alert("保存失败");
+								}
+								this.dialogFormVisible = false;
+								that.getPage(that.pageNum);
+							}
+					    });
 					},
 					filterNode(value, data) {
 						if (!value) return true;
-						return data.label.indexOf(value) !== -1;
+						return data.xmaintainname.indexOf(value) !== -1;
 					},
 					handleCurrentChange(val) {
 						this.currentRow = val;
+						// console.log(this.currentRow);
+					},
+					//查找方法
+					find(){
+						// console.log(this.input);
+						this.repair = {};
+						this.repair.wmname = this.input;
+						this.getPage(1);
+					},
+					//分页方法
+					fyhandleCurrentChange(val) {
+						this.pageNum = val;
+						this.getPage(val);
+					},
+					//加载商品资料信息
+					getPage(pageNum){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/repair/"+pageNum+"/8",
+							data:that.repair,
+							success:function(result){
+								that.page = result;
+							}
+						});
+					},
+					//删除维修信息
+					removeRepair(){
+						if (this.currentRow == null) {
+							alert("请选择项目");
+							return;
+						}
+						var that = this;
+						var id = this.currentRow.wid;
+						console.log(id);
+						$.ajax({
+							url:"http://localhost:8888/repair/"+id,
+							method:"post",
+							success:function(result){
+								if(result=="00001"){
+									alert("删除失败！");
+								}else{
+									alert("删除成功！");
+								}
+								that.getPage(that.pageNum);
+							}
+						});
+					},
+					//打开新增模态框
+					toCreate(){
+						this.formInline={wid:0};
+						this.dialogFormVisible = true;
+					},
+					//打开修改模态框
+					toUpdate(){
+						if(this.currentRow == null){
+							alert("请选择项目");
+							return;
+						}
+						this.dialogFormVisible = true;
+						this.formInline = this.currentRow;
+					},
+					//导出方法
+					exportExcel(){
+						window.location.href="http://localhost:8888/repair/exportExcel?repair="+this.input;
+					},
+					//下拉框查询方法
+					getFind1(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/repair/find1",
+							success:function(result){
+								that.maintainxm = result;
+							}
+						});
+					},
+					getFind2(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/repair/find2",
+							success:function(result){
+								that.income = result;
+							}
+						});
+					},
+					//加载左侧菜单
+					getLeft(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8888/repair/leftFind",
+							success:function(result){
+								that.data = result;
+							}
+						});
 					}
 				},
 				data() {
 				    return {
+						maintainxm:[],
+						income:[],
+						repair:{},
+						pageNum:0,
+						page:{},
 						labelPosition:'right',
-						 formInline: {
-						          user: '',
-						          region: ''
+						formInline: {
+							wclaim: "",
+							wdeal: "",
+							wicbcprice: "",
+							wid: 0,
+							wincomeid: "",
+							wmemberprice: "",
+							wmid: "",
+							wmname: "",
+							wremark: "",
+							wsprice: "",
+							wvipice: ""
 						},
 						dialogFormVisible: false,
 						dialogPriceVisible: false,
 						formLabelWidth: '120px',
 						filterText: '',
 						input: '',
-						data: [{
-						  id: 1,
-						  label: '一级 1',
-						  children: [{
-							id: 4,
-							label: '二级 1-1',
-							children: [{
-							  id: 9,
-							  label: '三级 1-1-1'
-							}, {
-							  id: 10,
-							  label: '三级 1-1-2'
-							}]
-						  }]
-						}, {
-						  id: 2,
-						  label: '一级 2',
-						  children: [{
-							id: 5,
-							label: '二级 2-1'
-						  }, {
-							id: 6,
-							label: '二级 2-2'
-						  }]
-						}, {
-						  id: 3,
-						  label: '一级 3',
-						  children: [{
-							id: 7,
-							label: '二级 3-1'
-						  }, {
-							id: 8,
-							label: '二级 3-2'
-						  }]
-						}],
+						data: [],
 						defaultProps: {
-						  children: 'children',
-						  label: 'label'
+						  id:'xid',
+						  children: 'ma',
+						  label: 'xmaintainname'
 						},
-						tableData: [{
-						  date: '2016-05-02',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1518 弄'
-						}, {
-						  date: '2016-05-04',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1517 弄'
-						}, {
-						  date: '2016-05-01',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1519 弄'
-						}, {
-						  date: '2016-05-03',
-						  name: '王小虎',
-						  address: '上海市普陀区金沙江路 1516 弄'
-						}],
+						tableData: [],
 						currentRow: null
 					}
 				},
+				created(){
+					this.getPage(1);
+					this.getFind1();
+					this.getFind2();
+					this.getLeft();
+				}
 			});
 		</script>
 	</body>

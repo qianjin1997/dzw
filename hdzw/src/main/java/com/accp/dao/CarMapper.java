@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CarMapper {
+	List<Car> findAll(Integer hid);
+	
     int countByExample(CarExample example);
 
     int deleteByExample(CarExample example);
