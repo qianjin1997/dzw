@@ -98,13 +98,13 @@
 						<div  id="d" >
 							<div style="margin-top: 20px;">
 								<span style="font-size: 18px;font-weight: 600;color:gray;float: left;">客户编辑</span>
-							<span class=""   style="font-size: 15px; color: gray;padding-left: 30px;margin-left: 10rem;"@click="tj = true">
+							<span class=""   style="font-size: 15px; color: gray;padding-left: 30px;margin-left: 10rem;"@click="xzcarkh">
 								  增加客户和车	
 							</span>
 							<span class="" style="font-size: 15px; color:gray;padding-left: 30px;" @click="tj2 = true">增加客户</span>
-							<span class="" style="font-size: 15px; color: gray;padding-left: 30px;" @click="tj3 = true" >修改客户</span>
+							<span class="" style="font-size: 15px; color: gray;padding-left: 30px;" @click="xiugai" >修改客户</span>
 							
-							<span class="" style="font-size: 15px; color: gray;padding-left: 30px;" >删除客户</span>
+							<span class="" style="font-size: 15px; color: gray;padding-left: 30px;"  @click="khdel" >删除客户</span>
 							<span class="" style="font-size: 15px; color: gray;padding-left: 30px;" >相关证照</span>
 							<span class="" style="font-size: 15px; color: gray;padding-left: 30px;" >设置密码</span>
 							<span class="el-icon-caret-top" @click="sq1" style="font-size: 15px;color: gray;margin-left: 100px;" ><span>收起</span></span>
@@ -112,53 +112,51 @@
 						</div>
 						<div style="margin-left: ;margin-top: 20px;" id="b">
 							<span style="font-size: 18px;font-weight: 600;color: gray;float: left;">车辆编辑</span>
-	
-							<span class="" style="font-size: 15px; color: gray;padding-left: 40px;margin-left: 301px;" @click="tj1 = true">增加车资料</span>
-							<span class="" style="font-size: 15px; color: gray;padding-left: 40px;" @click="tj4 = true">修改车资料</span>
-							<span class="" style="font-size: 15px; color: gray;padding-left: 40px;"  >删除车资料</span>
-						
-						
-						
-						
+							<span class="" style="font-size: 15px; color: gray;padding-left: 40px;margin-left: 301px;" @click="xz">增加车资料</span>
+							<span class="" style="font-size: 15px; color: gray;padding-left: 40px;" @click="xiugai11">修改车资料</span>
+							<span class="" style="font-size: 15px; color: gray;padding-left: 40px;" @click="cardel" >删除车资料</span>	
 							<span class="el-icon-caret-top" @click="sq2" style="font-size: 15px;color: gray;margin-left: 154px;"><span>收起</span></span>
 						</div>
 					</table>
 					<template>
 					  <el-table
-					    :data="tableData"
+					    :data="page.list"
 					    style="width: 100%"
-					    height="350"
-						:header-cell-style="{background:'#39CEDE',color:'white'}"
+					    height="250"
+						type="index"
 						border
+						highlight-current-row
+						@current-change="handleCurrentChange"
+						:header-cell-style="{background:'#39CEDE',color:'white'}"
 						>
 					    <el-table-column
 					      fixed
-					      prop="date"
+					      prop="ecustomerid"
 					      label="客户编号"
 					      width="150">
 					    </el-table-column>
 					    <el-table-column
-					      prop="name"
+					      prop="ecustomername"
 					      label="客户名称"
 					      width="120">
 					    </el-table-column>
 					    <el-table-column
-					      prop="province"
+					      prop="eaddress"
 					      label="详细地址"
 					      width="120">
 					    </el-table-column>
 					    <el-table-column
-					      prop="city"
+					      prop="elinkman"
 					      label="联系人"
 					      width="120">
 					    </el-table-column>
 					    <el-table-column
-					      prop="address"
+					      prop="ephone"
 					      label="手机"
 					      width="300">
 					    </el-table-column>
 					    <el-table-column
-					      prop="zip"
+					      prop="ebirthday"
 					      label="客户生日"
 					      width="120">
 					    </el-table-column>
@@ -168,154 +166,158 @@
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="member.gcard"
 						  label="会员卡号"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="member.gmembershipdue"
 						  label="入会日期"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="member.gmembershipdue"
 						  label="会员到期"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="e.remark"
 						  label="备注"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="edocumentdate"
 						  label="建档日期"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="econsultantid"
 						  label="服务顾问"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="esalesphone"
 						  label="业务电话"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="epaymentdays"
 						  label="账期"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="epaymentamount"
 						  label="挂账额度"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="ecumtrapz"
 						  label="累计积分"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="ebalance"
 						  label="定金余额"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="eprovince"
 						  label="客户省"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="ecity"
 						  label="客户市"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="edistrict"
 						  label="客户区"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="etaxpayer"
 						  label="纳税人识别号"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="eregisterphone"
 						  label="注册电话"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="edepositbank"
 						  label="开户银行"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="eregisteraddress"
 						  label="注册地址"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="erestsone"
 						  label="其他1"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="ereststwo"
 						  label="其他二"
 						  width="120">
 						</el-table-column>
 						<el-table-column
-						  prop="zip"
+						  prop="ereststhree"
 						  label="其他三"
 						  width="120">
 						</el-table-column>
 					  </el-table>
 					</template>
 					<el-pagination
+						@current-change="fenye"
+						:page-size="4"
 					  background
 					  layout="prev, pager, next"
-					  :total="1000" style="text-align: center;">
+					  :total="page.total-1" style="text-align: center;">
 					</el-pagination>
 					<template>
 					  <el-tabs v-model="activeName" @tab-click="handleClick">
 					    <el-tab-pane label="车辆信息" name="first">
 							<template>
 							  <el-table
-							    :data="tableData1"
+							    :data="car"
 							    style="width: 100%"
 							    height="150"
+								highlight-current-row
+								@current-change="car11"
 								:header-cell-style="{background:'#39CEDE',color:'white'}">
 							    <el-table-column
 							      fixed
-							      prop="date"
+							      prop="hlicenseno"
 							      label="车牌号码"
 							      width="150">
 							    </el-table-column>
 							    <el-table-column
-							      prop="name"
+							      prop="carbrand.ibrandname"
 							      label="车辆品牌"
 							      width="120">
 							    </el-table-column>
 							    <el-table-column
-							      prop="province"
+							      prop="cartype.jtypename"
 							      label="车辆型号"
 							      width="120">
 							    </el-table-column>
 							    <el-table-column
-							      prop="city"
+							      prop="driver.oname"
 							      label="驾驶员"
 							      width="120">
 							    </el-table-column>
 							    <el-table-column
-							      prop="address"
+							      prop="driver.ophone"
 							      label="驾驶员电话"
 							      width="300">
 							    </el-table-column>
 							    <el-table-column
-							      prop="zip"
+							      prop="driver.obirthday"
 							      label="出生日期"
 							      width="120">
 							    </el-table-column>
@@ -325,7 +327,7 @@
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="driver.oexpire"
 								  label="驾证到期"
 								  width="120">
 								</el-table-column>
@@ -335,22 +337,22 @@
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hengineid"
 								  label="发动机号"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hengineno"
 								  label="发动机品牌号"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hcarmj"
 								  label="车辆年款"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hmileage"
 								  label="里程"
 								  width="120">
 								</el-table-column>
@@ -360,47 +362,47 @@
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hcarseries"
 								  label="车系"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hbuydate"
 								  label="购买日期"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hbldate"
 								  label="上牌日期"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hsoidate"
 								  label="车检到期"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hjqxicbc"
 								  label="交强险保险公司"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hjqxexpire"
 								  label="交强险到期"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hjqxicbc"
 								  label="商业险保险公司"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hsyxlastdate"
 								  label="商业险到期"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hicar"
 								  label="在我投保车"
 								  width="120">
 								</el-table-column>
@@ -410,12 +412,12 @@
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hnextmileage"
 								  label="下次保养"
 								  width="120">
 								</el-table-column>
 								<el-table-column
-								  prop="zip"
+								  prop="hmileagedate"
 								  label="下次保养日期"
 								  width="120">
 								</el-table-column>
@@ -552,285 +554,306 @@
 				  width="70%"
 				  :before-close="handleClose">
 				  
-				
+			
 				  <div id="mtk" >
-				  	<p>
-						<span>客户编码</span><el-select style="width: 150px;margin-left: 10px;" v-model="value" :disabled="true">
-							<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
-							</el-option>
-						</el-select>
-						<span>客户名称</span><el-input type="text" placeholder="请输入内容" style="width: 150px;margin-left: 10px;"></el-input>
-						<span>联系人</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
-					</p>
-				  	<P>
-						<span>手机号码</span><el-input style="width: 130px;margin-left: 10px;"></el-input>
-						客户地址<el-input style="width: 200px;margin-left: 10px;"></el-input>
-						<span class="demonstration">客户生日</span>
-						<el-date-picker
-							v-model="value2"
-							type="date"
-							placeholder="选择日期" style="width: 140px;margin-left: 10px;">
-						  </el-date-picker>
-				  	</P>
-					
-				  	<P>
-						<span>账期（天）</span><el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-							<el-option
-							  v-for="item in options"
-							  :key="item.value"
-							  :label="item.label"
-							  :value="item.value">
-							</el-option>
-						  </el-select>
-						<span>挂账额度</span><el-input style="width: 120px;margin-left: 10px;"></el-input>
-						<span>专属顾问</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
-						<span>电话顾问</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
-					</P>
-					
-				  	<P>
-						<span>省</span>
-						<template>
-						  <el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-							<el-option
-							  v-for="item in options"
-							  :key="item.value"
-							  :label="item.label"
-							  :value="item.value">
-							</el-option>
-						  </el-select>
-						</template>
-						<span style="margin-left: 20px;margin-left: 10px;">市</span>
-						<el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-						  <el-option
-							v-for="item in options"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-						  </el-option>
-						</el-select>
-						<span style="margin-left: 20px;margin-left: 10px;">区</span>
-						<el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-						  <el-option
-							v-for="item in options"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-						  </el-option>
-						</el-select>
-					<p>
-					<span>备注</span>
-					<el-input style="width: 500px;margin-left: 10px;"></el-input>
+				  <span>客户编码</span><el-input style="width: 120px;"   v-model="tableDatakh.ecustomerid"></el-input>
+				  <span>客户名称</span><el-input type="text" placeholder="请输入内容" style="width: 150px;" v-model="tableDatakh.ecustomername"></el-input>
+				  <span>联系人</span><el-input style="width: 150px;" v-model="tableDatakh.elinkman"></el-input>
+				  <span>手机</span><el-input style="width: 130px;" v-model="tableDatakh.ephone"></el-input>
+				  <P>
+				  				  
+				  		客户地址<el-input style="width: 200px;" v-model="tableDatakh.eaddress"></el-input>
+				  		<span class="demonstration">客户生日</span>
+				  		<el-date-picker
+				  			v-model="tableDatakh.ebirthday"
+				  			type="date"
+				  			placeholder="选择日期" style="width: 140px;">
+				  		  </el-date-picker>
+				  </P>
+				  <P>
+				  	<span>账期（天）</span>
+				  	<el-input style="width: 130px;" v-model="tableDatakh.epaymentdays"></el-input>
+				  	<span>挂账额度</span><el-input style="width: 120px;" v-model="tableDatakh.epaymentamount"></el-input>
+				  	<span>专属顾问</span>
+				  	<el-input style="width: 120px;" v-model="tableDatakh.econsultantid"></el-input>
+				  	<span>电话顾问</span><el-input style="width: 150px;" v-model="tableDatakh.esalesphone"></el-input>
+				  </P>
+				  <P>
+				  	<span>省</span>
+				  	<template>
+				  	  <el-select class=" province" name="provinces" style="width: 150px;" v-model="tableDatakh.eprovince" placeholder="请选择">
+				  		<el-option
+				  		  v-for="item in options1"
+				  		  :key="item.value"
+				  		  :label="item.label"
+				  		  :value="item.value">
+				  		</el-option>
+				  	  </el-select>
+				  	</template>
+				  	<span style="margin-left: 20px;">市</span>
+				  	<el-select class=" city" name="citys" style="width: 150px;" v-model="tableDatakh.ecity" placeholder="请选择">
+				  	  <el-option
+				  		v-for="item in options2"
+				  		:key="item.value"
+				  		:label="item.label"
+				  		:value="item.value">
+				  	  </el-option>
+				  	</el-select>
+				  	<span style="margin-left: 20px;">区</span>
+				  	<el-select class=" district" name="districts" style="width: 150px;" v-model="tableDatakh.edistrict" placeholder="请选择">
+				  	  <el-option
+				  		v-for="item in options3"
+				  		:key="item.value"
+				  		:label="item.label"
+				  		:value="item.value">
+				  	  </el-option>
+				  	</el-select>
+				  </P>
+				  <p>
+				  	<span>备注</span>
+				  	<el-input style="width: 500px;" v-model="tableDatakh.eremark"></el-input>
+				  </p>
+				  <p>
+				  	<span>纳税人识别号</span><el-input style="width: 250px;" v-model="tableDatakh.etaxpayer"></el-input>
+				  	<span>注册电话</span><el-input style="width: 150px;" v-model="tableDatakh.eregisterphone"></el-input>
+				  	<span>开户银行</span><el-input style="width: 150px;" v-model="tableDatakh.edepositbank "></el-input>
+				  </p>
+				  
+				  <p>
+				  	<span>银行账号</span><el-input style="width: 150px;" v-model="tableDatakh.ebankaccount"></el-input>
+				  	<span>注册地址</span><el-input style="width: 350px;"v-model="tableDatakh.eregisteraddress"></el-input>
+				  </p>
 					</p>
 				 
-				  	
 				  	</P>
-				  	<P>
-						  <span style="margin-left: 20px;">车牌号码</span>
-						  <el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-							<el-option
-							  v-for="item in options"
-							  :key="item.value"
-							  :label="item.label"
-							  :value="item.value">
-							</el-option>
-						  </el-select>
-							<span>车间品牌</span><el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-							<el-option
-							  v-for="item in options"
-							  :key="item.value"
-							  :label="item.label"
-							  :value="item.value">
-							</el-option>
-						  </el-select>
-							<span>车辆型号</span><el-input style="width: 140px;margin-left: 10px;"></el-input>
-							<span>驾驶员</span><el-input style="width: 140px;margin-left: 10px;"></el-input>
-				  	</P>
-					
-					<P>
-						<span>驾驶员电话</span><el-input style="width: 140px;margin-left: 10px;"></el-input>
-						<span>出生日期</span>
-						<el-date-picker
-						    v-model="value2"
-						    type="date"
-						    placeholder="选择日期" style="width: 140px;margin-left: 10px;">
-						  </el-date-picker>
-						  <span>车辆归属</span>
-						  <el-option
-						    v-for="item in options"
-						    :key="item.value"
-						    :label="item.label"
-						    :value="item.value">
-						  </el-option>
-						  <span>驾证到期</span>
-						  <el-date-picker
-						      v-model="value2"
-						      type="date"
-						      placeholder="选择日期" style="width: 140px;margin-left: 10px;">
-						    </el-date-picker>
-					</P>
-					<p>
-						<span>车架号</span><el-input style="width: 180px;margin-left: 10px;"></el-input>
-						<span>发动机号</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
-						<span>车俩年款</span><el-input style="width: 100px;margin-left: 10px;"></el-input>
-						<span>里程</span><el-input style="width: 150px;"></el-input>
-					</p>
-					<p>
-						<span>发动机品牌</span><el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-				    <el-option
-				      v-for="item in options"
-				      :key="item.value"
-				      :label="item.label"
-				      :value="item.value">
-				    </el-option>
+				  <span>车辆号码</span><el-select style="width: 150px;margin-left: 10px;" v-model="tableData.hlicenseno" >
+				  	<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
+				  	</el-option>
 				  </el-select>
-						  <span>载重</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
-						  <span>购买日期</span>
-						  <el-date-picker
-						      v-model="value2"
-						      type="date"
-						      placeholder="选择日期" style="width: 140px;margin-left: 10px;">
-						    </el-date-picker>
-					</p>
-					<p>
-					<span>上牌日期</span>
-						<el-date-picker
-						    v-model="value2"
-						    type="date"
-						    placeholder="选择日期" style="width: 140px;margin-left: 10px;">
-						  </el-date-picker>
-						  <span>车检到期</span>
-						  <el-date-picker
-						      v-model="value2"
-						      type="date"
-						      placeholder="选择日期" style="width: 140px;margin-left: 10px;">
-						    </el-date-picker>
-							<span>燃油类别</span>
-							<el-select style="width: 150px;margin-left: 10px;" v-model="value" placeholder="请选择">
-							  <el-option
-							    v-for="item in options"
-							    :key="item.value"
-							    :label="item.label"
-							    :value="item.value">
-							  </el-option>
-							</el-select>
-					</p>
-					
-				  	<p><span style="color: red;">保险：</span> <span>交强保险公司</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
-				  		<span class="demonstration">交强保险到期</span><el-date-picker
-				        v-model="value5"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				  		<template>
-				  		  <el-checkbox v-model="checked">在我投保车</el-checkbox>
-				  		</template>
-				  	</p>
+				  <span >车辆品牌</span>
+				  <input @click="c=true"  style="border-radius: 8%;width: 150px;height: 35px;border: 1px solid gainsboro;"  v-model="ppname" />
+				  <span>车辆型号</span><el-input  type="text" placeholder="请输入内容" style="width: 150px;margin-left: 10px" v-model="lxname" ></el-input>
+				  <span>驾驶员</span><el-input @input="change($event)" style="width: 150px;margin-left: 10px;" v-model="driver.oname"></el-input>
+				  <P>
+				  <span>驾驶员电话</span><el-input @input="change($event)" v-model="driver.ophone" style="width: 130px;margin-left: 10px;"></el-input>
+				  <template>
+				  	
+				  <span class="demonstration">出生日期</span><el-date-picker
+				    v-model="driver.obirthday" @input="change($event)"
+				    type="date"
+				    placeholder="选择日期" style="width: 140px;margin-left: 10px;">
+				  </el-date-picker>
+				  
+				  </template>
+				  <span>车辆归属</span><el-input style="width: 130px;margin-left: 10px;"v-model="tableData.hvehicleownership"></el-input>
+				  <span class="demonstration">驾证到期</span>
+				  <el-date-picker
+				    v-model="driver.oexpire"
+				    @input="change($event)"
+				    type="date"
+				    placeholder="选择日期" style="width: 140px;margin-left: 10px;">
+				  </el-date-picker>
+				  </P>
+				  <P>
+				  	<span>车架号</span><el-input style="width: 180px;margin-left: 10px;" v-model="tableData.hvin"></el-input>
+				  	<span>发动机号</span><el-input style="width: 150px;margin-left: 10px;" v-model="tableData.engineno"></el-input>
+				  	<span>车辆年款</span><el-input style="width: 150px;margin-left: 10px;" v-model="tableData.carmj"></el-input>
+				  	<span>里程</span><el-input style="width: 150px;margin-left: 10px;"  v-model="tableData.mileage"></el-input>
+				  </P>
+				  <P>
+				  	<span>发动机品牌</span><el-input style="width: 210px;margin-left: 10px;"v-model="tableData.hengineid" ></el-input>
+				  
+				  	<template>
+				  	
+				  		<span class="demonstration">购买日期</span>
+				  		<el-date-picker
+				  		  v-model="tableData.hbuydate"
+				  		  type="date"
+				  		  placeholder="选择日期">
+				  		</el-date-picker>
+				  	  
+				  	  
+				  	</template>
+				  		
+				  </P>
+				  <P>
+				  	<span class="demonstration">上牌日期</span><el-date-picker
+				  	  v-model="tableData.hbldate"
+				  	  type="date"
+				  	  placeholder="选择日期"
+				  	  style="width: 140px;margin-left: 10px;"
+				  	  >
+				  	</el-date-picker>
+				  	<span>车间到期</span>
+				  	<el-date-picker
+				  	  v-model="tableData.soidate"
+				  	  type="date"
+				  	  placeholder="选择日期"
+				  	  style="width: 140px;margin-left: 10px;"
+				  	  >
+				  	</el-date-picker>
+				  	<span>燃油类别</span><el-select style="width: 150px;margin-left: 10px;" v-model="tableData.hfueltype" >
+				  		<el-option v-for="item in ry" :key="item.value":label="item.label":value="item.value">
+				  		</el-option>
+				  		</el-select>
+				  	<span>车系</span><el-input style="width: 140px;margin-left: 10px;"v-model="tableData.hcarseries"></el-input>
+				  </P>
+				  <p>
+				  	<span style="color: red;">保险：</span> 
+				  	<span>交强保险公司</span>
+				  	<el-input style="width: 150px;margin-left: 10px;" v-model="tableData.ejqxicbc"></el-input>
+				  	<span class="demonstration">交强保险到期</span>
+				  	<el-date-picker v-model="tableData.hjqxexpire" type="date" placeholder="选择日期"> </el-date-picker>
+				  	<template>
+				  	  <el-checkbox v-model="checked">在我投保车</el-checkbox>
+				  	</template>
+				  </p>
+				  <p> 
+				  		<span>商业险保险公司</span><el-input style="width: 150px;margin-left: 10px; " v-model="tableData.hsyxicbc"></el-input>
+				  		<span class="demonstration">商业险保险到期</span>
+				  		<el-date-picker
+				  		  v-model="tableData.hsyxlastdate"
+				  		  type="date"
+				  		  placeholder="选择日期">
+				  		</el-date-picker>
+				  </p>
+				  <P>
+				  	<span>下次保养里程</span>
+				  	<el-input style="width: 150px;margin-left: 10px;"v-model="tableData.hnextmileage"></el-input>
+				  	<span class="demonstration">下次保养日期</span>
+				  	<el-date-picker
+				  	  v-model="tableData.hmileagedate"
+				  	  type="date"
+				  	  placeholder="选择日期"
+				  	  style="width: 150px;margin-left: 10px;">
+				  	</el-date-picker>
+				  	<span>客户名称</span><el-input style="width: 200px;margin-left: 10px;"  @input="change($event)"  v-model="tableDatakh.ecustomername"></el-input>
+				  	
+				  </P>
 				  	
 				  </div>
 				  <span slot="footer" class="dialog-footer">
 				    <el-button @click="tj = false">取 消</el-button>
-				    <el-button type="primary" @click="tj = false">确 定</el-button>
+				    <el-button type="primary" @click="carkh">确 定</el-button>
 				  </span>
 				</el-dialog>
 				
 				<el-dialog
-				  title="车资料编辑"
+				  title="车辆新增"
 				  :visible.sync="tj1"
 				  width="70%"
-				  :before-close="handleClose">
-				
-				  <div id="mtk">
-				  	<span>车辆号码</span><el-select style="width: 150px;" v-model="value" >
-				  		<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
-				  		</el-option>
-				  	</el-select>
-				  	<span >车辆品牌</span>
-				  	<input @click="c=true" style="border-radius: 8%;width: 150px;height: 35px;border: 1px solid gainsboro;" />
-				  	<span>车辆型号</span><el-input type="text" placeholder="请输入内容" style="width: 150px;"></el-input>
-				  	<span>驾驶员</span><el-input style="width: 150px;"></el-input>
-				  	<P>
-				  	<span>驾驶员电话</span><el-input style="width: 130px;"></el-input>
-				  	<template>
-				  		
-				  	<span class="demonstration">出生日期</span><el-date-picker
-				        v-model="value1"
-				        type="date"
-				        placeholder="选择日期" style="width: 140px;">
-				      </el-date-picker>
-				  	
-				  	</template>
-				  	<span>车辆归属</span><el-input style="width: 130px;"></el-input>
-				  	<span class="demonstration">驾证到期</span>
-				  	<el-date-picker
-				        v-model="value2"
-				        type="date"
-				        placeholder="选择日期" style="width: 140px;">
-				      </el-date-picker>
-				  	</P>
-				  	<P>
-				  	<span>车架号</span><el-input style="width: 180px;"></el-input>
-				  	<span>发动机号</span><el-input style="width: 150px;"></el-input>
-				  	<span>车辆年款</span><el-input style="width: 150px;"></el-input>
-				  	<span>里程</span><el-input style="width: 150px;"></el-input>
-				  	</P>
-				  	<P>
-				  	<span>发动机品牌</span><el-input style="width: 210px;"></el-input>
-				  	<span>载重</span><el-input style="width: 150px;"></el-input>
-				  <template>
+				  :before-close="handleClose"
+				>
 				  
-				      <span class="demonstration">购买日期</span>
-				      <el-date-picker
-				        v-model="value3"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				    
-				    
-				  </template>
-				  	
-				  	</P>
-				  	<P>
-				  	<span class="demonstration">上牌日期</span><el-date-picker
-				        v-model="value4"
-				        type="date"
-				        placeholder="选择日期"
-				  	  >
-				      </el-date-picker>
-				  	<span>车间到期</span><el-input style="width: 140px;"></el-input>
-				  	<span>燃油类别</span><el-input style="width: 140px;"></el-input>
-				  	<span>车系</span><el-input style="width: 140px;"></el-input>
-				  	</P>
-				  	<p><span style="color: red;">保险：</span> <span>交强保险公司</span><el-input style="width: 150px;"></el-input>
-				  		<span class="demonstration">交强保险到期</span><el-date-picker
-				        v-model="value5"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				  		<template>
-				  		  <el-checkbox v-model="checked">在我投保车</el-checkbox>
-				  		</template>
-				  	</p>
-				  	<p> <span>商业险保险公司</span><el-input style="width: 150px;"></el-input>
-				  		<span class="demonstration">商业险保险到期</span><el-date-picker
-				        v-model="value6"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				  	</p>
-				  	<P>
-				  	<span>下次保养里程</span><el-input style="width: 150px;"></el-input>
-				  	<span class="demonstration">下次保养日期</span><el-date-picker
-				        v-model="value7"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				  	<span>客户名称</span><el-input style="width: 200px;" ></el-input>
-				  	
-				  	</P>
-				  </div>
-				  <span slot="footer" class="dialog-footer">
-				    <el-button @click="tj1 = false">取 消</el-button>
-				    <el-button type="primary" @click="tj1 = false">确 定</el-button>
+							<div id="mtk">
+								<span>车辆号码</span><el-select style="width: 150px;margin-left: 10px;" v-model="tableData.hlicenseno" >
+									<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
+									</el-option>
+								</el-select>
+								<span >车辆品牌</span>
+								<input @click="c=true"  style="border-radius: 8%;width: 150px;height: 35px;border: 1px solid gainsboro;"  v-model="ppname" />
+								<span>车辆型号</span><el-input  type="text" placeholder="请输入内容" style="width: 150px;margin-left: 10px" v-model="lxname" ></el-input>
+								<span>驾驶员</span><el-input @input="change($event)" style="width: 150px;margin-left: 10px;" v-model="driver.oname"></el-input>
+								<P>
+								<span>驾驶员电话</span><el-input @input="change($event)" v-model="driver.ophone" style="width: 130px;margin-left: 10px;"></el-input>
+								<template>
+									
+								<span class="demonstration">出生日期</span><el-date-picker
+							      v-model="driver.obirthday" @input="change($event)"
+							      type="date"
+							      placeholder="选择日期" style="width: 140px;margin-left: 10px;">
+							    </el-date-picker>
+								
+								</template>
+								<span>车辆归属</span><el-input style="width: 130px;margin-left: 10px;"v-model="tableData.hvehicleownership"></el-input>
+								<span class="demonstration">驾证到期</span>
+								<el-date-picker
+							      v-model="driver.oexpire"
+								  @input="change($event)"
+							      type="date"
+							      placeholder="选择日期" style="width: 140px;margin-left: 10px;">
+							    </el-date-picker>
+								</P>
+								<P>
+									<span>车架号</span><el-input style="width: 180px;margin-left: 10px;" v-model="tableData.hvin"></el-input>
+									<span>发动机号</span><el-input style="width: 150px;margin-left: 10px;" v-model="tableData.engineno"></el-input>
+									<span>车辆年款</span><el-input style="width: 150px;margin-left: 10px;" v-model="tableData.carmj"></el-input>
+									<span>里程</span><el-input style="width: 150px;margin-left: 10px;"  v-model="tableData.mileage"></el-input>
+								</P>
+								<P>
+									<span>发动机品牌</span><el-input style="width: 210px;margin-left: 10px;"v-model="tableData.hengineid" ></el-input>
+								
+									<template>
+									
+										<span class="demonstration">购买日期</span>
+										<el-date-picker
+										  v-model="tableData.hbuydate"
+										  type="date"
+										  placeholder="选择日期">
+										</el-date-picker>
+									  
+									  
+									</template>
+										
+								</P>
+								<P>
+									<span class="demonstration">上牌日期</span><el-date-picker
+									  v-model="tableData.hbldate"
+									  type="date"
+									  placeholder="选择日期"
+									  style="width: 140px;margin-left: 10px;"
+									  >
+									</el-date-picker>
+									<span>车间到期</span>
+									<el-date-picker
+									  v-model="tableData.soidate"
+									  type="date"
+									  placeholder="选择日期"
+									  style="width: 140px;margin-left: 10px;"
+									  >
+									</el-date-picker>
+									<span>燃油类别</span><el-select style="width: 150px;margin-left: 10px;" v-model="tableData.hfueltype" >
+										<el-option v-for="item in ry" :key="item.value":label="item.label":value="item.value">
+										</el-option>
+										</el-select>
+									<span>车系</span><el-input style="width: 140px;margin-left: 10px;"v-model="tableData.hcarseries"></el-input>
+								</P>
+								<p>
+									<span style="color: red;">保险：</span> 
+									<span>交强保险公司</span>
+									<el-input style="width: 150px;margin-left: 10px;" v-model="tableData.ejqxicbc"></el-input>
+									<span class="demonstration">交强保险到期</span>
+									<el-date-picker v-model="tableData.hjqxexpire" type="date" placeholder="选择日期"> </el-date-picker>
+									<template>
+									  <el-checkbox v-model="checked">在我投保车</el-checkbox>
+									</template>
+								</p>
+								<p> 
+										<span>商业险保险公司</span><el-input style="width: 150px;margin-left: 10px; " v-model="tableData.hsyxicbc"></el-input>
+										<span class="demonstration">商业险保险到期</span>
+										<el-date-picker
+										  v-model="tableData.hsyxlastdate"
+										  type="date"
+										  placeholder="选择日期">
+										</el-date-picker>
+								</p>
+								<P>
+									<span>下次保养里程</span>
+									<el-input style="width: 150px;margin-left: 10px;"v-model="tableData.hnextmileage"></el-input>
+									<span class="demonstration">下次保养日期</span>
+									<el-date-picker
+									  v-model="tableData.hmileagedate"
+									  type="date"
+									  placeholder="选择日期"
+									  style="width: 150px;margin-left: 10px;">
+									</el-date-picker>
+									<span>客户名称</span><el-input style="width: 200px;margin-left: 10px;"  @input="change($event)" :disabled="true"  v-model="khname"></el-input>
+									
+								</P>
+							</div>
+							<span slot="footer" class="dialog-footer">
+				    <el-button @click="qx">取 消</el-button>
+				    <el-button type="primary" @click="insertdri()">确 定</el-button>
 				  </span>
 				</el-dialog>
 				
@@ -844,100 +867,83 @@
 				
 				  <div id="mtk" >
 				  	
-				  	<span>客户编码</span><el-select style="width: 150px;" v-model="value" :disabled="true">
-				  		<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
-				  		</el-option>
-				  	</el-select>
-				  	<span>客户名称</span><el-input type="text" placeholder="请输入内容" style="width: 150px;"></el-input>
-				  	<span>联系人</span><el-input style="width: 150px;"></el-input>
-					<span>手机</span><el-input style="width: 130px;"></el-input>
+				  	<span>客户编码</span><el-input style="width: 120px;" :disabled="true"  v-model="tableDatakh.ecustomerid"></el-input>
+				  	<span>客户名称</span><el-input type="text" placeholder="请输入内容" style="width: 150px;" v-model="tableDatakh.ecustomername"></el-input>
+				  	<span>联系人</span><el-input style="width: 150px;" v-model="tableDatakh.elinkman"></el-input>
+					<span>手机</span><el-input style="width: 130px;" v-model="tableDatakh.ephone"></el-input>
 				  	<P>
 				  
-				  	客户地址<el-input style="width: 200px;"></el-input>
-				  	<span class="demonstration">客户生日</span>
-				  	<el-date-picker
-				        v-model="value2"
-				        type="date"
-				        placeholder="选择日期" style="width: 140px;">
-				      </el-date-picker>
+							客户地址<el-input style="width: 200px;" v-model="tableDatakh.eaddress"></el-input>
+							<span class="demonstration">客户生日</span>
+							<el-date-picker
+								v-model="tableDatakh.ebirthday"
+								type="date"
+								placeholder="选择日期" style="width: 140px;">
+							  </el-date-picker>
 				  	</P>
 				  	<P>
-				  	<span>账期（天）</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					    <el-option
-					      v-for="item in options"
-					      :key="item.value"
-					      :label="item.label"
-					      :value="item.value">
-					    </el-option>
-					  </el-select>
-				  	<span>挂账额度</span><el-input style="width: 120px;"></el-input>
-				  	<span>专属顾问</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					  <el-option
-					    v-for="item in options"
-					    :key="item.value"
-					    :label="item.label"
-					    :value="item.value">
-					  </el-option>
-					</el-select>
-				  	<span>电话顾问</span><el-input style="width: 150px;"></el-input>
+						<span>账期（天）</span>
+						<el-input style="width: 130px;" v-model="tableDatakh.epaymentdays"></el-input>
+						<span>挂账额度</span><el-input style="width: 120px;" v-model="tableDatakh.epaymentamount"></el-input>
+						<span>专属顾问</span>
+						<el-input style="width: 120px;" v-model="tableDatakh.econsultantid"></el-input>
+						<span>电话顾问</span><el-input style="width: 150px;" v-model="tableDatakh.esalesphone"></el-input>
 				  	</P>
 				  	<P>
-				  	<span>省</span>
-					<template>
-					  <el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					    <el-option
-					      v-for="item in options"
-					      :key="item.value"
-					      :label="item.label"
-					      :value="item.value">
-					    </el-option>
-					  </el-select>
-					</template>
-				  	<span style="margin-left: 20px;">市</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					  <el-option
-					    v-for="item in options"
-					    :key="item.value"
-					    :label="item.label"
-					    :value="item.value">
-					  </el-option>
-					</el-select>
-					<span style="margin-left: 20px;">区</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					  <el-option
-					    v-for="item in options"
-					    :key="item.value"
-					    :label="item.label"
-					    :value="item.value">
-					  </el-option>
-					</el-select>
+						<span>省</span>
+						<template>
+						  <el-select class=" province" name="provinces" style="width: 150px;" v-model="tableDatakh.eprovince" placeholder="请选择">
+							<el-option
+							  v-for="item in options"
+							  :key="item.value"
+							  :label="item.label"
+							  :value="item.value">
+							</el-option>
+						  </el-select>
+						</template>
+						<span style="margin-left: 20px;">市</span>
+						<el-select class=" city" name="citys" style="width: 150px;" v-model="tableDatakh.ecity" placeholder="请选择">
+						  <el-option
+							v-for="item in options"
+							:key="item.value"
+							:label="item.label"
+							:value="item.value">
+						  </el-option>
+						</el-select>
+						<span style="margin-left: 20px;">区</span>
+						<el-select class=" district" name="districts" style="width: 150px;" v-model="tableDatakh.edistrict" placeholder="请选择">
+						  <el-option
+							v-for="item in options"
+							:key="item.value"
+							:label="item.label"
+							:value="item.value">
+						  </el-option>
+						</el-select>
 					</P>
 					<p>
-					<span>备注</span>
-					<el-input style="width: 500px;"></el-input>
+						<span>备注</span>
+						<el-input style="width: 500px;" v-model="tableDatakh.eremark"></el-input>
 					</p>
 					<p>
-						<span>纳税人识别号</span><el-input style="width: 250px;"></el-input>
-						<span>注册电话</span><el-input style="width: 150px;"></el-input>
-						<span>开户银行</span><el-input style="width: 150px;"></el-input>
+						<span>纳税人识别号</span><el-input style="width: 250px;" v-model="tableDatakh.etaxpayer"></el-input>
+						<span>注册电话</span><el-input style="width: 150px;" v-model="tableDatakh.eregisterphone"></el-input>
+						<span>开户银行</span><el-input style="width: 150px;" v-model="tableDatakh.edepositbank "></el-input>
 					</p>
 					
 					<p>
-						<span>银行账号</span><el-input style="width: 150px;"></el-input>
-						<span>注册地址</span><el-input style="width: 350px;"></el-input>
+						<span>银行账号</span><el-input style="width: 150px;" v-model="tableDatakh.ebankaccount"></el-input>
+						<span>注册地址</span><el-input style="width: 350px;"v-model="tableDatakh.eregisteraddress"></el-input>
 					</p>
 					<p>
-						<span>其他一</span><el-input style="width: 150px;"></el-input>
-						<span>其他二</span><el-input style="width: 150px;"></el-input>
-						<span>其他三</span><el-input style="width: 150px;"></el-input>
-						<span>其他四</span><el-input style="width: 150px;"></el-input>
+						<span>其他一</span><el-input style="width: 150px;" v-model="tableDatakh.erestsone"></el-input>
+						<span>其他二</span><el-input style="width: 150px;" v-model="tableDatakh.ereststwo"></el-input>
+						<span>其他三</span><el-input style="width: 150px;"v-model="tableDatakh.ereststhree"></el-input>
+						<span>其他四</span><el-input style="width: 150px;" v-model="tableDatakh.erestsfour"></el-input>
 					</p>
 				  </div>
 				  <span slot="footer" class="dialog-footer">
 				    <el-button @click="tj2 = false">取 消</el-button>
-				    <el-button type="primary" @click="tj2 = false">确 定</el-button>
+				    <el-button type="primary" @click="insertkh()">确 定</el-button>
 				  </span>
 				</el-dialog>
 			
@@ -945,298 +951,319 @@
 				  title="客户资料修改"
 				  :visible.sync="tj3"
 				  width="70%"
+				 
 				  :before-close="handleClose">
 				  
 	
 				  <div id="mtk" >
 				  	
-				  	<span>客户编码</span><el-select style="width: 150px;" v-model="value" :disabled="true">
+				  	<span>客户编码</span><el-select style="width: 150px;" v-model="xgkh.ecustomerid" :disabled="true">
 				  		<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
 				  		</el-option>
 				  	</el-select>
-				  	<span>客户名称</span><el-input type="text" placeholder="请输入内容" style="width: 150px;"></el-input>
-				  	<span>联系人</span><el-input style="width: 150px;"></el-input>
-					<span>手机</span><el-input style="width: 130px;"></el-input>
+				  	<span>客户名称</span><el-input type="text" placeholder="请输入内容" style="width: 150px;" v-model="xgkh.ecustomername"></el-input>
+				  	<span>联系人</span><el-input style="width: 150px;" v-model="xgkh.elinkman"></el-input>
+					<span>手机</span><el-input style="width: 130px;" v-model="xgkh.ephone"></el-input>
 				  	<P>
-				  
-				  	客户地址<el-input style="width: 200px;"></el-input>
-				  	<span class="demonstration">客户生日</span>
-				  	<el-date-picker
-				        v-model="value2"
-				        type="date"
-				        placeholder="选择日期" style="width: 140px;">
-				      </el-date-picker>
+					  
+						客户地址<el-input style="width: 200px;" v-model="xgkh.eaddress"></el-input>
+						<span class="demonstration" >客户生日</span>
+						<el-date-picker
+							v-model="xgkh.ebirthday"
+							type="date"
+							placeholder="选择日期" style="width: 140px;">
+						  </el-date-picker>
 				  	</P>
 				  	<P>
-				  	<span>账期（天）</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					    <el-option
-					      v-for="item in options"
-					      :key="item.value"
-					      :label="item.label"
-					      :value="item.value">
-					    </el-option>
-					  </el-select>
-				  	<span>挂账额度</span><el-input style="width: 120px;"></el-input>
-				  	<span>专属顾问</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					  <el-option
-					    v-for="item in options"
-					    :key="item.value"
-					    :label="item.label"
-					    :value="item.value">
-					  </el-option>
-					</el-select>
-				  	<span>电话顾问</span><el-input style="width: 150px;"></el-input>
+						<span>账期（天）</span>
+						<el-select style="width: 150px;" v-model="value" placeholder="请选择" v-model="xgkh.epaymentdays">
+							<el-option
+							  v-for="item in options"
+							  :key="item.value"
+							  :label="item.label"
+							  :value="item.value">
+							</el-option>
+						  </el-select>
+						<span>挂账额度</span><el-input style="width: 120px;" v-model="xgkh.epaymentamount"></el-input>
+						<span>专属顾问</span>
+						<el-select style="width: 150px;" v-model="xgkh.econsultantid" placeholder="请选择" >
+						  <el-option
+							v-for="item in options"
+							:key="item.value"
+							:label="item.label"
+							:value="item.value">
+						  </el-option>
+						</el-select>
+						<span>电话顾问</span><el-input style="width: 150px;" v-model="xgkh.esalesphone"></el-input>
 				  	</P>
 				  	<P>
-				  	<span>省</span>
-					<template>
-					  <el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					    <el-option
-					      v-for="item in options"
-					      :key="item.value"
-					      :label="item.label"
-					      :value="item.value">
-					    </el-option>
-					  </el-select>
-					</template>
-				  	<span style="margin-left: 20px;">市</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					  <el-option
-					    v-for="item in options"
-					    :key="item.value"
-					    :label="item.label"
-					    :value="item.value">
-					  </el-option>
-					</el-select>
-					<span style="margin-left: 20px;">区</span>
-					<el-select style="width: 150px;" v-model="value" placeholder="请选择">
-					  <el-option
-					    v-for="item in options"
-					    :key="item.value"
-					    :label="item.label"
-					    :value="item.value">
-					  </el-option>
-					</el-select>
+						<span>省</span>
+						<template>
+						  <el-select style="width: 150px;" v-model="xgkh.eprovince" placeholder="请选择">
+							<el-option
+							  v-for="item in options1"
+							  :key="item.value"
+							  :label="item.label"
+							  :value="item.value">
+							</el-option>
+						  </el-select>
+						</template>
+						<span style="margin-left: 20px;">市</span>
+						<el-select style="width: 150px;" v-model="xgkh.ecity" placeholder="请选择">
+						  <el-option
+							v-for="item in options2"
+							:key="item.value"
+							:label="item.label"
+							:value="item.value">
+						  </el-option>
+						</el-select>
+						<span style="margin-left: 20px;">区</span>
+						<el-select style="width: 150px;" v-model="xgkh.edistrict" placeholder="请选择">
+						  <el-option
+							v-for="item in options3"
+							:key="item.value"
+							:label="item.label"
+							:value="item.value">
+						  </el-option>
+						</el-select>
 					</P>
 					<p>
-					<span>备注</span>
-					<el-input style="width: 500px;"></el-input>
+						<span>备注</span>
+						<el-input style="width: 500px;" v-model="xgkh.eremark"></el-input>
 					</p>
 					
 					<p>
-						<span>纳税人识别号</span><el-input style="width: 250px;"></el-input>
-						<span>注册电话</span><el-input style="width: 150px;"></el-input>
-						<span>开户银行</span><el-input style="width: 150px;"></el-input>
+						<span>纳税人识别号</span><el-input style="width: 250px;" v-model="xgkh.etaxpayer"></el-input>
+						<span>注册电话</span><el-input style="width: 150px;" v-model="xgkh.eregisterphone"></el-input>
+						<span>开户银行</span><el-input style="width: 150px;" v-model="xgkh.edepositbank"></el-input>
 					</p>
 					<p>
-						<span>银行账号</span><el-input style="width: 150px;"></el-input>
-						<span>注册地址</span><el-input style="width: 350px;"></el-input>
+						<span>银行账号</span><el-input style="width: 150px;" v-model="xgkh.ebankaccount"></el-input>
+						<span>注册地址</span><el-input style="width: 350px;" v-model="xgkh.eregisteraddress"></el-input>
 					</p>
 					<p>
-						<span>其他一</span><el-input style="width: 150px;"></el-input>
-						<span>其他二</span><el-input style="width: 150px;"></el-input>
-						<span>其他三</span><el-input style="width: 150px;"></el-input>
-						<span>其他四</span><el-input style="width: 150px;"></el-input>
+						<span>其他一</span><el-input style="width: 150px;" v-model="xgkh.erestsone"></el-input>
+						<span>其他二</span><el-input style="width: 150px;" v-model="xgkh.ereststwo"></el-input>
+						<span>其他三</span><el-input style="width: 150px;" v-model="xgkh.ereststhree"></el-input>
+						<span>其他四</span><el-input style="width: 150px;" v-model="xgkh.erestsfour"></el-input>
 					</p>
 				  </div>
 				  <span slot="footer" class="dialog-footer">
 				    <el-button @click="tj3 = false">取 消</el-button>
-				    <el-button type="primary" @click="tj3 = false">确 定</el-button>
+				    <el-button type="primary" @click="updatekh">确 定</el-button>
 				  </span>
 				</el-dialog>
 			
 				
 				<el-dialog
-				  title="车资料编辑"
+				  title="车资料修改"
 				  :visible.sync="tj4"
 				  width="70%"
 				  :before-close="handleClose">
 				
-				  <div id="mtk">
-				  	<span>车辆号码</span><el-select style="width: 150px;" v-model="value" >
-				  		<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
-				  		</el-option>
-				  	</el-select>
-				  	<span >车辆品牌</span>
-				  	<input @click="c=true" style="border-radius: 8%;width: 150px;height: 35px;border: 1px solid gainsboro;" />
-				  	<span>车辆型号</span><el-input type="text" placeholder="请输入内容" style="width: 150px;"></el-input>
-				  	<span>驾驶员</span><el-input style="width: 150px;"></el-input>
-				  	<P>
-				  	<span>驾驶员电话</span><el-input style="width: 130px;"></el-input>
-				  	<template>
-				  		
-				  	<span class="demonstration">出生日期</span><el-date-picker
-				        v-model="value1"
-				        type="date"
-				        placeholder="选择日期" style="width: 140px;">
-				      </el-date-picker>
-				  	
-				  	</template>
-				  	<span>车辆归属</span><el-input style="width: 130px;"></el-input>
-				  	<span class="demonstration">驾证到期</span>
-				  	<el-date-picker
-				        v-model="value2"
-				        type="date"
-				        placeholder="选择日期" style="width: 140px;">
-				      </el-date-picker>
-				  	</P>
-				  	<P>
-				  	<span>车架号</span><el-input style="width: 180px;"></el-input>
-				  	<span>发动机号</span><el-input style="width: 150px;"></el-input>
-				  	<span>车辆年款</span><el-input style="width: 150px;"></el-input>
-				  	<span>里程</span><el-input style="width: 150px;"></el-input>
-				  	</P>
-				  	<P>
-				  	<span>发动机品牌</span><el-input style="width: 210px;"></el-input>
-				  	<span>载重</span><el-input style="width: 150px;"></el-input>
-				  <template>
-				  
-				      <span class="demonstration">购买日期</span>
-				      <el-date-picker
-				        v-model="value3"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				    
-				    
-				  </template>
-				  	
-				  	</P>
-				  	<P>
-				  	<span class="demonstration">上牌日期</span><el-date-picker
-				        v-model="value4"
-				        type="date"
-				        placeholder="选择日期"
-				  	  >
-				      </el-date-picker>
-				  	<span>车间到期</span><el-input style="width: 140px;"></el-input>
-				  	<span>燃油类别</span><el-input style="width: 140px;"></el-input>
-				  	<span>车系</span><el-input style="width: 140px;"></el-input>
-				  	</P>
-				  	<p><span style="color: red;">保险：</span> <span>交强保险公司</span><el-input style="width: 150px;"></el-input>
-				  		<span class="demonstration">交强保险到期</span><el-date-picker
-				        v-model="value5"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				  		<template>
-				  		  <el-checkbox v-model="checked">在我投保车</el-checkbox>
-				  		</template>
-				  	</p>
-				  	<p> <span>商业险保险公司</span><el-input style="width: 150px;"></el-input>
-				  		<span class="demonstration">商业险保险到期</span><el-date-picker
-				        v-model="value6"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				  	</p>
-				  	<P>
-				  	<span>下次保养里程</span><el-input style="width: 150px;"></el-input>
-				  	<span class="demonstration">下次保养日期</span><el-date-picker
-				        v-model="value7"
-				        type="date"
-				        placeholder="选择日期">
-				      </el-date-picker>
-				  	<span>客户名称</span><el-input style="width: 200px;" ></el-input>
-				  	
-				  	</P>
-				  </div>
-				  <span slot="footer" class="dialog-footer">
+				<div id="mtk">
+													<el-input v-model="xg.hid" type="hidden"></el-input>
+												<span>车辆号码</span><el-select style="width: 150px;margin-left: 10px;" v-model="xg.hlicenseno" >
+													<el-option v-for="item in options" :key="item.value":label="item.label":value="item.value">
+													</el-option>
+												</el-select>
+												
+											
+												<span >车辆品牌</span>
+												<input @click="c=true" v-model="ppname"  style="border-radius: 8%;width: 150px;height: 35px;border: 1px solid gainsboro;" />
+												<span>车辆型号</span><el-input  type="text" placeholder="请输入内容" style="width: 150px;margin-left: 10px" v-model="lxname"></el-input>
+												<span>驾驶员</span><el-input style="width: 150px;margin-left: 10px;" v-model="xg.driver.oname"></el-input>
+												<P>
+												<span>驾驶员电话</span><el-input v-model="xg.driver.ophone" style="width: 130px;margin-left: 10px;"></el-input>
+												<template>
+													
+												<span class="demonstration">出生日期</span><el-date-picker
+											      v-model="xg.driver.obirthday"
+											      type="date"
+											      placeholder="选择日期" style="width: 140px;margin-left: 10px;">
+											    </el-date-picker>
+												
+												</template>
+												<span>车辆归属</span><el-input style="width: 130px;margin-left: 10px;"v-model="xg.hvehicleownership"></el-input>
+												<span class="demonstration">驾证到期</span>
+												<el-date-picker
+											      v-model="xg.driver.oexpire"
+											      type="date"
+											      placeholder="选择日期" style="width: 140px;margin-left: 10px;">
+											    </el-date-picker>
+												</P>
+												<P>
+												<span>车架号</span><el-input style="width: 180px;margin-left: 10px;" v-model="xg.hvin"></el-input>
+												<span>发动机号</span><el-input style="width: 150px;margin-left: 10px;" v-model="xg.hengineno"></el-input>
+												<span>车辆年款</span><el-input style="width: 150px;margin-left: 10px;" v-model="xg.hcarmj"></el-input>
+												<span>里程</span><el-input style="width: 150px;margin-left: 10px;"  v-model="xg.hmileage"></el-input>
+												</P>
+												<P>
+												<span>发动机品牌</span><el-input style="width: 210px;margin-left: 10px;"v-model="xg.hengineid" ></el-input>
+												
+											<template>
+											
+											    <span class="demonstration">购买日期</span>
+											    <el-date-picker
+											      v-model="xg.hbuydate"
+											      type="date"
+											      placeholder="选择日期">
+											    </el-date-picker>
+											  
+											  
+											</template>
+												
+												</P>
+												<P>
+												<span class="demonstration">上牌日期</span><el-date-picker
+											      v-model="xg.hbldate"
+											      type="date"
+											      placeholder="选择日期"
+												  style="width: 140px;margin-left: 10px;"
+												  >
+											    </el-date-picker>
+												<span>车间到期</span>
+												<el-date-picker
+												  v-model="xg.hsoidate"
+												  type="date"
+												  placeholder="选择日期"
+												  style="width: 140px;margin-left: 10px;"
+												  >
+												</el-date-picker>
+												<span>燃油类别</span><el-input style="width: 140px;margin-left: 10px;"v-model="xg.fuel.kfuelname"></el-input>
+												<span>车系</span><el-input style="width: 140px;margin-left: 10px;"v-model="xg.hcarseries"></el-input>
+												</P>
+												<p><span style="color: red;">保险：</span> <span>交强保险公司</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
+													<span class="demonstration">交强保险到期</span><el-date-picker
+											      v-model="xg.hjqxexpire"
+											      type="date"
+											      placeholder="选择日期">
+											    </el-date-picker>
+													<template>
+													  <el-checkbox v-model="checked">在我投保车</el-checkbox>
+													</template>
+												</p>
+												<p> <span>商业险保险公司</span><el-input style="width: 150px;margin-left: 10px;"></el-input>
+													<span class="demonstration">商业险保险到期</span><el-date-picker
+											      v-model="xg.hsyxlastdate"
+											      type="date"
+											      placeholder="选择日期">
+											    </el-date-picker>
+												</p>
+												<P>
+												<span>下次保养里程</span><el-input style="width: 150px;margin-left: 10px;"v-model="xg.hnextmileage"></el-input>
+												<span class="demonstration">下次保养日期</span><el-date-picker
+											      v-model="xg.hmileagedate"
+											      type="date"
+											      placeholder="选择日期"
+												  style="width: 150px;margin-left: 10px;">
+											    </el-date-picker>
+												<span>客户名称</span><el-input style="width: 200px;margin-left: 10px;"v-model="xg.customer.ecustomername" :disabled="true"></el-input>
+												
+												</P>
+											</div>
+				<span slot="footer" class="dialog-footer">
 				    <el-button @click="tj4 = false">取 消</el-button>
-				    <el-button type="primary" @click="tj4 = false">确 定</el-button>
+				    <el-button type="primary" @click="currentRowcar()">确 定</el-button>
 				  </span>
 				</el-dialog>
 				
-				<el-dialog
-				  title="品牌车型"
-				  :visible.sync="c"
-				  width="70%"
-				  :before-close="handleClose" >
-				  <el-container style="background-color: ghostwhite;">
-				    <el-aside width="280px">
-						<div class="layui-row">
-							<div class="navbar-form navbar-left" class="layui-col-md6 ">
-								<div class="form-group">
-								  <input type="text" class="form-control" placeholder="查询车型" style="width: 170px;">
-								</div>
-								  <el-button type="warning" class="small">搜索</el-button>
-							</div>		
-						</div>
-							 <template>
-							    <el-table
-							      :data="tableData2"
-								  border
-							      style="width: 100% ;"
-								   :header-cell-style="{background:'#39CEDE',color:'white'}">
-							      <el-table-column
-							        prop="date"
-							        label="编码"
-							        width="60"
-									>
-							      </el-table-column>
-							      <el-table-column
-							        prop="name"
-							        label="品牌名称"
-							        width="100">
-							      </el-table-column>
-							      <el-table-column
-							        prop="address"
-							        label="首字母"
-									width="80">
-							      </el-table-column>
-							    </el-table>
-							  </template>
-					</el-aside>
-				    <el-main>
-						<div class="layui-row">
-							<div class="navbar-form navbar-left" class="layui-col-md6 ">
-								<div class="form-group">
-								  <input type="text" class="form-control" placeholder="查询车辆" style="width: 200px;">
-								</div>
-								  <el-button type="warning" class="small">搜索</el-button>
-							</div>		
-						</div>
-							 <template>
-							    <el-table
-							      :data="tableData3"
-								  border
-							      style="width: 100% ;"
-								  :header-cell-style="{background:'#39CEDE',color:'white'}">
-							      <el-table-column
-							        prop="date"
-							        label="车型ID"
-							        width="100">
-							      </el-table-column>
-							      <el-table-column
-							        prop="name"
-							        label="车型名称"
-							        width="140">
-							      </el-table-column>
-							      <el-table-column
-							        prop="ckjg"
-							        label="参考价格"
-									 width="80">
-							      </el-table-column>
-								  <el-table-column
-								    prop="cknk"
-								    label="车辆年款"
-									 width="80">
-								  </el-table-column>
-								  <el-table-column
-								    prop="pq"
-								    label="排气"
-									width="80" >
-								  </el-table-column>
-							    </el-table>
-							  </template>
-					</el-main>
-				  </el-container>
-				  <span slot="footer" class="dialog-footer">
-				    <el-button @click="c = false">取 消</el-button>
-				    <el-button type="primary" @click="c = false">确 定</el-button>
-				  </span>
+			<el-dialog
+			  title="品牌车型"
+			  :visible.sync="c"
+			  width="70%"
+			  :before-close="handleClose" >
+			  <el-container style="background-color: ghostwhite;">
+			    <el-aside width="280px">
+					<div class="layui-row">
+						<div class="navbar-form navbar-left" class="layui-col-md6 ">
+							<div class="form-group">
+							  <input type="text" class="form-control" placeholder="车辆品牌" style="width: 170px;">
+							</div>
+							  <el-button type="warning" class="small">搜索</el-button>
+						</div>		
+					</div>
+						 <template>
+						    <el-table
+						      :data="pp"
+							  border
+							  highlight-current-row
+							  @current-change="ppp"
+						      style="width: 100% ;"
+							   :header-cell-style="{background:'#39CEDE',color:'white'}">
+						      <el-table-column
+						        prop="iid"
+						        label="编码"
+						        width="60"
+								>
+						      </el-table-column>
+						      <el-table-column
+						        prop="ibrandname"
+						        label="品牌名称"
+						        width="100">
+						      </el-table-column>
+						      <el-table-column
+						        prop="iinitial"
+						        label="首字母"
+								width="80">
+						      </el-table-column>
+						    </el-table>
+						  </template>
+				</el-aside>
+			    <el-main>
+					<div class="layui-row">
+						<div class="navbar-form navbar-left" class="layui-col-md6 ">
+							<div class="form-group">
+							  <input type="text" class="form-control" placeholder="车辆车型" style="width: 200px;">
+							</div>
+							  <el-button type="warning" class="small">搜索</el-button>
+						</div>		
+					</div>
+						 <template>
+						    <el-table
+						   
+							 
+							:data="lx"
+							highlight-current-row
+							@current-change="xxx"
+							  border
+							  type="index"
+						      style="width: 100% ;"
+							  :header-cell-style="{background:'#39CEDE',color:'white'}">
+						      <el-table-column
+						        prop="jid"
+						        label="车型ID"
+						        width="100">
+						      </el-table-column>
+						      <el-table-column
+						        prop="jtypename"
+						        label="车型名称"
+						        width="140">
+						      </el-table-column>
+						      <el-table-column
+						        prop="jprice"
+						        label="参考价格"
+								 width="80">
+						      </el-table-column>
+							  <el-table-column
+							    prop="jmj"
+							    label="车辆年款"
+								 width="80">
+							  </el-table-column>
+							  <el-table-column
+							    prop="jgas"
+							    label="排气"
+								width="80" >
+							  </el-table-column>
+						    </el-table>
+						  </template>
+				</el-main>
+			  </el-container>
+			  <span slot="footer" class="dialog-footer">
+			    <el-button @click="c = false">取 消</el-button>
+			    <el-button type="primary" @click="c = false">确 定</el-button>
+			  </span>
+			</el-dialog>
 				</el-dialog>
 			
 				<el-dialog title="客户分类" :visible.sync="dialogTableVisible"  width="60%">
@@ -1403,90 +1430,53 @@
 				$("#d").hide();
 				$("#b").hide();
 			})
-		
-			
-			
 		</script>
 		<script>
 		  var vm = new Vue({
 			  el:"#ctx",
 			  data() {
 			        return {
-						 tj: false,
-						  tj1:false,
-						  tj2:false,
-						   tj3:false,
-						   tj4:false,
-						    tj7:false,
-						   c:false,
-						   gridData: [{
-						             date: '2016-05-02',
-						             name: '王小虎',
-						             address: '1518'
-						           }],
-			          tableData: [{
-			            date: '2016-05-03',
-			            name: '王小虎',
-			            province: '上海',
-			            city: '普陀区',
-			            address: '上海市普陀区金沙江路 1518 弄',
-			            zip: 200333
-			          }, {
-			            date: '2016-05-02',
-			            name: '王小虎',
-			            province: '上海',
-			            city: '普陀区',
-			            address: '上海市普陀区金沙江路 1518 弄',
-			            zip: 200333
-			          }, {
-			            date: '2016-05-04',
-			            name: '王小虎',
-			            province: '上海',
-			            city: '普陀区',
-			            address: '上海市普陀区金沙江路 1518 弄',
-			            zip: 200333
-			          }, {
-			            date: '2016-05-01',
-			            name: '王小虎',
-			            province: '上海',
-			            city: '普陀区',
-			            address: '上海市普陀区金沙江路 1518 弄',
-			            zip: 200333
-			          }, {
-			            date: '2016-05-08',
-			            name: '王小虎',
-			            province: '上海',
-			            city: '普陀区',
-			            address: '上海市普陀区金沙江路 1518 弄',
-			            zip: 200333
-			          }],
-					   activeName: 'second',
-					   tableData1: [{
-					     date: '2016-05-03',
-					     name: '王小虎',
-					     province: '上海',
-					     city: '普陀区',
-					     address: '上海市普陀区金沙江路 1518 弄',
-					     zip: 200333
-					   }],
-					   tableData3: [{
-					     date: '5001',
-					     name: '重汽德卡',
-					     ckjg: '100',
-					   						cknk:'50000',
-					   						pq:'大'
-					   },{
-					     date: '5001',
-					     name: '重汽豪沃',
-					    ckjg: '100',
-					    cknk:'50000'
-					   },{
-					    date: '5001',
-					     name: '重汽豪沃',
-					    ckjg: '100',
-					    cknk:'50000'
-					    
-					   }],
+						currentRow:{},
+						currentRow1: {},
+						page:{
+							list:[],
+						},
+						car:[],
+						kh:[],
+						xg:{
+							carbrand:{},
+							cartype:{},
+							driver:{},
+							fuel:{},
+							customer:{}
+						},
+						lxname:null,
+						tableData:{
+							hdriverid:0,
+							htypeid:"",
+							hbrandid:"",
+							custom:{}//客户
+						},
+						
+						khname:null,
+						driver:{},
+						lxid:null,
+						pp:{},
+						lx:{},
+						
+						ppname:null,
+					   gridData: [{
+							 date: '2016-05-02',
+							 name: '王小虎',
+							 address: '1518'
+						}],
+			          tableDatakh: {
+						  ecustomerid:"200121212210000",
+					  },
+					   xgkh:{},
+					   
+						tableData1: [],
+					     tableData3: [],
 					   tableData2: [{
 					   date: '500',
 					   name: '丰田',
@@ -1503,31 +1493,106 @@
 					     address: 'd'
 					    
 					   }],
+					    value: '',
+					 
 					   value1: '',
-					   value2: '',
-					   value3: '',
-					   value4: '',
-					   value5: '',
-					   value6: '',
-					   value7: '',
-					   value9: '',
+					   value1: '',
+					
+					 
 					    checked: true,
 					    dialogVisible: false,
 						 dialogVisible1: false,
 						  dialogVisible2: false,
 						  dialogTableVisible:false,
-						options:[{
+						  tj: false,
+						   tj1:false,
+						   tj2:false,
+						    tj3:false,
+						    tj4:false,
+						     tj7:false,
+						    c:false,
+							options:[{
 							value:"1",
-							label:"ddd"
+							label:"京"
 						},{
 							value:"2",
-							label:"www"
+							label:"沪"
+						},{
+							value:"3",
+							label:"豫"
+						},{
+							value:"4",
+							label:"湘"
+						},{
+							value:"5",
+							label:"俞"
+						},{
+							value:"6",
+							label:"内蒙古"
+						},
+						{
+							value:"7",
+							label:"藏"
+						},
+						{
+							value:"8",
+							label:"宁"
+						},
+						{
+							value:"9",
+							label:"冀"
+						},
+						{
+							value:"10",
+							label:"藏"
+						},
+						{
+							value:"11",
+							label:"桂"
 						}],
-						value:"",
-						 activeNames: ['1']
+						options1:[{
+							value:"1",
+							label:"湖南"
+						}],
+						options2:[{
+							value:"2",
+							label:"株洲"
+						}],
+						options3:[{
+							value:"4",
+							label:"荷塘区"
+						},{
+							value:"5",
+							label:"天园区"
+						},{
+							value:"6",
+							label:"石峰区"
+						}],
+						ry:[{
+							value:"1",
+							label:"花生油"
+						},{
+							value:"2",
+							label:"机油"
+						}],
+							ecustomerid:"211111",
+						  activeName: 'first',
 			        }
 			      },
 				  methods:{
+					  setCurrent(row) {
+					  	console.log(row);
+					  	this.$refs.singleTable.setcurrentRow1(row);					
+					  },
+					  				
+					  handleCurrentChange(val) {
+						  var that=this;
+						  that.currentRow1=val;
+						  
+						  
+						 	this.findcarbyid();
+							console.log(val); 
+					  },
 					  handleChange(val) {
 					          console.log(val);
 					    },
@@ -1540,8 +1605,10 @@
 					              done();
 					            })
 					            .catch(_ => {});
-					   },
-					   
+					   },	
+						change(e){
+							this.$forceUpdate()
+						},
 					 dianji(){
 						$("#d").show();
 					 }, 
@@ -1553,16 +1620,327 @@
 					 },
 					sq2(){
 						$("#b").hide();
-					}
+					},
+					fenye(val){
+						 this.findpage(val);
+											
+					},
+					findpage(pageNum){
+						var that=this;
+						var url="http://localhost:8888/wsbcutomer/"+pageNum+"/4";
+						$.ajax({
+							url:url,
+							success:function(result){
+							
+								console.log(result)
+								that.page=result;
+								console.log(that.page);
+							}
+						});
+					},
+					qx(){
+						var that=this;
+						this.tj1 = false;
+						that.tableData={};
+						that.lxname="";
+						that.ppname="";
+						that.tableData.brand={};
+						that.tableData.rylb={};
+						that.tableData.custom={};
+						that.driver={};
+					},
+					xiugai(){
+						
+						
+						var that=this;
+						
+						if(that.currentRow1	==null){
+							alert("请选择");
+							
+						}else{
+							that.xgkh=this.currentRow1;
+							
+							this.tj3 = true;
+							}
+					},
+				
+					updatekh(){
+						var that=this;
+						if(that.currentRow1==null){
+							alert("请选择客户");
+						}else{
+							var str1=JSON.stringify(this.xgkh);
+							$.ajax({
+								url:`http://localhost:8888/wsbcutomer`,
+								data:str1,
+								type:"put",
+								contentType:"application/json;charset=utf-8",
+								success:function(result){
+									alert("修改成功"+result);
+									this.tj3 = false;
+								 	that.findpage(1);
+								}
+							})
+						}
+					},
+					insertkh(){
+							var that=this;
+							this.tj2 = false
+							var str=JSON.stringify(this.tableDatakh);
+							$.ajax({
+								url:`http://localhost:8888/wsbcutomer`,
+								data:str,
+								type:"post",
+								contentType:"application/json;charset=utf-8",
+								success:function(result){
+									alert("新增成功"+result);
+									that.findpage(1)
+									that.tableDatakh={};
+								}
+							})
+					},
+					xzcarkh(){
+						var that=this;
+						this.tj=true;
+						that.tableData={};
+						that.lxname="";
+						that.ppname="";
+						that.tableData.brand={};
+						that.tableData.rylb={};
+						that.tableData.custom={};
+						that.tableDatakh={};
+						that.driver={};
+					},
+					findcarbyid(){
+						var that=this;
+						
+						if(that.currentRow1==null){
+							
+						}else{
+							var url="http://localhost:8888/wsbcarbrand/"+that.currentRow1.eid;
+							$.ajax({
+								url:url,
+								success:function(result){
+									console.log(result);
+									that.car = [];
+									that.car=result;
+									console.log(that.car);
+									
+								}
+							});
+						}
+					},
+					//车辆新增
+					insertcar(){
+							var that=this;
+							that.tableData.huid=that.currentRow1.eid;
+							
+							//that.khname=that.currentRow1.ecustomername;
+							
+							var str=JSON.stringify(that.tableData);
+							console.log(str);
+							$.ajax({
+								url:`http://localhost:8888/wsbcar`,
+								data:str,
+								type:"post",
+								contentType:"application/json;charset=utf-8",
+								success:function(result){
+									alert("新增成功"+result);
+								}
+							})
+							
+							
+					},
+						xz(){
+							
+							var that=this;
+							
+							if(that.currentRow1	==null){
+								alert("请选择客户");
+								
+							}else{
+								that.khname=that.currentRow1.ecustomername;
+								this.tj1=true;
+								}
+						},
+						//新增客户和车
+					carkh(){
+						var that=this;
+						that.insertkh();
+						alert(that.tableDatakh.eid);
+						that.tableDatakh.eid=that.tableData.hid;
+						that.insertdri();
+					},
+					insertdri(){
+						var that=this;
+						var str=JSON.stringify(this.driver);
+						$.ajax({
+							url:`http://localhost:8888/driver`,
+							data:str,
+							type:"post",
+							contentType:"application/json;charset=utf-8",
+							success:function(result){
+								alert(result)
+								that.tableData.hdriverid=result;
+								alert(that.tableData.hdriverid+"驾驶员id");
+								that.insertcar();
+								
+								//that.tableData={};
+							}
+						})
+						
+					},
+					ppp(val) {
+						var that=this;
+						that.ppname=val.ibrandname;
+						that.tableData.hbrandid=val.iid;
 					
-				  },
+						console.log(val);
+						
+					},
+					//查询车辆类型
+					xxx(val) {
+						var that=this;
+						that.tableData.htypeid=val.jid;
+						that.lxname=val.jtypename;
+						
+					},
+					car11(val){
+						var that=this;
+						that.currentRow=val;
+						console.log(that.xg);
+					},
+				
+					
+					//修改车
+					xiugai11(){
+						var that=this;
+						
+						if(that.currentRow==null){
+							alert("请选择车辆");
+						}else{
+							that.xg=that.currentRow;
+							that.ppname=this.currentRow.carbrand.ibrandname;
+							that.lxname=this.currentRow.cartype.jtypename;
+							that.khname=that.currentRow1.ecustomername;
+							this.tj4 = true;
+						}
+											
+					},
+					currentRowcar(){
+						var that=this;
+					
+							var str1=JSON.stringify(this.xg);
+							$.ajax({
+								url:`http://localhost:8888/wsbcar`,
+								data:str1,
+								type:"put",
+								contentType:"application/json;charset=utf-8",
+								success:function(result){
+									alert("修改成功"+result);
+									this.tj4 = false;
+								}
+							})
+					},
+					findtypeid(){
+						var that=this;
+						var url="http://localhost:8888/wsbcartype/"+that.lxid;
+						$.ajax({
+							url:url,
+							success:function(result){
+								that.lx=result;
+								console.log(that.lx);
+								
+							}
+						});
+					},
+					
+					
+					//查询车辆品牌
+					findcarbrand(){
+						var that=this;
+						var url="http://localhost:8888/wsbcarbrand";
+						$.ajax({
+							url:url,
+							success:function(result){
+							
+								that.pp=result;
+								console.log(that.pp);
+								
+							}
+						});
+					},					
+					//根据id查类型
+					findtypeid(){
+						var that=this;
+						var url="http://localhost:8888/wsbcartype/"+that.lxid;
+						$.ajax({
+							url:url,
+							success:function(result){
+								that.lx=result;
+								console.log(that.lx);
+								
+							}
+						});
+					},
+					//查找车辆类型
+					findtype(){
+						var that=this;
+						var url="http://localhost:8888/wsbcartype";
+						$.ajax({
+							url:url,
+							success:function(result){
+								that.lx=result;
+							}
+						});
+					},
+					cardel(){
+						var that=this;
+						if(that.currentRow==null){
+							alert("请选择你要删除的车辆");
+						}else{
+							$.ajax({
+								url:`http://localhost:8888/wsbcar/`+that.currentRow.hid,
+								type:"delete",
+								success:function(result){
+									alert("删除成功");
+									that.findpage(1);
+								}
+							})
+						}
+						
+					},
+					
+					khdel(){
+						var that=this;
+						alert(that.currentRow1.eid);
+						if(that.currentRow1==null){
+							alert("请选择你要删除客户");
+						}else{
+							$.ajax({
+								url:`http://localhost:8888/wsbcutomer/`+that.currentRow1.eid,
+								type:"delete",
+								success:function(result){
+									alert("删除成功");
+									that.findpage(1);
+								}
+							})
+						}
+						
+					},
+					},
 				  created() {
-				  	
+				  	this.findpage(1);
+					this.currentRow1=null;	
+					this.findcarbrand();
+					this.findtype();
+					this.currentRow=null;	
 				  }
 		  });
 		 
 		 
 		</script>
+		
 		
 	</body>
 </html>

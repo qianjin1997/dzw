@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.dao.FuelMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.Fuel" >
-    <id column="kid" property="kid" jdbcType="INTEGER" />
-    <result column="kfuelid" property="kfuelid" jdbcType="VARCHAR" />
-    <result column="kfuelname" property="kfuelname" jdbcType="VARCHAR" />
+<mapper namespace="com.accp.dao.GhaddressMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Ghaddress" >
+    <id column="anid" property="anid" jdbcType="INTEGER" />
+    <result column="anaddress" property="anaddress" jdbcType="VARCHAR" />
+    <result column="anparentid" property="anparentid" jdbcType="INTEGER" />
   </resultMap>
-  <select id="findByid" resultMap="BaseResultMap">
-		select * from fuel where kid=#{hfueltype}  
-  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -68,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    kid, kfuelid, kfuelname
+    anid, anaddress, anparentid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.FuelExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.GhaddressExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from fuel
+    from ghaddress
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,67 +84,67 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from fuel
-    where kid = #{kid,jdbcType=INTEGER}
+    from ghaddress
+    where anid = #{anid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from fuel
-    where kid = #{kid,jdbcType=INTEGER}
+    delete from ghaddress
+    where anid = #{anid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.FuelExample" >
-    delete from fuel
+  <delete id="deleteByExample" parameterType="com.accp.domain.GhaddressExample" >
+    delete from ghaddress
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Fuel" >
-    insert into fuel (kid, kfuelid, kfuelname
+  <insert id="insert" parameterType="com.accp.domain.Ghaddress" >
+    insert into ghaddress (anid, anaddress, anparentid
       )
-    values (#{kid,jdbcType=INTEGER}, #{kfuelid,jdbcType=VARCHAR}, #{kfuelname,jdbcType=VARCHAR}
+    values (#{anid,jdbcType=INTEGER}, #{anaddress,jdbcType=VARCHAR}, #{anparentid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.Fuel" >
-    insert into fuel
+  <insert id="insertSelective" parameterType="com.accp.domain.Ghaddress" >
+    insert into ghaddress
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="kid != null" >
-        kid,
+      <if test="anid != null" >
+        anid,
       </if>
-      <if test="kfuelid != null" >
-        kfuelid,
+      <if test="anaddress != null" >
+        anaddress,
       </if>
-      <if test="kfuelname != null" >
-        kfuelname,
+      <if test="anparentid != null" >
+        anparentid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="kid != null" >
-        #{kid,jdbcType=INTEGER},
+      <if test="anid != null" >
+        #{anid,jdbcType=INTEGER},
       </if>
-      <if test="kfuelid != null" >
-        #{kfuelid,jdbcType=VARCHAR},
+      <if test="anaddress != null" >
+        #{anaddress,jdbcType=VARCHAR},
       </if>
-      <if test="kfuelname != null" >
-        #{kfuelname,jdbcType=VARCHAR},
+      <if test="anparentid != null" >
+        #{anparentid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.FuelExample" resultType="java.lang.Integer" >
-    select count(*) from fuel
+  <select id="countByExample" parameterType="com.accp.domain.GhaddressExample" resultType="java.lang.Integer" >
+    select count(*) from ghaddress
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update fuel
+    update ghaddress
     <set >
-      <if test="record.kid != null" >
-        kid = #{record.kid,jdbcType=INTEGER},
+      <if test="record.anid != null" >
+        anid = #{record.anid,jdbcType=INTEGER},
       </if>
-      <if test="record.kfuelid != null" >
-        kfuelid = #{record.kfuelid,jdbcType=VARCHAR},
+      <if test="record.anaddress != null" >
+        anaddress = #{record.anaddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.kfuelname != null" >
-        kfuelname = #{record.kfuelname,jdbcType=VARCHAR},
+      <if test="record.anparentid != null" >
+        anparentid = #{record.anparentid,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -155,30 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update fuel
-    set kid = #{record.kid,jdbcType=INTEGER},
-      kfuelid = #{record.kfuelid,jdbcType=VARCHAR},
-      kfuelname = #{record.kfuelname,jdbcType=VARCHAR}
+    update ghaddress
+    set anid = #{record.anid,jdbcType=INTEGER},
+      anaddress = #{record.anaddress,jdbcType=VARCHAR},
+      anparentid = #{record.anparentid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Fuel" >
-    update fuel
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Ghaddress" >
+    update ghaddress
     <set >
-      <if test="kfuelid != null" >
-        kfuelid = #{kfuelid,jdbcType=VARCHAR},
+      <if test="anaddress != null" >
+        anaddress = #{anaddress,jdbcType=VARCHAR},
       </if>
-      <if test="kfuelname != null" >
-        kfuelname = #{kfuelname,jdbcType=VARCHAR},
+      <if test="anparentid != null" >
+        anparentid = #{anparentid,jdbcType=INTEGER},
       </if>
     </set>
-    where kid = #{kid,jdbcType=INTEGER}
+    where anid = #{anid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Fuel" >
-    update fuel
-    set kfuelid = #{kfuelid,jdbcType=VARCHAR},
-      kfuelname = #{kfuelname,jdbcType=VARCHAR}
-    where kid = #{kid,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Ghaddress" >
+    update ghaddress
+    set anaddress = #{anaddress,jdbcType=VARCHAR},
+      anparentid = #{anparentid,jdbcType=INTEGER}
+    where anid = #{anid,jdbcType=INTEGER}
   </update>
 </mapper>

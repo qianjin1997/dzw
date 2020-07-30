@@ -6,6 +6,15 @@
     <result column="ibrandname" property="ibrandname" jdbcType="VARCHAR" />
     <result column="iinitial" property="iinitial" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!--  <resultMap extends="BaseResultMap" type="com.accp.domain.Cartype" id="BaseResultMapExtends">
+	  <collection property="cartype" column="iid" ofType="com.accp.domain.Cartype" javaType="java.util.ArrayList" select="findBytid">
+	  </collection>
+  </resultMap>-->
+ 
+  <select id="findByid" resultMap="BaseResultMap">
+		select * from Carbrand where iid=#{hbrandid}  
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

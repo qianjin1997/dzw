@@ -25,14 +25,18 @@
 							
 						</div>
 						<el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"  style="text-align:center;padding: 50px;">
-						  <el-form-item label="账号">
-							<el-input v-model="formLabelAlign.user"></el-input>
+						  <el-form-item label="账号" 
+							:rules="[{ required: true, message: '请输入用户名', trigger: 'blur' },
+							 	{ min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur' }]" prop="user">
+							<el-input v-model="formLabelAlign.user" ></el-input>
 						  </el-form-item>
-						  <el-form-item label="密码">
-							<el-input v-model="formLabelAlign.password"></el-input>
+						  <el-form-item label="密码"
+							:rules="[{ required: true, message: '请输入密码', trigger: 'blur' },
+							 	{ min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur' }]" prop="password">
+							<el-input  type="password" v-model="formLabelAlign.password"></el-input>
 						  </el-form-item>
-						  <el-form-item label="当前门店">
-							<el-select v-model="mendian" placeholder="请选择">
+						  <el-form-item label="当前门店" >
+							<el-select v-model="mendian" placeholder="请选择" >
 								<el-option
 								  v-for="item in options"
 								  :key="item.value"
@@ -55,36 +59,55 @@
 		</div>
 		<!-- 引入组件库 -->
 		<script src="../js/vue.js"></script>
+		<script src="../js/jquery-1.12.4.js"></script>
 		<script src="../elementui/index.js"></script>
 		<script>
 			 new Vue({
 				  el: '#app',
 				  data: function() {
-					return { visible: false ,
+					return { 
+						visible: false ,
 						labelPosition: 'right',
 						formLabelAlign: {
 						  user: '',
-						  password: '',
-						  type: ''
+						  password: ''
 						},options: [{
-						  value: '选项1',
-						  label: '黄金糕'
+						  value: '1',
+						  label: '门店1'
 						}],
-						 mendian:''
+						mendian:''
+						 
 					}
-				},methods:{
+				}
+				,methods:{
+					
 					login(){
-						if(this.formLabelAlign.user=='admin'&&this.formLabelAlign.password=='admin'){
-							this.$message({
-							  message: '登录成功',
-							  type: 'success',
-							  onClose:function(){
-								  location.href="menu.html";
-							  }
-							});
-						}else{
-							this.$message.error('登录失败，用户名或密码错误');
-						}
+						var that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/login",
+							xhrFields: {
+					　　　　　　withCredentials: true
+					　　　　},
+							data:{
+								ausername:that.formLabelAlign.user,
+								apassword:that.formLabelAlign.password
+							},
+							method:"post",
+							success:function(result){
+								if(that.formLabelAlign.user=='admin'&&that.formLabelAlign.password=='admin'){
+									that.$message({
+									  message: '登录成功',
+									  type: 'success',
+									  onClose:function(){
+										  location.href="menu.html";
+									  }
+									});
+								}else{
+									that.$message.error('登录失败，用户名或密码错误');
+								}
+							}
+						});
+						
 					}
 				}
 			})
