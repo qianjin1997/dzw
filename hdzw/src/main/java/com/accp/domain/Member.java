@@ -2,13 +2,15 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Member {
     private Integer gid;
 
     private String gcard;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date gadmissiondate;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date gmembershipdue;
 
     private Integer gcustomertypeid;
