@@ -256,7 +256,7 @@
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-share"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">导出</a>
+						<a @click="exportExcel()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">导出</a>
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-arrow-down"></span>
@@ -399,6 +399,9 @@
 					};
 				},
 				methods: {
+					exportExcel(){
+						window.location.href="http://127.0.0.1:8888/staff/exportExcel";
+					},
 					addAndupdate(){
 						var that = this;
 						if(that.pand=="增"){

@@ -242,7 +242,7 @@
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-export"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">导出</a>
+						<a @click="exportExcel()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">导出</a>
 					</span>
 				</div>
 			</div>
@@ -288,7 +288,6 @@
 	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
 	<script>
-		
 		var vm = new Vue({
 				el:".tit",
 				data(){
@@ -304,10 +303,14 @@
 						zstaff:{},
 						dimssions:[], //离职表所有数据
 						staffs:[], //除离职员工数据
-						pname:""  //离职员工姓名
+						pname:"",  //离职员工姓名
+						list1:[]
 					};
 				},
 				methods:{
+					exportExcel(){
+						window.location.href="http://127.0.0.1:8888/dimission/exportExcel";
+					},
 					del(){
 						var that = this;
 						console.log(that.jihe.amyid)

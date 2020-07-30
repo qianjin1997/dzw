@@ -51,11 +51,11 @@
 				<p>
 					<span style="font-size: 8px;">✡</span>
 					<span style=" font-size:16px; color: #6B696B;">车牌号码</span>
-					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<input v-model="reg.car.hlicenseno" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
 					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车架号</span>
-					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 180px; display: inline-block; " class="form-control" type="text">
+					<input v-model="reg.car.hvin" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 180px; display: inline-block; " class="form-control" type="text">
 					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆型号</span>
-					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 141px; display: inline-block; " class="form-control" type="text">
+					<input v-model="reg.car.carbrand.ibrandname" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 141px; display: inline-block; " class="form-control" type="text">
 					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆品牌</span>
 					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
 				</p>
@@ -222,20 +222,40 @@
 		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script>
+			let wid=0;
+			var thisURL = document.URL;
+			var getval =thisURL.split('?')[1]; 
+			var showval= getval.split("=")[1];
+			wid=showval;
 		var vm = new Vue({
 				el:".tit",
 				data(){
 					return {
-						
+						reg:{
+							car:{
+								carbrand:{}
+							}
+						}
 					};
 				},
 				methods:{
 					open(){
 						$('#two').modal('show');
-					}
+					},
+					findone(){
+						var that=this;
+						var url="http://localhost:8888/repair/findone?wid="+wid;
+						$.ajax({
+							url:url,
+							success:function(result){
+								console.log(result);
+								that.reg = result;
+							}
+						});
+					},
 				},
 				created(){
-					
+					this.findone();
 				}
 			});
 	</script>
