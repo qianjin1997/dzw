@@ -27,23 +27,23 @@
 					<br />
 					<el-button type="text" @click="showTypeUpdate()">修改</el-button>
 					<el-button type="text" @click="showTjTypeAdd()">增加同级</el-button>   show-checkbox-->
-					<el-link @click="showBrandAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加供货单位地址</el-link>
+					<el-link @click="showTjTypeAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加供货单位地址</el-link>
 					<div class="block">
-						<el-tree :data="data" node-key="id" default-expand-all :expand-on-click-node="false">
-							<span class="custom-tree-node" slot-scope="{ node, data }">
-		        				<span>{{ node.label }}</span>
+						<el-tree :data="data" node-key="id" :props="props" default-expand :expand-on-click-node="false">
+							<span class="custom-tree-node" slot-scope="{ node, data }" >
+		        					<span @click="findFaytroy(data)">{{ node.label}}</span>
 							<span>
 			          				<el-button
 							            type="text"
 							            size="mini"
-							            @click="() => append(data)">
+							            @click="() => append(node,data)">
 							            	增加
 							        </el-button>
 							        </el-button>
 								        <el-button
 								         type="text"
 								         size="mini"
-								         @click="() => showTypeUpdate()">
+								         @click="() => showTypeUpdate(data)">
 								          		修改
 							        </el-button>
 								    <el-button
@@ -52,7 +52,6 @@
 								         @click="() => remove(node, data)">
 								          		删除
 							        </el-button>
-							        
 		        				</span>
 							</span>
 						</el-tree>
@@ -64,116 +63,97 @@
 						<div class="form-group">
 							<label for="inputPassword" class="col-sm-3 control-label">品牌编码</label>
 							<div class="col-sm-5	">
-								<input type="text" class="form-control" id="inputPassword" placeholder="匹配名称/联系人/简称/手机+号实现双条件查询">
+								<input type="text" class="form-control" id="inputPassword"  v-model="servch" placeholder="匹配名称/联系人/简称/手机+号实现双条件查询">
 							</div>
 							<div class="col-sm-3">
-								<button type="button" class="btn btn-warning">搜索</button>
+								<button type="button" @click="findFaytroy(valid)" class="btn btn-warning">搜索</button>
 							</div>
 						</div>
 					</form>
 					<el-col :span="19" style="width: 100%;">
 						<el-link @click="showAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加供货单位</el-link>
-						<el-link type="info" class="bitbtn" :underline="false" @click="updateAddress()"><i class="el-icon-edit bit"></i>修改</el-link>
-						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
-						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
+						<el-link type="info" class="bitbtn" :underline="false" @click="updateAddress2()"><i class="el-icon-edit bit"></i>修改</el-link>
+						<el-link type="info" class="bitbtn" :underline="false" @click="removeFaytroy()"><i class="el-icon-circle-close bit"></i>删除</el-link>
+						<el-link type="info" class="bitbtn" :underline="false" @click="exportExcel()"><i class="el-icon-printer bit"></i>导出</el-link>
 						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-picture bit"></i>照片</el-link>
 						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-c-scale-to-original bit"></i>条码</el-link>
-						<el-link type="info" class="bitbtn" :underline="false" @click="showAdd()"><i class="el-icon-user-solid bit"></i>联系人</el-link>
-						<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-setting bit"></i>字段设置</el-link>
+						<el-link type="info" class="bitbtn" :underline="false" @click="showAddPerson()"><i class="el-icon-user-solid bit"></i>联系人</el-link>
+						<el-link type="info" class="bitbtn" :underline="false" @click="updateAddress()"><i class="el-icon-setting bit"></i>字段设置</el-link>
 					</el-col>
-					<table class="table  table-hover">
-						<tr style="background: rgb(57, 206, 222);">
-							<td>厂商代码</td>
-							<td>厂商名称</td>
-							<td>地址</td>
-							<td>经验情况</td>
-							<td>网址</td>
-							<td>开户行</td>
-							<td>银行账号</td>
-							<td>付款方式</td>
-							<td>厂商等级</td>
-							<td>经营品牌</td>
-							<td>厂商类别</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>12312</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>
-								<span type="button" class="glyphicon glyphicon-edit" @click="updateAddress()"></span>
-								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
-								<span type="button" class="glyphicon glyphicon-user" @click="showAddPerson()"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>12312</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>
-								<span type="button" class="glyphicon glyphicon-edit" @click="updateAddress()"></span>
-								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
-								<span type="button" class="glyphicon glyphicon-user" @click="showAddPerson()"></span>
-							</td>
-						</tr>
-					</table>
-					<el-pagination background layout="prev, pager, next" :total="1000" style="margin: auto; width: 330px;">
-					</el-pagination>
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<table class="table  table-hover" style="width: 700px;">
-						<tr style="background: rgb(57, 206, 222);">
-							<td>联系人</td>
-							<td>职位</td>
-							<td>手机</td>
-							<td>电话</td>
-							<td>Email</td>
-							<td>操作</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>12312</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>
-								<span type="button" class="glyphicon glyphicon-edit" @click="showUpdatePerson()"></span>
-								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>12312</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
+					<template>
+						<el-table ref="singleTable" :header-cell-style="{background:'#39CEDE',color:'white'}" :data="faytroy.list" border highlight-current-row @current-change="currentChange" style="width: 100%">
+							<!--<el-table-column type="index" width="50">
+							</el-table-column>-->
+							<el-table-column property="afvendorcode" label="厂商代码">
+							</el-table-column>
 
-							<td>
-								<span type="button" class="glyphicon glyphicon-edit" @click="showUpdatePerson()"></span>
-								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
-							</td>
-						</tr>
-					</table>
-					<el-pagination background layout="prev, pager, next" :total="1000">
+							<el-table-column property="aftradename" label="厂商名称">
+							</el-table-column>
+
+							<el-table-column property="afaddress" label="地址">
+							</el-table-column>
+
+							<el-table-column property="afoperation" label="经验情况">
+							</el-table-column>
+
+							<el-table-column property="afurl" label="网址">
+							</el-table-column>
+
+							<el-table-column property="afbankaccount" label="开户行">
+							</el-table-column>
+
+							<el-table-column property="afopeningbank" label="银行账号">
+							</el-table-column>
+
+							<el-table-column property="affkmethod" label="付款方式">
+							</el-table-column>
+
+							<el-table-column property="afvendorrating" label="厂商等级">
+							</el-table-column>
+
+							<el-table-column property="afrunbrand" label="经营品牌">
+							</el-table-column>
+
+							<el-table-column property="address.anaddress" label="厂商类别">
+							</el-table-column>
+
+						</el-table>
+						<!--<div style="margin-top: 20px">
+							<el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
+							<el-button @click="setCurrent()">取消选择</el-button>
+						</div>-->
+					</template>
+					<el-pagination background layout="prev, pager, next" :page-size="3"   @current-change="fengye" :total="faytroy.total" style="margin: auto; width: 330px;">
 					</el-pagination>
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<el-link type="info" class="bitbtn" :underline="false" @click="removePerson()"><i class="el-icon-circle-close bit"></i>删除联系人</el-link>
+					<el-link type="info" class="bitbtn" :underline="false" @click="showUpdatePerson()"><i class="el-icon-user-solid bit"></i>修改联系人</el-link>
+					<template>
+						<el-table ref="singleTable" height="200px" :header-cell-style="{background:'#39CEDE',color:'white'}" :data="cslinkman" border highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
+							<!--<el-table-column type="index" width="50">
+							</el-table-column>-->
+							<el-table-column property="aocontactname" label="联系人">
+							</el-table-column>
+							<el-table-column property="aoposition" label="职位">
+							</el-table-column>
+							<el-table-column property="aophone" label="手机">
+							</el-table-column>
+							<el-table-column property="aocall" label="电话">
+							</el-table-column>
+							<el-table-column property="aoemail" label="Emiail">
+							</el-table-column>
+						</el-table>
+						<!--<div style="margin-top: 20px">
+							<el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
+							<el-button @click="setCurrent()">取消选择</el-button>
+						</div>-->
+					</template>
+					<!--<el-pagination background layout="prev, pager, next" :total="1000">
+					</el-pagination>-->
 				</div>
 			</div>
 			<!--
@@ -181,40 +161,7 @@
             	时间：2020-07-10
             	描述：显示同级厂商分类弹出框
             -->
-			<!--<div class="modal fade" id="showTjTypeAdd" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">厂商分类1</h4>
-						</div>
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">分类编码</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">分类名称</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
-								</div>
-							</div>
-						</form>
-						<div class="modal-footer">
-							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
-						</div>
-					</div>
-				</div>
-			</div>-->
-			<!--
-            	作者：2511549159@qq.com
-            	时间：2020-07-10
-            	描述：显示子级厂商分类弹出框
-            -->
-			<div class="modal fade" id="showZjTypeAdd" tabindex="-1" role="dialog">
+			<div class="modal fade" id="showTjTypeAdd" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -231,13 +178,46 @@
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">分类名称</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addtjaddress.anaddress">
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+							<button type="button" class="btn btn-primary" @click="addTjType()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-10
+            	描述：显示子级厂商分类弹出框
+            -->
+			<div class="modal fade" id="showZjTypeAdd" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">厂商分类1</h4>
+						</div>
+						<form class="form-horizontal">
+							<!--<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类编码</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword" v-model="appendaddress.anparentid">
+								</div>
+							</div>-->
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">分类名称</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="inputPassword" v-model="appendaddress.anaddress">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="addAddress()">保存</button>
 						</div>
 					</div>
 				</div>
@@ -252,25 +232,25 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">厂商分类修改</h4>
+							<h4 class="modal-title">厂商分类修改1</h4>
 						</div>
 						<form class="form-horizontal">
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">分类编码</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" disabled="disabled" v-model="xiugaidizi.anid">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">分类名称</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword"  v-model="xiugaidizi.anaddress">
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">修改</button>
+							<button type="button" class="btn btn-primary" @click="xiugaidiziMenthon()">修改</button>
 						</div>
 					</div>
 				</div>
@@ -285,79 +265,86 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">增加供货单位</h4>
+							<h4 class="modal-title">增加供货单位1</h4>
 						</div>
 						<form class="form-horizontal">
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">厂商代码</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addWares.afvendorcode">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">厂商名称</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addWares.aftradename">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">地址</label>
 								<div class="col-sm-4">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addWares.afaddress">
 								</div>
 								<label for="inputPassword" class="col-sm-1 control-label">网址</label>
 								<div class="col-sm-4">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addWares.afurl">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">开户行</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addWares.afbankaccount">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">银行账号</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addWares.afopeningbank">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">付款方式</label>
 								<div class="col-sm-3">
-									<select class="form-control">
-										<option>现金</option>
-										<option>微信</option>
-										<option>支付宝</option>
-										<option>刷卡</option>
+									<select class="form-control" v-model="addWares.affkmethod">
+										<option value="现金">现金</option>
+										<option value="微信">微信</option>
+										<option value="支付宝">支付宝</option>
+										<option value="刷卡">刷卡</option>
 									</select>
 								</div>
 
 								<label for="inputPassword" class="col-sm-2 control-label">厂商等级</label>
 								<div class="col-sm-3">
-									<select class="form-control">
-										<option>A</option>
-										<option>B</option>
-										<option>C</option>
-										<option>D</option>
+									<select class="form-control" v-model="addWares.afvendorrating">
+										<option value="A">A</option>
+										<option value="B">B</option>
+										<option value="C">C</option>
+										<option value="D">D</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">经营品牌</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addWares.afrunbrand">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">厂商类别</label>
-								<div class="col-sm-3">
-									<select class="form-control">
-										<option>北京</option>
-										<option>上海</option>
-										<option>深圳</option>
-										<option>广州</option>
-									</select>
+								<div class="col-sm-4">
+									<!--<select class="form-control" v-model="addWares.afvendortype">
+										<option :value="item.anid" v-for="item in findUpdateFaytroyAddress">{{item.anaddress}}</option>
+									</select>-->
+									<el-cascader v-model="value" :options="data" :props="props" @change="handleChange2"></el-cascader>
 								</div>
 
 							</div>
-							<hr />
-							<el-link type="info" class="bitbtn" :underline="false" @click="appendPerson()"><i class="el-icon-user-solid bit"></i></el-link>
-							<!--<button type="button" class="btn btn-primary" @click="appendPerson()">增加联系人</button>-->
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">经营情况</label>
+								<div class="col-sm-3">
+									<select class="form-control" v-model="addWares.afoperation">
+										<option value="优秀">优秀</option>
+										<option value="良好">良好</option>
+										<option value="差劲">差劲</option>
+										<option value="一般">一般</option>
+									</select>
+								</div>
+							</div>
+							<!--<el-link type="info" class="bitbtn" :underline="false" @click="appendPerson()"><i class="el-icon-user-solid bit"></i></el-link>
 							<div v-for="item in person">
 								<div class="form-group">
 									<label for="inputPassword" class="col-sm-2 control-label">联系人</label>
@@ -379,11 +366,11 @@
 										<input type="text" class="form-control" id="inputPassword" v-model="person.email">
 									</div>
 								</div>
-							</div>
+							</div>-->
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+							<button type="button" class="btn btn-primary" @click="addWaresMenthon()">保存</button>
 						</div>
 					</div>
 				</div>
@@ -404,66 +391,63 @@
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">厂商代码</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afvendorcode">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">厂商名称</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.aftradename">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">地址</label>
 								<div class="col-sm-4">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afaddress">
 								</div>
 								<label for="inputPassword" class="col-sm-1 control-label">网址</label>
 								<div class="col-sm-4">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afurl">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">开户行</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afbankaccount">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">银行账号</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afopeningbank">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">付款方式</label>
 								<div class="col-sm-3">
-									<select class="form-control">
-										<option>现金</option>
-										<option>微信</option>
-										<option>支付宝</option>
-										<option>刷卡</option>
+									<select class="form-control" v-model="updatefaytroy.affkmethod">
+										<option value="现金">现金</option>
+										<option value="微信">微信</option>
+										<option value="支付宝">支付宝</option>
+										<option value="刷卡">刷卡</option>
 									</select>
 								</div>
 
 								<label for="inputPassword" class="col-sm-2 control-label">厂商等级</label>
 								<div class="col-sm-3">
-									<select class="form-control">
-										<option>A</option>
-										<option>B</option>
-										<option>C</option>
-										<option>D</option>
+									<select class="form-control" v-model="updatefaytroy.afvendorrating">
+										<option value="A">A</option>
+										<option value="B">B</option>
+										<option value="C">C</option>
+										<option value="D">D</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">经营品牌</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afrunbrand">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">厂商类别</label>
 								<div class="col-sm-3">
-									<select class="form-control">
-										<option>北京</option>
-										<option>上海</option>
-										<option>深圳</option>
-										<option>广州</option>
+									<select class="form-control" v-model="updatefaytroy.afvendortype">
+										<option :value="item.anid" v-for="item in findUpdateFaytroyAddress">{{item.anaddress}}</option>
 									</select>
 								</div>
 
@@ -471,7 +455,7 @@
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+							<button type="button" class="btn btn-primary" @click="updateFaytroyType()">保存</button>
 						</div>
 					</div>
 				</div>
@@ -486,35 +470,45 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">增加供货单位联系人</h4>
+							<h4 class="modal-title">增加<span style="color: red;">{{addPerson.aftradename}}</span>供货单位联系人</h4>
 						</div>
 						<form class="form-horizontal">
 							<div v-for="item in person">
 								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">厂商代码</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="addPerson.aofactoryid">
+									</div>
+									<label for="inputPassword" class="col-sm-2 control-label">职位</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control" id="inputPassword" v-model="addPerson.aoposition">
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="inputPassword" class="col-sm-2 control-label">联系人</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.name">
+										<input type="text" class="form-control" id="inputPassword" v-model="addPerson.aocontactname">
 									</div>
 									<label for="inputPassword" class="col-sm-1 control-label">电话</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.call">
+										<input type="text" class="form-control" id="inputPassword" v-model="addPerson.aocall">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inputPassword" class="col-sm-2 control-label">手机</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.phone">
+										<input type="text" class="form-control" id="inputPassword" v-model="addPerson.aophone">
 									</div>
 									<label for="inputPassword" class="col-sm-1 control-label">Email</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.email">
+										<input type="text" class="form-control" id="inputPassword" v-model="addPerson.aoemail">
 									</div>
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+							<button type="button" class="btn btn-primary" @click="addPersonMenthon()">保存</button>
 						</div>
 					</div>
 				</div>
@@ -529,35 +523,135 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">增加供货单位联系人</h4>
+							<h4 class="modal-title">修改供货单位联系人</h4>
 						</div>
 						<form class="form-horizontal">
 							<div v-for="item in person">
 								<div class="form-group">
+									<label for="inputPassword" class="col-sm-2 control-label">厂商代码</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" id="inputPassword" v-model="updatePerson.aoid">
+									</div>
+									<label for="inputPassword" class="col-sm-2 control-label">职位</label>
+									<div class="col-sm-3">
+										<input type="text" class="form-control" id="inputPassword" v-model="updatePerson.aoposition">
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="inputPassword" class="col-sm-2 control-label">联系人</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.name">
+										<input type="text" class="form-control" id="inputPassword" v-model="updatePerson.aocontactname">
 									</div>
 									<label for="inputPassword" class="col-sm-1 control-label">电话</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.call">
+										<input type="text" class="form-control" id="inputPassword" v-model="updatePerson.aocall">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inputPassword" class="col-sm-2 control-label">手机</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.phone">
+										<input type="text" class="form-control" id="inputPassword" v-model="updatePerson.aofactoryid">
 									</div>
 									<label for="inputPassword" class="col-sm-1 control-label">Email</label>
 									<div class="col-sm-4">
-										<input type="text" class="form-control" id="inputPassword" v-model="person.email">
+										<input type="text" class="form-control" id="inputPassword" v-model="updatePerson.aoemail">
 									</div>
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+							<button type="button" class="btn btn-primary" @click="updatePersonMenthon()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!--
+            	作者：2511549159@qq.com
+            	时间：2020-07-16
+            	描述：修改供货地址弹出框
+            -->
+			<div class="modal fade" id="updateAddress2" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">修改供货单位</h4>
+						</div>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">厂商代码</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afvendorcode">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">厂商名称</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.aftradename">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">地址</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afaddress">
+									<!--<el-cascader v-model="value" :options="data" :props="props" @change="handleChange"></el-cascader>-->
+								</div>
+								<label for="inputPassword" class="col-sm-1 control-label">网址</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afurl">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">开户行</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afbankaccount">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">银行账号</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afopeningbank">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">付款方式</label>
+								<div class="col-sm-3">
+									<select class="form-control" v-model="updatefaytroy.affkmethod">
+										<option value="现金">现金</option>
+										<option value="微信">微信</option>
+										<option value="支付宝">支付宝</option>
+										<option value="刷卡">刷卡</option>
+									</select>
+								</div>
+
+								<label for="inputPassword" class="col-sm-2 control-label">厂商等级</label>
+								<div class="col-sm-3">
+									<select class="form-control" v-model="updatefaytroy.afvendorrating">
+										<option value="A">A</option>
+										<option value="B">B</option>
+										<option value="C">C</option>
+										<option value="D">D</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label">经营品牌</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatefaytroy.afrunbrand">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">厂商类别</label>
+								<div class="col-sm-4">
+									<div class="block">
+										<!--<select class="form-control" v-model="updatefaytroy.afvendortype">
+											<option :value="item.anid" v-for="item in findUpdateFaytroyAddress">{{item.anaddress}}</option>
+										</select>-->
+										<el-cascader v-model="value,updatefaytroy.afvendortype" :options="data" :props="props" @change="handleChange"></el-cascader>
+									</div>
+								</div>
+
+							</div>
+						</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" @click="updateFaytroyType()">保存</button>
 						</div>
 					</div>
 				</div>
@@ -572,73 +666,152 @@
 				el: ".container",
 				data() {
 					return {
-						data: [{
-							id: 1,
-							label: '一级 1',
-							children: [{
-								id: 4,
-								label: '二级 1-1',
-								children: [{
-									id: 9,
-									label: '三级 1-1-1'
-								}, {
-									id: 10,
-									label: '三级 1-1-2',
-									children: [{
-										id: 11,
-										label: '四级 1-1-1-1'
-									}, {
-										id: 12,
-										label: '四级 1-1-1-2',
-									}]
-								}]
-							}]
-						}, {
-							id: 2,
-							label: '一级 2',
-							children: [{
-								id: 5,
-								label: '二级 2-1'
-							}, {
-								id: 6,
-								label: '二级 2-2'
-							}]
-						}, {
-							id: 3,
-							label: '一级 3',
-							children: [{
-								id: 7,
-								label: '二级 3-1'
-							}, {
-								id: 8,
-								label: '二级 3-2'
-							}]
-						}],
-						person: [{}]
-
+						data: [],
+						person: [{}],
+						props: {
+							value: 'anid',
+							label: "anaddress",
+							children: "children"
+						},
+						address: "",
+						appendaddress: {},
+						faytroy: [],
+						cslinkman: [],
+						updatefaytroy: {},
+						findUpdateFaytroyAddress: [],
+						addPerson:{},
+						addWares:{},
+						updatePerson:"",
+						anid:"",
+						afid:{},
+						value: [1,7],
+						xiugaidizi:{},
+						addtjaddress:{},
+						servch:"",
+						valid:{}
 					}
 				},
 				methods: {
 					handleNodeClick(data) {
 						console.log(data);
 					},
+					fengye(val){
+						console.log(val)
+						var that = this;
+						/*that.cslinkman=[]*/
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findFaytroy",
+							data:{
+								afvendortype:that.anid,
+								pageNum:val,
+								pageSize:3,
+								serch:that.servch
+							},
+							success: function(result) {
+								that.faytroy=result
+							}
+						});
+					},getTreeData(data) {
+						// 循环遍历json数据
+						for(var i = 0; i < data.length; i++) {
+							if(data[i].children.length < 1) {
+								// children若为空数组，则将children设为undefined
+								data[i].children = undefined;
+							} else {
+								// children若不为空数组，则继续 递归调用 本方法
+								this.getTreeData(data[i].children);
+							}
+						}
+						return data;
+
+					},handleChange(val) {
+						var that=this;
+						console.log(val)
+						that.value=val
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/joinAddress",
+							data: {
+								anid: that.value.join(",")
+							},
+							success: function(result) {
+								that.updatefaytroy.afaddress=result
+							}
+						});
+						
+					},handleChange2(val) {
+						var that=this;
+						console.log(val)
+						that.value=val
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/joinAddress",
+							data: {
+								anid: that.value.join(",")
+							},
+							success: function(result) {
+								that.addWares.afaddress=result
+								that.showAdd()
+							}
+						});
+						
+					},
+					updateAddress2(){
+						this.findUpdateFaytroyType();
+						$("#updateAddress2").modal("show");
+					},
 					showAdd() {
+						this.findUpdateFaytroyType();
 						$("#showAdds").modal("show");
 					},
 					updateAddress() {
+						this.findUpdateFaytroyType();
 						$("#updateAddress").modal("show");
 					},
-					showTypeUpdate() {
+					showTypeUpdate(data) {
+						var that=this;
+						that.xiugaidizi=data
 						$("#showTypeUpdate").modal("show");
+					},xiugaidiziMenthon(){
+						var that = this;
+						that.xiugaidizi = JSON.stringify(that.xiugaidizi)
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/updateGhaddress",
+							data:that.xiugaidizi,
+							contentType: "application/json;charset=utf-8",
+							type: "post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '供货地址修改成功',
+										type: 'success',
+										duration: "1000"
+									});
+									$("#showTypeUpdate").modal("hide");
+								}else {
+									alert("供货地址修改失败")
+								}
+							}
+						});
 					},
 					showAddPerson() {
 						$("#showAddPerson").modal("show");
 					},
 					showUpdatePerson() {
+						var that = this;
+						if(that.updatePerson == ""||that.updatePerson == {}) {
+							this.$message({
+								message: '请先选中一行',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
 						$("#showUpdatePerson").modal("show");
 					},
-					append(data) {
-						console.log(data)
+					append(node, data) {
+						var that = this
+						console.log(node)
+						that.appendaddress.anparentid = data.anid
+						console.log(that.appendaddress.anparentid)
 						$("#showZjTypeAdd").modal("show");
 						/*const newChild = { id: id++, label: 'testtest', children: [] };
 						console.log(newChild)
@@ -648,30 +821,336 @@
 						data.children.push(newChild);*/
 					},
 					remove(node, data) {
+						console.log(data)
 						const parent = node.parent;
 						const children = parent.data.children || parent.data;
-						if(data.children != undefined) {
-							if(data.children == "") {
-								const index = children.findIndex(d => d.id === data.id);
-								children.splice(index, 0);
-							} else {
-								alert("有子级不能删除")
-								return;
-							}
-						}
-						if(data.id > 0) {
-							const index = children.findIndex(d => d.id === data.id);
-							children.splice(index, 1);
+						
+						if(data.children!= undefined) {
+							this.$message({
+								message: '有子级不能删除',
+								type: 'warning',
+								duration:"1000"
+							});
 							return;
 						}
-
+						if(data.children==undefined) {
+								this.$confirm('此操作将删除地址下面的全部信息, 是否继续?', '提示', {
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								type: 'warning'
+							}).then(() => {
+								var that=this;
+								$.ajax({
+									url: "http://localhost:8888/GongHuoController/removeGhaddress",
+									data: {
+										anid:data.anid
+									},
+									success: function(result) {
+										if(result == "0000") {
+											that.$message({
+												type: 'success',
+												message: '删除成功!',
+												duration:"1000"
+											});
+										}
+									}
+								});
+							}).catch(() => {
+								this.$message({
+									type: 'info',
+									message: '已取消删除',
+									duration:"1000"
+								});
+							});
+						}
 					},
 					appendPerson() {
 						this.person.push(null);
+					},
+					findAll() {
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findAll",
+							data: {
+								anparentid: 0
+							},
+							success: function(result) {
+								that.data = that.getTreeData(result);
+							}
+						});
+					},
+					addAddress() {
+						var that = this;
+						that.appendaddress = JSON.stringify(that.appendaddress)
+						console.log(that.appendaddress)
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/insertGhaddress",
+							data: that.appendaddress,
+							contentType: "application/json;charset=utf-8",
+							type: "post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '增加供货地址成功',
+										type: 'success',
+										duration: "1000"
+									});
+									$("#showZjTypeAdd").modal("hide");
+									that.findAll()
+									that.appendaddress = {}
+								} else {
+									alert("增加供货地址失败")
+								}
+							}
+						});
+					},
+					findFaytroy(val) {
+						var that = this;
+						that.updatefaytroy={}
+						that.cslinkman = ""
+						that.valid=val
+						that.anid=val.anid
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findFaytroy",
+							data: {
+								afvendortype:val.anid,
+								pageNum:1,
+								pageSize:3,
+								serch:that.servch
+							},
+							success: function(result) {
+								that.faytroy = result
+							}
+						});
+					},
+					currentChange(val) {
+						var that = this;
+						if(that.faytroy == ""||val==null) {
+							that.cslinkman = ""
+							return
+						}
+						console.log(val)
+						that.updatefaytroy = val
+						that.addPerson.aofactoryid=val.afvendorcode
+						that.addPerson.aftradename=val.aftradename
+						that.afid=val
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findCustomerByAofactoryId",
+							data: {
+								aofactoryId: that.updatefaytroy.afvendorcode
+							},
+							success: function(result) {
+								console.log(that.cslinkman)
+								that.cslinkman = result;
+							}
+						});
+					},
+					handleCurrentChange(val) {
+						var that=this;
+						if(val==null||val==""){
+							that.updatePerson=""
+							return;
+						}
+						that.updatePerson=val
+						console.log(that.updatePerson)
+					},removePerson(){
+						var that = this;
+						if(that.updatePerson == ""||that.updatePerson == {}) {
+							this.$message({
+								message: '请先选中一行',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						this.$confirm('此操作将删除的联系人, 是否继续?', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning'
+						}).then(() => {
+							$.ajax({
+								url: "http://localhost:8888/GongHuoController/remoceCslinkman",
+								data: {
+									aoid:that.updatePerson.aoid
+								},
+								success: function(result) {
+									if(result == "0000") {
+										that.$message({
+											type: 'success',
+											message: '删除成功!',
+											duration:"1000"
+										});
+										that.updatePerson ="";
+									}
+								}
+							});
+						}).catch(() => {
+							this.$message({
+								type: 'info',
+								message: '已取消删除',
+								duration:"1000"
+							});
+						});
+					},
+					findUpdateFaytroyType() {
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findUpdateFaytroyType",
+							data: {
+								anparentid: 0
+							},
+							success: function(result) {
+								that.findUpdateFaytroyAddress = result
+							}
+						});
+					},
+					updateFaytroyType() {
+						var that = this;
+						that.updatefaytroy = JSON.stringify(that.updatefaytroy)
+						console.log(that.updatefaytroy)
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/updateWares",
+							data: that.updatefaytroy,
+							contentType: "application/json;charset=utf-8",
+							type: "post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '修改成功',
+										type: 'success',
+										duration: "1000"
+									});
+									$("#updateAddress2").modal("hide");
+								} else {
+									alert("修改失败")
+								}
+							}
+						});
+					},addPersonMenthon(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/addCslinkman",
+							data: that.addPerson,
+							type: "post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '增加成功',
+										type: 'success',
+										duration: "1000"
+									});
+									$("#showAddPerson").modal("hide");
+								} else {
+									alert("增加成功")
+								}
+							}
+						});
+					},addWaresMenthon(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/addWares",
+							data: that.addWares,
+							type: "post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '增加成功',
+										type: 'success',
+										duration: "1000"
+									});
+									$("#showAdds").modal("hide");
+								} else {
+									alert("增加成功")
+								}
+							}
+						});
+					},updatePersonMenthon(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/updateCslinkman",
+							data: that.updatePerson,
+							type: "post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '修改成功',
+										type: 'success',
+										duration: "1000"
+									});
+									that.updatePerson={}
+									$("#showUpdatePerson").modal("hide");
+								} else {
+									alert("修改失败")
+								}
+							}
+						});
+					},exportExcel(){
+						window.location.href="http://localhost:8888/GongHuoController/exportExcel"
+					},removeFaytroy(){
+						var that = this;
+						if(that.afid == ""||that.afid == null) {
+							this.$message({
+								message: '请先选中一行',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						this.$confirm('此操作将永久删除数据及对应的联系人, 是否继续?', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning'
+						}).then(() => {
+							$.ajax({
+								url: "http://localhost:8888/GongHuoController/removeFaytroy",
+								data: {
+									afid: that.afid.afid,
+									afvendorcode:that.afid.afvendorcode
+								},
+								success: function(result) {
+									if(result == "0000") {
+										that.$message({
+											type: 'success',
+											message: '删除车成功!',
+											duration:"1000"
+										});
+										that.afid = "";
+									}
+								}
+							});
+						}).catch(() => {
+							this.$message({
+								type: 'info',
+								message: '已取消删除',
+								duration:"1000"
+							});
+						});
+					},showTjTypeAdd(){
+						$("#showTjTypeAdd").modal("show")
+					},addTjType(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/insertGhaddressParents",
+							data: that.addtjaddress,
+							type: "post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '增加成功',
+										type: 'success',
+										duration: "1000"
+									});
+									that.addtjaddress={}
+									$("#showTjTypeAdd").modal("hide");
+								} else {
+									alert("增加失败")
+								}
+							}
+						});
 					}
 				},
 				created() {
-
+					this.findAll()
 				}
 			})
 		</script>
