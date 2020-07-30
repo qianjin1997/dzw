@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+	<div id="ctx"class="container">
+		<table class="table">
+			<tr>
+				<td>单号</td>
+				<td>
+					<input v-model="tbbill.billno" name="billno">
+				</td>
+				<td>单据日期</td>
+				<td>
+					<input type="date" v-model="tbbill.billdate" name="billdate" @change="findDate(tbbill.billdate)">
+				</td>
+			</tr>
+			<tr>
+				<td>供应商</td>
+				<td>
+					<input v-model="tbbill.suppliername" name="suppliername">
+				</td>
+				<td>供应商地址</td>
+				<td>
+					<input v-model="tbbill.supplieraddress" name="supplieraddress">
+				</td>
+			</tr>
+			<tr>
+				<td>采购业务部门</td>
+				<td>
+					<input v-model="tbbill.department" name="department">
+				</td>
+				<td>仓库</td>
+				<td>
+					<input v-model="tbbill.warehouse" name="warehouse">
+				</td>
+			</tr>
+			<tr>
+				<td>采购人员</td>
+				<td>
+					<input v-model="tbbill.buyer" name="buyer">
+				</td>
+				<td>制单人员</td>
+				<td>
+					<input v-model="tbbill.executor" name="executor">
+				</td>
+			</tr>
+			<tr>
+				<td>入库明细</td>
+				<td colspan="3">
+					<textarea v-model="details" name="details" rows="10" cols="80"></textarea>
+				</td>
+			</tr>
+		</table>
+		<table class="table">
+			<tr>
+				<td>单据编号</td>
+				<td>日期</td>
+				<td>供应商</td>
+				<td>采购人员</td>
+				<td>仓库</td>
+				<td>总金额</td>
+			</tr>
+			<tr v-for="item in list" @click="findById(item)">
+				<td>{{item.billno}}</td>
+				<td>{{item.billdate}}</td>
+				<td>{{item.suppliername}}</td>
+				<td>{{item.buyer}}</td>
+				<td>{{item.warehouse}}</td>
+				<td>{{item.sumprice}}</td>
+			</tr>
+		</table>
+		
+		<button @click="save">保存</button>
+	</div>
+	<script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vue.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:"#ctx",
+			data(){
+				return {
+					list:[],
+					tbbill:{},
+					details:""
+				}
+			},
+			methods:{
+				findDate(date){
+					var that = this;
+					$.ajax({
+						url:"[[@{findMaxBillNo}]]",
+						data:{
+							billDate:date
+						},
+						dataType:"text",
+						success:function(result){
+							console.log(result);
+							that.tbbill.billno = result;
+						}
+					});
+				},
+				save(){
+					var that = this;
+					this.tbbill.details = JSON.parse(this.details);
+					$.ajax({
+						url:"[[@{create}]]",
+						data:JSON.stringify(that.tbbill),
+						method:"post",
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							
+						}
+					});
+				},
+				getList(){
+					var that = this;
+					$.ajax({
+						url:"[[@{find}]]",
+						success:function(result){
+							console.log(result);
+							that.list = result;
+						}
+					});
+				},
+				findById(item){
+					var that = this;
+					$.ajax({
+						url:"findByBillNo",
+						data:{
+							billno:item.billno
+						},
+						success:function(result){
+							console.log(result);
+							that.tbbill = result;
+							that.details = JSON.stringify(result.details);
+						}
+					});
+				}
+			},
+			created(){
+				this.getList();
+			}
+		});
+	</script>
+</body>
+</html>
