@@ -6,6 +6,9 @@
     <result column="kfuelid" property="kfuelid" jdbcType="VARCHAR" />
     <result column="kfuelname" property="kfuelname" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="findByid" resultMap="BaseResultMap">
+		select * from fuel where kid=#{hfueltype}  
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
