@@ -783,6 +783,186 @@ public class RepairExample {
             addCriterion("wicbcprice not between", value1, value2, "wicbcprice");
             return (Criteria) this;
         }
+
+        public Criteria andWuidIsNull() {
+            addCriterion("wuid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidIsNotNull() {
+            addCriterion("wuid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidEqualTo(Integer value) {
+            addCriterion("wuid =", value, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidNotEqualTo(Integer value) {
+            addCriterion("wuid <>", value, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidGreaterThan(Integer value) {
+            addCriterion("wuid >", value, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("wuid >=", value, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidLessThan(Integer value) {
+            addCriterion("wuid <", value, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidLessThanOrEqualTo(Integer value) {
+            addCriterion("wuid <=", value, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidIn(List<Integer> values) {
+            addCriterion("wuid in", values, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidNotIn(List<Integer> values) {
+            addCriterion("wuid not in", values, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidBetween(Integer value1, Integer value2) {
+            addCriterion("wuid between", value1, value2, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWuidNotBetween(Integer value1, Integer value2) {
+            addCriterion("wuid not between", value1, value2, "wuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidIsNull() {
+            addCriterion("wzid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidIsNotNull() {
+            addCriterion("wzid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidEqualTo(Integer value) {
+            addCriterion("wzid =", value, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidNotEqualTo(Integer value) {
+            addCriterion("wzid <>", value, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidGreaterThan(Integer value) {
+            addCriterion("wzid >", value, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("wzid >=", value, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidLessThan(Integer value) {
+            addCriterion("wzid <", value, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidLessThanOrEqualTo(Integer value) {
+            addCriterion("wzid <=", value, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidIn(List<Integer> values) {
+            addCriterion("wzid in", values, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidNotIn(List<Integer> values) {
+            addCriterion("wzid not in", values, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidBetween(Integer value1, Integer value2) {
+            addCriterion("wzid between", value1, value2, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWzidNotBetween(Integer value1, Integer value2) {
+            addCriterion("wzid not between", value1, value2, "wzid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridIsNull() {
+            addCriterion("wcarid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridIsNotNull() {
+            addCriterion("wcarid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridEqualTo(Integer value) {
+            addCriterion("wcarid =", value, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridNotEqualTo(Integer value) {
+            addCriterion("wcarid <>", value, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridGreaterThan(Integer value) {
+            addCriterion("wcarid >", value, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridGreaterThanOrEqualTo(Integer value) {
+            addCriterion("wcarid >=", value, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridLessThan(Integer value) {
+            addCriterion("wcarid <", value, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridLessThanOrEqualTo(Integer value) {
+            addCriterion("wcarid <=", value, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridIn(List<Integer> values) {
+            addCriterion("wcarid in", values, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridNotIn(List<Integer> values) {
+            addCriterion("wcarid not in", values, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridBetween(Integer value1, Integer value2) {
+            addCriterion("wcarid between", value1, value2, "wcarid");
+            return (Criteria) this;
+        }
+
+        public Criteria andWcaridNotBetween(Integer value1, Integer value2) {
+            addCriterion("wcarid not between", value1, value2, "wcarid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

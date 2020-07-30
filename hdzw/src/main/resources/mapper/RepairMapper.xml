@@ -13,7 +13,25 @@
     <result column="wdeal" property="wdeal" jdbcType="REAL" />
     <result column="wclaim" property="wclaim" jdbcType="REAL" />
     <result column="wicbcprice" property="wicbcprice" jdbcType="REAL" />
+    <result column="wuid" property="wuid" jdbcType="INTEGER" />
+    <result column="wzid" property="wzid" jdbcType="INTEGER" />
+    <result column="wcarid" property="wcarid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Repair" id="BaseResultMapExtends">
+  	 <association property="xm" column="wmid" javaType="com.accp.domain.Maintainxm" select="com.accp.dao.MaintainxmMapper.findby"></association>
+  	 <association property="come" column="wincomeid" javaType="com.accp.domain.Income" select="com.accp.dao.IncomeMapper.findby"></association>
+  	 <association property="cus" column="wuid" javaType="com.accp.domain.Customer" select="com.accp.dao.CustomerMapper.findby"></association>
+  	 <association property="sta" column="wzid" javaType="com.accp.domain.Documentstatus" select="com.accp.dao.DocumentstatusMapper.findby"></association>
+  	 <association property="car" column="wcarid" javaType="com.accp.domain.Car" select="com.accp.dao.CarMapper.findby"></association>
+  	 
+  </resultMap>
+  <select id="find" resultMap="BaseResultMapExtends">
+  	select * from repair where wuid = #{wuid}
+  </select>
+  <select id="findone" resultMap="BaseResultMapExtends">
+  	select * from repair where wid = #{wid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -74,7 +92,7 @@
   </sql>
   <sql id="Base_Column_List" >
     wid, wmid, wmname, wincomeid, wremark, wsprice, wmemberprice, wvipice, wdeal, wclaim, 
-    wicbcprice
+    wicbcprice, wuid, wzid, wcarid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.RepairExample" >
     select
@@ -110,11 +128,13 @@
     insert into repair (wid, wmid, wmname, 
       wincomeid, wremark, wsprice, 
       wmemberprice, wvipice, wdeal, 
-      wclaim, wicbcprice)
+      wclaim, wicbcprice, wuid, 
+      wzid, wcarid)
     values (#{wid,jdbcType=INTEGER}, #{wmid,jdbcType=INTEGER}, #{wmname,jdbcType=VARCHAR}, 
       #{wincomeid,jdbcType=INTEGER}, #{wremark,jdbcType=VARCHAR}, #{wsprice,jdbcType=REAL}, 
       #{wmemberprice,jdbcType=REAL}, #{wvipice,jdbcType=REAL}, #{wdeal,jdbcType=REAL}, 
-      #{wclaim,jdbcType=REAL}, #{wicbcprice,jdbcType=REAL})
+      #{wclaim,jdbcType=REAL}, #{wicbcprice,jdbcType=REAL}, #{wuid,jdbcType=INTEGER}, 
+      #{wzid,jdbcType=INTEGER}, #{wcarid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Repair" >
     insert into repair
@@ -152,6 +172,15 @@
       <if test="wicbcprice != null" >
         wicbcprice,
       </if>
+      <if test="wuid != null" >
+        wuid,
+      </if>
+      <if test="wzid != null" >
+        wzid,
+      </if>
+      <if test="wcarid != null" >
+        wcarid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="wid != null" >
@@ -186,6 +215,15 @@
       </if>
       <if test="wicbcprice != null" >
         #{wicbcprice,jdbcType=REAL},
+      </if>
+      <if test="wuid != null" >
+        #{wuid,jdbcType=INTEGER},
+      </if>
+      <if test="wzid != null" >
+        #{wzid,jdbcType=INTEGER},
+      </if>
+      <if test="wcarid != null" >
+        #{wcarid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -231,6 +269,15 @@
       <if test="record.wicbcprice != null" >
         wicbcprice = #{record.wicbcprice,jdbcType=REAL},
       </if>
+      <if test="record.wuid != null" >
+        wuid = #{record.wuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wzid != null" >
+        wzid = #{record.wzid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wcarid != null" >
+        wcarid = #{record.wcarid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +295,10 @@
       wvipice = #{record.wvipice,jdbcType=REAL},
       wdeal = #{record.wdeal,jdbcType=REAL},
       wclaim = #{record.wclaim,jdbcType=REAL},
-      wicbcprice = #{record.wicbcprice,jdbcType=REAL}
+      wicbcprice = #{record.wicbcprice,jdbcType=REAL},
+      wuid = #{record.wuid,jdbcType=INTEGER},
+      wzid = #{record.wzid,jdbcType=INTEGER},
+      wcarid = #{record.wcarid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,6 +336,15 @@
       <if test="wicbcprice != null" >
         wicbcprice = #{wicbcprice,jdbcType=REAL},
       </if>
+      <if test="wuid != null" >
+        wuid = #{wuid,jdbcType=INTEGER},
+      </if>
+      <if test="wzid != null" >
+        wzid = #{wzid,jdbcType=INTEGER},
+      </if>
+      <if test="wcarid != null" >
+        wcarid = #{wcarid,jdbcType=INTEGER},
+      </if>
     </set>
     where wid = #{wid,jdbcType=INTEGER}
   </update>
@@ -300,7 +359,10 @@
       wvipice = #{wvipice,jdbcType=REAL},
       wdeal = #{wdeal,jdbcType=REAL},
       wclaim = #{wclaim,jdbcType=REAL},
-      wicbcprice = #{wicbcprice,jdbcType=REAL}
+      wicbcprice = #{wicbcprice,jdbcType=REAL},
+      wuid = #{wuid,jdbcType=INTEGER},
+      wzid = #{wzid,jdbcType=INTEGER},
+      wcarid = #{wcarid,jdbcType=INTEGER}
     where wid = #{wid,jdbcType=INTEGER}
   </update>
 </mapper>

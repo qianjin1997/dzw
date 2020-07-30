@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface RepairMapper {
+	Repair findone(Integer wid);
+	
+	List<Repair> find(Integer wuid);
+	
     int countByExample(RepairExample example);
 
     int deleteByExample(RepairExample example);

@@ -6,6 +6,9 @@
     <result column="xmaintainname" property="xmaintainname" jdbcType="VARCHAR" />
     <result column="xparentid" property="xparentid" jdbcType="INTEGER" />
   </resultMap>
+  <select resultMap="BaseResultMap" id="findby">
+  	select * from maintainxm where xid = #{xid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

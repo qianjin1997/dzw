@@ -5,6 +5,9 @@
     <id column="zid" property="zid" jdbcType="INTEGER" />
     <result column="zstatus" property="zstatus" jdbcType="VARCHAR" />
   </resultMap>
+  <select resultMap="BaseResultMap" id="findby">
+  	select * from Documentstatus where zid = #{zid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -34,6 +34,9 @@
   	<association property="cartype" column="htypeid" javaType="com.accp.domain.Cartype" select="com.accp.dao.CartypeMapper.findByid"></association><!--车辆型号  -->
   	<association property="fuel" column="hfueltype" javaType="com.accp.domain.Fuel" select="com.accp.dao.FuelMapper.findByid"></association><!--燃油型号  -->
   </resultMap>
+  <select resultMap="BaseResultMapExtends" id="findby">
+  	select * from car where hid = #{hid}
+  </select>
   <select id="findAll" resultMap="BaseResultMapExtends" >
   	select * from car
   	<where>

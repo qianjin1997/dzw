@@ -33,7 +33,6 @@
   </resultMap>
     <resultMap extends="BaseResultMap" type="com.accp.domain.Customer" id="BaseResultMapExtends"><!--  -->
   		<association property="member" column="ememberid" javaType="com.accp.domain.Member" select="com.accp.dao.MemberMapper.findBy"></association><!--车辆品牌  -->
- 
   </resultMap>
 
   
@@ -43,6 +42,10 @@
   
  <select id="findByid" resultMap="BaseResultMap">
 		select * from customer where eid=#{huid}
+  </select>
+  
+  <select resultMap="BaseResultMap" id="findby">
+  	select * from customer where eid = #{eid}
   </select>
   <sql id="Example_Where_Clause" >
     <where >
