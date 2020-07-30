@@ -131,7 +131,7 @@
 			  </el-tabs>
 			</template>
 			
-			<el-container style="height: 310px; border: 1px solid #eee">
+			<el-container style=" border: 1px solid #eee">
 			  
 			  <el-container content="true">
 				<template>
@@ -208,14 +208,7 @@
 				  </el-table>
 				</template>
 			 <el-footer>
-				<el-pagination
-				style="text-align: center;"
-				  @current-change="fyhandleCurrentChange"
-				  background
-				  layout="prev, pager, next"
-				  :page-size="4"
-				  :total="page.total">
-				</el-pagination>
+				
 			 </el-footer>
 			 </el-container>
 			</el-container>
@@ -459,12 +452,13 @@
 							success:function(result){
 								console.log(result);
 								for(var i=0;i<result.length;i++){
+									
 									if(result[i].sta.zstatus!="完工"){
-										//alert(i)
+									//	alert(i)
 										result.splice(i,1);
-										if(i!=result.length-1){
+										
 											--i;
-										}	
+										
 									}
 								}
 								that.reg=result;
@@ -483,9 +477,7 @@
 								for(var i=0;i<result.length;i++){
 									if(result[i].sta.zstatus=="完工"){
 										result.splice(i,1);
-										if(i!=result.length-1){
 											--i;
-										}	
 									}
 								}
 								that.reg=result;
