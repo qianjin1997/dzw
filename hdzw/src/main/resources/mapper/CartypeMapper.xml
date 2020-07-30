@@ -15,6 +15,7 @@
     <result column="jpower" property="jpower" jdbcType="VARCHAR" />
     <result column="jload" property="jload" jdbcType="INTEGER" />
   </resultMap>
+   
   <select id="findByid" resultMap="BaseResultMap">
 		select * from cartype where jid=#{htypeid}  
   </select>
