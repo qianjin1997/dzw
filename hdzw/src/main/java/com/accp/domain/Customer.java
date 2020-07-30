@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Customer {
     private Integer eid;
 
@@ -14,13 +16,14 @@ public class Customer {
     private String elinkman;
 
     private String ephone;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date ebirthday;
 
     private Integer ememberid;
 
     private String eremark;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date edocumentdate;
 
     private Integer econsultantid;
@@ -53,12 +56,21 @@ public class Customer {
 
     private String erestsone;
 
-    private String ereststwo;
+    public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	private String ereststwo;
 
     private String ereststhree;
 
     private String erestsfour;
 
+    private Member member;
     public Integer getEid() {
         return eid;
     }

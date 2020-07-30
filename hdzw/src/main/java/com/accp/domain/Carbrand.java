@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Carbrand {
     private Integer iid;
 
@@ -7,7 +9,16 @@ public class Carbrand {
 
     private String iinitial;
 
-    public Integer getIid() {
+    private List<Cartype> cartype;
+    public List<Cartype> getCartype() {
+		return cartype;
+	}
+
+	public void setCartype(List<Cartype> cartype) {
+		this.cartype = cartype;
+	}
+
+	public Integer getIid() {
         return iid;
     }
 

@@ -65,18 +65,20 @@ public class Car {
 
     private String hcarseries;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hbuydate;
     
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hbldate;
-   
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hsoidate;
 
     private Integer hjqxicbc;
-  
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hjqxexpire;
 
     private Integer hsyxicbc;
-   
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hsyxlastdate;
 
     private Integer hicar;
@@ -84,7 +86,7 @@ public class Car {
     private Integer hfueltype;
 
     private Integer hnextmileage;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hmileagedate;
 
     private Integer huid;

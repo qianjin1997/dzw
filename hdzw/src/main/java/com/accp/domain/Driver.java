@@ -2,15 +2,17 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Driver {
     private Integer oid;
 
     private String oname;
 
     private String ophone;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date obirthday;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date oexpire;
 
     public Integer getOid() {
