@@ -83,7 +83,18 @@
 	INNER JOIN maintainxm AS c3 ON(c1.`albusinessid` = c3.`xid`)
 	INNER JOIN driver AS c4 ON(c1.`aldriveid` = c4.`oid`)
 	<where>
-		if<if test=""></if>
+		<if test="aliscomplete != null and aliscomplete != ''">
+			and aliscomplete = #{aliscomplete}
+		</if>
+		<if test="hlicenseno != null and hlicenseno != ''">
+  			and hlicenseno like concat('%',#{hlicenseno},'%')
+  		</if>
+  		<if test="alid != null">
+  			and alid like concat('%',#{alid},'%')
+  		</if>
+  		<if test="alcompletedate != null and alcompletedate1 != null and alcompletedate != '' and alcompletedate1 != ''">
+  			and alcompletedate BETWEEN #{alcompletedate} AND #{alcompletedate1}
+  		</if>
 	</where>
   </select>
   

@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Checkout {
     private Integer alid;
 
@@ -13,8 +15,10 @@ public class Checkout {
 
     private String alclearingform;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date aldepartdate;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date alroadworkdate;
 
     private Float alestimatemoney;
@@ -41,10 +45,12 @@ public class Checkout {
 
     private Integer alstaffid;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date aldispatchdate;
 
     private Integer alrange;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date alcompletedate;
 
     private String alstatement;

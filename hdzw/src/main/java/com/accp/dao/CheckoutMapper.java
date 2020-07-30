@@ -27,4 +27,7 @@ public interface CheckoutMapper {
     int updateByPrimaryKeySelective(Checkout record);
 
     int updateByPrimaryKey(Checkout record);
+    
+    //-------------------------------------
+    List<Checkout> findAlls (String aliscomplete,String hlicenseno,Integer alid, String alcompletedate,String alcompletedate1);
 }
