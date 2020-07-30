@@ -14,6 +14,7 @@ import com.accp.domain.Carbrand;
 import com.accp.domain.CarbrandExample;
 import com.accp.domain.Cartype;
 import com.accp.domain.CartypeExample;
+import com.accp.domain.CartypeExample.Criteria;
 import com.accp.domain.Engine;
 import com.accp.domain.Fuel;
 import com.accp.domain.FuelExample;
@@ -35,14 +36,27 @@ public class CarYypeService {
 	
 	@Autowired
 	FuelMapper mapper4;
-	public List<Carbrand> findCarbrand(){
-		/*CarbrandExample example=new CarbrandExample();
-		example.createCriteria().andIbrandnameBetween(brand, brand);*/
+	public List<Carbrand> findCarbrand(String brand){
+		CarbrandExample example=new CarbrandExample();
+		if (brand!=null) {
+			example.or(example.createCriteria().andIbrandnameLike("%"+brand+"%"));
+			example.or(example.createCriteria().andIinitialLike("%"+brand+"%"));
+			/*example.or(example.createCriteria().andIidEqualTo(Integer.parseInt(brand)));*/
+			return mapper.selectByExample(example);
+		}
 		return mapper.selectByExample(null);
 	}
 	
 	public int insertCartype(Cartype cartype) {
 		return mapper2.insert(cartype);
+	}
+	
+	public int updateCartype(Cartype cartype) {
+		return mapper2.updateByPrimaryKey(cartype);
+	}
+	
+	public int removeCartype(Integer jid) {
+		return mapper2.deleteByPrimaryKey(jid);
 	}
 	
 	public List<Fuel> findFuel(){
@@ -61,12 +75,16 @@ public class CarYypeService {
 		return mapper.deleteByPrimaryKey(lid);
 	}
 	
-	public PageInfo<Cartype> findCartypeById(Integer lid,Integer pageNum,Integer pageSize){
+	public PageInfo<Cartype> findCartypeById(Integer lid,
+					Integer pageNum,Integer pageSize,String brand){
 		CartypeExample example=new CartypeExample();
-		example.createCriteria().andJbrandidEqualTo(lid);
+		Criteria c=example.createCriteria();
+		c.andJbrandidEqualTo(lid);
+		if (brand!=null) {
+			c.andJtypenameLike("%"+brand+"%");
+		}
 		Page<Cartype> page = PageHelper.startPage(pageNum, pageSize);
 		List<Cartype> list=mapper2.selectByExample(example);
-		System.out.println(list.size());
 		for (Cartype cartype : list) {
 			Carbrand cb=mapper.selectByPrimaryKey(cartype.getJbrandid());
 			Engine eg=mapper3.selectByPrimaryKey(cartype.getJeid());
@@ -80,6 +98,7 @@ public class CarYypeService {
 			cartype.setEngine(eg);
 			cartype.setFuel(fu);
 		}
+		
 		return page.toPageInfo();
 	}
 }

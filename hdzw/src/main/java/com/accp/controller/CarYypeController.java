@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,15 +23,15 @@ public class CarYypeController {
 	
 	@RequestMapping("/findCarbrand") 
 	@ResponseBody
-	public List<Carbrand> findCarbrand(){
-		return service.findCarbrand();
+	public List<Carbrand> findCarbrand(String brand){
+		return service.findCarbrand(brand);
 	}
 	
 	@RequestMapping("/findCartypeById") 
 	@ResponseBody
 	public PageInfo<Cartype> findCartypeById(Integer lid,Integer pageNum,
-											Integer pageSize){
-		return service.findCartypeById(lid, pageNum,pageSize);
+											Integer pageSize,String brand){
+		return service.findCartypeById(lid, pageNum,pageSize,brand);
 	}
 	@RequestMapping("/insertCarbrand") 
 	@ResponseBody
@@ -71,6 +72,26 @@ public class CarYypeController {
 	@ResponseBody
 	public String insertCartype(Cartype cartype) {
 		int i=service.insertCartype(cartype);
+		if (i>0) {
+			return "0000";
+		}
+		return "0001";
+	}
+	
+	@RequestMapping("/updateCartype") 
+	@ResponseBody
+	public String updateCartype(@RequestBody Cartype cartype) {
+		int i=service.updateCartype(cartype);
+		if (i>0) {
+			return "0000";
+		}
+		return "0001";
+	}
+	
+	@RequestMapping("/removeCartype") 
+	@ResponseBody
+	public String removeCartype(Integer jid) {
+		int i=service.removeCartype(jid);
 		if (i>0) {
 			return "0000";
 		}
