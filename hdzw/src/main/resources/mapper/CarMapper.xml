@@ -34,11 +34,17 @@
   	<association property="cartype" column="htypeid" javaType="com.accp.domain.Cartype" select="com.accp.dao.CartypeMapper.findByid"></association><!--车辆型号  -->
   	<association property="fuel" column="hfueltype" javaType="com.accp.domain.Fuel" select="com.accp.dao.FuelMapper.findByid"></association><!--燃油型号  -->
   </resultMap>
+  <select id="findByid" resultMap="BaseResultMap">
+		select * from car where hid=#{hid}
+  </select>
   <select id="findAll" resultMap="BaseResultMapExtends" >
   	select * from car
   	<where>
-  		<if test="huid != null">
-  			huid=#{huid}
+  		<if test="hid != null">
+  			and huid=#{hid}
+  		</if>
+  		<if test="name != null">
+  		    and hlicenseno like "%${name}%"
   		</if>
   	</where>
   </select>
