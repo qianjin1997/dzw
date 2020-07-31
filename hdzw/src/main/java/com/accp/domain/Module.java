@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Module {
     private Integer did;
 
@@ -14,8 +16,20 @@ public class Module {
     private Integer dparentid;
 
     private String dmeth;
+    
+    private List<Module> children;
+    
+    
 
-    public Integer getDid() {
+    public List<Module> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Module> children) {
+		this.children = children;
+	}
+
+	public Integer getDid() {
         return did;
     }
 
@@ -70,4 +84,6 @@ public class Module {
     public void setDmeth(String dmeth) {
         this.dmeth = dmeth;
     }
+    
+    
 }

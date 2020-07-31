@@ -27,4 +27,9 @@ public interface GoodsMapper {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
+    
+    //------------------
+    List<Goods> findAll(String abcode);
+    
+    List<Goods> findAll1(Integer id);
 }

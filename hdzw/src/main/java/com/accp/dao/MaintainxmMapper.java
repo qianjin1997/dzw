@@ -27,4 +27,7 @@ public interface MaintainxmMapper {
     int updateByPrimaryKeySelective(Maintainxm record);
 
     int updateByPrimaryKey(Maintainxm record);
+    
+    //-------------------------------------------------
+    List<Maintainxm> findAll(Integer id);
 }

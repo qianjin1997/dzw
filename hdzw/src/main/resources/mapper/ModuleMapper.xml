@@ -10,6 +10,17 @@
     <result column="dparentid" property="dparentid" jdbcType="INTEGER" />
     <result column="dmeth" property="dmeth" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="selectModuleByRid" resultMap="BaseResultMap" parameterType="Integer">
+  	SELECT m.* FROM `role_module` rm LEFT JOIN `module` m ON rm.cmid = m.did WHERE rm.crid = #{rid}
+  </select>
+  <select id="selectModuleByRidAndParentId" resultMap="BaseResultMap" >
+  	SELECT m.* FROM `role_module` rm LEFT JOIN `module` m ON rm.cmid = m.did WHERE rm.crid = #{rid}  AND m.dparentid = #{pid}
+  </select>
+  <select id="selectModuleByRidAndParentIdAndCatalog" resultMap="BaseResultMap" >
+  	SELECT m.* FROM `role_module` rm LEFT JOIN `module` m ON rm.cmid = m.did WHERE rm.crid = #{rid}  AND m.dparentid = #{pid}  AND dcatalog = #{catalog}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

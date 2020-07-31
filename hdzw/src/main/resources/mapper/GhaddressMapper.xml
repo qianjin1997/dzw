@@ -6,6 +6,18 @@
     <result column="anaddress" property="anaddress" jdbcType="VARCHAR" />
     <result column="anparentid" property="anparentid" jdbcType="INTEGER" />
   </resultMap>
+  
+   <resultMap extends="BaseResultMap" type="com.accp.domain.Ghaddress" id="BaseResultMapExtends">
+  	 <collection property="children" 
+  	 column="anid" ofType="com.accp.domain.Ghaddress" 
+  	 select="findAll"></collection>
+  	
+  </resultMap>
+  
+  <select id="findAll" resultMap="BaseResultMapExtends">
+  	SELECT * FROM `ghaddress` WHERE `anparentid`=#{anparentid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

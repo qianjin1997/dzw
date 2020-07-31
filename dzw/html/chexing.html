@@ -34,17 +34,17 @@
 						<el-col>
 							<el-link @click="showBrandAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加品牌</el-link>
 							<el-link type="info" class="bitbtn" :underline="false" @click="showBrandUpdate()"><i class="el-icon-edit bit"></i>修改</el-link>
-							<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+							<el-link type="info" class="bitbtn" :underline="false" @click="removeCarbrand()"><i class="el-icon-circle-close bit"></i>删除</el-link>
 						</el-col>
 					</el-row>
 					<form class="form-horizontal">
 						<div class="form-group">
 							<label for="inputPassword" class="col-sm-3 control-label">品牌编码</label>
 							<div class="col-sm-6">
-								<input type="text" class="form-control" id="inputPassword" placeholder="匹配品牌编码/品牌名称/首字母">
+								<input type="text" class="form-control"  v-model="serch" id="inputPassword" placeholder="品牌名称/首字母">
 							</div>
 							<div class="col-sm-3">
-								<button type="button" class="btn btn-warning">搜索</button>
+								<button type="button" @click="findCarbrand()"  class="btn btn-warning">搜索</button>
 							</div>
 						</div>
 					</form>
@@ -92,11 +92,11 @@
 						<el-table ref="singleTable"  height="240" :header-cell-style="{background:'#39CEDE',color:'white'}" :data="tableData" border  highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
 							<!--<el-table-column type="index" width="50">
 							</el-table-column>-->
-							<el-table-column property="date" label="编码"  >
+							<el-table-column property="iid" label="编码"  >
 							</el-table-column>
-							<el-table-column property="name" label="品牌名称" >
+							<el-table-column property="ibrandname" label="品牌名称" >
 							</el-table-column>
-							<el-table-column property="address" label="首字母">
+							<el-table-column property="iinitial" label="首字母">
 							</el-table-column>
 						</el-table>
 						<!--<div style="margin-top: 20px">
@@ -115,65 +115,64 @@
 						<el-col :span="6">
 							<el-link @click="showBrandXqAdd()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加车型</el-link>
 							<el-link type="info" class="bitbtn" :underline="false" @click="showBrandXqUpdate()"><i class="el-icon-edit bit"></i>修改</el-link>
-							<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
+							<el-link type="info" class="bitbtn" :underline="false" @click="remove()"><i class="el-icon-circle-close bit"></i>删除</el-link>
 						</el-col>
 					</el-row>
 					<form class="form-inline">
 						<div class="form-group">
 							<label for="exampleInputName2">发电机品牌分类代码</label>
-							<input type="text" class="form-control" id="exampleInputName2" placeholder="匹配车型编码/车型名称">
+							<input type="text" class="form-control" id="exampleInputName2"  v-model="serchType"  placeholder="车型名称">
 						</div>
-						<button type="button" class="btn btn-warning">搜索</button>
+						<button type="button" class="btn btn-warning" @click="handleCurrentChange(carbrand)">搜索</button>
 					</form>
 					<br />
-					<table class="table table-hover">
-						<tr style="background: rgb(57, 206, 222);">
-							<td>车型ID</td>
-							<td>车型名称</td>
-							<td>发动机品牌</td>
-							<td>参考价格</td>
-							<td>车辆年款</td>
-							<td>功率</td>
-							<td>进口/国产</td>
-							<td>燃油标号</td>
-							<td>载重</td>
-							<td>发动机品牌</td>
-							<td>操作</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>12312</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>
-								<span type="button" class="glyphicon glyphicon-edit" @click="showBrandXqUpdate()"></span>
-								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>12312</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>宝马</td>
-							<td>
-								<span type="button" class="glyphicon glyphicon-edit" @click="showBrandXqUpdate()"></span>
-								<span type="button" class="glyphicon glyphicon-remove" @click="todelete(itme.gid)"></span>
-							</td>
-						</tr>
-					</table>
-					<el-pagination background layout="prev, pager, next" :total="1000" style="margin: auto; width: 330px;">
+					<template>
+						<el-table ref="singleTable" :header-cell-style="{background:'#39CEDE',color:'white'}" :data="cartype.list" border  highlight-current-row @current-change="currentChange" style="width: 100%">
+							<!--<el-table-column type="index" width="50">
+							</el-table-column>-->
+							<el-table-column property="jid" label="车型ID"  >
+							</el-table-column>
+							
+							<el-table-column property="jtypename" label="车型名称" >
+							</el-table-column>
+							
+							<el-table-column property="engine.mename" label="发动机品牌">
+							</el-table-column>
+							
+							<el-table-column property="jprice" label="参考价格">
+							</el-table-column>
+							
+							<el-table-column property="jmj" label="车辆年款">
+							</el-table-column>
+							
+							<el-table-column property="jgas" label="排气量">
+							</el-table-column>
+							
+							<el-table-column property="jfourtype" label="四驱类型">
+							</el-table-column>
+							
+							<el-table-column property="caryear" label="进口/国产">
+							</el-table-column>
+							
+							<el-table-column property="jpower" label="功率">
+							</el-table-column>
+							
+							<el-table-column property="fuel.kfuelname" label="燃油标号">
+							</el-table-column>
+							
+							<el-table-column property="jload" label="载重">
+							</el-table-column>
+							
+							<el-table-column property="carbrand.ibrandname" label="车辆品牌">
+							</el-table-column>
+							
+						</el-table>
+						<!--<div style="margin-top: 20px">
+							<el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
+							<el-button @click="setCurrent()">取消选择</el-button>
+						</div>-->
+					</template>
+					<el-pagination :page-size="3" @current-change="fengye" background layout="prev, pager, next" :total="cartype.total" style="margin: auto; width: 330px;">
 					</el-pagination>
 				</div>
 			</div>
@@ -190,28 +189,28 @@
 							<h4 class="modal-title">品牌定义</h4>
 						</div>
 						<form class="form-horizontal">
-							<div class="form-group">
+							<!--<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">品牌编码</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" id="inputPassword">
 								</div>
-							</div>
+							</div>-->
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">品牌名称</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="brand.ibrandname">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">首字母</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="brand.iinitial">
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">新增</button>
+							<button type="button" class="btn btn-primary" @click="insertBrand()">新增</button>
 						</div>
 					</div>
 				</div>
@@ -229,28 +228,28 @@
 							<h4 class="modal-title">品牌修改</h4>
 						</div>
 						<form class="form-horizontal">
-							<div class="form-group">
+							<!--<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">品牌编码</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" id="inputPassword">
 								</div>
-							</div>
+							</div>-->
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">品牌名称</label>
+								<label for="inputPassword" class="col-sm-2 control-label" >品牌名称</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="carbrand.ibrandname">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">首字母</label>
+								<label for="inputPassword" class="col-sm-2 control-label" >首字母</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="carbrand.iinitial">
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">修改</button>
+							<button type="button" class="btn btn-primary" @click="updateCarbrand()">修改</button>
 						</div>
 					</div>
 				</div>
@@ -271,71 +270,85 @@
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">车辆品牌</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" disabled="disabled"  id="inputPassword" v-model="addcartype.jbrandid">
 								</div>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control"  disabled="disabled" id="inputPassword" v-model="carbrand.ibrandname">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">车型ID</label>
+								<!--<label for="inputPassword" class="col-sm-2 control-label" >车型ID</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
-								</div>
+									<input type="text" class="form-control" id="inputPassword" v-model="addcartype.jid">
+								</div>-->
 								<label for="inputPassword" class="col-sm-2 control-label">车型名称</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addcartype.jtypename">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">发动机品牌</label>
+								<div class="col-sm-3">
+									<select class="form-control" v-model="addcartype.jeid">
+										<option :value="item.mid" v-for="item in engine" value="item.mid">{{item.mename}}</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">进口/国产</label>
 								<div class="col-sm-3">
-									<select class="form-control">
+									<select class="form-control" v-model="addcartype.jisdomestic">
 										<option value="1">进口</option>
 										<option value="2">国产</option>
 									</select>
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">参考价格</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword"  v-model="addcartype.jprice">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label" >排气量</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword" v-model="addcartype.jgas">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">四驱类型</label>
+								<div class="col-sm-3">
+									<select class="form-control" v-model="addcartype.jfourtype">
+										<option value="全时四驱">全时四驱</option>
+										<option value="适时四驱">适时四驱</option>
+										<option value="分时四驱">分时四驱</option>
+										<option value="前置四驱">前置四驱</option>
+										
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">车辆年款</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addcartype.jmj">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">功率</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="addcartype.jpower">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">燃油标号</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<select class="form-control" v-model="addcartype.jfuelid">
+										<span>
+											<option :value="item.kfuelid" v-for="item in fuel" >{{item.kfuelname}}</option>
+										</span>
+									</select>
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">载重</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">发动机品牌</label>
-								<div class="col-sm-8">
-									<select class="form-control">
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-									</select>
+									<input type="text" class="form-control" id="inputPassword"  v-model="addcartype.jload">
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+							<button type="button" class="btn btn-primary" @click="addCartype()">保存</button>
 						</div>
 					</div>
 				</div>
@@ -350,80 +363,90 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">车型修改</h4>
+							<h4 class="modal-title">车型定义</h4>
 						</div>
 						<form class="form-horizontal">
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">车辆品牌</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" disabled="disabled"  id="inputPassword" v-model="addcartype.jbrandid">
 								</div>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control"  disabled="disabled" id="inputPassword" v-model="carbrand.ibrandname">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">车型ID</label>
+								<!--<label for="inputPassword" class="col-sm-2 control-label" >车型ID</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
-								</div>
+									<input type="text" class="form-control" id="inputPassword" v-model="addcartype.jid">
+								</div>-->
 								<label for="inputPassword" class="col-sm-2 control-label">车型名称</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatecartype.jtypename">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">发动机品牌</label>
+								<div class="col-sm-3">
+									<select class="form-control" v-model="updatecartype.jeid">
+										<option :value="item.mid" v-for="item in engine" value="item.mid">{{item.mename}}</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">进口/国产</label>
 								<div class="col-sm-3">
-									<select class="form-control">
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<select class="form-control" v-model="updatecartype.jisdomestic">
+										<option value="1">进口</option>
+										<option value="2">国产</option>
 									</select>
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">参考价格</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword"  v-model="updatecartype.jprice">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-2 control-label" >排气量</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatecartype.jgas">
+								</div>
+								<label for="inputPassword" class="col-sm-2 control-label">四驱类型</label>
+								<div class="col-sm-3">
+									<select class="form-control" v-model="updatecartype.jfourtype">
+										<option value="全时四驱">全时四驱</option>
+										<option value="分时四驱">分时四驱</option>
+										<option value="适时四驱">适时四驱</option>
+										<option value="前置四驱">前置四驱</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">车辆年款</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatecartype.jmj">
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">功率</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="updatecartype.jpower">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">燃油标号</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
+									<select class="form-control" v-model="updatecartype.jfuelid">
+										<span>
+											<option :value="item.kfuelid" v-for="item in fuel" >{{item.kfuelname}}</option>
+										</span>
+									</select>
 								</div>
 								<label for="inputPassword" class="col-sm-2 control-label">载重</label>
 								<div class="col-sm-3">
-									<input type="text" class="form-control" id="inputPassword">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword" class="col-sm-2 control-label">发动机品牌</label>
-								<div class="col-sm-8">
-									<select class="form-control">
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-									</select>
+									<input type="text" class="form-control" id="inputPassword"  v-model="updatecartype.jload">
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">保存</button>
+							<button type="button" class="btn btn-primary" @click="updateCartype()">修改</button>
 						</div>
 					</div>
 				</div>
@@ -444,37 +467,77 @@
 				el: ".container",
 				data() {
 					return {
-						tableData: [{
-							date: '1',
-							name: '宝马',
-							address: 'B'
-						}, {
-							date: '2',
-							name: '奔驰',
-							address: 'B'
-						}, {
-							date: '3',
-							name: '奥迪',
-							address: 'A'
-						}, {
-							date: '4',
-							name: '兰博基尼',
-							address: 'L'
-						}],
-						currentRow: null
+						tableData: [],
+						currentRow: null,
+						cartype:[],
+						carbrand:"",
+						brand:{},
+						engine:[],
+						fuel:[],
+						addcartype:{},
+						updatecartype:"",
+						val:"1",
+						serch:"",
+						serchType:""
 					}
 				},
 				methods: {
+					fengye(val){
+						var that = this;
+						that.val=val
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/findCartypeById",
+							data:{
+								lid:that.carbrand.iid,
+								pageNum:that.val,
+								pageSize:3
+							},
+							success: function(result) {
+								that.cartype=result
+							}
+						});
+					},
 					showBrandAdd() {
 						$("#showBrandAdd").modal("show");
 					},
 					showBrandUpdate() {
+						var that = this;
+						if(that.carbrand == "") {
+							this.$message({
+								message: '请先选中一行',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						
 						$("#showBrandUpdate").modal("show");
 					},
 					showBrandXqAdd() {
+						if(this.carbrand == "") {
+							this.$message({
+								message: '请先选中一行车辆品牌',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						console.log(this.carbrand)
+						this.findEngine();
+						this.findFuel()
 						$("#showBrandXqAdd").modal("show");
 					},
 					showBrandXqUpdate() {
+						if(this.updatecartype == "") {
+							this.$message({
+								message: '请先选中一行车型',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						this.findEngine();
+						this.findFuel()
 						$("#showBrandXqUpdate").modal("show");
 					},
 					setCurrent(row) {
@@ -482,11 +545,220 @@
 					},
 					handleCurrentChange(val) {
 						this.currentRow = val;
+						var that = this;
+						that.carbrand=val;
+						that.addcartype.jbrandid=val.iid;
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/findCartypeById",
+							data:{
+								lid:that.carbrand.iid,
+								pageNum:that.val,
+								pageSize:3,
+								brand:that.serchType
+							},
+							success: function(result) {
+								that.cartype=result
+							}
+						});
+					},findCarbrand(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/findCarbrand",
+							data:{
+								brand:that.serch
+							},
+							success: function(result) {
+								that.tableData=result;
+								that.cartype=[]
+							}
+						});
+					},currentChange(val){
+						if(val==null){
+							this.updatecartype="";
+							return
+						}	
+						this.updatecartype=val
+						console.log(this.updatecartype)
+					},insertBrand(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/insertCarbrand",
+							data:that.brand,
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '增加成功',
+										type: 'success',
+										duration:"1000"
+									});
+									$("#showBrandAdd").modal("hide");
+									that.findCarbrand();
+								} else {
+									alert("新增失败")
+								}
+							}
+						});
+					},updateCarbrand(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/updateCarbrand",
+							data:that.carbrand,
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '修改车辆品牌成功',
+										type: 'success',
+										duration:"1000"
+									});
+									$("#showBrandUpdate").modal("hide");
+								} else {
+									alert("新增失败")
+								}
+							}
+						});
+					},removeCarbrand(){
+						var that = this;
+						if(that.carbrand == ""||that.carbrand == null) {
+							this.$message({
+								message: '请先选中一行',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning'
+						}).then(() => {
+							$.ajax({
+								url: "http://localhost:8888/CarYypeController/removeCarbrand",
+								data: {
+									lid: that.carbrand.iid
+								},
+								success: function(result) {
+									if(result == "0000") {
+										that.$message({
+											type: 'success',
+											message: '删除车辆品牌成功!',
+											duration:"1000"
+										});
+										that.carbrand = "";
+										that.findCarbrand();
+									}
+								}
+							});
+						}).catch(() => {
+							this.$message({
+								type: 'info',
+								message: '已取消删除',
+								duration:"1000"
+							});
+						});
+					},findEngine() {
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/EngineController/findEngine",
+							success: function(result) {
+								that.engine = result
+							}
+						});
+					},findFuel(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/findFuel",
+							success: function(result) {
+								that.fuel = result
+							}
+						});
+					},addCartype(){
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/insertCartype",
+							data:that.addcartype,
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '增加车型成功',
+										type: 'success',
+										duration:"1000"
+									});
+									that.val="1"
+									that.handleCurrentChange(that.carbrand)
+									$("#showBrandXqAdd").modal("hide");
+								} else {
+									alert("新增失败")
+								}
+							}
+						});
+					},updateCartype(){
+						var that = this;
+						that.updatecartype=JSON.stringify(that.updatecartype)
+						$.ajax({
+							url: "http://localhost:8888/CarYypeController/updateCartype",
+							data:that.updatecartype,
+							contentType:"application/json;charset=utf-8",
+							type:"post",
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '修改车型成功',
+										type: 'success',
+										duration:"1000"
+									});
+									
+									$("#showBrandXqUpdate").modal("hide");
+								} else {
+									alert("修改车型失败")
+								}
+							}
+						});
+						that.handleCurrentChange(that.carbrand)
+						that.val="1"
+					},remove(){
+						var that = this;
+						if(that.updatecartype == ""||that.updatecartype == null) {
+							this.$message({
+								message: '请先选中一行车型在删除',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning'
+						}).then(() => {
+							$.ajax({
+								url: "http://localhost:8888/CarYypeController/removeCartype",
+								data: {
+									jid: that.updatecartype.jid
+								},
+								success: function(result) {
+									if(result == "0000") {
+										that.$message({
+											type: 'success',
+											message: '删除成功!',
+											duration:"1000"
+										});
+										that.val="1"
+										that.updatecartype = "";
+										that.handleCurrentChange(that.carbrand)
+									}
+								}
+							});
+						}).catch(() => {
+							this.$message({
+								type: 'info',
+								message: '已取消删除',
+								duration:"1000"
+							});
+						});
 					}
-
 				},
 				created() {
-
+					this.findCarbrand()
 				}
 			})
 		</script>

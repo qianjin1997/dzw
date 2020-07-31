@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>维修单</title>
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tit">
+			<div style="background-color: #F7FFFF;border: 1px solid #E7E7E7;" class="row">
+				<div class="col-xs-3">
+					<h3 style="margin:15px; display: inline-block; color: #737173; line-height: 15px;">维修单</h3>
+				</div>
+				<div class="col-xs-8" style="text-align: right; height: 47px; width: 1020px;">
+					<!-- <input style="margin-top: 5px;  width: 270px; display: inline-block; " class="form-control" type="text"> -->
+					<!-- <button style=" margin-left:15px;width: 80px;height: 32px;" class="btn btn-warning">搜索</button> -->
+					<button @click="fanhui" style=" margin-left:15px;width: 52px;height: 32px; color: #fffff;background-color: #737373;" class="btn btn-danger">取消</button>
+				</div>
+			</div>
+			<div style="background-color: #F7F7F7;height:35px;">
+				<div style=" height: 30px;line-height: 30px; text-align: right;">
+					<span style="padding-right:880px;">
+						<span style="font-size: 15px; color: #525152;">单号：8888888888</span>
+					</span>
+					<span style="padding-right:25px;">
+						<span style="color: #FFAE21;" class="glyphicon glyphicon-user"></span>
+						<a v-if="isno" @click="dialogVisible = true" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">竣工检验</a>
+						<a v-if="isok" @click="huigun" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">回滚</a>
+					</span>
+					<span style="padding-right:25px;">
+						<span style="color: #FFAE21;" class="glyphicon glyphicon-print"></span>
+						<a @click="open()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">结算单</a>
+					</span>
+					<span style="padding-right:25px;">
+						<span style="color: #FFAE21;" class="glyphicon glyphicon-share"></span>
+						<a  href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">照片</a>
+					</span>
+					<span style="padding-right:25px;">
+						<span style="color: #FFAE21;" class="glyphicon glyphicon-trash"></span>
+						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">定损</a>
+					</span>
+				</div>
+			</div>
+			<!---->
+			<div style="width: 1300px;height: 400px; margin: auto;">
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px; color: #6B696B;">车牌号码</span>
+					<input v-model="page.c2.hengineno" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车架号</span>
+					<input v-model="page.c2.hvin" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 180px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆型号</span>
+					<input v-model="page.c2.cartype.jtypename" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 141px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆品牌</span>
+					<input v-model="page.c2.carbrand.ibrandname" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<!-- <p>
+					<span style=" font-size:16px;color: #6B696B; margin-left: 10px;">发动机号</span>
+					<input v-model="page.c2" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 145px;">发动机品牌</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 250px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">服务顾问</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p> -->
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">车主姓名</span>
+					<input v-model="page.c2.customer.ecustomername" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 350px; display: inline-block; " class="form-control" type="text">
+					<span style="font-size: 8px; margin-left: 3px;">✡</span>
+					<span style=" font-size:16px; margin-left: 10px;color: #6B696B;">驾驶员</span>
+					<input v-model="page.c2.driver.oname" readonly="readonly"  style="margin-top: 5px;margin-left:17px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">联系电话</span>
+					<input v-model="page.c2.driver.ophone" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style=" font-size:16px;margin-left: 10px;color: #6B696B;">进厂里程</span>
+					<input v-model="page.althemileage" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">进厂油量</span>
+					<input value="100" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 23px;color: #6B696B;">上次里程</span>
+					<input v-model="page.c2.hmileage" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">进厂时间</span>
+					<input v-model="page.alroadworkdate" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">业务类别</span>
+					<input v-model="page.c3.xmaintainname" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px; margin-left: 0px;color: #6B696B;">施工班次</span>
+					<input v-model="page.aldivisions" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 23px;color: #6B696B;">接车人</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:20px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">预计完工</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">结算方式</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">赔款公司</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 23px;color: #6B696B;">完工时间</span>
+					<input v-model="page.alcompletedate" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">上次进厂</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">预估金额</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">接待备注</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 618px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<div style="float:left;color: #6B696B;border: 1px solid #000000; width: 100px; height: 50px;line-height: 46px; text-align: center;">
+						报修陈述
+					</div>
+				    <textarea readonly="readonly"  style="color: #6B696B;border: 1px solid #000000; width: 825px; height: 50px;">
+					</textarea>
+					
+				</p>
+			</div>
+			<!--
+            	作者：offline
+            	时间：2020-07-16
+            	描述：
+            -->
+            <div style="width: 1300px; height: 300px;margin: auto;">
+            	<div>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs" role="tablist">
+					    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">维修项目</a></li>
+					    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">领料情况</a></li>
+					    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">附加项目</a></li>
+					    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">结算信息</a></li>
+					  </ul>
+					
+					  <!-- Tab panes -->
+					  <div class="tab-content">
+					    <div role="tabpanel" class="tab-pane active" id="home">
+					    	<table   class="table table-bordered">
+								<tr style="background-color: #39CFDE; text-align: center;">
+									<td> </td>
+									<td style=" color: #FFFFFF; font-size: 16px; width: 50px;">选择</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">项目编码</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">项目名称</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">数量</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">价类</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">优惠前单价</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">优惠后单价</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">优惠后金额</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">故障描述</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">故障原因</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">维修班组</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">作业人员</td>
+								</tr>
+								<tr style="text-align: center;">
+									<td style="background-color: #D6D7CE;"> </td>
+									<td style=" width:250px; font-size: 16px; width: 50px;">
+										<input type="checkbox">
+									</td>
+									<td style=" font-size: 16px; ">1</td>
+									<td style=" font-size: 16px; ">1</td>
+									<td style=" font-size: 16px; ">1</td>
+									<td style=" font-size: 16px; ">1</td>
+									<td style=" font-size: 16px; ">1</td>
+									<td style="  font-size: 16px; ">1</td>
+									<td style="  font-size: 16px; ">1</td>
+									<td style="  font-size: 16px; ">1</td>
+									<td style="  font-size: 16px; ">1</td>
+									<td style="  font-size: 16px; ">1</td>
+									<td style="  font-size: 16px; ">1</td>
+								</tr>
+							</table>
+					    </div>
+					    <div role="tabpanel" class="tab-pane" id="profile">
+					    	
+					    </div>
+					    <div role="tabpanel" class="tab-pane" id="messages">
+					    	
+					    </div>
+					    <div role="tabpanel" class="tab-pane" id="settings">
+					    	
+					    </div>
+					  </div>
+				</div>
+            </div>
+			
+			<el-dialog
+			  title="提示"
+			  :visible.sync="dialogVisible"
+			  width="50%"
+			  :before-close="handleClose">
+			  
+			  <el-row>
+				  <template>
+				    <el-col :span="16">
+						<el-radio v-model="radio" label="1">合格完工</el-radio>
+					</el-col>
+				    <el-col :span="8">
+						<el-radio v-model="radio" label="2">不合格完工</el-radio>
+					</el-col>
+				  </template>
+			  </el-row>
+			  
+			  <el-row>
+				  <el-col :span="12">
+					  <label>预计完工时间：</label>
+					   <el-select v-model="page.alcompletedate" disabled>
+					     <el-option
+					       v-for="item in options"
+					       :key="item.value"
+					       :label="item.label"
+					       :value="item.value">
+					     </el-option>
+					   </el-select>
+				  </el-col>
+				  
+				  <el-col :span="12">
+					  <label>返工原因：</label>
+					  <el-select v-model="sele1">
+					    <el-option
+					      v-for="item in options"
+					      :key="item.value"
+					      :label="item.label"
+					      :value="item.value">
+					    </el-option>
+					  </el-select>
+				  </el-col>
+			  </el-row>
+			  
+			  <el-row style="margin-top: 20px;">
+				<el-col :span="12">
+					<label>实际完工时间：</label>
+					 <el-select v-model="page.alcompletedate" disabled>
+					   <el-option
+					     v-for="item in options"
+					     :key="item.value"
+					     :label="item.label"
+					     :value="item.value">
+					   </el-option>
+					 </el-select>
+				</el-col>
+				
+				<el-col :span="12">
+					  <label>&nbsp;&nbsp;&nbsp;责任人：</label>
+					  <el-select v-model="sele2">
+						<el-option
+						  v-for="item in options"
+						  :key="item.value"
+						  :label="item.label"
+						  :value="item.value">
+						</el-option>
+					  </el-select>
+				</el-col>
+			  </el-row>
+			  
+			  <el-row style="margin-top: 20px;">
+				<el-col :span="12">
+					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;误工原因：</label>
+					 <el-select v-model="sele4">
+					   <el-option
+						 v-for="item in options"
+						 :key="item.value"
+						 :label="item.label"
+						 :value="item.value">
+					   </el-option>
+					 </el-select>
+				</el-col>
+				
+				<el-col :span="12">
+					<label>处罚金额：</label>
+					<el-input style="width: 218px;" v-model="sele3" placeholder="请输入内容"></el-input>
+				</el-col>
+			  </el-row>
+			  
+			  <el-row style="margin-top: 20px;">
+				<el-col>
+					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;质检员：</label>
+					 <el-select v-model="sele5">
+					   <el-option
+						 v-for="item in options"
+						 :key="item.value"
+						 :label="item.label"
+						 :value="item.value">
+					   </el-option>
+					 </el-select>
+				</el-col>
+			  </el-row>
+			  
+			  <el-row style="margin-top: 20px;">
+				<el-col>
+					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;责任人：</label>
+					 <el-select v-model="sele6">
+					   <el-option
+						 v-for="item in options"
+						 :key="item.value"
+						 :label="item.label"
+						 :value="item.value">
+					   </el-option>
+					 </el-select>
+				</el-col>
+			  </el-row>
+			  
+			  <el-row style="margin-top: 20px;">
+				<el-col>
+					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;处罚金额：</label>
+					<el-input style="width: 218px;" v-model="input1" placeholder="请输入内容"></el-input>
+				</el-col>
+			  </el-row>
+			  <span slot="footer" class="dialog-footer">
+			    <el-button @click="dialogVisible = false">取 消</el-button>
+			    <el-button type="primary" @click="jianyan">确 定</el-button>
+			  </span>
+			</el-dialog>
+            
+            
+            <div id="two" class="modal fade" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document" style="width: 530px;">
+				    <div class="modal-content">
+				      <div class="modal-body">
+				       		<div style="width: 500px; height:220px;border: 1px solid white;">
+					    		<div style="width: 4px; margin-left: 30px; height: 25px; background-color: #F7A621;float: left;margin-top: 14px;"></div>
+									<h3 style="color: #6B696B; float:left;margin-top: 15px;margin-left: 10px;">报表打印</h3>
+									<div style="text-align: center;border: 1px solid #CEEFF7; margin:50px auto; width: 450px; height: 150px; padding: 5px;">
+										<select style="margin-top:25px;width: 200px; display: inline-block; " class="form-control">
+							 				 <option>维修委托书</option>
+										</select>
+										<div style="margin-top: 20px;">
+											<button type="button" style="width: 100px;"  class="btn btn-success"><i class="glyphicon glyphicon-print" style="font-size: 12px;margin-right: 5px;"></i>打印</button>
+											<button type="button" style="width: 100px; margin-left: 20px;"  class="btn btn-success"><i class="glyphicon glyphicon-print" style="font-size: 12px;margin-right: 5px;"></i>预览</button>
+											<button type="button" style="width: 100px; margin-left: 20px;"  class="btn btn-success"><i class="glyphicon glyphicon-print" style="font-size: 12px;margin-right: 5px;"></i>设计</button>
+										</div>
+									</div>
+								</div>
+					    	</div>
+				     </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->	
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			var hr = location.href;
+			var sid = hr.split("?")[1].split("=")[1];
+			console.log(sid)
+			var vm = new Vue({
+					el:".tit",
+					data(){
+						return {
+							isok:false,
+							isno:true,
+							sele1:'',
+							sele2:'',
+							sele3:'',
+							sele4:'',
+							sele5:'',
+							sele6:'',
+							input1:'',
+							options: [{
+								  value: '选项1',
+								  label: '黄金糕'
+								}, {
+								  value: '选项2',
+								  label: '双皮奶'
+								}, {
+								  value: '选项3',
+								  label: '蚵仔煎'
+								}, {
+								  value: '选项4',
+								  label: '龙须面'
+								}, {
+								  value: '选项5',
+								  label: '北京烤鸭'
+							}],
+							value: '',
+							radio:'1',
+							dialogVisible: false,
+							page:{
+								c2:{
+									cartype:{},
+									carbrand:{},
+									customer:{},
+									driver:{}
+								},
+								c3:{}
+							}
+						};
+					},
+					methods:{
+						jianyan(){
+							var that = this;
+							var che = JSON.stringify(this.page);
+							// console.log(che);
+							$.ajax({
+								url:"http://localhost:8888/checkout/jian",
+								data:che,
+								method:"post",
+								contentType:"application/json;charset=utf-8",
+								success:function(result){
+									if (result =="00000") {
+										that.dialogVisible = false;
+									} else{
+										alert("检验失败！")
+									}
+								}
+							});
+							
+						},
+						huigun(){
+							var bl = confirm("是否确认回滚到作业中？")
+							if(bl){
+								
+								var that = this;
+								var che = JSON.stringify(this.page);
+								// console.log(che);
+								$.ajax({
+									url:"http://localhost:8888/checkout",
+									data:che,
+									method:"post",
+									contentType:"application/json;charset=utf-8",
+									success:function(result){
+										if (result =="00000") {
+											window.location.href="checkout.html";
+										} else{
+											alert("回滚失败！")
+										}
+									}
+								});
+							}
+						},
+						handleClose(done) {
+							this.$confirm('确认关闭？')
+							  .then(_ => {
+								done();
+							  })
+							  .catch(_ => {});
+						},
+						open(){
+							$('#two').modal('show');
+						},
+						fanhui(){
+							window.location.href="checkout.html";
+						},
+						getDate(){
+							var that = this;
+							$.ajax({
+								url:"http://localhost:8888/checkout/"+sid,
+								success:function(result){
+									that.page = result;
+									console.log(that.page);
+									if(that.page.aliscomplete == 0){
+										that.isok = true;
+										that.isno = false;
+									}
+								}
+							});
+						}
+					},
+					created(){
+						this.getDate();
+					}
+				});
+		</script>
+	</body>
+</html>

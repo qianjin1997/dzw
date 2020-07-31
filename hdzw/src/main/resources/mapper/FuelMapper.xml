@@ -8,6 +8,9 @@
   </resultMap>
   <select id="findByid" resultMap="BaseResultMap">
 		select * from fuel where kid=#{hfueltype}  
+	</select>
+  <select id="findById" resultMap="BaseResultMap">
+  			SELECT * FROM `fuel`  WHERE `kfuelid`=#{kfuelid}
   </select>
   <sql id="Example_Where_Clause" >
     <where >

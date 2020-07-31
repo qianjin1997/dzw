@@ -6,6 +6,15 @@
     <result column="aelname" property="aelname" jdbcType="VARCHAR" />
     <result column="aeparentid" property="aeparentid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Goodstype" id="BaseResultMapTwo">
+  	<collection property="goodstype" column="aeid" select="finds"></collection>
+  </resultMap>
+  
+  <select id="finds" resultMap="BaseResultMapTwo">
+  	select * from goodstype where aeparentid = #{id}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

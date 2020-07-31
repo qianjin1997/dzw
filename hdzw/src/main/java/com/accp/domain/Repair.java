@@ -22,8 +22,29 @@ public class Repair {
     private Float wclaim;
 
     private Float wicbcprice;
+    
+    //----------------------------
+    private Maintainxm r2;
+    
+    private Income r3;
 
-    public Integer getWid() {
+    public Maintainxm getR2() {
+		return r2;
+	}
+
+	public void setR2(Maintainxm r2) {
+		this.r2 = r2;
+	}
+
+	public Income getR3() {
+		return r3;
+	}
+
+	public void setR3(Income r3) {
+		this.r3 = r3;
+	}
+
+	public Integer getWid() {
         return wid;
     }
 

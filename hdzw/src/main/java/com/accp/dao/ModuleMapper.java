@@ -27,4 +27,10 @@ public interface ModuleMapper {
     int updateByPrimaryKeySelective(Module record);
 
     int updateByPrimaryKey(Module record);
+    
+    List<Module> selectModuleByRid(Integer rid);
+    
+    List<Module> selectModuleByRidAndParentId(@Param("rid") Integer rid,@Param("pid") Integer parentId);
+    
+    List<Module> selectModuleByRidAndParentIdAndCatalog(@Param("rid") Integer rid,@Param("pid") Integer parentId,@Param("catalog") Integer catalog);
 }
