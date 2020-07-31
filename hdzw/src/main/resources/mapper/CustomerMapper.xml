@@ -33,14 +33,16 @@
   </resultMap>
     <resultMap extends="BaseResultMap" type="com.accp.domain.Customer" id="BaseResultMapExtends"><!--  -->
   		<association property="member" column="ememberid" javaType="com.accp.domain.Member" select="com.accp.dao.MemberMapper.findBy"></association><!--车辆品牌  -->
- 
   </resultMap>
-
-  
   <select id="findAll" resultMap="BaseResultMapExtends" >
-  	select * from customer
+  	select * from customer 
+  		<where>
+  		<if test="name != null">
+  		 	or  ecustomerid like concat ('%',#{name},'%') or ecustomername like concat ('%',#{name},'%')or  eaddress like concat ('%',#{name},'%') 
+  		 </if>
+  		</where>
   </select>
-  
+ 
  <select id="findByid" resultMap="BaseResultMap">
 		select * from customer where eid=#{huid}
   </select>

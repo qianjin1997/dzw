@@ -32,8 +32,11 @@ public class customerService {
 	//查询所有客户
 	public PageInfo<Customer> findpage(Integer pageSize,Integer pageNum){
 		Page<Customer> page=PageHelper.startPage(pageNum, pageSize);
-		customer.findAll();
+		customer.findAll(null);
 		return page.toPageInfo();
+	}
+	public List<Customer> find(String name){
+		return customer.findAll(name);
 	}
 	//新增客户
 	public int insertck(Customer kh) {

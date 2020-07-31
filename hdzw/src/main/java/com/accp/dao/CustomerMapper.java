@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CustomerMapper {
+	
+	
     int countByExample(CustomerExample example);
 
     int deleteByExample(CustomerExample example);
@@ -29,5 +31,5 @@ public interface CustomerMapper {
 
     int updateByPrimaryKey(Customer record);
     
-    List<Customer> findAll();
+    List<Customer> findAll(String name);
 }

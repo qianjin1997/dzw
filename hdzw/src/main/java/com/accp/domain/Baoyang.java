@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Baoyang {
     private Integer byid;
 
@@ -12,12 +14,21 @@ public class Baoyang {
     private String bylicheng;
 
     private String bysjlicheng;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date bysjtime;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date byjhtime;
 
-    public Integer getByid() {
+    private Car car;
+    public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public Integer getByid() {
         return byid;
     }
 
