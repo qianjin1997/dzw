@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface GhaddressMapper {
+	
+	 List<Ghaddress> findAll(Integer anparentid);
+	
     int countByExample(GhaddressExample example);
 
     int deleteByExample(GhaddressExample example);

@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface WaresMapper {
+	
+	List<Wares> findFaytroy(String afvendortype);
+	
     int countByExample(WaresExample example);
 
     int deleteByExample(WaresExample example);
