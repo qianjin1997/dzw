@@ -1,11 +1,14 @@
 package com.accp.dao;
 
+import com.accp.domain.Car;
 import com.accp.domain.Customer;
 import com.accp.domain.CustomerExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CustomerMapper {
+	
+	
     int countByExample(CustomerExample example);
 
     int deleteByExample(CustomerExample example);
@@ -27,4 +30,6 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+    
+    List<Customer> findAll(String name);
 }

@@ -15,40 +15,39 @@
 		<p></p>
 		<br /><br />
 		<br />
-		<div class="container" style="width: 45%;">
+		<div class="container" style="width: 60%;">
 			<form class="form-inline">
 				<div class="form-group">
 					<label for="exampleInputName2">发电机品牌分类代码</label>
-					<input type="text" class="form-control" id="exampleInputName2">
+					<input type="text" class="form-control" id="exampleInputName2" v-model="addEngine.mid">
 				</div>
 				&nbsp;&nbsp;
 				<div class="form-group">
 					<label for="exampleInputEmail2">发电机品牌分类名称</label>
-					<input type="email" class="form-control" id="exampleInputEmail2">
+					<input type="email" class="form-control" id="exampleInputEmail2" v-model="addEngine.mename">
 				</div>
-				&nbsp;
-				&nbsp;
-				<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>增加</el-link>
+				&nbsp; &nbsp;
+				<el-link type="info" class="bitbtn" :underline="false" @click="addEngineMenthon()"><i class="el-icon-s-fold bit"></i>增加</el-link>
 			</form>
-			<el-link type="info" class="bitbtn" :underline="false" @click="showBrandUpdate()"><i class="el-icon-edit bit"></i>修改</el-link>
-			<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-circle-close bit"></i>删除</el-link>
-			<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
+			<el-link type="info" class="bitbtn" :underline="false" @click="showEdit()"><i class="el-icon-edit bit"></i>修改</el-link>
+			<el-link type="info" class="bitbtn" :underline="false" @click="remove()"><i class="el-icon-circle-close bit"></i>删除</el-link>
+			<el-link type="info" class="bitbtn" :underline="false" @click="exportExcel()"><i class="el-icon-printer bit"></i>导出</el-link>
 			<br />
 			<br />
 			<template>
-						<el-table ref="singleTable"  height="240" :header-cell-style="{background:'#39CEDE',color:'white'}" :data="tableData" border  highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
-							<el-table-column type="index" width="50">
-							</el-table-column>
-							<el-table-column property="date" label="发电机品牌编码" >
-							</el-table-column>
-							<el-table-column property="name" label="发电机品牌名称" >
-							</el-table-column>
-						</el-table>
-						<!--<div style="margin-top: 20px">
+				<el-table ref="singleTable" @click="updateEngine(item)" height="240" :header-cell-style="{background:'#39CEDE',color:'white'}" :data="tableData" border highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
+					<el-table-column type="index" width="50" label="#">
+					</el-table-column>
+					<el-table-column property="mid" label="发电机品牌编码">
+					</el-table-column>
+					<el-table-column property="mename" label="发电机品牌名称">
+					</el-table-column>
+				</el-table>
+				<!--<div style="margin-top: 20px">
 							<el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
 							<el-button @click="setCurrent()">取消选择</el-button>
 						</div>-->
-					</template>
+			</template>
 			<!--<table class="table table-hover">
 				<tr style="background: rgb(57, 206, 222);">
 					<td class=" col-sm-1">#</td>
@@ -79,19 +78,19 @@
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">发动机品牌编码</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" disabled="disabled" id="inputPassword" v-model="engine.mid">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-sm-2 control-label">发电机品牌名称</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="inputPassword">
+									<input type="text" class="form-control" id="inputPassword" v-model="engine.mename">
 								</div>
 							</div>
 						</form>
 						<div class="modal-footer">
 							<button type="button" class="btn btn btn-danger" data-dismiss="modal">取消</button>
-							<button type="button" class="btn btn-primary" @click="updatexiugai()">修改</button>
+							<button type="button" class="btn btn-primary" @click="updateEngine()">修改</button>
 						</div>
 					</div>
 				</div>
@@ -106,36 +105,123 @@
 				el: ".container",
 				data() {
 					return {
-						tableData: [{
-							date: '10001',
-							name: '通缉犯发动机',
-							address: 'B'
-						}, {
-							date: '10002',
-							name: '二货发动机',
-							address: 'B'
-						}, {
-							date: '10003',
-							name: '吊毛发动机',
-							address: 'A'
-						}, {
-							date: '10003',
-							name: '傻逼发动机',
-							address: 'L'
-						}],
-						currentRow: null
+						tableData: [],
+						engine: "",
+						addEngine: {},
+						mid: ""
 					}
 				},
 				methods: {
 					showEdit() {
+						var that = this;
+						if(that.engine == "") {
+							this.$message({
+								message: '请先选中一行',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
 						$("#myModal").modal("show");
-					},handleCurrentChange(val) {
-						this.currentRow = val;
+					},
+					handleCurrentChange(val) {
+						this.engine = val;
+						console.log(this.engine);
+					},
+					findEngine() {
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/EngineController/findEngine",
+							success: function(result) {
+								that.tableData = result
+							}
+						});
+					},
+					updateEngine() {
+						var that = this;
+						console.log(that.engine)
+						$.ajax({
+							url: "http://localhost:8888/EngineController/update",
+							data: that.engine,
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '修改成功',
+										type: 'success',
+										duration:"1000"
+									});
+									$("#myModal").modal("hide");
+								} else {
+									that.engine = "";
+									alert("修改失败")
+								}
+							}
+						});
+					},
+					addEngineMenthon() {
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/EngineController/addEngine",
+							data: that.addEngine,
+							success: function(result) {
+								if(result == "0000") {
+									that.$message({
+										message: '增加成功',
+										type: 'success',
+										duration:"1000"
+									});
+									that.findEngine();
+								} else {
+									alert("新增失败")
+								}
+							}
+						});
+					},
+					remove() {
+						var that = this;
+						if(that.engine == ""||that.engine == null) {
+							this.$message({
+								message: '请先选中一行',
+								type: 'warning',
+								duration:"1000"
+							});
+							return;
+						}
+						this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning'
+						}).then(() => {
+							$.ajax({
+								url: "http://localhost:8888/EngineController/remove",
+								data: {
+									mid: that.engine.mid
+								},
+								success: function(result) {
+									if(result == "0000") {
+										that.$message({
+											type: 'success',
+											message: '删除成功!',
+											duration:"1000"
+										});
+										that.engine = "";
+										that.findEngine();
+									}
+								}
+							});
+						}).catch(() => {
+							this.$message({
+								type: 'info',
+								message: '已取消删除',
+								duration:"1000"
+							});
+						});
+					},exportExcel(){
+						window.location.href="http://localhost:8888/EngineController/exportExcel"
 					}
-
 				},
 				created() {
-
+					this.findEngine();
 				}
 			})
 		</script>

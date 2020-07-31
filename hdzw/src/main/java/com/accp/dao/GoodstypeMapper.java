@@ -27,4 +27,7 @@ public interface GoodstypeMapper {
     int updateByPrimaryKeySelective(Goodstype record);
 
     int updateByPrimaryKey(Goodstype record);
+    
+    //---------------------------------------
+    List<Goodstype> finds(Integer id);
 }

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.GhaddressMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Ghaddress" >
+    <id column="anid" property="anid" jdbcType="INTEGER" />
+    <result column="anaddress" property="anaddress" jdbcType="VARCHAR" />
+    <result column="anparentid" property="anparentid" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <resultMap extends="BaseResultMap" type="com.accp.domain.Ghaddress" id="BaseResultMapExtends">
+  	 <collection property="children" 
+  	 column="anid" ofType="com.accp.domain.Ghaddress" 
+  	 select="findAll"></collection>
+  	
+  </resultMap>
+  
+  <select id="findAll" resultMap="BaseResultMapExtends">
+  	SELECT * FROM `ghaddress` WHERE `anparentid`=#{anparentid}
+  </select>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    anid, anaddress, anparentid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.GhaddressExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ghaddress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ghaddress
+    where anid = #{anid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ghaddress
+    where anid = #{anid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.GhaddressExample" >
+    delete from ghaddress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Ghaddress" >
+    insert into ghaddress (anid, anaddress, anparentid
+      )
+    values (#{anid,jdbcType=INTEGER}, #{anaddress,jdbcType=VARCHAR}, #{anparentid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Ghaddress" >
+    insert into ghaddress
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="anid != null" >
+        anid,
+      </if>
+      <if test="anaddress != null" >
+        anaddress,
+      </if>
+      <if test="anparentid != null" >
+        anparentid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="anid != null" >
+        #{anid,jdbcType=INTEGER},
+      </if>
+      <if test="anaddress != null" >
+        #{anaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="anparentid != null" >
+        #{anparentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.GhaddressExample" resultType="java.lang.Integer" >
+    select count(*) from ghaddress
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ghaddress
+    <set >
+      <if test="record.anid != null" >
+        anid = #{record.anid,jdbcType=INTEGER},
+      </if>
+      <if test="record.anaddress != null" >
+        anaddress = #{record.anaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anparentid != null" >
+        anparentid = #{record.anparentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ghaddress
+    set anid = #{record.anid,jdbcType=INTEGER},
+      anaddress = #{record.anaddress,jdbcType=VARCHAR},
+      anparentid = #{record.anparentid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Ghaddress" >
+    update ghaddress
+    <set >
+      <if test="anaddress != null" >
+        anaddress = #{anaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="anparentid != null" >
+        anparentid = #{anparentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where anid = #{anid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Ghaddress" >
+    update ghaddress
+    set anaddress = #{anaddress,jdbcType=VARCHAR},
+      anparentid = #{anparentid,jdbcType=INTEGER}
+    where anid = #{anid,jdbcType=INTEGER}
+  </update>
+</mapper>

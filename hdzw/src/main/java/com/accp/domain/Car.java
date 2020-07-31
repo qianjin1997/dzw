@@ -2,8 +2,46 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
+
 public class Car {
-    private Integer hid;
+	private Customer customer;
+	
+	private Carbrand carbrand;
+	
+	private Driver driver;
+	
+	private Cartype cartype;
+	
+	private Fuel fuel;
+	
+    public Fuel getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(Fuel fuel) {
+		this.fuel = fuel;
+	}
+
+	public Cartype getCartype() {
+		return cartype;
+	}
+
+	public void setCartype(Cartype cartype) {
+		this.cartype = cartype;
+	}
+
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
+	private Integer hid;
 
     private String hlicenseno;
 
@@ -27,18 +65,20 @@ public class Car {
 
     private String hcarseries;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hbuydate;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hbldate;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hsoidate;
 
     private Integer hjqxicbc;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hjqxexpire;
 
     private Integer hsyxicbc;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hsyxlastdate;
 
     private Integer hicar;
@@ -46,8 +86,12 @@ public class Car {
     private Integer hfueltype;
 
     private Integer hnextmileage;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hmileagedate;
+
+    private Integer huid;
+
+    private Integer hweiid;
 
     public Integer getHid() {
         return hid;
@@ -232,4 +276,35 @@ public class Car {
     public void setHmileagedate(Date hmileagedate) {
         this.hmileagedate = hmileagedate;
     }
+
+    public Integer getHuid() {
+        return huid;
+    }
+
+    public void setHuid(Integer huid) {
+        this.huid = huid;
+    }
+
+    public Integer getHweiid() {
+        return hweiid;
+    }
+
+    public void setHweiid(Integer hweiid) {
+        this.hweiid = hweiid;
+    }
+	public Carbrand getCarbrand() {
+		return carbrand;
+	}
+
+	public void setCarbrand(Carbrand carbrand) {
+		this.carbrand = carbrand;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 }

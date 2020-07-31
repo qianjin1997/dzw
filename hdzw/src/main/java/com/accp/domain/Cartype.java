@@ -24,8 +24,48 @@ public class Cartype {
     private String jpower;
 
     private Integer jload;
+    
+    private String caryear;
+    
+    private Engine engine;
+    
+    private Fuel fuel;
+    
+    private Carbrand carbrand;
 
-    public Integer getJid() {
+    public Engine getEngine() {
+		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+
+	public Fuel getFuel() {
+		return fuel;
+	}
+
+	public void setFuel(Fuel fuel) {
+		this.fuel = fuel;
+	}
+
+	public Carbrand getCarbrand() {
+		return carbrand;
+	}
+
+	public void setCarbrand(Carbrand carbrand) {
+		this.carbrand = carbrand;
+	}
+
+	public String getCaryear() {
+		return caryear;
+	}
+
+	public void setCaryear(String caryear) {
+		this.caryear = caryear;
+	}
+
+	public Integer getJid() {
         return jid;
     }
 

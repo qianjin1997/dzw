@@ -46,6 +46,87 @@ public class Goods {
     private String abpcode;
 
     private String abaccording;
+    
+    //----------------------------
+    private Goodsbrand g2;
+
+	private Unit g3;
+    
+    private Goodstype g4;
+    
+    private Brackets g5;
+    
+    private Original g6;
+    
+    private Goodsdj g7;
+    
+    private Goodsplace g8;
+    
+    private Wares g9;
+    
+    public Goodsbrand getG2() {
+		return g2;
+	}
+
+	public void setG2(Goodsbrand g2) {
+		this.g2 = g2;
+	}
+
+	public Unit getG3() {
+		return g3;
+	}
+
+	public void setG3(Unit g3) {
+		this.g3 = g3;
+	}
+
+	public Goodstype getG4() {
+		return g4;
+	}
+
+	public void setG4(Goodstype g4) {
+		this.g4 = g4;
+	}
+
+	public Brackets getG5() {
+		return g5;
+	}
+
+	public void setG5(Brackets g5) {
+		this.g5 = g5;
+	}
+
+	public Original getG6() {
+		return g6;
+	}
+
+	public void setG6(Original g6) {
+		this.g6 = g6;
+	}
+
+	public Goodsdj getG7() {
+		return g7;
+	}
+
+	public void setG7(Goodsdj g7) {
+		this.g7 = g7;
+	}
+
+	public Goodsplace getG8() {
+		return g8;
+	}
+
+	public void setG8(Goodsplace g8) {
+		this.g8 = g8;
+	}
+
+	public Wares getG9() {
+		return g9;
+	}
+
+	public void setG9(Wares g9) {
+		this.g9 = g9;
+	}
 
     public Integer getAbid() {
         return abid;

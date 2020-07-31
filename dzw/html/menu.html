@@ -59,7 +59,7 @@
 					  @select="handleSelectLeft"
 					  :collapse="isCollapse"
 					  >
-				      <el-menu-item index="1">
+				      <el-menu-item index="-1">
 				        <i class="el-icon-menu"></i>
 				        <span slot="title">首页</span>
 				      </el-menu-item>
@@ -67,19 +67,19 @@
 					  <div v-if="o.children!=null" v-for="(o,i) in menub" >
 						  <el-submenu :index="o.id">
 						          <template slot="title">
-						            <i :class="o.icon"></i>
-						            <span>{{o.cname}}</span>
+						            <i class="el-icon-setting"></i>
+						            <span>{{o.dcname}}</span>
 						          </template>
 						          <el-menu-item-group v-for="os in o.children" >
-						            <el-menu-item :index="os.id">{{os.cname}}</el-menu-item>
+						            <el-menu-item :index="os.id">{{os.dcname}}</el-menu-item>
 						          </el-menu-item-group>
 						          
 						        </el-submenu>
 					  </div>
 					  <div v-else>
 						  <el-menu-item :index="o.id" v-for="(o,i) in menub">
-						      <i :class="o.icon"></i>
-						      <span slot="title">{{o.cname}}</span>
+						      <i class="el-icon-setting"></i>
+						      <span slot="title">{{o.dcname}}</span>
 						    </el-menu-item>
 						  </el-menu>
 					  </div>
@@ -101,11 +101,11 @@
 				<el-row class="head-right">
 				  <el-col :span="20">
 					 <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-					   <el-menu-item :index="o.id"  v-for="(o,i) in menua" >{{o.name}}</el-menu-item>
+					   <el-menu-item :index="o.id"  v-for="(o,i) in menua" >{{o.dcname}}</el-menu-item>
 					 </el-menu>
 				  </el-col>
 				  <el-col style="text-decoration: none;" :span="4" style="height: 60px;background-color: #FFFFFF; color: #000;">
-					<el-row style="line-height: 60px;" :span="24">
+					<el-row style="line-height: 60px; background-color: #18304A;" :span="24">
 						<el-col :span="18" style="text-align: right; ">
 							设置
 						</el-col>
@@ -122,10 +122,10 @@
 						  <el-tab-pane
 							v-for="(item, index) in editableTabs"
 							:key="item.id"
-							:label="item.cname"
-							:name="item.name"
+							:label="item.dcname"
+							:name="item.dename"
 						  >
-							<iframe :src="item.url" width="100%" style="border: 0px;" height="633px" frameborder="0"></iframe>
+							<iframe :src="item.dpath" width="100%" style="border: 0px;" height="633px" frameborder="0"></iframe>
 						  </el-tab-pane>
 						</el-tabs>
 					</el-col>
@@ -134,6 +134,7 @@
 			</el-container>
 		</div>
 		<!-- 引入组件库 -->
+		<script src="../js/jquery-1.12.4.js"></script>
 		<script src="../js/vue.js"></script>
 		<script src="../elementui/index.js"></script>
 		<script>
@@ -141,13 +142,11 @@
 				el: '#app',
 				data: function() {
 					return { 
-						menua:[{id:"1",name:"服务接待"},{id:"2",name:"结算中心"},
-						{id:"3",name:"客户档案"},{id:"4",name:"基础数据"},
-						{id:"5",name:"行政人事"},{id:"6",name:"系统设置"}],
-						menub:[{id:"7",name:"left1",cname:"维修救援",icon:"el-icon-setting",url:"11",children:[{id:"8",name:"left1a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},{id:"9",name:"left1b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}],
+						pindex:{},
+						menua:[],
+						menub:[],
 						activeIndex: '1',
 						isCollapse: false,
-						
 						editableTabsValue: '2',
 						editableTabs: [],
 						tabIndex: 2
@@ -155,45 +154,70 @@
 				 },
 				methods: {
 						handleSelect(key, keyPath) {
-					        console.log(key, keyPath);
-							if(key==1){
-							 	this.menub=[{id:"7",name:"left1",cname:"维修救援",icon:"el-icon-setting",url:"11",
-							 	children:[{id:"8",name:"left1a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},
-							 	{id:"9",name:"left1b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}];
-							}
-							if(key==2){
-							 	this.menub=[{id:"10",name:"left2",cname:"前台结算",icon:"el-icon-setting",url:"11",
-							 	children:[{id:"11",name:"left2a",cname:"结算中心",icon:"el-icon-setting",url:"zhongxin.html",children:null}]}];
-							}
-							if(key==3){
-							  	this.menub=[{id:"12",name:"left3",cname:"客户档案",icon:"el-icon-setting",url:"11",
-							  	children:[{id:"13",name:"left3a",cname:"客户资料",icon:"el-icon-setting",url:"custom.html",children:null},
-							  	{id:"14",name:"left3b",cname:"车辆资料",icon:"el-icon-setting",url:"cara.html",children:null}]}];
-							}
-							if(key==4){
-							  	this.menub=[{id:"15",name:"left4",cname:"主数据",icon:"el-icon-setting",url:"11",
-							  	children:[{id:"16",name:"left4a",cname:"发动机品牌",icon:"el-icon-setting",url:"index.html",children:null},
-							  	{id:"17",name:"left4b",cname:"车型档案",icon:"el-icon-setting",url:"chexing.html",children:null},
-								{id:"18",name:"left4c",cname:"维修项目",icon:"el-icon-setting",url:"msi.html",children:null},
-								{id:"19",name:"left4d",cname:"商品资料",icon:"el-icon-setting",url:"goods.html",children:null},
-								{id:"20",name:"left4e",cname:"供货单位",icon:"el-icon-setting",url:"gonghuo.html",children:null}]}];
-							}
-							if(key==5){
-							   	this.menub=[{id:"21",name:"left5",cname:"员工资料",icon:"el-icon-setting",url:"11",
-							   	children:[{id:"22",name:"left5a",cname:"组织机构",icon:"el-icon-setting",url:"zuzhi.html",children:null},
-							   	{id:"23",name:"left5b",cname:"岗位定义",icon:"el-icon-setting",url:"postdefine.html",children:null},
-								{id:"24",name:"left5c",cname:"离职登记",icon:"el-icon-setting",url:"dimission.html",children:null},
-								{id:"25",name:"left5d",cname:"通讯名录",icon:"el-icon-setting",url:"tx.html",children:null}]},
-								{id:"26",name:"left6",cname:"技工管理",icon:"el-icon-setting",url:"11",
-								children:[{id:"27",name:"left6a",cname:"技工星级",icon:"el-icon-setting",url:"grade.html",children:null},
-								{id:"28",name:"left6b",cname:"班组技工",icon:"el-icon-setting",url:"bzjg.html",children:null},
-								{id:"29",name:"left6c",cname:"外勤车辆",icon:"el-icon-setting",url:"car.html",children:null}]}];
-							}
-							if(key==6){
-							   	this.menub=[{id:"30",name:"left7",cname:"系统设置",icon:"el-icon-setting",url:"11",
-							   	children:[{id:"31",name:"left7a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},
-							   	{id:"32",name:"left7b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}];
-							}
+							var that=this;
+							$.ajax({
+								url:"http://127.0.0.1:8888/menu/menuB?parentId="+key,
+								method:"get",
+								xhrFields: {
+						　　　　　　withCredentials: true
+						　　　　},
+								success:function(result){
+									console.log(result)
+									var list=[];
+									for(var i=0;i<result.length;i++){
+										var temp = {};
+										temp = result[i];
+										temp.id = temp.did.toString();
+										for(j=0;j<temp.children.length;j++){
+											temp.children[j].id = temp.children[j].did.toString();
+										}
+										list.push(temp);
+									}
+									that.menub=list;
+									console.log(that.menub)
+									
+								}
+							});
+							
+					  //       console.log(key, keyPath);
+							// if(key==1){
+							//  	this.menub=[{id:"7",name:"left1",cname:"维修救援",icon:"el-icon-setting",url:"11",
+							//  	children:[{id:"8",name:"left1a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},
+							//  	{id:"9",name:"left1b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}];
+							// }
+							// if(key==2){
+							//  	this.menub=[{id:"10",name:"left2",cname:"前台结算",icon:"el-icon-setting",url:"11",
+							//  	children:[{id:"11",name:"left2a",cname:"结算中心",icon:"el-icon-setting",url:"zhongxin.html",children:null}]}];
+							// }
+							// if(key==3){
+							//   	this.menub=[{id:"12",name:"left3",cname:"客户档案",icon:"el-icon-setting",url:"11",
+							//   	children:[{id:"13",name:"left3a",cname:"客户资料",icon:"el-icon-setting",url:"custom.html",children:null},
+							//   	{id:"14",name:"left3b",cname:"车辆资料",icon:"el-icon-setting",url:"cara.html",children:null}]}];
+							// }
+							// if(key==4){
+							//   	this.menub=[{id:"15",name:"left4",cname:"主数据",icon:"el-icon-setting",url:"11",
+							//   	children:[{id:"16",name:"left4a",cname:"发动机品牌",icon:"el-icon-setting",url:"index.html",children:null},
+							//   	{id:"17",name:"left4b",cname:"车型档案",icon:"el-icon-setting",url:"chexing.html",children:null},
+							// 	{id:"18",name:"left4c",cname:"维修项目",icon:"el-icon-setting",url:"msi.html",children:null},
+							// 	{id:"19",name:"left4d",cname:"商品资料",icon:"el-icon-setting",url:"goods.html",children:null},
+							// 	{id:"20",name:"left4e",cname:"供货单位",icon:"el-icon-setting",url:"gonghuo.html",children:null}]}];
+							// }
+							// if(key==5){
+							//    	this.menub=[{id:"21",name:"left5",cname:"员工资料",icon:"el-icon-setting",url:"11",
+							//    	children:[{id:"22",name:"left5a",cname:"组织机构",icon:"el-icon-setting",url:"zuzhi.html",children:null},
+							//    	{id:"23",name:"left5b",cname:"岗位定义",icon:"el-icon-setting",url:"postdefine.html",children:null},
+							// 	{id:"24",name:"left5c",cname:"离职登记",icon:"el-icon-setting",url:"dimission.html",children:null},
+							// 	{id:"25",name:"left5d",cname:"通讯名录",icon:"el-icon-setting",url:"tx.html",children:null}]},
+							// 	{id:"26",name:"left6",cname:"技工管理",icon:"el-icon-setting",url:"11",
+							// 	children:[{id:"27",name:"left6a",cname:"技工星级",icon:"el-icon-setting",url:"grade.html",children:null},
+							// 	{id:"28",name:"left6b",cname:"班组技工",icon:"el-icon-setting",url:"bzjg.html",children:null},
+							// 	{id:"29",name:"left6c",cname:"外勤车辆",icon:"el-icon-setting",url:"car.html",children:null}]}];
+							// }
+							// if(key==6){
+							//    	this.menub=[{id:"30",name:"left7",cname:"系统设置",icon:"el-icon-setting",url:"11",
+							//    	children:[{id:"31",name:"left7a",cname:"维修接车",icon:"el-icon-setting",url:"register.html",children:null},
+							//    	{id:"32",name:"left7b",cname:"竣工检验",icon:"el-icon-setting",url:"checkout.html",children:null}]}];
+							// }
 						},
 						handleSelectLeft(key, keyPath) {
 					         console.log(key, keyPath);
@@ -225,10 +249,9 @@
 							var bol= false;
 							var that = this;
 							this.editableTabs.forEach(function(val,index,arr){
-							   
 							 if(val.id==obj.id){
-								 that.editableTabsValue = obj.name;
-								 console.log(obj.name);
+								 that.editableTabsValue = obj.dename;
+								 console.log(obj.dename);
 								 bol=true;
 								}
 							});
@@ -236,7 +259,7 @@
 								return;
 							}
 							this.editableTabs.push(obj);
-							this.editableTabsValue = obj.name;
+							this.editableTabsValue = obj.dename;
 						},
 						removeTab(targetName) {
 							let tabs = this.editableTabs;
@@ -246,20 +269,52 @@
 								if (tab.name === targetName) {
 								  let nextTab = tabs[index + 1] || tabs[index - 1];
 								  if (nextTab) {
-									activeName = nextTab.name;
+									activeName = nextTab.dename;
 								  }
 								}
 							  });
 							}
 							
 							this.editableTabsValue = activeName;
-							this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+							this.editableTabs = tabs.filter(tab => tab.dename !== targetName);
 						},
 						getDate(){
 							var myDate = new Date();
 							var str=myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();
 							return str;
 						}
+				},created() {
+					var that = this;
+					$.ajax({
+							url:"http://127.0.0.1:8888/menu/menuB?parentId=-1",
+							method:"get",
+							xhrFields: {
+					　　　　　　withCredentials: true
+					　　　　},
+							success:function(result){
+								
+								var temp = {};
+								temp = result;
+								temp.id = temp.did;
+								that.pindex = temp;
+							}
+						});
+					$.ajax({
+						url:"http://127.0.0.1:8888/menu/menuA",
+						method:"get",
+						xhrFields: {
+				　　　　　　withCredentials: true
+				　　　　},
+						success:function(result){
+							
+							for(var i=0;i<result.length;i++){
+								var temp = {};
+								temp = result[i];
+								temp.id = temp.did.toString();
+								that.menua.push(temp);
+							}
+						}
+					});
 				}
 			})
 			
