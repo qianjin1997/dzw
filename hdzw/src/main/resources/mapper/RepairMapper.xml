@@ -14,6 +14,39 @@
     <result column="wclaim" property="wclaim" jdbcType="REAL" />
     <result column="wicbcprice" property="wicbcprice" jdbcType="REAL" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.Repair" id="BaseResultMapTwo" extends="BaseResultMap">
+  	<association property="r2" column="wmid" javaType="com.accp.domain.Maintainxm">
+  		<id column="xid" property="xid" jdbcType="INTEGER" />
+	    <result column="xmaintainname" property="xmaintainname" jdbcType="VARCHAR" />
+	    <result column="xparentid" property="xparentid" jdbcType="INTEGER" />
+  	</association>
+  	<association property="r3" column="wincomeid" javaType="com.accp.domain.Income">
+  		<id column="yid" property="yid" jdbcType="INTEGER" />
+   		<result column="yname" property="yname" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  
+  <select id="findAlls" resultMap="BaseResultMapTwo">
+  	SELECT * FROM `repair` AS r1 INNER JOIN `maintainxm` AS r2 ON(r1.`wmid` = r2.`xid`)
+	INNER JOIN `income` AS r3 ON(r1.`wincomeid` = r3.`yid`)
+	<where>
+		<if test="wmname != null">
+			or wmname like concat('%',#{wmname},'%')
+		</if>
+	</where>
+  </select>
+  
+  <select id="findAlls1" resultMap="BaseResultMapTwo">
+  	SELECT * FROM `repair` AS r1 INNER JOIN `maintainxm` AS r2 ON(r1.`wmid` = r2.`xid`)
+	INNER JOIN `income` AS r3 ON(r1.`wincomeid` = r3.`yid`)
+	<where>
+		<if test="wmid != null">
+			or wmid = #{wmid}
+		</if>
+	</where>
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

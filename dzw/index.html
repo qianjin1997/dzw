@@ -1,10 +1,147 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="elementui/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/goods.css" />
 	</head>
+
 	<body>
-		
+
+		<!--<div class="block">
+			<span class="demonstration">hover 触发子菜单</span>
+			<el-cascader v-model="value" :options="options" :props="{ expandTrigger: 'hover'}" @change="handleChange"></el-cascader>
+		</div>-->
+		<div id="ctx">
+			<div class="block">
+				<span class="demonstration">默认 click 触发子菜单</span>
+				<el-cascader v-model="value" :options="options" :props="props" @change="handleChange"></el-cascader>
+			</div>
+			
+			<div class="block">
+						<el-tree :data="data" node-key="id" :props="props" default-expand :expand-on-click-node="false">
+							<span class="custom-tree-node" slot-scope="{ node, data }" @click="findFaytroy(node.data.anid)">
+		        					<span >{{ node.label}}</span>
+							<span>
+			          				<el-button
+							            type="text"
+							            size="mini"
+							            @click="() => append(node,data)">
+							            	增加
+							        </el-button>
+							        </el-button>
+								        <el-button
+								         type="text"
+								         size="mini"
+								         @click="() => showTypeUpdate()">
+								          		修改
+							        </el-button>
+								    <el-button
+								         type="text"
+								         size="mini"
+								         @click="() => remove(node, data)">
+								          		删除
+							        </el-button>
+		        				</span>
+							</span>
+						</el-tree>
+					</div>
+		</div>
+		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: "#ctx",
+				data() {
+					return {
+						value: [],
+						options: [],
+						props: {
+							value: 'anid',
+							label: "anaddress",
+							children: "children"
+						},
+						data:[]
+					}
+				},
+				methods: {
+					find() {
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findAll",
+							data: {
+								anparentid: 0
+							},
+							success: function(result) {
+								that.options = that.getTreeData(result);
+							}
+						});
+					},
+					handleChange(val) {
+						var that=this;
+						console.log(val)
+						that.value=val
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/joinAddress",
+							data: {
+								anid: that.value.join(",")
+							},
+							success: function(result) {
+								alert(result)
+							}
+						});
+					}, // 递归方法
+					getTreeData(data) {
+						// 循环遍历json数据
+						for(var i = 0; i < data.length; i++) {
+
+							if(data[i].children.length < 1) {
+								// children若为空数组，则将children设为undefined
+								data[i].children = undefined;
+							} else {
+								// children若不为空数组，则继续 递归调用 本方法
+								this.getTreeData(data[i].children);
+							}
+						}
+						return data;
+
+					},
+					findAll() {
+						var that = this;
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findAll",
+							data: {
+								anparentid: 0
+							},
+							success: function(result) {
+								that.data = result
+								that.find()
+							}
+						});
+					},findFaytroy(node) {
+						var that = this;
+						var afvendortype=node
+						$.ajax({
+							url: "http://localhost:8888/GongHuoController/findFaytroys",
+							data: {
+								afvendortype:afvendortype
+							},
+							success: function(result) {
+								console.log(result)
+							}
+						});
+					}
+				},
+				created() {
+					this.findAll()
+				}
+			})
+		</script>
 	</body>
+
 </html>

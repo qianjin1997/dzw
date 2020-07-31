@@ -26,6 +26,7 @@
     <result column="hnextmileage" property="hnextmileage" jdbcType="INTEGER" />
     <result column="hmileagedate" property="hmileagedate" jdbcType="DATE" />
     <result column="huid" property="huid" jdbcType="INTEGER" />
+    <result column="hweiid" property="hweiid" jdbcType="INTEGER" />
   </resultMap>
   <resultMap extends="BaseResultMap" type="com.accp.domain.Car" id="BaseResultMapExtends"><!--  -->
   	<association property="carbrand" column="hbrandid" javaType="com.accp.domain.Carbrand" select="com.accp.dao.CarbrandMapper.findByid"></association><!--车辆品牌  -->
@@ -42,6 +43,10 @@
   		</if>
   	</where>
   </select>
+  
+   <select id="findAll1" resultMap="BaseResultMapExtends" >
+  		select * from car where hid=#{alcarid}
+  	</select>
   <!--<insert id="inserts" keyColumn="" keyProperty="" useGeneratedKeys="true">
   	  insert into car() values
   	<foreach collection="list" item="car" separator=",">
@@ -110,7 +115,7 @@
   <sql id="Base_Column_List" >
     hid, hlicenseno, hbrandid, htypeid, hdriverid, hvehicleownership, hvin, hengineid, 
     hengineno, hcarmj, hmileage, hcarseries, hbuydate, hbldate, hsoidate, hjqxicbc, hjqxexpire, 
-    hsyxicbc, hsyxlastdate, hicar, hfueltype, hnextmileage, hmileagedate, huid
+    hsyxicbc, hsyxlastdate, hicar, hfueltype, hnextmileage, hmileagedate, huid, hweiid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CarExample" >
     select
@@ -150,8 +155,8 @@
       hbuydate, hbldate, hsoidate, 
       hjqxicbc, hjqxexpire, hsyxicbc, 
       hsyxlastdate, hicar, hfueltype, 
-      hnextmileage, hmileagedate, huid
-      )
+      hnextmileage, hmileagedate, huid, 
+      hweiid)
     values (#{hid,jdbcType=INTEGER}, #{hlicenseno,jdbcType=VARCHAR}, #{hbrandid,jdbcType=INTEGER}, 
       #{htypeid,jdbcType=INTEGER}, #{hdriverid,jdbcType=INTEGER}, #{hvehicleownership,jdbcType=INTEGER}, 
       #{hvin,jdbcType=VARCHAR}, #{hengineid,jdbcType=INTEGER}, #{hengineno,jdbcType=VARCHAR}, 
@@ -159,8 +164,8 @@
       #{hbuydate,jdbcType=DATE}, #{hbldate,jdbcType=DATE}, #{hsoidate,jdbcType=DATE}, 
       #{hjqxicbc,jdbcType=INTEGER}, #{hjqxexpire,jdbcType=DATE}, #{hsyxicbc,jdbcType=INTEGER}, 
       #{hsyxlastdate,jdbcType=DATE}, #{hicar,jdbcType=INTEGER}, #{hfueltype,jdbcType=INTEGER}, 
-      #{hnextmileage,jdbcType=INTEGER}, #{hmileagedate,jdbcType=DATE}, #{huid,jdbcType=INTEGER}
-      )
+      #{hnextmileage,jdbcType=INTEGER}, #{hmileagedate,jdbcType=DATE}, #{huid,jdbcType=INTEGER}, 
+      #{hweiid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Car" >
     insert into car
@@ -237,6 +242,9 @@
       <if test="huid != null" >
         huid,
       </if>
+      <if test="hweiid != null" >
+        hweiid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="hid != null" >
@@ -310,6 +318,9 @@
       </if>
       <if test="huid != null" >
         #{huid,jdbcType=INTEGER},
+      </if>
+      <if test="hweiid != null" >
+        #{hweiid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -394,6 +405,9 @@
       <if test="record.huid != null" >
         huid = #{record.huid,jdbcType=INTEGER},
       </if>
+      <if test="record.hweiid != null" >
+        hweiid = #{record.hweiid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -424,7 +438,8 @@
       hfueltype = #{record.hfueltype,jdbcType=INTEGER},
       hnextmileage = #{record.hnextmileage,jdbcType=INTEGER},
       hmileagedate = #{record.hmileagedate,jdbcType=DATE},
-      huid = #{record.huid,jdbcType=INTEGER}
+      huid = #{record.huid,jdbcType=INTEGER},
+      hweiid = #{record.hweiid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -501,6 +516,9 @@
       <if test="huid != null" >
         huid = #{huid,jdbcType=INTEGER},
       </if>
+      <if test="hweiid != null" >
+        hweiid = #{hweiid,jdbcType=INTEGER},
+      </if>
     </set>
     where hid = #{hid,jdbcType=INTEGER}
   </update>
@@ -528,7 +546,8 @@
       hfueltype = #{hfueltype,jdbcType=INTEGER},
       hnextmileage = #{hnextmileage,jdbcType=INTEGER},
       hmileagedate = #{hmileagedate,jdbcType=DATE},
-      huid = #{huid,jdbcType=INTEGER}
+      huid = #{huid,jdbcType=INTEGER},
+      hweiid = #{hweiid,jdbcType=INTEGER}
     where hid = #{hid,jdbcType=INTEGER}
   </update>
 </mapper>

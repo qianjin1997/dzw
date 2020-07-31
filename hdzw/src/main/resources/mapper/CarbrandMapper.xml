@@ -15,6 +15,19 @@
   <select id="findByid" resultMap="BaseResultMap">
 		select * from Carbrand where iid=#{hbrandid}  
   </select>
+  	<!-- <select id="findCarBrand" resultMap="BaseResultMapExtends">
+  			SELECT *FROM `carbrand`
+  			<if test="iid != null" >
+        		where iid=#{iid}
+      		</if>
+      		<if test="ibrandname != null" >
+        		where ibrandname=#{ibrandname}
+      		</if>
+      		<if test="ibrandname != null" >
+        		where iinitial=#{iinitial}
+      		</if>
+  	</select> -->
+>>>>>>> refs/remotes/origin/gyw
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

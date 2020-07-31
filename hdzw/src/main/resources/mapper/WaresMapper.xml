@@ -21,6 +21,10 @@
     <result column="afpaymentdays" property="afpaymentdays" jdbcType="INTEGER" />
     <result column="afremark" property="afremark" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="findFaytroy" resultMap="BaseResultMap">
+  	SELECT * FROM `wares`WHERE `afvendortype`=#{afvendortype} OR `afremark`=#{afvendortype}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

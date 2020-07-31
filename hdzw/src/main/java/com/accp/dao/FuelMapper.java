@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface FuelMapper {
+	Fuel findById(String kfuelid);
     int countByExample(FuelExample example);
 
     int deleteByExample(FuelExample example);
