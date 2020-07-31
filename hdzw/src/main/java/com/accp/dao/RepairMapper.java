@@ -27,4 +27,9 @@ public interface RepairMapper {
     int updateByPrimaryKeySelective(Repair record);
 
     int updateByPrimaryKey(Repair record);
+    
+    //----------------------------------
+    List<Repair> findAlls(String wmname);
+    
+    List<Repair> findAlls1(Integer wmid);
 }
