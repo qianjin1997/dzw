@@ -145,7 +145,11 @@
 					    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">附加项目</a></li>
 					    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">结算信息</a></li>
 					  </ul>
-					
+						<table style="width: 200px;margin: 0;" class="table">
+							<tr style="background-color: #39CFDE; text-align: center;">
+								<td style="color:#FFFFFF"><a @click="regadd()" href="javascript:void(0)">单个添加</a></td>
+							</tr>
+						</table>
 					  <!-- Tab panes -->
 					  <div class="tab-content">
 					    <div role="tabpanel" class="tab-pane active" id="home">
@@ -197,6 +201,7 @@
 				</div>
             </div>
             
+			
             
             <div id="two" class="modal fade" tabindex="-1" role="dialog">
 				  <div class="modal-dialog" role="document" style="width: 530px;">
@@ -236,6 +241,7 @@
 				el:".tit",
 				data(){
 					return {
+						
 						reg:{
 							car:{
 								carbrand:{},
@@ -251,6 +257,7 @@
 					};
 				},
 				methods:{
+					
 					open(){
 						$('#two').modal('show');
 					},
