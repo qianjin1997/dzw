@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ClearingMapper {
+	List<Clearing> findAll(String ecustomername,String ssettlementstatus,String ssellno,String hlicenseno,String sj1,String sj2);
+	
     int countByExample(ClearingExample example);
 
     int deleteByExample(ClearingExample example);

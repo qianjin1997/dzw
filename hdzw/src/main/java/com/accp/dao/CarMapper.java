@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CarMapper {
-	Car findById(Integer vcarid);
+	Car findById(@Param("hid")Integer hid);
+	
+	Car csytjId(@Param("hid")Integer hid);
 	
     int countByExample(CarExample example);
 

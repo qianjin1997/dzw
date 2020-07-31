@@ -6,6 +6,11 @@
     <result column="ibrandname" property="ibrandname" jdbcType="VARCHAR" />
     <result column="iinitial" property="iinitial" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="findById" resultMap="BaseResultMap">
+  			SELECT * FROM `carbrand` WHERE iid=#{iid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -97,7 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Carbrand" >
+  <insert id="insert" parameterType="com.accp.domain.Carbrand" keyColumn="iid" keyProperty="iid" useGeneratedKeys="true">
     insert into carbrand (iid, ibrandname, iinitial
       )
     values (#{iid,jdbcType=INTEGER}, #{ibrandname,jdbcType=VARCHAR}, #{iinitial,jdbcType=VARCHAR}

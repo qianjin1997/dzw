@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CartypeMapper {
+	Cartype findById(@Param("jid") Integer jid);
+	
     int countByExample(CartypeExample example);
 
     int deleteByExample(CartypeExample example);

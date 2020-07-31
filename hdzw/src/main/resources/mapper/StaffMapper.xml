@@ -33,6 +33,11 @@
     <result column="page" property="page" jdbcType="INTEGER" />
     <result column="puid" property="puid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <select id="findById" resultMap="BaseResultMap">
+  		SELECT * FROM `staff` WHERE pid=#{pid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -6,25 +6,27 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SectionMapper {
-    int countByExample(SectionExample example);
+	  Section findById(@Param("qid") Integer bzid);
+	
+	 int countByExample(SectionExample example);
 
-    int deleteByExample(SectionExample example);
+	    int deleteByExample(SectionExample example);
 
-    int deleteByPrimaryKey(Integer qid);
+	    int deleteByPrimaryKey(Integer qid);
 
-    int insert(Section record);
+	    int insert(Section record);
 
-    int insertSelective(Section record);
+	    int insertSelective(Section record);
 
-    List<Section> selectByExample(SectionExample example);
+	    List<Section> selectByExample(SectionExample example);
 
-    Section selectByPrimaryKey(Integer qid);
+	    Section selectByPrimaryKey(Integer qid);
 
-    int updateByExampleSelective(@Param("record") Section record, @Param("example") SectionExample example);
+	    int updateByExampleSelective(@Param("record") Section record, @Param("example") SectionExample example);
 
-    int updateByExample(@Param("record") Section record, @Param("example") SectionExample example);
+	    int updateByExample(@Param("record") Section record, @Param("example") SectionExample example);
 
-    int updateByPrimaryKeySelective(Section record);
+	    int updateByPrimaryKeySelective(Section record);
 
-    int updateByPrimaryKey(Section record);
+	    int updateByPrimaryKey(Section record);
 }

@@ -15,6 +15,11 @@
     <result column="jpower" property="jpower" jdbcType="VARCHAR" />
     <result column="jload" property="jload" jdbcType="INTEGER" />
   </resultMap>
+  
+  <select id="findById" resultMap="BaseResultMap">
+  			SELECT * FROM `cartype` WHERE jid=#{jid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -107,7 +112,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Cartype" >
+  <insert id="insert" parameterType="com.accp.domain.Cartype" keyColumn="jid" keyProperty="jid" useGeneratedKeys="true" >
     insert into cartype (jid, jtypename, jprice, 
       jmj, jgas, jisdomestic, 
       jfuelid, jfourType, jbrandid, 

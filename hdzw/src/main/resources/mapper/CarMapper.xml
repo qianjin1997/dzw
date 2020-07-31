@@ -28,8 +28,21 @@
     <result column="huid" property="huid" jdbcType="INTEGER" />
   </resultMap>
   
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Car"  id="BaseResultMapExtends">
+  			<association property="carbr" column="hbrandid" javaType="com.accp.domain.Carbrand" select="com.accp.dao.CarbrandMapper.findById">
+  			</association>
+  			
+  			<association property="carty" column="htypeid" javaType="com.accp.domain.Cartype" select="com.accp.dao.CartypeMapper.findById">
+  			</association>
+  </resultMap>
+  
+  <select id="csytjId" resultMap="BaseResultMapExtends">
+  			select * from car where hid=#{hid}
+  </select>
+  
+  
   <select id="findById" resultMap="BaseResultMap">
-  			SELECT * FROM `car` WHERE `hid`=#{hid}
+  			select * from car where hid=#{hid}
   </select>
   
   <sql id="Example_Where_Clause" >
@@ -125,7 +138,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Car" >
+  <insert id="insert" parameterType="com.accp.domain.Car" keyColumn="hid" keyProperty="hid" useGeneratedKeys="true">
     insert into car (hid, hlicenseno, hbrandid, 
       htypeid, hdriverid, hvehicleownership, 
       hvin, hengineid, hengineno, 

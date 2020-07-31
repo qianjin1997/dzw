@@ -2,7 +2,16 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
 public class Clearing {
+	private Documentstatus docu;//单据状态
+	
+	private Customer cust; //客户
+	
+	private Car car;//车辆
+	
     private Integer sid;
 
     private String ssellno;
@@ -14,7 +23,8 @@ public class Clearing {
     private Integer sstatusid;
 
     private String ssettlementstatus;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date ssettlementdate;
 
     private String ssettlementpeople;
@@ -30,7 +40,8 @@ public class Clearing {
     private Integer sinsuranceno;
 
     private String sindemnitycompany;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date scompletedate;
 
     private String sremark;
@@ -162,4 +173,28 @@ public class Clearing {
     public void setSremark(String sremark) {
         this.sremark = sremark;
     }
+
+	public Documentstatus getDocu() {
+		return docu;
+	}
+
+	public void setDocu(Documentstatus docu) {
+		this.docu = docu;
+	}
+
+	public Customer getCust() {
+		return cust;
+	}
+
+	public void setCust(Customer cust) {
+		this.cust = cust;
+	}
+
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
 }

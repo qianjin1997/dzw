@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CustomerMapper {
+	Customer findById(@Param("scusno") Integer eid);
+	
     int countByExample(CustomerExample example);
 
     int deleteByExample(CustomerExample example);

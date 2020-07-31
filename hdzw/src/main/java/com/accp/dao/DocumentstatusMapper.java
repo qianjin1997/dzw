@@ -6,6 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DocumentstatusMapper {
+	
+	
+	Documentstatus findById(@Param("zid") Integer sstatusid);
+	
     int countByExample(DocumentstatusExample example);
 
     int deleteByExample(DocumentstatusExample example);

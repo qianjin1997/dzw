@@ -7,10 +7,10 @@
     <result column="vteamid" property="vteamid" jdbcType="INTEGER" />
   </resultMap>
   
-  <resultMap id="BaseResultMapcsy" extends="BaseResultMap"  type="">
-  		<association property="car" column="vcarid" javaType="com.accp.domain.Car" select="com.accp.dao.CarMapper.findById">
-  		
-  		 </association>
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Legwork" id="BaseResultMapaa">
+  			<association property="car" column="vcarid" javaType="com.accp.domain.Car" select="com.accp.dao.ClazzMapper.findById">
+  			
+  			</association>
   </resultMap>
   
   <sql id="Example_Where_Clause" >

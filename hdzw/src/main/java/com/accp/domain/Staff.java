@@ -2,6 +2,8 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Staff {
     private Integer pid;
 
@@ -46,7 +48,8 @@ public class Staff {
     private String pphone;
 
     private String pthisaddress;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date ptrialdate;
 
     private Date pentrydate;
@@ -56,14 +59,24 @@ public class Staff {
     private Date pbegindate;
 
     private Date poverdate;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date pbirthday;
 
     private Integer page;
 
     private Integer puid;
+    
+    private Section sect;
+    
+    public Section getSect() {
+		return sect;
+	}
 
-    public Integer getPid() {
+	public void setSect(Section sect) {
+		this.sect = sect;
+	}
+
+	public Integer getPid() {
         return pid;
     }
 

@@ -3,6 +3,11 @@ package com.accp.domain;
 import java.util.Date;
 
 public class Car {
+	
+	private Carbrand carbr;//车牌
+	
+	private Cartype carty; //车型
+	
     private Integer hid;
 
     private String hlicenseno;
@@ -242,4 +247,20 @@ public class Car {
     public void setHuid(Integer huid) {
         this.huid = huid;
     }
+
+	public Carbrand getCarbr() {
+		return carbr;
+	}
+
+	public void setCarbr(Carbrand carbr) {
+		this.carbr = carbr;
+	}
+
+	public Cartype getCarty() {
+		return carty;
+	}
+
+	public void setCarty(Cartype carty) {
+		this.carty = carty;
+	}
 }
