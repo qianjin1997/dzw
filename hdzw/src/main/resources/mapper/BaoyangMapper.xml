@@ -10,6 +10,15 @@
     <result column="bysjtime" property="bysjtime" jdbcType="DATE" />
     <result column="byjhtime" property="byjhtime" jdbcType="DATE" />
   </resultMap>
+     <resultMap extends="BaseResultMap" type="com.accp.domain.Baoyang" id="BaseResultMapExtends"><!--  -->
+  		<association property="car" column="bycarid" javaType="com.accp.domain.Car" select="com.accp.dao.CarMapper.findByid"></association>
+ 
+  </resultMap>
+
+  
+  <select id="findAll" resultMap="BaseResultMapExtends" >
+  	select * from baoyang where bycarid=#{bycarid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

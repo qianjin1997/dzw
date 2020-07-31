@@ -90,5 +90,8 @@ public class wsbcarController {
 		return customer.findbyid(id);
 	}
 	
-	
+	@GetMapping("/byname")
+	public List <Car> find(String name){
+		return car.findmhcar(name);
+	}
 }

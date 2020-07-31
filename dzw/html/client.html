@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/yanse.css" />
+		<style>
+			#tt{
+				height: 250px;
+				width: 1534.5px;
+				overflow: scroll;
+			}
+			#khb{
+				height: 30px;
+				line-height: 30px;
+			}
+			#khb_div1>span{
+				margin: 0 10px;
+			}
+			#er>div>a{
+				margin: 0 5px;
+			}
+			#top{
+				margin:0 10px;
+			}
+			#duo{
+				padding: 10px 10px;
+			}
+			#duo>div{
+				margin-top: 10px;
+			}
+			#duo>div>input{
+				width: 145px;
+				display: inline-block;
+				margin: 0 5px;
+			}
+			#duo>div>div>input{
+				width: 145px;
+				display: inline-block;
+				margin: 0 5px;
+			}
+			.neia{
+				display: inline-block;
+				width: 10.44px;
+			}
+			.neib{
+				display: inline-block;
+				width: 80px;
+			}
+			#biao1{
+				border: 1px #C0C0C0 solid;
+				height: 400px;
+				overflow: scroll;
+			}
+			#biao2{
+				border: 1px #C0C0C0 solid;
+				height: 400px;
+				overflow: scroll;
+			}
+			.ppp{
+				margin: 5px;
+			}
+			#mod2{
+				padding: 20px;
+			}
+			#mod2>div{
+				margin-top: 10px;
+			}
+			#hao{
+				padding-top: 20px;
+				text-align: center;
+			}
+			#hao>div{
+				margin-bottom: 10px;
+			}
+			#hao>div>button{
+				width:50px;
+				height: 50px;
+				margin-right: 5px;
+				text-align: center;
+				display: inline-block;
+			}
+			#by>a{
+				margin-right: 10px;
+			}
+			.spanri{
+				margin-right: 5px;
+			}
+		</style>
+	</head>
+	<style>
+	</style>
+	<body>
+		<div id="ctx">
+			<!--<img src="../img/si.png" />-->
+			<div class="row aa"  style="margin-right: 0px;">
+				<h3 style="text-indent: 20px;" class="col-xs-6 aj2">客户档案</h3>
+				<h3 class="col-xs-6">
+					<input style="display: inline-block;width: 450px;" v-model="mocha" class="form-control" type="text" placeholder="匹配名称/名称简码/手机/会员卡号/车牌号">
+					<button style="width: 80px;" class="btn btn-warning" @click="find">搜索</button>
+					<button class="btn btn-warning ae">关闭</button>
+				</h3>
+			</div>
+			<div id="er" class="row ab" style="height: 35px; line-height: 35px;margin-right: 0px;">
+				<div class="col-xs-6"></div>
+				<div class="col-xs-4">
+					<a class="bb" @click="khdan('kh','kai')"><span class="glyphicon glyphicon-edit aaa"></span>客户编辑</a>
+					<a class="bb" @click="khdan('cl','kai')"><span class="glyphicon glyphicon-list-alt aaa"></span>车资料</a>
+					<a class="bb" @click="mo('modal6')"><span class="glyphicon glyphicon-list aaa"></span>客户分类</a>
+					<a class="bb"><span class="glyphicon glyphicon-search aaa"></span>查询</a>
+				</div>
+				<div class="col-xs-2">
+					<a class="bb"><span class="glyphicon glyphicon-share aaa"></span>导出</a>
+					<a class="bb"><span class="glyphicon glyphicon-cog aaa"></span>字段设置</a>
+				</div>
+			</div>
+			<div v-if="cl" class="row ai" id="khb" style="margin-right: 0px;">
+				<span style="text-indent: 20px;" class="col-xs-1"> 车  资  料 </span>
+				<div class="col-xs-10" id="khb_div1">
+					<div class="row">
+						<span class="col-xs-2 aj2" @click="mo('modal3','添')">增加车资料</span>
+						<span class="col-xs-2 aj2" @click="mo('modal3','修')">修改车资料</span>
+						<span class="col-xs-2 aj2" @click="deletecar">删除车资料</span>
+					</div>
+				</div>
+				<div @click="khdan('cl','guan')" class="col-xs-1 ac2"><span class="glyphicon glyphicon-triangle-top"></span>收起</div>
+			</div>
+			<div v-if="kh" class="row ai" id="khb" style="margin-right: 0px;">
+				<span style="text-indent: 20px;" class="col-xs-1">客户编辑</span>
+				<div class="col-xs-10" id="khb_div1">
+					<span class="aj2" @click="mo('modal1','添')">增加客户和车</span>
+					<span class="aj2" @click="mo('modal2','添')">增加客户</span>
+					<span class="aj2" @click="mo('modal2','修')">修改客户</span>
+					<span class="aj2" @click="deleteclient">删除客户</span>
+					<span class="aj2">相关证照</span>
+					<span class="aj2">设置密码</span>
+				</div>
+				<div @click="khdan('kh','guan')" class="col-xs-1 ac2"><span class="glyphicon glyphicon-triangle-top"></span>收起</div>
+			</div>
+			<div id="tt">
+				<table class="table">
+					<tr id="trr" class="bg-primary ac">
+						<td id="abc"></td>
+						<td>客户编号</td>
+						<td>客户名称</td>
+						<td>详细地址</td>
+						<td>联系人</td>
+						<td>手机</td>
+						<td>客户生日</td>
+						<td>客户类型</td>
+						<td>会员卡号</td>
+						<td>入会日期</td>
+						<td>会员到期</td>
+						<td>备注</td>
+						<td>会员到期</td>
+						<td>会员到期</td>
+					</tr>
+					<tr v-for="item in client" :id="'tr_'+item.number">
+						<td class="ae" @click="abc(item,'tr')"></td>
+						<td>{{item.number}}</td>
+						<td>{{item.name}}</td>
+						<td>{{item.address}}</td>
+						<td>{{item.linkman}}</td>
+						<td>{{item.phone}}</td>
+						<td>{{item.borndate}}</td>
+						<td>{{item.clitype.clienttype}}</td>
+						<td>{{item.vipnum}}</td>
+						<td>{{item.starttime}}</td>
+						<td>{{item.endtime}}</td>
+						<td>{{item.remark}}</td>
+						<td>{{item.paymentdays}}</td>
+						<td>{{item.remark}}</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">车辆信息</a></li>
+			    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">历史消费</a></li>
+			    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">历史回访</a></li>
+			  </ul>
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="home">
+			    	<table class="table">
+						<tr id="trr2" class="bg-primary ac">
+							<td></td>
+							<td>车牌号码</td>
+							<td>车辆品牌</td>
+							<td>车辆型号</td>
+							<td>驾驶员</td>
+							<td>驾驶员电话</td>
+							<td>出生日期</td>
+							<td>车辆归属</td>
+							<td>驾证到期</td>
+							<td>车架号</td>
+							<td>发动机号</td>
+							<td>发动机品牌号</td>
+						</tr>
+						<tr v-for="item in clicarfind" :id="'tr2_'+item.id">
+							<td class="ae" @click="abc(item,'tr2')"></td>
+							<td>{{item.carnumber}}</td>
+							<td>{{item.cartype.name}}</td>
+							<td>{{item.datacar.name}}</td>
+							<td>{{item.carer}}</td>
+							<td>{{item.carerphone}}</td>
+							<td>{{item.borndate}}</td>
+							<td>{{item.affiliation}}</td>
+							<td>{{item.drivinglicence}}</td>
+							<td>{{item.framenumber}}</td>
+							<td>{{item.enginebrand.id}}</td>
+							<td>{{item.enginebrand.enginebrandname}}</td>
+						</tr>
+					</table>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="profile">
+			    	<table class="table">
+						<tr class="bg-primary ac">
+							<td></td>
+							<td>单据类型</td>
+							<td>销售单号</td>
+							<td>车牌号</td>
+							<td>维修业务</td>
+							<td>进厂时间</td>
+							<td>完工时间</td>
+							<td>结算时间</td>
+							<td>消费金额</td>
+						</tr>
+						<tr>
+							<td class="ae"></td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td class="ae"></td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+					</table>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="messages">3</div>
+			  </div>
+			</div>
+			
+			<p class="ppp ae2" style="position: fixed;bottom: 0px;">共0条记录 第一页 共一页</p>
+			
+			<div id="modal1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div style="width: 1100px;" class="modal-dialog modal-lg" role="document">
+			    <div  class="modal-content" style="padding: 10px 20px 30px 20px;">
+			    	<button @click="clo('modal1')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      	<div id="top" class="row">
+			      		<h3 class="col-xs-10" style="border-left: 5px #fdac23 solid;">车辆资料编辑</h3>
+			      		<div  class="col-xs-2">
+			      			<buttonv @click="tiancarcli('modal1')" class="btn btn-success" style="width: 100px;">√ 保存</button>
+			      		</div>
+			      	</div>
+			      	<div id="duo">
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">客户编码</span>
+			      			<input type="text" class="form-control" v-model="clientto.number">
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">客户名称</span>
+			      			<input  type="text" class="form-control"  v-model="clientto.name">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">联系人</span>
+			      			<input  type="text" class="form-control"  v-model="clientto.linkman">
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">手机号码</span>
+			      			<input type="text" class="form-control"  v-model="clientto.phone">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')">客户地址</span>
+			      			<input style="width: 250px;" type="text" class="form-control"  v-model="clientto.address">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">客户生日</span>
+			      			<input  type="date" class="form-control"  v-model="clientto.borndate">
+			      			
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">账期（天）</span>
+			      			<input style="width: 70PX;" type="number" class="form-control" v-model="clientto.paymentdays">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">挂账额度</span>
+			      			<input type="text" class="form-control" v-model="clientto.paymentsize">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">专属顾问</span>
+			      			<select class="form-control" style="width: 145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">顾问电话</span>
+			      			<input type="text" class="form-control" v-model="clientto.counselorname">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')">省</span>
+			      			<div style="margin-left:5px;width:185px; height: 40px;  line-height: 40px; display: inline-block; border-radius: 4px; border: 1px #c6c7c6 solid;">
+			      				<input  type="text" class="form-control" style="margin:0 5px 0 5px;width: 40px; height: 22px;" disabled>
+			      				<input  type="text" v-model="clientto.province" class="form-control" style="margin:0 5px 0 0;width: 100px; height: 22px;" disabled>
+			      				<span class="glyphicon glyphicon-triangle-bottom ae2"></span>
+			      			</div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')" style="width: 40px;">市</span>
+			      			<div style="width:185px; height: 40px;  line-height: 40px; display: inline-block; border-radius: 4px; border: 1px #c6c7c6 solid;">
+			      				<input  type="text" class="form-control" style="margin:0 5px 0 5px;width: 40px; height: 22px;" disabled>
+			      				<input  type="text" v-model="clientto.city" class="form-control" style="margin:0 5px 0 0;width: 100px; height: 22px;" disabled>
+			      				<span class="glyphicon glyphicon-triangle-bottom ae2"></span>
+			      			</div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')" style="width: 40px;">区</span>
+			      			<div style="width:185px; height: 40px;  line-height: 40px; display: inline-block; border-radius: 4px; border: 1px #c6c7c6 solid;">
+			      				<input  type="text" class="form-control" style="margin:0 5px 0 5px;width: 40px; height: 22px;" disabled>
+			      				<input  type="text" v-model="clientto.county" class="form-control" style="margin:0 5px 0 0;width: 100px; height: 22px;" disabled>
+			      				<span class="glyphicon glyphicon-triangle-bottom ae2"></span>
+			      			</div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">备注</span>
+			      			<input style="width: 130px;" v-model="clientto.remark" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车牌号码</span>
+			      			<div style="display: inline-block;position: relative;">
+			      				<input v-model="clientcarinfo.carnumber" type="text" class="form-control" readonly>
+			      				<span @click="mo('modal5')" class=" glyphicon glyphicon-triangle-bottom" style="position: absolute;right: 15px;top: 10px;"></span>
+			      			</div>
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车牌品牌</span>
+			      			<div style="display: inline-block;position: relative;">
+			      				<input v-model="wanneng.cartypename" type="text" class="form-control" readonly>
+			      				<span @click="mo('modal4')" class=" glyphicon glyphicon-triangle-bottom" style="position: absolute;right: 15px;top: 10px;"></span>
+			      			</div>
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车牌型号1</span>
+			      			<input v-model="wanneng.datavarname" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">驾驶员</span>
+			      			<input v-model="clientcarinfo.carer" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">驾驶员电话</span>
+			      			<input v-model="clientcarinfo.carerphone" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">出生日期</span>
+			      			<input v-model="clientcarinfo.borndate" type="date" class="form-control">
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车辆归属</span>
+			      			<select class="form-control" style="width: 145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="neia"></span>
+			      			<span class="ac2 neib">驾驶证到期</span>
+			      			<input v-model="clientcarinfo.drivinglicence" type="date" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">车架号</span>
+			      			<input v-model="clientcarinfo.framenumber" type="text" style="width: 210px;" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>	
+			      			<span class="ac2 neib">发动机号</span>
+			      			<input v-model="clientcarinfo.enginenumber" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">车辆年款</span>
+			      			<input  v-model="clientcarinfo.yearprice" type="text" style="width: 80px;" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">里程</span>
+			      			<input v-model="clientcarinfo.mileage" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">发动机品牌</span>
+			      			<input  v-model="wanneng.enginebrandname" type="text" style="margin-left:5px;width: 447.56px" class="form-control">
+			      			
+			      			
+			      			<span class="ak2 neia"></span>	
+			      			<span class="ac2 neib">载重</span>
+			      			<input v-model="clientcarinfo.carrying" type="text" style="width: 100px;" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">购买日期</span>
+			      			<input v-model="clientcarinfo.buydate" type="date" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">上牌日期</span>
+			      			<input v-model="clientcarinfo.dutydate" type="date" class="form-control">
+			      			
+			      			<span class="neia"></span>	
+			      			<span class="ac2 neib">车检到期</span>
+			      			<input v-model="clientcarinfo.vehicleinspectiondate" type="date" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">燃油类型</span>
+			      			<select class="form-control" style="width:145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">车系</span>
+			      			<input v-model="clientcarinfo.carseries" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span style="color: red;">保险：</span>
+			      			<span class="ak2 neia"></span>
+			      			
+			      			<span class="ac2 neib" style="width: 100px;">交强险保险公司</span>
+			      			<select class="form-control" style="width:150px; display: inline-block;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">交强险到期</span>
+			      			<input v-model="clientcarinfo.jqinsurancedate" type="date" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span><input type="checkbox" name="" id="" value="" /></span>
+			      			<span class="ac2 neib">在我投保车</span>
+			      		</div>
+			      		<div>
+			      			<span style="width: 42px;display: inline-block;"></span>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" style="width: 100px;">商业险保险公司</span>
+			      			<select class="form-control" style="width:150px; display: inline-block;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">商业险到期</span>
+			      			<input v-model="clientcarinfo.syinsurancedate" type="date" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" style="width: 100px;">下次保养里程</span>
+			      			<input v-model="clientcarinfo.default2" type="text" class="form-control">
+			      			
+			      			<span class="neia"></span>	
+			      			<span class="ac2 neib" style="width: 100px;">下次保养日期</span>
+			      			<input v-model="clientcarinfo.maintaindate" type="date" class="form-control">
+			      		</div>
+			      	</div>
+			    </div>
+			  </div>
+			</div>
+			
+			<div id="modal2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div style="width: 1100px;" class="modal-dialog modal-lg" role="document">
+			    <div  class="modal-content" style="padding: 10px 20px 30px 20px;">
+			    	<button @click="clo('modal2')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      	<div id="top" class="row">
+			      		<h3 class="col-xs-10" style="border-left: 5px #fdac23 solid;">客户资料编辑</h3>
+			      		<div  class="col-xs-2">
+			      			<button class="btn btn-success" style="width: 100px;" @click="gg('0','modal2')">√ 保存</button>
+			      		</div>
+			      	</div>
+			      	<div id="duo">
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">客户编码</span>
+			      			<input type="text" class="form-control" v-model="clientto.number" >
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">客户名称</span>
+			      			<input  type="text" class="form-control"  v-model="clientto.name">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">联系人</span>
+			      			<input  type="text" class="form-control"  v-model="clientto.linkman">
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">手机号码</span>
+			      			<input type="text" class="form-control"  v-model="clientto.phone">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')">客户地址</span>
+			      			<input style="width: 250px;" type="text" class="form-control"  v-model="clientto.address">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">客户生日</span>
+			      			<input  type="date" class="form-control"  v-model="clientto.borndate">
+			      			
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">账期（天）</span>
+			      			<input style="width: 70PX;" type="number" class="form-control" v-model="clientto.paymentdays">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">挂账额度</span>
+			      			<input type="text" class="form-control" v-model="clientto.paymentsize">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">专属顾问</span>
+			      			<select class="form-control" style="width: 145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">顾问电话</span>
+			      			<input type="text" class="form-control" v-model="clientto.counselorname">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')">省</span>
+			      			<div style="margin-left:5px;width:185px; height: 40px;  line-height: 40px; display: inline-block; border-radius: 4px; border: 1px #c6c7c6 solid;">
+			      				<input  type="text" class="form-control" style="margin:0 5px 0 5px;width: 40px; height: 22px;" disabled>
+			      				<input  type="text" v-model="clientto.province" class="form-control" style="margin:0 5px 0 0;width: 100px; height: 22px;" disabled>
+			      				<span class="glyphicon glyphicon-triangle-bottom ae2"></span>
+			      			</div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')" style="width: 40px;">市</span>
+			      			<div style="width:185px; height: 40px;  line-height: 40px; display: inline-block; border-radius: 4px; border: 1px #c6c7c6 solid;">
+			      				<input  type="text" class="form-control" style="margin:0 5px 0 5px;width: 40px; height: 22px;" disabled>
+			      				<input  type="text" v-model="clientto.city" class="form-control" style="margin:0 5px 0 0;width: 100px; height: 22px;" disabled>
+			      				<span class="glyphicon glyphicon-triangle-bottom ae2"></span>
+			      			</div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" @click="mo('modal2')" style="width: 40px;">区</span>
+			      			<div style="width:185px; height: 40px;  line-height: 40px; display: inline-block; border-radius: 4px; border: 1px #c6c7c6 solid;">
+			      				<input  type="text" class="form-control" style="margin:0 5px 0 5px;width: 40px; height: 22px;" disabled>
+			      				<input  type="text" v-model="clientto.county" class="form-control" style="margin:0 5px 0 0;width: 100px; height: 22px;" disabled>
+			      				<span class="glyphicon glyphicon-triangle-bottom ae2"></span>
+			      			</div>
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">备注</span>
+			      			<input style="width: 918px;" v-model="clientto.remark" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">纳税人别号</span>
+			      			<input style="width: 405px;" v-model="clientto.paytaxesnumber" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">注册电话</span>
+			      			<input  type="text" v-model="clientto.regosterphone" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">开户银行</span>
+			      			<input type="text" class="form-control" v-model="clientto.bank">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">银行账号</span>
+			      			<input style="width: 70PX;" type="number" class="form-control" v-model="clientto.banknumber">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">注册地址</span>
+			      			<input type="text" class="form-control" v-model="clientto.registeraddress">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">其他一</span>
+			      			<input type="text" class="form-control" v-model="clientto.default1">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">其他二</span>
+			      			<input type="text" class="form-control" v-model="clientto.default2">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">其他三</span>
+			      			<input  type="text" class="form-control" v-model="clientto.default3">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">其他四</span>
+			      			<input type="text" class="form-control" v-model="clientto.default4">
+			      		</div>
+			      	</div>
+			    </div>
+			  </div>
+			</div>
+			
+			<div id="modal3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div style=" width: 1100px;" class="modal-dialog modal-lg" role="document">
+			    <div  class="modal-content" style="padding: 20px 20px 40px 20px;">
+			    	<button @click="clo('modal3')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      	<div id="top" class="row">
+			      		<h3 class="col-xs-10" style="border-left: 5px #fdac23 solid;">车辆资料编辑</h3>
+			      		<div  class="col-xs-2">
+			      			<button class="btn btn-success" style="width: 100px;" @click="gg('modal1')">√ 保存</button>
+			      		</div>
+			      	</div>
+			      	<div id="duo">
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车牌号码</span>
+			      			<div style="display: inline-block;position: relative;">
+			      				<input v-model="clientcarinfo.carnumber" type="text" class="form-control" readonly>
+			      				<span @click="mo('modal5')" class=" glyphicon glyphicon-triangle-bottom" style="position: absolute;right: 15px;top: 10px;"></span>
+			      			</div>
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车牌品牌</span>
+			      			<div style="display: inline-block;position: relative;">
+			      				<input v-model="wanneng.cartypename" type="text" class="form-control" readonly>
+			      				<span @click="mo('modal4')" class=" glyphicon glyphicon-triangle-bottom" style="position: absolute;right: 15px;top: 10px;"></span>
+			      			</div>
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车牌型号</span>
+			      			<input v-model="wanneng.datavarname" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">驾驶员</span>
+			      			<input v-model="clientcarinfo.carer" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">驾驶员电话</span>
+			      			<input v-model="clientcarinfo.carerphone" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">出生日期</span>
+			      			<input v-model="clientcarinfo.borndate" type="date" class="form-control">
+			      			
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">车辆归属</span>
+			      			<select class="form-control" style="width: 145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="neia"></span>
+			      			<span class="ac2 neib">驾驶证到期</span>
+			      			<input v-model="clientcarinfo.drivinglicence" type="date" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">车架号</span>
+			      			<input v-model="clientcarinfo.framenumber" type="text" style="width: 210px;" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>	
+			      			<span class="ac2 neib">发动机号</span>
+			      			<input v-model="clientcarinfo.enginenumber" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">车辆年款</span>
+			      			<input  v-model="clientcarinfo.yearprice" type="text" style="width: 80px;" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">里程</span>
+			      			<input v-model="clientcarinfo.mileage" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia">*</span>
+			      			<span class="ac2 neib">发动机品牌</span>
+			      			<input  v-model="wanneng.enginebrandname" type="text" style="margin-left:5px;width: 452.56px" class="form-control">
+			      			
+			      			
+			      			<span class="ak2 neia"></span>	
+			      			<span class="ac2 neib">载重</span>
+			      			<input v-model="clientcarinfo.carrying" type="text" style="width: 100px;" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">购买日期</span>
+			      			<input v-model="clientcarinfo.buydate" type="date" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">上牌日期</span>
+			      			<input v-model="clientcarinfo.dutydate" type="date" class="form-control">
+			      			
+			      			<span class="neia"></span>	
+			      			<span class="ac2 neib">车检到期</span>
+			      			<input v-model="clientcarinfo.vehicleinspectiondate" type="date" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">燃油类型</span>
+			      			<select class="form-control" style="width:145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">车系</span>
+			      			<input v-model="clientcarinfo.carseries" type="text" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span style="color: red;">保险：</span>
+			      			<span class="ak2 neia"></span>
+			      			
+			      			<span class="ac2 neib" style="width: 100px;">交强险保险公司</span>
+			      			<select class="form-control" style="width:150px; display: inline-block;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">交强险到期</span>
+			      			<input v-model="clientcarinfo.jqinsurancedate" type="date" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span><input type="checkbox" name="" id="" value="" /></span>
+			      			<span class="ac2 neib">在我投保车</span>
+			      		</div>
+			      		<div>
+			      			<span style="width: 42px;display: inline-block;"></span>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" style="width: 100px;">商业险保险公司</span>
+			      			<select class="form-control" style="width:150px; display: inline-block;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">商业险到期</span>
+			      			<input v-model="clientcarinfo.syinsurancedate" type="date" class="form-control">
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib" style="width: 100px;">下次保养里程</span>
+			      			<input v-model="clientcarinfo.default2" type="text" class="form-control">
+			      			
+			      			<span class="neia"></span>	
+			      			<span class="ac2 neib" style="width: 100px;">下次保养日期</span>
+			      			<input v-model="clientcarinfo.maintaindate" type="date" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">客户名称</span>
+			      			
+			      			<div style="width:360px; height: 40px;  line-height: 40px; display: inline-block; border-radius: 4px; border: 1px #c6c7c6 solid;">
+			      				<input v-model="clientdan.number" type="text" class="form-control" style="width: 125px; height: 22px;" readonly>
+			      				<input v-model="clientdan.name" type="text" class="form-control" style="width: 165px; height: 22px;" readonly>
+			      				<a href="client.html"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+			      			</div>
+			      		</div>
+			      	</div>
+			    </div>
+			  </div>
+			</div>
+			
+			<div id="modal4" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div style=" width: 1000px;padding: 10px;" class="modal-dialog modal-lg" role="document">
+			    <div id="mod2" class="modal-content" style="padding: 20px 40px 40px 40px;">
+			    	<button @click="clo('modal4')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      	<div id="top" class="row">
+			      		<h3 class="col-xs-10" style="border-left: 5px #fdac23 solid;">品牌车型</h3>
+			      		<div  class="col-xs-2">
+			      			<button @click="pinxingcun('modal4')" class="btn btn-success" style="width: 100px;">√ 保存</button>
+			      		</div>
+			      	</div>
+			      	<div class="row">
+				      	<div class="col-xs-5">
+				      		<input style="display: inline-block;width: 180px;" class="form-control" type="text" placeholder="匹配 品牌编码/品牌名称/首字母">
+							<button style="width: 80px;" class="btn btn-warning" >搜索</button>
+				      	</div>
+				      	<div class="col-xs-7" style="padding-left: 10px;">
+				      		<input style="display: inline-block;width: 180px;" class="form-control" type="text" placeholder="匹配 车型编码/车型名称">
+							<button style="width: 80px;" class="btn btn-warning" >搜索</button>
+				      	</div>
+			      	</div>
+			      	<div class="row" style="padding-left:15px;">
+			      		<div class="col-xs-4" id="biao1" style="padding-left:0px;">
+			      			 <div role="tabpanel" class="tab-pane active" id="home">
+			    				<table class="table table-hover">
+						      		<tr class="bg-primary ac">
+										<td></td>
+										<td>编码</td>
+										<td>品牌名称</td>
+										<td>首字母</td>
+									</tr>
+							      	<tr v-for="item in cartype">
+										<td class="ae" @click="finddatacar(item)"></td>
+										<td>{{item.id}}</td>
+										<td>{{item.name}}</td>
+										<td>{{item.firstletter}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-xs-1"></div>
+						<div class="col-xs-7" id="biao2" style="padding-left:0px;">
+							<div role="tabpanel" class="tab-pane active" id="home">
+			    				<table class="table table-hover">
+						      		<tr class="bg-primary ac">
+										<td></td>
+										<td>车型ID</td>
+										<td>车型名称</td>
+										<td>参考价格</td>
+										<td>车辆年款</td>
+										<td>排气量</td>
+									</tr>
+							      	<tr v-for="item in datacar">
+										<td class="ae" @click="findenginebrand(item)"></td>
+										<td>{{item.id}}</td>
+										<td>{{item.name}}</td>
+										<td>1</td>
+										<td>1</td>
+										<td>1</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+			      	</div>
+			      	<p class="ae2" style="position: fixed;bottom: 10px;">记录条数：</p>
+			    </div>
+			  </div>
+			</div>
+			
+			<div id="modal5" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div style=" width: 600px;padding: 10px;" class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content" style="padding: 20px 20px 40px 20px;height: 520px;">
+			    	<button @click="clo('modal5')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      	<div id="top">
+			      		<h3 style="border-left: 5px #fdac23 solid; padding-left: 15px;">品牌车型</h3>
+			      	</div>
+			      	<div id="hao">
+				      	<div class="row" v-for="item in shengj">
+				      		<button @click="shengjian(item.shua)" style="margin-top: 5px;" type="button" class="btn btn-default btn-lg btn-block">{{item.shua}}</button>
+				      		<button @click="shengjian(item.shub)" type="button" class="btn btn-default btn-lg btn-block">{{item.shub}}</button>
+				      		<button @click="shengjian(item.shuc)" type="button" class="btn btn-default btn-lg btn-block">{{item.shuc}}</button>
+				      		<button @click="shengjian(item.shud)" type="button" class="btn btn-default btn-lg btn-block">{{item.shud}}</button>
+				      		<button @click="shengjian(item.shue)" type="button" class="btn btn-default btn-lg btn-block">{{item.shue}}</button>
+				      		<button @click="shengjian(item.shuf)" type="button" class="btn btn-default btn-lg btn-block">{{item.shuf}}</button>
+				      	</div>
+			      	</div>
+			    </div>
+			  </div>
+			</div>
+			
+			<div id="modal6" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div style=" width: 900px;padding: 10px;" class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content" style="padding: 20px 20px 40px 20px;">
+			    	<button @click="clo('modal6')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      	<div id="top" class="row">
+			      		<h3 class="col-xs-10" style="border-left: 5px #fdac23 solid;">客户分别表</h3>
+			      	</div>
+			      	<div class="row" style="height: 35px; line-height: 35px;margin-right: 0px;">
+						<div class="col-xs-8">
+							
+						</div>
+						<div class="col-xs-4">
+							<a style="margin-right: 20px;" class="bb" @click="tiankong"><span class="glyphicon glyphicon-plus-sign  aaa spanri"></span>增加</a>
+							<a style="margin-right: 20px;" class="bb" @click="declienttype"><span class="glyphicon glyphicon-remove-sign aaa spanri"></span>删除</a>	
+							<a style="margin-right: 20px;" class="bb" @click="tiupclienttype"><span class="glyphicon glyphicon-check aaa spanri"></span>保存</a>
+						</div>
+					</div>
+			      	<div  id="duo">
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">分类代码</span>
+			      			<input v-model="clienttypedan.id" type="text" class="form-control">
+			      				
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">客户类别</span>
+			      			<input v-model="clienttypedan.clienttype" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">价格类型</span>
+			      			<select class="form-control" style="width: 145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      		</div>
+			      		<div>
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">有效期（年）</span>
+			      			<input v-model="clienttypedan.validty" style="width: 70PX;" type="number" class="form-control">
+			      				
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">会费</span>
+			      			<input v-model="clienttypedan.cost" type="text" class="form-control">
+			      			
+			      			<span class="ak2 neia"></span>
+			      			<span class="ac2 neib">类别</span>
+			      			<select class="form-control" style="width: 145px; display: inline-block;margin: 0 5px;">
+			      				<option></option>
+			      				<option>1</option>
+			      			</select>
+			      		</div>
+			      	</div>
+			      	<div style="height: 300px; width: 820px;border: #000000 1px solid;">
+		      			<table class="table table-hover">
+				      		<tr class="bg-primary ac">
+								<td></td>
+								<td>编号</td>
+								<td>客户类别</td>
+								<td>价格类型</td>
+								<td>有效期</td>
+								<td>会费</td>
+								<td>类别</td>
+							</tr>
+					      	<tr v-for="item in clienttype">
+								<td class="ae" @click="findclitypebyid(item.id)"></td>
+								<td>{{item.id}}</td>
+								<td>{{item.clienttype}}</td>
+								<td>{{item.pricetype}}</td>
+								<td>{{item.validty}}</td>
+								<td>{{item.cost}}</td>
+								<td>{{item.type}}</td>
+							</tr>
+						</table>
+			      	</div>
+			      	<p class="ae2" style="position: fixed;bottom: 10px;">记录条数：</p>
+			    </div>
+			  </div>
+			</div>
+			
+		</div>
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			var vm = new Vue({
+				el: "#ctx",
+				data() {
+					return {
+						shengj:[
+							{shua:"京",shub:"泸",shuc:"津",shud:"渝",shue:"鲁",shuf:"冀"},
+							{shua:"晋",shub:"蒙",shuc:"辽",shud:"吉",shue:"黑",shuf:"苏"},
+							{shua:"浙",shub:"京",shuc:"闽",shud:"赣",shue:"豫",shuf:"鄂"},
+							{shua:"湘",shub:"京",shuc:"闽",shud:"赣",shue:"豫",shuf:"鄂"},
+							{shua:"云",shub:"藏",shuc:"陕",shud:"甘",shue:"青",shuf:"宁"},
+							{shua:"新",shub:"",shuc:"",shud:"",shue:"",shuf:""}
+						],
+						kh:false,
+						cl:false,
+						client:[],
+						cartype:[],
+						datacar:[],
+						clienttype:[],
+						clicarfind:[],
+						clienttypedan:{},
+						clientdan:{},
+						clicardan:{},
+						clientto:{},
+						clientcarinfo:{},
+						wanneng:{},
+						wannengto:{},
+						clientid:0,
+						mocha:"",
+						txzhi:""
+					}
+				},
+				methods: {
+					khdan(boo,type){
+						var that=this;
+						var bool=true;
+						if(type=="kai"){
+							if(boo=="kh"){
+								that.kh=bool;
+							}else{
+								that.cl=bool;
+							}
+						}else if(type=="guan"){
+							bool=false;
+							if(boo=="kh"){
+								that.kh=bool;
+							}else{
+								that.cl=bool;
+							}
+						}
+					},
+					mo(zhi,zhi2){
+						var that=this;
+						if(zhi2=="添"){
+							that.txzhi="添";
+							that.clientto={typeid:1};
+							that.clientcarinfo={carnumber:""};
+							that.wanneng={cartypename:"",datavarname:"",enginebrandname:""}
+						}else if(zhi2=="修"){
+							that.txzhi="修";
+							that.clientto=that.clientdan;
+							that.clientcarinfo=that.clicardan;
+							that.wanneng=that.wannengto;
+						}
+						$("#"+zhi).modal('show');
+					},
+					clo(zhi){
+						$("#"+zhi).modal('hide');
+					},
+					abc(itemm,dan){
+						var that = this;
+						if(dan=="tr"){
+							var clicarr = sessionStorage.getItem("clicar");
+							if(clicarr=="888"){
+								parent.vm.ceshi(itemm.number,itemm.name);
+								sessionStorage.setItem("clicar","");
+								var index=parent.layer.getFrameIndex(window.name);
+								parent.layer.close(index);
+							}
+							$("#tr_"+itemm.number).siblings().css("background-color","#FFFFFF");
+							$("#trr").css("background-color","#39cfde");
+							$("#tr_"+itemm.number).css("background-color","#F7DF31");
+							that.findcarById(itemm.number);
+							that.clientid=itemm.number;
+							that.clientdan=itemm;
+							that.abcd("2");
+						}else if(dan=="tr2"){
+							$("#tr2_"+itemm.id).siblings().css("background-color","#FFFFFF");
+							$("#trr2").css("background-color","#39cfde");
+							$("#tr2_"+itemm.id).css("background-color","#F7DF31");
+							that.clicardan=itemm;
+							that.wannengto.cartypename=itemm.cartype.name;
+							that.wannengto.datavarname=itemm.datacar.name;
+							that.wannengto.enginebrandname=itemm.enginebrand.enginebrandname;
+						}
+					},
+					abcd(mm){
+						var that = this;
+						if(mm=="1"){
+							$("#trr").siblings().css("background-color","#FFFFFF");
+							$("#trr").css("background-color","#39cfde");
+							that.clientdan={};
+						}else if(mm=="2"){
+							$("#trr2").siblings().css("background-color","#FFFFFF");
+							$("#trr2").css("background-color","#39cfde");
+							that.clicardan={};
+							that.wannengto={cartypename:"",datavarname:"",enginebrandname:""}
+						}
+						
+					},
+					find(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8899/dz_clientcon/findMo",
+							data:{
+								clistr:that.mocha
+							},
+							success:function(result){
+								/*alert("findMo")*/
+								console.log(result);
+								that.client=result;
+								that.abcd(1);
+								that.clicarfind=[];
+							}
+						});
+					},
+					gg(num,mo){
+						var that = this;
+						if(that.txzhi=="添"&&num=="0"){
+							alert(1)
+							that.tian(mo);
+						}else if(that.txzhi=="修"&&num=="0"){
+							alert(2)
+							that.xiugaiclient(mo);
+						}else if(that.txzhi=="添"&&num=="1"){
+							alert(3)
+							if(that.clientdan.name!=undefined){
+								that.tiancar(mo);
+							}else{
+								alert("请选择对象！");
+							}
+							
+						}else if(that.txzhi=="修"&&num=="1"){
+							alert(4)
+							that.updatcar(mo);
+						}else if(that.txzhi=="添"&&num=="2"){
+							alert(5)
+							that.tiancarcli(mo);
+						}
+					},
+					tian(mo){
+						var that = this;
+						var str = JSON.stringify(that.clientto);
+						$.ajax({
+							url:"http://localhost:8899/dz_clientcon/create",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								/*alert("findMo")*/
+								// console.log(132);
+								alert(result);
+								alert("添加的成功！");
+								that.find();
+								$("#"+mo).modal('hide');
+								
+							}
+						});
+					},
+					deleteclient(){
+						var that = this;
+						if(that.clientdan.number!=undefined){
+							var str = JSON.stringify(that.clientdan);
+							$.ajax({
+								url:"http://localhost:8899/dz_clientcon/remove",
+								data:str,
+								type:"post",
+								contentType: "application/json;charset=utf-8",
+								success:function(result){
+									alert(result);
+									alert("删除的成功！");
+									that.find();
+									that.clientdan={};
+									that.clicarfind=[];
+									that.abcd("1");
+								}
+							});
+						}else{
+							alert("请你选择要删除的对象！");
+						}
+					},
+					xiugaiclient(mo){
+						var that = this;
+						var str = JSON.stringify(that.clientdan);
+						$.ajax({
+							url:"http://localhost:8899/dz_clientcon/update",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								alert(result);
+								alert("修改的成功！");
+								that.find();
+								$("#"+mo).modal('hide');
+							}
+						});
+					},
+					findcar(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8899/dz_clicar/find",
+							success:function(result){
+								that.clicarfind=result;
+							}
+						});
+					},
+					findcarById(id){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8899/dz_clicar/findById",
+							data:{
+								id:id
+							},
+							success:function(result){
+								console.log(result);
+								that.clicarfind=result;
+							}
+						});
+					},
+					tiancar(mo){
+						var that = this;
+						/*that.clientcarinfo.enginebrandid=1;*/
+						that.clientcarinfo.clientid=that.clientdan.number;
+						alert(that.clientcarinfo.clientid+"///")
+						var str = JSON.stringify(that.clientcarinfo);
+						$.ajax({
+							url:"http://localhost:8899/dz_clicar/create",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								alert(result);
+								that.findcarById(that.clientid);
+								$("#"+mo).modal('hide');
+							}
+						});
+					},
+					updatcar(mo){
+						var that = this;
+						var str = JSON.stringify(that.clientcarinfo);
+						$.ajax({
+							url:"http://localhost:8899/dz_clicar/update",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								alert(result);
+								alert("修改成功！");
+								that.findcarById(that.clientid);
+								$("#"+mo).modal('hide');
+							}
+						});
+					},
+					deletecar(){
+						var that = this;
+						if(that.clicardan.carnumber!=undefined){
+							var str = JSON.stringify(that.clicardan);
+							$.ajax({
+								url:"http://localhost:8899/dz_clicar/remove",
+								data:str,
+								type:"post",
+								contentType: "application/json;charset=utf-8",
+								success:function(result){
+									alert(result);
+									alert("删除成功！");
+									that.findcarById(that.clientid);
+								}
+							});
+						}else{
+							alert("请你选择要删除的对象！");
+						}
+					},
+					findcartype(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8899/dz_Cartype/find",
+							success:function(result){
+								that.cartype=result;
+							}
+						});
+					},
+					finddatacar(item){
+						var that = this;
+						that.clientcarinfo.cartypeid=item.id;
+						that.wanneng.cartypename=item.name;
+						$.ajax({
+							url:"http://localhost:8899/dz_Datacar/findById",
+							data:{
+								id:item.id
+							},
+							success:function(result){
+								that.datacar=result;
+							}
+						});
+					},
+					findenginebrand(item){
+						var that = this;
+						that.wanneng.datavarname=item.name;
+						alert(item.id)
+						that.clientcarinfo.enginebrandid=item.id;
+						$.ajax({
+							url:"http://localhost:8899/dz_Enginebrand/findById",
+							data:{
+								id:item.id
+							},
+							success:function(result){
+								that.wanneng.enginebrandname=result.enginebrandname;
+							}
+						});
+					},
+					tiancarcli(mo){
+						var that = this;
+						that.clientdan.number=that.clientto.number;
+						that.tiancar();
+						that.tian();
+						$("#"+mo).modal('hide');
+					},
+					findclitype(){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8899/dz_clienttypecon/find",
+							success:function(result){
+								that.clienttype=result;
+							}
+						});
+					},
+					findclitypebyid(id){
+						var that = this;
+						$.ajax({
+							url:"http://localhost:8899/dz_clienttypecon/findbyid",
+							data:{
+								id:id
+							},
+							success:function(result){
+								that.clienttypedan=result;
+							}
+						});
+					},
+					tiankong(){
+						var that = this;
+						that.clienttypedan={id:undefined};
+					},
+					tianclienttype(){
+						var that = this;
+						var str = JSON.stringify(that.clienttypedan);
+						$.ajax({
+							url:"http://localhost:8899/dz_clienttypecon/create",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								alert(result);
+								alert("添加成功！")
+								that.findclitype();
+							}
+						});
+					},
+					upclienttype(){
+						var that = this;
+						var str = JSON.stringify(that.clienttypedan);
+						$.ajax({
+							url:"http://localhost:8899/dz_clienttypecon/update",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								alert(result);
+								alert("修改成功！")
+								that.findclitype();
+							}
+						});
+					},
+					tiupclienttype(){
+						var that = this;
+						if(that.clienttypedan.id==undefined){
+							that.clienttypedan.id=0;
+						}
+						var str = JSON.stringify(that.clienttypedan);
+						$.ajax({
+							url:"http://localhost:8899/dz_clienttypecon/tiup",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								alert(result);
+								alert("保存成功！")
+								that.tiankong();
+								that.findclitype();
+								that.find();
+							}
+						});
+					},
+					declienttype(){
+						alert(13)
+						var that = this;
+						var str = JSON.stringify(that.clienttypedan);
+						$.ajax({
+							url:"http://localhost:8899/dz_clienttypecon/remove",
+							data:str,
+							type:"post",
+							contentType: "application/json;charset=utf-8",
+							success:function(result){
+								alert(result);
+								alert("删除成功！")
+								that.tiankong();
+								that.findclitype();
+							}
+						});
+					},
+					shengjian(shu){
+						var that = this;
+						alert(shu)
+						that.clientcarinfo.carnumber=shu;
+						that.clo('modal5');
+					},
+					pinxingcun(){
+						var that = this;
+						that.clo('modal4');
+					},
+					clienttypeup(item){
+						var that = this;
+						that.clientdan.typeid=item.id;
+					},
+					clienttypebao(mo){
+						var that = this;
+						that.xiugaiclient(mo);
+					}
+				},
+				created() {
+					var that = this;
+					that.find();
+					that.findcartype();
+					that.findclitype();
+				}
+			});
+		</script>
+	</body>
+
+</html>

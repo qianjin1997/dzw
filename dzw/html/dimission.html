@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>离职登记</title>
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../elementui/index.css">
 		<style>
 			*{
 				margin: 0;
@@ -27,142 +28,146 @@
 									<i style="color: #F7A621; margin-left: 15px;" class="glyphicon glyphicon-user"></i>
 									<a href="javascript:void(0)" style="font-size: 17px; color: #848684;font-weight: 100;">实名认证</a>
 								</div>
-		  <!-- Nav tabs -->
-		  <ul style="margin-top: 20px;" class="nav nav-tabs" role="tablist">
-		    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">其他资料</a></li>
-		    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">基本信息</a></li>
-		  </ul>
-		  <!-- Tab panes -->
-		    <div class="tab-content">
-			    <div role="tabpanel" class="tab-pane active" id="home"style="margin-left: 15px;margin-top: 15px;">
-			    	<p>
-				    	<i style="color: red; font-size: 8px;position: relative; top:-5px">★</i>
-				    	<span style=" font-size:16px; color: #21BECE;">员工编号</span>
-				    	<input readonly="readonly" style="margin-top: 5px;margin-left:5px;width: 150px; display: inline-block; " class="form-control" type="text">
-				    	<i style="color: red; font-size: 8px; margin-left:100px;position: relative; top:-5px">★</i>
-				    	<span style=" font-size:16px; color: #21BECE;">员工姓名</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 110px; display: inline-block; " class="form-control" type="text">
-				    	<i style="color: red; font-size: 8px; margin-left:50px;position: relative; top:-5px">★</i>
-				    	<span style=" font-size:16px; color: #21BECE;">性别</span>
-				    	<select style="margin-top: 5px;margin-left:5px;width: 80px; display: inline-block; " class="form-control">
-							  <option>男</option>
-							  <option>女</option>
-						</select>
-					</p>
-					<p>
-						<i style="color: red; font-size: 8px;position: relative; top:-5px">★</i>
-				    	<span style=" font-size:16px; color: #21BECE;">所在门店</span>
-				    	<input readonly="readonly" style="margin-top: 5px;margin-left:5px;width: 260px; display: inline-block; " class="form-control" type="text">
-				    	<i style="color: red; font-size: 8px;position: relative; top:-5px">★</i>
-				    	<span style=" font-size:16px; color: #21BECE;">所在部门</span>
-				    	<input readonly="readonly" style="margin-top: 5px;margin-left:5px;width: 260px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">登录账号</span>
-				    	<input  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">岗位</span>
-				    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">身体状况</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 13px;">身高</span>
-				    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">籍贯</span>
-				    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;"  >民族</span>
-				    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">婚姻状况</span>
-				    	<input  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">学历</span>
-				    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">毕业学校</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">专业</span>
-				    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">专业资格</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<i style="color: red; font-size: 8px;position: relative; top:-5px;">★</i>
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 8px;">属性</span>
-				    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">学位</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">编制</span>
-				    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">身份证号</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">户口地址</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 355px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-						<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">现住地址</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 355px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 20px;">联系电话</span>
-				    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">手机</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">EMail</span>
-				    	<input  style="margin-top: 5px;margin-left:28px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">开户银行</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">银行账号</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">紧急联系人</span>
-				    	<input  style="margin-top: 5px;margin-left:28px;width: 90px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">联系电话</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">入职日期</span>
-				    	<input  style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">试用日期</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">出生日期</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">合同开始</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">合同结束</span>
-				    	<input  style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">卡自编号</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">卡内部号</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">推荐人</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="text">
-					</p>
-					<p>
-				    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">整单折扣权%</span>
-				    	<input  style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">工时折扣权%</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">商品折扣权%</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
-				    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">减免权</span>
-				    	<input style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
-					</p>
-			    </div>
-			    <div role="tabpanel" class="tab-pane" id="profile">
-			    	
-			    </div>
-		 	</div>
-	 	</div>
-	</div>	
-				     </div> 
-				    </div><!-- /.modal-content -->
-			 	</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
+								<!-- Nav tabs -->
+									  <ul style="margin-top: 20px;" class="nav nav-tabs" role="tablist">
+									    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">其他资料</a></li>
+									    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">基本信息</a></li>
+									  </ul>
+									  <!-- Tab panes -->
+									    <div class="tab-content">
+										    <div role="tabpanel" class="tab-pane active" id="home"style="margin-left: 15px;margin-top: 15px;">
+										    	<p>
+											    	<i style="color: red; font-size: 8px;position: relative; top:-5px">★</i>
+											    	<span  style=" font-size:16px; color: #21BECE;">员工编号</span>
+											    	<input v-model="jihe.amyid" readonly="readonly" style="margin-top: 5px;margin-left:5px;width: 150px; display: inline-block; " class="form-control" type="text">
+											    	<i style="color: red; font-size: 8px; margin-left:100px;position: relative; top:-5px">★</i>
+											    	<span style=" font-size:16px; color: #21BECE;">员工姓名</span>
+											    	<input v-model="jihe.staff.pname" style="margin-top: 5px;margin-left:5px;width: 110px; display: inline-block; " class="form-control" type="text">
+											    	<i style="color: red; font-size: 8px; margin-left:50px;position: relative; top:-5px">★</i>
+											    	<span style=" font-size:16px; color: #21BECE;">性别</span>
+											    	<select  v-model="jihe.staff.sex" style="margin-top: 5px;margin-left:5px;width: 80px; display: inline-block; " class="form-control">
+														  <option>男</option>
+														  <option>女</option>
+													</select>
+												</p>
+												<p>
+													<i style="color: red; font-size: 8px;position: relative; top:-5px">★</i>
+											    	<span style=" font-size:16px; color: #21BECE;">所在门店</span>
+											    	<input v-model="zsection.qid" readonly="readonly" style="margin-top: 5px;margin-left:5px;width: 50px; display: inline-block; " class="form-control" type="text">
+													<input v-model="zsection.qname" readonly="readonly" style="width: 195px; display: inline-block; " class="form-control" type="text">
+											    	<i style="color: red; font-size: 8px;position: relative; top:-5px">★</i>
+											    	<span style=" font-size:16px; color: #21BECE;">所在部门</span>
+											    	<input :value="jihe.section.qid" readonly="readonly" style="margin-top: 5px;margin-left:5px;width: 50px; display: inline-block; " class="form-control" type="text">
+													<input :value="jihe.section.bmname" readonly="readonly" style="width: 175px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">登录账号</span>
+											    	<input  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">岗位</span>
+											    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">身体状况</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 13px;">身高</span>
+											    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">籍贯</span>
+											    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;"  >民族</span>
+											    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">婚姻状况</span>
+											    	<input  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">学历</span>
+											    	<input style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">毕业学校</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">专业</span>
+											    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">专业资格</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<i style="color: red; font-size: 8px;position: relative; top:-5px;">★</i>
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 8px;">属性</span>
+											    	<select  v-model="jihe.staff.sex" style="margin-top: 5px;margin-left:35px;width:130px; display: inline-block; " class="form-control">
+											    		  <option>记考勤计薪</option>
+											    	</select>
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">学位</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">编制</span>
+											    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">身份证号</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">户口地址</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 355px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+													<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">现住地址</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 355px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 20px;">联系电话</span>
+											    	<input  style="margin-top: 5px;margin-left:35px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">手机</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">EMail</span>
+											    	<input  style="margin-top: 5px;margin-left:28px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">开户银行</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">银行账号</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">紧急联系人</span>
+											    	<input  style="margin-top: 5px;margin-left:28px;width: 90px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">联系电话</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">入职日期</span>
+											    	<input  :value="jihe.staff.pentrydate"  style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">试用日期</span>
+											    	<input :value="jihe.staff.ptrialdate" style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
+											    	<span  style=" font-size:16px; color: #21BECE; margin-left: 10px;">出生日期</span>
+											    	<input :value="jihe.staff.pbirthdate" style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">合同开始</span>
+											    	<input :value="jihe.staff.pbegindate" style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="date">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">合同结束</span>
+											    	<input :value="jihe.staff.poverdate" style="margin-top: 5px;margin-left:5px;width: 143px; display: inline-block; " class="form-control" type="date">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">卡自编号</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">卡内部号</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 10px;">推荐人</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 140px; display: inline-block; " class="form-control" type="text">
+												</p>
+												<p>
+											    	<span style=" font-size:16px; color: #21BECE;margin-left: 13px;">整单折扣权%</span>
+											    	<input  style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">工时折扣权%</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">商品折扣权%</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
+											    	<span style=" font-size:16px; color: #21BECE; margin-left: 20px;">减免权</span>
+											    	<input style="margin-top: 5px;margin-left:5px;width: 100px; display: inline-block; " class="form-control" type="text">
+												</p>
+										    </div>
+										    <div role="tabpanel" class="tab-pane" id="profile">
+										    	
+										    </div>
+									 	</div>
+								 	</div>
+								</div>	
+							</div> 
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 			<div id="two" class="modal fade" tabindex="-1" role="dialog">
 				  <div class="modal-dialog" role="document" style="width: 730px;">
 				    <div class="modal-content">
@@ -171,17 +176,19 @@
 							<div style=" margin: auto; width: 700px; height: 320px;">
 								<div style="width: 4px; margin-left: 30px; height: 25px; background-color: #F7A621;float: left;margin-top: 4px;"></div>
 									<h3 style="color: #6B696B; float:left;margin-top: 5px;margin-left: 10px;">离职登记</h3>
-									<button type="button" style="width: 100px; margin-left: 400px;"  class="btn btn-success"><i style="font-size: 12px;margin-right: 5px;">√</i>确定</button>
+									<button @click="oklizhi()" type="button" style="width: 100px; margin-left: 400px;"  class="btn btn-success"><i style="font-size: 12px;margin-right: 5px;">√</i>确定</button>
 									<div style="border: 1px solid #CEEFF7; margin:10px auto; width: 650px; height: 250px; padding: 5px;">
 									<p>
 										<span style="color: #29BECE; font-size: 16px;">员工姓名</span>
-										<input style="margin-top: 5px;margin-left:5px;width: 300px; display: inline-block; " class="form-control" type="text">
+										<select v-model="pname" style="margin-top: 5px;margin-left:5px;width: 300px; display: inline-block; " class="form-control">
+											  <option  v-for="item in staffs">{{item.pname}}</option>
+										</select>
 										<span style="margin-left: 5px;color: #29BECE; font-size: 16px;">离职日期</span>
-										<input style="margin-top: 5px;margin-left:5px;width: 150px; display: inline-block; " class="form-control" type="date">
+										<input v-model="zstaff.amldate" id="lzdate" style="margin-top: 5px;margin-left:5px;width: 150px; display: inline-block; " class="form-control" type="date">
 									</p>
 									<p>
 										<span style="color: #29BECE; font-size: 16px;">离职原因</span>
-										<input style="margin-top: 5px;margin-left:5px;width: 533px; display: inline-block; " class="form-control" type="text">
+										<input v-model="zstaff.amcause" style="margin-top: 5px;margin-left:5px;width: 533px; display: inline-block; " class="form-control" type="text">
 									</p>
 									<table style="background-color: #39CFDE; font-size: 16px;color: white;" class="table table-bordered">
 										<tr>
@@ -219,7 +226,7 @@
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-print"></span>
-						<a  href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">回滚</a>
+						<a @click="huigun()"  href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">回滚</a>
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-share"></span>
@@ -227,7 +234,7 @@
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-trash"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">删除</a>
+						<a @click="del()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">删除</a>
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-globe"></span>
@@ -235,7 +242,7 @@
 					</span>
 					<span style="padding-right:25px;">
 						<span style="color: #FFAE21;" class="glyphicon glyphicon-export"></span>
-						<a href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">导出</a>
+						<a @click="exportExcel()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">导出</a>
 					</span>
 				</div>
 			</div>
@@ -250,83 +257,278 @@
 					<td style="color: #FFFFFF; font-size: 16px; width: 250px;">离职日期</td>
 					<td style=" color: #FFFFFF; font-size: 16px; width: 550px;">离职原因</td>
 				</tr>
-				<tr style="text-align: center;">
+				<tr class="bcolor" ref="bcolor" v-for="(item,index) in list.list" @click="bian(item,index)"  style="text-align: center;background-color: #FFFFFF;">
 					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">个地方官</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
-				</tr>
-				<tr style="text-align: center;">
-					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">个地方官</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
-				</tr>
-				<tr style="text-align: center;">
-					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">个地方官</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
-				</tr>
-				<tr style="text-align: center;">
-					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">个地方官</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
-				</tr>
-				<tr style="text-align: center;">
-					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">个地方官</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
+					<td style=" width:250px; font-size: 16px;">{{item.section.bmname}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.amyid}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.staff.pname}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.staff.psex}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.staff.pgname}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.amldate}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.amcause}}</td>
 				</tr>
 			</table>
-			
+			<div >
+				<nav aria-label="...">
+				  <ul class="pager">
+				    <li><a href="javascript:void(0)" @click="findbypage(1)">首页</a></li>
+				    <li><a href="javascript:void(0)" @click="findbypage(list.prePage==0?1:list.prePage)">上一页</a></li>
+				    <li><a href="javascript:void(0)" @click="findbypage(list.nextPage==0?1:list.nextPage)">下一页</a></li>
+				    <li><a href="javascript:void(0)" @click="findbypage(list.pages)">尾页</a></li>
+				    <li>{{list.pageNum}}/{{list.pages}}</li>
+				 </ul>
+				</nav>
+			</div>
 		</div>
-		<span style="font-size: 16px; color: #6B696B;">合计:5条记录</span>
+		<span style="font-size: 16px; color: #6B696B;">合计:{{count}}条记录</span>
 	</div>
 	
 	<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		var vm = new Vue({
 				el:".tit",
 				data(){
 					return {
-						
+						count:0, //总记录数
+						list:{},
+						jihe:{
+							staff:{},
+							section:{},
+							amyid:0
+						},
+						zsection:{},
+						zstaff:{},
+						dimssions:[], //离职表所有数据
+						staffs:[], //除离职员工数据
+						pname:"",  //离职员工姓名
+						list1:[]
 					};
 				},
 				methods:{
-					open(){
-						$('#one').modal('show');
+					exportExcel(){
+						window.location.href="http://127.0.0.1:8888/dimission/exportExcel";
 					},
+					del(){
+						var that = this;
+						console.log(that.jihe.amyid)
+						if(that.jihe.amyid==0){
+							that.$message('请先选择一名员工信息');
+						}
+						else{
+							this.$confirm('是否将员工所有信息删除?', '提示', {
+							          confirmButtonText: '确定',
+							          cancelButtonText: '取消',
+							          type: 'warning'
+							        }).then(() => {
+										$.ajax({
+											url:"http://127.0.0.1:8888/dimission/delall?id="+that.jihe.amyid,
+											type:"get",
+											dataType:"text",
+											success:function(result){
+												if(result=="000"){
+													alert("删除成功");
+													that.findall();
+													that.jihe={
+														staff:{},
+														section:{},
+														amyid:0
+													}
+													that.findbypage(1);
+												}
+												else{
+													alert("删除失败")
+												}
+											}
+										})
+							        }).catch(() => {
+							          this.$message({
+							            type: 'info',
+							            message: '已取消删除'
+							          });          
+							        });
+						}
+						
+					},
+					//点击确认离职按钮触发事件
+					oklizhi(){
+						var that = this
+						var dis = JSON.stringify(that.zstaff);
+						$.ajax({
+							url:"http://127.0.0.1:8888/dimission/disadd/"+that.pname,
+							type:"post",
+							data:dis,
+							dataType:"text",
+							contentType:"application/json;charset=utf-8",
+							success:function(result){
+								if(result=="000"){
+									alert("成功离职");
+									that.findbypage(1);
+									that.staffs = {};
+									that.findall();
+									$('#two').modal('hide');
+								}
+								else{
+									alert("离职失败");
+								}
+							}	
+						})
+					},
+					//员工信息窗口打开
+					open(){
+						var that = this;
+						console.log(that.jihe)
+						if(that.jihe.amyid==0){
+							that.openn();
+						}
+						else{
+							$('#one').modal('show');
+						}
+					},
+					//当没有选中员工时候触发事件
+					 openn() {
+					        this.$message('请先选择一名员工信息');
+					 },
+					 //点击离职触发事件
 					lizhi(){
+						var that =this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/staff/find",
+							type:"get",
+							success:function(result){
+								for(var i=0;i<result.length;i++){
+									for(var j=0;j<that.dimssions.length;j++){
+										if(result[i].pid==that.dimssions[j].amyid){
+										//	alert(that.dimssions[that.dimssions.length-1].amid)
+											result.splice(i,1);
+										}
+									}
+								}
+								console.log(result)
+								that.staffs =result;
+								//console.log(that.staffs)
+								if(that.staffs.length>0){
+									that.pname = that.staffs[0].pname;
+								}
+							}	
+						})
+						var time = new Date();
+						var day = ("0" + time.getDate()).slice(-2);
+				        var month = ("0" + (time.getMonth() + 1)).slice(-2);
+				        var today = time.getFullYear() + "-" + (month) + "-" + (day);
+						that.zstaff.amldate = today;
+					   // $('#lzdate').val(today);
 						$('#two').modal('show');
+					},
+					//所有离职员工查询
+					findall(){
+						var that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/dimission/findall",
+							type:"get",
+							success:function(result){
+								console.log(result)
+								that.count = result.length;
+								that.dimssions =result;
+							}	
+						})
+					},
+					//离职员工分页查询
+					findbypage(pageNum,as){
+						var that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/dimission/findbypage?pageNum="+pageNum+"&pageSize=2",
+							type:"get",
+							success:function(result){
+								console.log(result)
+								that.list =result;
+							}	
+						})
+						if(as==null){
+							that.jihe.amyid = 0;
+							for(var o =0; o<that.$refs.bcolor.length;o++){
+								that.$refs.bcolor[o].style.backgroundColor="rgb(255, 255, 255)";
+							}
+						}
+						
+					},
+					//主板块查询
+					findSection(){
+						var that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/dimission/findSection",
+							type:"get",
+							success:function(result){
+								//console.log(result)
+								that.zsection = result;
+							}
+						})
+					},
+					//回滚
+					huigun(){
+						var that = this;
+						if(that.jihe.amyid==0){
+							that.openn();
+						}
+						else{
+							this.$confirm('是否将员工回滚?', '提示', {
+							          confirmButtonText: '确定',
+							          cancelButtonText: '取消',
+							          type: 'warning'
+							        }).then(() => {
+										$.ajax({
+											url:"http://127.0.0.1:8888/dimission/del?id="+that.jihe.amid,
+											type:"get",
+											dataType:"text",
+											success:function(result){
+												if(result=="000"){
+													alert("回滚成功");
+													//that.staffs={}
+													that.findall();
+													that.jihe={
+														staff:{},
+														section:{},
+														amyid:0
+													}
+													that.findbypage(1);
+												}
+												else{
+													alert("回滚失败")
+												}
+											}
+										})
+							        }).catch(() => {
+							          this.$message({
+							            type: 'info',
+							            message: '已取消回滚'
+							          });          
+							        });
+						}
+						
+					},
+					//点击获取员工数据
+					bian(item,index){
+						var that = this;
+						console.log(that.$refs.bcolor);
+						for(var s=0;s<that.$refs.bcolor.length;s++){
+							if(s==index){
+								that.$refs.bcolor[s].style.backgroundColor="rgb(187, 255, 255)";
+								for(var o =0; o<that.$refs.bcolor.length;o++){
+									if(that.$refs.bcolor[s]!=that.$refs.bcolor[o]){
+										that.$refs.bcolor[o].style.backgroundColor="rgb(255, 255, 255)";
+									}
+								}
+							}
+						}
+						that.jihe = item;
 					}
 				},
 				created(){
-					
+					this.findbypage(1,"a");
+					this.findSection();
+					this.findall();
 				}
 			});
 	</script>

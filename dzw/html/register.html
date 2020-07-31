@@ -6,6 +6,10 @@
 		<title>维修接车</title>
 		<link rel="stylesheet" type="text/css" href="../elementui/index.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/goods.css"/>
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" href="../css/layui.css" />
+		<link rel="stylesheet" href="../css/layui.mobile.css"/>
+		<link href=".././elementui/index.css"/>
 		<style type="text/css">
 			*{
 				margin: 0px;
@@ -17,6 +21,9 @@
 			  
 			.el-aside {
 				color: #333;
+			}
+			.cx{
+				color: red;
 			}
 		</style>
 	</head>
@@ -41,7 +48,7 @@
 			
 			<el-row style="margin-top: 10px;">
 				<el-col :offset="18" :span="6">
-					<el-link href="keep.html" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>维修接车</el-link>
+					<el-link @click="wxjc()" type="info" class="bitbtn" :underline="false"><i class="el-icon-s-fold bit"></i>维修接车</el-link>
 					<el-link href="keep.html" type="info" class="bitbtn" :underline="false"><i class="el-icon-edit bit"></i>救援开单</el-link>
 					<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-help bit"></i>关注公众号</el-link>
 				</el-col>
@@ -60,36 +67,36 @@
 						</tr>
 						<tr>
 							<td>姓名：</td>
-							<td>--</td>
+							<td class="cx"><span>{{car.customer.ecustomername}}</span><span v-if="car.hlicenseno==undefined">--</span></td>
 						</tr>
 						<tr>
 							<td>地址：</td>
-							<td>--</td>
+							<td class="cx"><span>{{car.customer.eaddress}}</span><span v-if="car.hlicenseno==undefined">--</span></td>
 						</tr>
 						<tr>
 							<td>驾驶员：</td>
-							<td>--</td>
+							<td class="cx"><span>{{car.driver.oname}}</span><span v-if="car.hlicenseno==undefined">--</span></td>
 						</tr>
 					</table>
 				 </el-col>
 				 <el-col :span="6">
-					<a href="cara.html" style="color: #39CEDE;">车牌号<i class="el-icon-caret-bottom"></i></a>
-					<input style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
+					<a @click="open()" href="javascript:void(0)" style="color: #39CEDE;">车牌号<i class="el-icon-caret-bottom"></i></a>
+					<input :value="car.hlicenseno" style="border: 0px #000000 solid;border-bottom: 1px #000000 solid;height: 30px;width: 280px;" />
 					<table>
 						<tr style="color: #39CEDE;">
 							<td>车主信息</td>
 						</tr>
 						<tr>
 							<td>品牌：</td>
-							<td>--</td>
+							<td class="cx"><span>{{car.carbrand.ibrandname}}</span><span v-if="car.hlicenseno==undefined">--</span></td>
 						</tr>
 						<tr>
 							<td>发动机品牌：</td>
-							<td>----------------------------</td>
+							<td class="cx"><span>{{car.cartype.jtypename}}</span><span v-if="car.hlicenseno==undefined">---------------</span></td>
 						</tr>
 						<tr>
 							<td>保险日期：</td>
-							<td>--</td>
+							<td class="cx"><span>{{car.syxlastdate}}</span><span v-if="car.hlicenseno==undefined">--</span></td>
 						</tr>
 					</table>
 				 </el-col>
@@ -117,14 +124,14 @@
 			
 			<template>
 			  <el-tabs v-model="activeName" @tab-click="handleClick">
-			    <el-tab-pane label="用户管理" name="first"></el-tab-pane>
-			    <el-tab-pane label="配置管理" name="second"></el-tab-pane>
-			    <el-tab-pane label="角色管理" name="third"></el-tab-pane>
-			    <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
+			    <el-tab-pane label="作业中车辆" name="first"></el-tab-pane>
+			    <el-tab-pane @click="lishi()" label="维修历史" name="second"></el-tab-pane>
+			    <el-tab-pane label="维修项目" name="third"></el-tab-pane>
+			    <el-tab-pane label="领料情况" name="fourth"></el-tab-pane>
 			  </el-tabs>
 			</template>
 			
-			<el-container style="height: 310px; border: 1px solid #eee">
+			<el-container style=" border: 1px solid #eee">
 			  
 			  <el-container content="true">
 				<template>
@@ -132,9 +139,9 @@
 					border
 				    :header-cell-style="{background:'#39CEDE',color:'white'}"
 				    ref="singleTable"
-				    :data="page.list"
+				    :data="reg"
 				    highlight-current-row
-				    @current-change="handleCurrentChange"
+				    @current-change="ahandleCurrentChange"
 				    style="width: 100%;">
 				    <el-table-column
 				      type="alid"
@@ -142,50 +149,51 @@
 				    </el-table-column>
 				    <el-table-column
 					show-overflow-tooltip
-				      property="alid"
-				      label="维修单号"
+				      property="sta.zstatus"
+				      label="单据状态"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
 					show-overflow-tooltip
-				      property="alclearingform"
-				      label="单据类型"
+				      property="xm.xmaintainname"
+				      label="业务类型"
 				      width="120">
 				    </el-table-column>
 				    <el-table-column
 					show-overflow-tooltip
-				      property="albusinessid"
-				      label="业务类型">
+				      property="cus.ecustomername"
+				      label="客户名称">
 				    </el-table-column>
 					<el-table-column
 					show-overflow-tooltip
-					  property="aldivisions"
-					  label="施工班次">
-					</el-table-column>
-					<el-table-column
-					show-overflow-tooltip
-					  property="alcarownername"
-					  label="车主姓名">
-					</el-table-column>
-					<el-table-column
-					show-overflow-tooltip
-					  property="alcarid"
+					  property="car.hlicenseno"
 					  label="车牌号">
 					</el-table-column>
 					<el-table-column
 					show-overflow-tooltip
-					  property="alcarid"
-					  label="车型">
+					  property="cus.ephone"
+					  label="手机">
 					</el-table-column>
 					<el-table-column
 					show-overflow-tooltip
 					  property="alcarid"
-					  label="车架号">
+					  label="会员卡号">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="wid"
+					  label="维修单号">
+					</el-table-column>
+					<el-table-column
+					show-overflow-tooltip
+					  property="alcarid"
+					  
+					  label="单据类型">
 					</el-table-column>
 					<el-table-column
 					show-overflow-tooltip
 					  property="aldepartdate"
-					  label="接车时间">
+					  label="开单时间">
 					</el-table-column>
 					<el-table-column
 					show-overflow-tooltip
@@ -197,71 +205,319 @@
 					  property="alroadworkdate"
 					  label="完工时间">
 					</el-table-column>
-					<el-table-column
-					show-overflow-tooltip
-					  property="alroadworkdate"
-					  label="误工原因">
-					</el-table-column>
-					<el-table-column
-					show-overflow-tooltip
-					  property="alroadworkdate"
-					  label="返工数">
-					</el-table-column>
-					<el-table-column
-					show-overflow-tooltip
-					  property="alroadworkdate"
-					  label="返工原因">
-					</el-table-column>
-					<el-table-column
-					show-overflow-tooltip
-					  property="alroadworkdate"
-					  label="责任人">
-					</el-table-column>
-					<el-table-column
-					show-overflow-tooltip
-					  property="alwxremake"
-					  label="处罚金额">
-					</el-table-column>
 				  </el-table>
 				</template>
 			 <el-footer>
-				<el-pagination
-				style="text-align: center;"
-				  @current-change="fyhandleCurrentChange"
-				  background
-				  layout="prev, pager, next"
-				  :page-size="4"
-				  :total="page.total">
-				</el-pagination>
+				
 			 </el-footer>
 			 </el-container>
 			</el-container>
 			
+			
+			
+			<div id="two" class="modal fade" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document" style="width: 730px;">
+				    <div class="modal-content">
+				      <div class="modal-body">
+				        <template>
+				        	<el-table
+				        		:data="page.list"
+				        		style="width: 100%"
+				        		height="250"
+				        		type="index"
+				        		border
+				        		highlight-current-row
+				        		
+								@row-dblclick="handleCurrentChange"
+				        		:header-cell-style="{background:'#39CEDE',color:'white'}">
+				        	<el-table-column
+				        		fixed
+				        		prop="hlicenseno"
+				        		label="车牌号码"
+				        		width="150">
+				        	 </el-table-column>
+				        	 <el-table-column
+				        	 	prop="carbrand.ibrandname"
+				        		label="车辆品牌"
+				        		width="120">
+				        	 </el-table-column>
+				        	 <el-table-column
+				        	 	prop="cartype.jtypename"
+				        		label="车辆型号"
+				        		width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		prop="driver.oname"
+				        		label="驾驶员"
+				        		width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		prop="driver.ophone"
+				        		label="驾驶员电话"
+				        		width="300">
+				        	</el-table-column>
+				        	<el-table-column
+				        		prop="driver.obirthday"
+				        		label="出生日期"
+				        		width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		prop="hvehicleownership"
+				        		label="车辆归属"
+				        		width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="driver.oexpire"
+				        		 label="驾证到期"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hvin"
+				        		 label="车架号"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hengineno"
+				        		 label="发动机号"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="zip"
+				        		 label="发动机品牌号"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hcarmj"
+				        		 label="车辆年款"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hmileage"
+				        		 label="里程"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="zip"
+				        		 label="载重"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hcarseries"
+				        		 label="车系"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hbuydate"
+				        		 label="购买日期"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hbldate"
+				        		 label="上牌日期"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hsoidate"
+				        		 label="车检到期"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hjqxicbc"
+				        		 label="交强险保险公司"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hjqxexpire"
+				        		 label="交强险到期"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hsyxicbc"
+				        		 label="商业保险公司"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="syxlastdate"
+				        		 label="商业险到期"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hicar"
+				        		 label="在我投保车"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="fuel.kfuelname"
+				        		 label="燃油类别"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hnextmileage"
+				        		 label="下次保养里程"
+				        		 width="120">
+				        	</el-table-column>
+				        	<el-table-column
+				        		 prop="hmileagedate"
+				        		 label="下次保养日期"
+				        		 width="120">
+				        	</el-table-column>
+				            </el-table>
+				        </template>
+				        <el-pagination
+				        @current-change="fenye"
+				        	:page-size="4"
+				        	 background
+				        	 layout="prev, pager, next"
+				        	 :total="page.total-1" style="text-align: center;">
+				        </el-pagination>			
+				     </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			
+			
 		</div>
-		
-		
-		
 		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../elementui/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
 		<script type="text/javascript">
 			var vm = new Vue({
 				el:"#ctx",
+				data(){
+					return{
+						page:{
+							list:[],
+						},
+						car:{
+							customer:{},
+							cartype:{},
+							carbrand:{},
+							driver:{},
+							fuel:{}
+						},
+						chechout:{},
+						page:{},
+						activeName: 'first',
+						value1: '',
+						value2: '',
+						labelPosition:'right',
+						 formInline: {
+						       user: '',
+						       region: ''
+						},
+						formLabelWidth: '120px',
+						input: '',
+						tableData: [],
+						currentRow: null,
+						reg:[],
+						pdid:0,
+						plist:{}
+					}
+				},
 				methods: {
+					wxjc(){
+					//	alert("jinle")
+						var that = this;
+						var bool = true;
+						for(var i=0;i<that.reg.length;i++){
+							if(that.reg[i].car.hlicenseno==that.plist.car.hlicenseno&&that.reg[i].sta.zstatus=="接车"){
+								//alert("ss")
+								bool=false;
+							}
+						}
+						if(!bool){
+							this.$confirm('该车已存在接车状态是否继续接车', '提示', {
+							          confirmButtonText: '确定',
+							          cancelButtonText: '取消',
+							          type: 'warning'
+							        }).then(() => {
+										window.location.href = "keep.html?wid="+that.plist.wid;
+									}).catch(() => {
+										  this.$message({
+											type: 'info',
+											message: '已取消接车'
+										 })  
+									})
+						}
+						else{
+							window.location.href = "keep.html?wid="+that.plist.wid;
+						}
+					},
+					lishi(){
+						var that=this;
+						var url="http://localhost:8888/repair/find?wuid="+that.car.customer.eid;
+						$.ajax({
+							url:url,
+							success:function(result){
+								console.log(result);
+								for(var i=0;i<result.length;i++){
+									
+									if(result[i].sta.zstatus!="完工"){
+									//	alert(i)
+										result.splice(i,1);
+										
+											--i;
+										
+									}
+								}
+								that.reg=result;
+								console.log(that.reg)
+							}
+						});
+					},
+					findbyid(){
+						
+						var that=this;
+						//alert(that.car.customer.eid)
+						var url="http://localhost:8888/repair/find?wuid="+that.car.customer.eid;
+						$.ajax({
+							url:url,
+							success:function(result){
+								for(var i=0;i<result.length;i++){
+									if(result[i].sta.zstatus=="完工"){
+										result.splice(i,1);
+											--i;
+									}
+								}
+								that.reg=result;
+								console.log(that.reg)
+							}
+						});
+					},
 					onSubmit() {
 					        console.log('submit!');
 					},
 					handleCurrentChange(val) {
-						this.currentRow = val;
+						this.car = val;
+						this.pdid=this.car.customer.eid;
+						console.log(this.pdid);
+						$('#two').modal('hide');
+						this.findbyid();
+						
+					},
+					ahandleCurrentChange(val){
+						var that = this;
+						that.plist=val;
 					},
 					handleClick(tab, event) {
-					        console.log(tab, event);
+						var that = this;
+						if(tab.label=="维修历史"){
+							that.lishi();
+						}
+						if(tab.label=="作业中车辆"){
+							that.findbyid();
+						}
+					       console.log(tab, event);
 					},
 					fyhandleCurrentChange(val){
 						this.getPage(val);
 					},
+					open(){
+						$('#two').modal('show');
+					},
 					//加载函数
-					getPage(pageNum){
+					/*getPage(pageNum){
 						var that = this;
 						$.ajax({
 							url:"http://localhost:8888/checkout/"+pageNum+"/4",
@@ -270,28 +526,27 @@
 								that.page = result;
 							}
 						});
+					}*/
+					findcar(pageNum){
+						var that=this;
+						var url="http://localhost:8888/wsbcar/"+pageNum+"/4";
+						$.ajax({
+							url:url,
+							success:function(result){
+								console.log(result)
+								that.page=result;
+							}
+						});
+					},
+					fenye(val){
+						this.findcar(val);					
 					}
 				},
-				data() {
-				    return {
-						chechout:{},
-						page:{},
-						activeName: 'second',
-						value1: '',
-						value2: '',
-						labelPosition:'right',
-						 formInline: {
-						          user: '',
-						          region: ''
-						},
-						formLabelWidth: '120px',
-						input: '',
-						tableData: [],
-						currentRow: null
-				    }
-				},
+				
 				created() {
-					this.getPage(1);
+					//this.getPage(1);
+					this.findcar(1);
+					
 				}
 			});
 		</script>

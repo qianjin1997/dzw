@@ -12,7 +12,7 @@
 		</style>
 	</head>
 	<body>
-		<div >
+		<div class="tit">
 			<div style="background-color: #F7FFFF;border: 1px solid #E7E7E7;">
 				<h3 style="margin:15px; color: #737173; line-height: 15px;">通讯名录</h3>
 			</div>
@@ -43,29 +43,65 @@
 					<td style="color: #FFFFFF; font-size: 16px; width: 250px;">手机</td>
 					<td style="color: #FFFFFF; font-size: 16px; width: 250px;">邮箱</td>
 				</tr>
-				<tr style="text-align: center;">
+				<tr class="bcolor" ref="bcolor" @click="bian(item,index)" style="text-align: center;" v-for="(item,index) in list">
 					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">1346908155</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
-				</tr>
-				<tr style="text-align: center;">
-					<td style="background-color: #D6D7CE;"> </td>
-					<td style=" width:250px; font-size: 16px;">发达</td>
-					<td style=" font-size: 16px; width: 250px;">范德萨发</td>
-					<td style=" font-size: 16px; width: 250px;">发达范德萨</td>
-					<td style=" font-size: 16px; width: 250px;">1346908155</td>
-					<td style=" font-size: 16px; width: 250px;">个人</td>
-					<td style=" font-size: 16px; width: 250px;">个人股份</td>
-					<td style="  font-size: 16px; width: 550px;">感染过覆</td>
+					<td style=" width:250px; font-size: 16px;">{{item.section.qname}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.pjobid}}</td>
+					<td style=" font-size: 16px; width: 250px;">{{item.pname}}</td>
+					<td style=" font-size: 16px; width: 250px;"> </td>
+					<td style=" font-size: 16px; width: 250px;"> </td>
+					<td style=" font-size: 16px; width: 250px;">{{item.pphone}}</td>
+					<td style="  font-size: 16px; width: 550px;"> </td>
 				</tr>
 			</table>
-			
+			<span style="font-size: 16px; color: #6B696B;">合计:{{count}}条记录</span>
 		</div>
-		<span style="font-size: 16px; color: #6B696B;">合计:5条记录</span>
+		
+		
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script>
+			var vm = new Vue({
+					el:".tit",
+					data(){
+						return {
+							list:[],
+							count:0
+						};
+					},
+					methods:{
+						findall() {
+							var that = this;
+							$.ajax({
+								url: "http://127.0.0.1:8888/staff/findAndsection",
+								type: "get",
+								dataType: "json",
+								success: function(result) {
+									that.list = result;	
+									that.count = that.list.length;
+									console.log(that.list)
+								}
+							})
+						},
+						bian(item,index){
+							var that = this;
+							for(var s=0;s<that.$refs.bcolor.length;s++){
+								if(s==index){
+									that.$refs.bcolor[s].style.backgroundColor="rgb(187, 255, 255)";
+									for(var o =0; o<that.$refs.bcolor.length;o++){
+										if(that.$refs.bcolor[s]!=that.$refs.bcolor[o]){
+											that.$refs.bcolor[o].style.backgroundColor="rgb(255, 255, 255)";
+										}
+									}
+								}
+							}
+						}
+					},
+					created(){
+						this.findall();
+					}
+				});
+		</script>
 	</body>
 </html>

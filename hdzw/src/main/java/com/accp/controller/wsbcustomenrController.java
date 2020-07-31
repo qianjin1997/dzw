@@ -11,6 +11,8 @@ import com.accp.domain.Customer;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,10 @@ public class wsbcustomenrController {
 	@GetMapping("/{id}")
 	public Customer findbyid(@PathVariable ("id") Integer id) {
 		return customer.findbyid(id);
+	}
+	@GetMapping("/byck")
+	public List<Customer> findck(String name){
+		return customer.find(name);
 	}
 	@GetMapping("/{pageNum}/{pageSize}")
 	public PageInfo<Customer> findall(@PathVariable ("pageSize") Integer pageSize,@PathVariable ("pageNum") Integer pageNum){
