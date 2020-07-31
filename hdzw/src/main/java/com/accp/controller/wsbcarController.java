@@ -1,6 +1,31 @@
 package com.accp.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.accp.dao.CarbrandMapper;
+import com.accp.dao.CustomerMapper;
+import com.accp.domain.Car;
+import com.accp.domain.Carbrand;
+import com.accp.domain.Cartype;
+import com.accp.domain.CartypeExample;
+import com.accp.domain.Customer;
+import com.accp.service.customerService;
+import com.accp.service.wsbcarService;
+
+import com.github.pagehelper.PageInfo;
+	
+	
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

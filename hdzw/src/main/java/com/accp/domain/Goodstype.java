@@ -1,11 +1,23 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Goodstype {
     private Integer aeid;
 
     private String aelname;
 
     private Integer aeparentid;
+    
+    private List<Goodstype> goodstype;//商品品牌集合
+    
+    public List<Goodstype> getGoodstype() {
+		return goodstype;
+	}
+    
+    public void setGoodstype(List<Goodstype> goodstype) {
+		this.goodstype = goodstype;
+	}
 
     public Integer getAeid() {
         return aeid;

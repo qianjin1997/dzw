@@ -2,10 +2,12 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Checkout {
     private Integer alid;
 
-    private String alcarid;
+    private Integer alcarid;
 
     private String alcarownername;
 
@@ -13,8 +15,10 @@ public class Checkout {
 
     private String alclearingform;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date aldepartdate;
-
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date alroadworkdate;
 
     private Float alestimatemoney;
@@ -41,17 +45,66 @@ public class Checkout {
 
     private Integer alstaffid;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date aldispatchdate;
 
     private Integer alrange;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date alcompletedate;
 
     private String alstatement;
 
     private Integer aliscomplete;
 
-    public Integer getAlid() {
+    private String alweidan;
+
+    private String aldantype;
+
+    private String alwugong;
+
+    private String alzhijian;
+
+    private String alzeren;
+
+    private Float alchufa;
+
+    private String alfanyuan;
+
+    private Integer alfannum;
+    
+    //-----------------------------
+    private Car c2;
+    
+    private Maintainxm c3;
+    
+    private Driver c4;
+
+    public Car getC2() {
+		return c2;
+	}
+
+	public void setC2(Car c2) {
+		this.c2 = c2;
+	}
+
+	public Maintainxm getC3() {
+		return c3;
+	}
+
+	public void setC3(Maintainxm c3) {
+		this.c3 = c3;
+	}
+
+	public Driver getC4() {
+		return c4;
+	}
+
+	public void setC4(Driver c4) {
+		this.c4 = c4;
+	}
+
+	public Integer getAlid() {
         return alid;
     }
 
@@ -59,11 +112,11 @@ public class Checkout {
         this.alid = alid;
     }
 
-    public String getAlcarid() {
+    public Integer getAlcarid() {
         return alcarid;
     }
 
-    public void setAlcarid(String alcarid) {
+    public void setAlcarid(Integer alcarid) {
         this.alcarid = alcarid;
     }
 
@@ -241,5 +294,69 @@ public class Checkout {
 
     public void setAliscomplete(Integer aliscomplete) {
         this.aliscomplete = aliscomplete;
+    }
+
+    public String getAlweidan() {
+        return alweidan;
+    }
+
+    public void setAlweidan(String alweidan) {
+        this.alweidan = alweidan;
+    }
+
+    public String getAldantype() {
+        return aldantype;
+    }
+
+    public void setAldantype(String aldantype) {
+        this.aldantype = aldantype;
+    }
+
+    public String getAlwugong() {
+        return alwugong;
+    }
+
+    public void setAlwugong(String alwugong) {
+        this.alwugong = alwugong;
+    }
+
+    public String getAlzhijian() {
+        return alzhijian;
+    }
+
+    public void setAlzhijian(String alzhijian) {
+        this.alzhijian = alzhijian;
+    }
+
+    public String getAlzeren() {
+        return alzeren;
+    }
+
+    public void setAlzeren(String alzeren) {
+        this.alzeren = alzeren;
+    }
+
+    public Float getAlchufa() {
+        return alchufa;
+    }
+
+    public void setAlchufa(Float alchufa) {
+        this.alchufa = alchufa;
+    }
+
+    public String getAlfanyuan() {
+        return alfanyuan;
+    }
+
+    public void setAlfanyuan(String alfanyuan) {
+        this.alfanyuan = alfanyuan;
+    }
+
+    public Integer getAlfannum() {
+        return alfannum;
+    }
+
+    public void setAlfannum(Integer alfannum) {
+        this.alfannum = alfannum;
     }
 }

@@ -31,7 +31,7 @@
 			</form>
 			<el-link type="info" class="bitbtn" :underline="false" @click="showEdit()"><i class="el-icon-edit bit"></i>修改</el-link>
 			<el-link type="info" class="bitbtn" :underline="false" @click="remove()"><i class="el-icon-circle-close bit"></i>删除</el-link>
-			<el-link type="info" class="bitbtn" :underline="false"><i class="el-icon-printer bit"></i>导出</el-link>
+			<el-link type="info" class="bitbtn" :underline="false" @click="exportExcel()"><i class="el-icon-printer bit"></i>导出</el-link>
 			<br />
 			<br />
 			<template>
@@ -192,7 +192,6 @@
 							cancelButtonText: '取消',
 							type: 'warning'
 						}).then(() => {
-
 							$.ajax({
 								url: "http://localhost:8888/EngineController/remove",
 								data: {
@@ -213,9 +212,12 @@
 						}).catch(() => {
 							this.$message({
 								type: 'info',
-								message: '已取消删除'
+								message: '已取消删除',
+								duration:"1000"
 							});
 						});
+					},exportExcel(){
+						window.location.href="http://localhost:8888/EngineController/exportExcel"
 					}
 				},
 				created() {

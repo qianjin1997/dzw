@@ -15,6 +15,17 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
 /**
  * 
  * WebMvcConfigurationSupport等价于以前的spring-mvc.xml
@@ -30,8 +41,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 public class MyWebConfig extends WebMvcConfigurationSupport {
 
-//	@Autowired
-//	MyInterceptor interceptor;
 
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -56,9 +65,9 @@ public class MyWebConfig extends WebMvcConfigurationSupport {
 		super.addCorsMappings(registry);
 	}
 
-//	@Override
-//	protected void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(interceptor).excludePathPatterns("/user/**");
-//		super.addInterceptors(registry);
-//	}
+	/*@Override
+	protected void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(interceptor).excludePathPatterns("/user/**");
+		super.addInterceptors(registry);
+	}*/
 }
