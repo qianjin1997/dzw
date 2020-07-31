@@ -43,6 +43,10 @@
   		</if>
   	</where>
   </select>
+  
+   <select id="findAll1" resultMap="BaseResultMapExtends" >
+  		select * from car where hid=#{alcarid}
+  	</select>
   <!--<insert id="inserts" keyColumn="" keyProperty="" useGeneratedKeys="true">
   	  insert into car() values
   	<foreach collection="list" item="car" separator=",">

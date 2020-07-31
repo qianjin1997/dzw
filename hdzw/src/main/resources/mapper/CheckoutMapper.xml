@@ -37,7 +37,7 @@
   </resultMap>
   
   <resultMap type="com.accp.domain.Checkout" id="BaseResultMapTwo" extends="BaseResultMap">
-  	<association property="c2" column="alcarid" javaType="com.accp.domain.Car">
+  	<association property="c2" column="alcarid" javaType="com.accp.domain.Car" select="com.accp.dao.CarMapper.findAll1">
   		<id column="hid" property="hid" jdbcType="INTEGER" />
 	    <result column="hlicenseno" property="hlicenseno" jdbcType="VARCHAR" />
 	    <result column="hbrandid" property="hbrandid" jdbcType="INTEGER" />
@@ -96,6 +96,13 @@
   			and alcompletedate BETWEEN #{alcompletedate} AND #{alcompletedate1}
   		</if>
 	</where>
+  </select>
+  
+  <select id="findAlls1" resultMap="BaseResultMapTwo">
+  	SELECT * FROM checkout AS c1 INNER JOIN car AS c2 ON(c1.`alcarid` = c2.`hid`)
+	INNER JOIN maintainxm AS c3 ON(c1.`albusinessid` = c3.`xid`)
+	INNER JOIN driver AS c4 ON(c1.`aldriveid` = c4.`oid`)
+	where alid = #{alid}
   </select>
   
   <sql id="Example_Where_Clause" >

@@ -30,4 +30,6 @@ public interface CheckoutMapper {
     
     //-------------------------------------
     List<Checkout> findAlls (String aliscomplete,String hlicenseno,Integer alid, String alcompletedate,String alcompletedate1);
+    
+    Checkout findAlls1(Integer alid);
 }
