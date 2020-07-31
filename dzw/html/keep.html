@@ -87,7 +87,7 @@
 				<p>
 					<span style="font-size: 8px;">✡</span>
 					<span style=" font-size:16px;color: #6B696B;">业务类别</span>
-					<select v-model="reg.xm.xmaintainname" style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; "class="form-control">
+					<select  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; "class="form-control">
 						<option v-for="item in fwtype" >{{item.xmaintainname}}</option>
 					</select>
 					<span style="font-size: 8px;">✡</span>
@@ -147,9 +147,10 @@
 					  </ul>
 						<table style="width: 200px;margin: 0;" class="table">
 							<tr style="background-color: #39CFDE; text-align: center;">
-								<td style="color:#FFFFFF"><a @click="regadd()" href="javascript:void(0)">单个添加</a></td>
+								<td style="color:#FFFFFF"><a @click="openregadd()" href="javascript:void(0)">单个添加</a></td>
 							</tr>
 						</table>
+						
 					  <!-- Tab panes -->
 					  <div class="tab-content">
 					    <div role="tabpanel" class="tab-pane active" id="home">
@@ -169,22 +170,22 @@
 									<td style=" color: #FFFFFF; font-size: 16px; ">维修班组</td>
 									<td style=" color: #FFFFFF; font-size: 16px; ">作业人员</td>
 								</tr>
-								<tr style="text-align: center;">
+								<tr  style="text-align: center;">
 									<td style="background-color: #D6D7CE;"> </td>
 									<td style=" width:250px; font-size: 16px; width: 50px;">
 										<input type="checkbox">
 									</td>
-									<td style=" font-size: 16px; ">1</td>
-									<td style=" font-size: 16px; ">1</td>
-									<td style=" font-size: 16px; ">1</td>
-									<td style=" font-size: 16px; ">1</td>
-									<td style=" font-size: 16px; ">1</td>
-									<td style="  font-size: 16px; ">1</td>
-									<td style="  font-size: 16px; ">1</td>
-									<td style="  font-size: 16px; ">1</td>
-									<td style="  font-size: 16px; ">1</td>
-									<td style="  font-size: 16px; ">1</td>
-									<td style="  font-size: 16px; ">1</td>
+									<td style=" font-size: 16px; ">{{xianshi.xid}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xname}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xnum}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xjialei}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xqmoney}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xhmoney}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xhmoney}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xms}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xyy}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xbz}}</td>
+									<td style="  font-size: 16px; "></td>
 								</tr>
 							</table>
 					    </div>
@@ -201,6 +202,93 @@
 				</div>
             </div>
             
+			
+			<div id="twoo" class="modal fade" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document" style="width: 730px;">
+				    <div class="modal-content">
+				      <div class="modal-body">
+				        <div style="width: 100%; height: 100%;">
+							<div style=" margin: auto; width: 700px; height: 500px;">
+								<div style="width: 4px; margin-left: 30px; height: 25px; background-color: #F7A621;float: left;margin-top: 4px;"></div>
+								<h3 style="color: #6B696B; float:left;margin-top: 5px;margin-left: 10px;">维修项目</h3>
+								<button @click="okadd()" type="button" style="width: 100px; margin-left: 400px;"  class="btn btn-success"><i style="font-size: 12px;margin-right: 5px;">√</i>确定</button>
+								<div style="height: 430px;margin: 20px 10px;">
+									<p style="padding:0 20px;margin-top: 5px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">维修项目</span>
+										<input  style="margin:10px 10px;width: 300px; display: inline-block; " class="form-control" type="text">
+										<select v-model="reg.xm.xmaintainname"  style="margin:0px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option v-for="item in fwtypet" >{{item.xmaintainname}}</option>
+										</select>
+									</p>
+									<p style="padding: 0px 20px;" >
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">价类</span>
+										<select v-model="xianshii.xjialei"  style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option>自费</option>
+										</select>
+										
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">免单原因</span>
+										<select  readonly="readonly" style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option ></option>
+										</select>
+									</p>
+									<p style="padding: 0px 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">服务顾问</span>
+										<select style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option v-for="item in staffs">{{item.pname}}</option>
+										</select>
+										
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">数量</span>
+										<input v-model="xianshii.xnum" style="margin:5px 10px;width: 130px; display: inline-block; " class="form-control" type="number">
+																			
+									</p>
+									<p style="padding: 0px 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">优惠前价格</span>
+										<input v-model="xianshii.xqmoney" style="margin:5px 10px;width: 130px; display: inline-block; " class="form-control" type="text">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">优惠后价格</span>
+										<input v-model="xianshii.xhmoney" style="margin:5px 10px;width: 130px; display: inline-block; " class="form-control" type="text">
+																			
+									</p>
+									<p style="padding:0 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">故障描述</span>
+										<input v-model="xianshi.xms"  style="margin:10px 10px;width: 500px; display: inline-block; " class="form-control" type="text">
+									</p>
+									<p style="padding:0 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">故障原因</span>
+										<input v-model="xianshii.xyy" style="margin:10px 10px;width: 500px; display: inline-block; " class="form-control" type="text">
+									</p>
+									<p style="padding: 0px 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">维修班组</span>
+										<select v-model="xianshii.xbz"  style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option>第一组</option>
+											<option>第二组</option>
+											<option>第三组</option>
+										</select>
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">工单号</span>
+										<select  style="margin:0px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option></option>
+										</select>
+																			
+									</p>
+								</div>	
+							</div>
+						</div>
+				     </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->	
+			
+			
 			
             
             <div id="two" class="modal fade" tabindex="-1" role="dialog">
@@ -233,6 +321,7 @@
 		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			let wid=0;
+			let num=0;
 			var thisURL = document.URL;
 			var getval =thisURL.split('?')[1]; 
 			var showval= getval.split("=")[1];
@@ -253,11 +342,77 @@
 							xm:{}
 						},
 						fwtype:[],
-						income:[]
+						income:[],
+						fwtypet:[],
+						staffs:[],
+						dimssions:[],
+						xianshi:{},
+						xianshii:{}
 					};
 				},
 				methods:{
-					
+					okadd(){
+						var that = this;
+						that.xianshii.xname=that.reg.xm.xmaintainname;
+						num=num+1;
+						that.xianshii.xid=num;
+						
+						that.xianshi = that.xianshii;
+						that.reg.xm.wsprice = that.xianshi.xqmoney;
+						that.reg.xm.wmemberprice = that.xianshi.xhmoney;
+						that.reg.xm.wvipice =that.xianshi.xhmoney;
+						alert("添加成功");
+						$('#twoo').modal('hide');
+					},
+					findall(){
+						var that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/dimission/findall",
+							type:"get",
+							success:function(result){
+								console.log(result)
+								that.dimssions =result;
+							}	
+						})
+					},
+					staff(){
+						var that =this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/staff/find",
+							type:"get",
+							success:function(result){
+								for(var i=0;i<result.length;i++){
+									for(var j=0;j<that.dimssions.length;j++){
+										if(result[i].pid==that.dimssions[j].amyid){
+										//	alert(that.dimssions[that.dimssions.length-1].amid)
+											result.splice(i,1);
+										}
+									}
+								}
+								console.log(result)
+								that.staffs =result;
+							}	
+						})
+					},
+					openregadd(){
+						var that=this;
+						var url="http://localhost:8888/maintainxm/find";
+						$.ajax({
+							url:url,
+							success:function(result){
+								for(var i=0;i<result.length;i++){
+									if(result[i].xparentid==1||result[i].xparentid==0){
+										result.splice(i,1);
+										--i;
+									}
+								}
+								console.log(result);
+								that.fwtypet = result;
+							}
+						});
+						that.staff();
+						$('#twoo').modal('show');
+					},
 					open(){
 						$('#two').modal('show');
 					},
@@ -337,6 +492,7 @@
 					this.findone();
 					this.findfwtype();
 					this.findincome();
+					this.findall();
 				}
 			});
 	</script>
