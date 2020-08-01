@@ -59,7 +59,7 @@
 					     <el-input style="width: 150px;" v-model="alid" placeholder="维修单号"></el-input>
 					   </el-form-item>
 					   <el-form-item label="单据状态">
-					     <el-select style="width: 150px;" v-model="aliscomplete" placeholder="单据状态">
+					     <el-select @change="danju" style="width: 150px;" v-model="aliscomplete" placeholder="单据状态">
 					       <el-option label="已结算" value="0"></el-option>
 					       <el-option label="未结算" value="1"></el-option>
 					     </el-select>
@@ -200,6 +200,10 @@
 			var vm = new Vue({
 				el:"#ctx",
 				methods: {
+					//单据选中事件
+					danju(val){
+						this.find();
+					},
 					//打开单据
 					dakai(){
 						if(this.currentRow == null){
@@ -264,7 +268,7 @@
 							success:function(result){
 								that.page = result;
 								// console.log(that.page);
-								that.aliscomplete=null;
+								// that.aliscomplete=null;
 								that.hlicenseno=null;
 								that.alid=null;
 								that.alcompletedate=null; 

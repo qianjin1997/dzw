@@ -203,10 +203,10 @@
 			  <el-row>
 				  <template>
 				    <el-col :span="16">
-						<el-radio v-model="radio" label="1">合格完工</el-radio>
+						<el-radio @change="dan" v-model="radio" label="1">合格完工</el-radio>
 					</el-col>
 				    <el-col :span="8">
-						<el-radio v-model="radio" label="2">不合格完工</el-radio>
+						<el-radio @change="dan" v-model="radio" label="2">不合格完工</el-radio>
 					</el-col>
 				  </template>
 			  </el-row>
@@ -226,9 +226,9 @@
 				  
 				  <el-col :span="12">
 					  <label>返工原因：</label>
-					  <el-select v-model="sele1">
+					  <el-select v-model="sele1" :disabled="dis==2?false:true">
 					    <el-option
-					      v-for="item in options"
+					      v-for="item in options3"
 					      :key="item.value"
 					      :label="item.label"
 					      :value="item.value">
@@ -252,9 +252,9 @@
 				
 				<el-col :span="12">
 					  <label>&nbsp;&nbsp;&nbsp;责任人：</label>
-					  <el-select v-model="sele2">
+					  <el-select v-model="sele2" :disabled="dis==2?false:true">
 						<el-option
-						  v-for="item in options"
+						  v-for="item in options5"
 						  :key="item.value"
 						  :label="item.label"
 						  :value="item.value">
@@ -266,9 +266,9 @@
 			  <el-row style="margin-top: 20px;">
 				<el-col :span="12">
 					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;误工原因：</label>
-					 <el-select v-model="sele4">
+					 <el-select v-model="sele4" :disabled="dis==2?true:false">
 					   <el-option
-						 v-for="item in options"
+						 v-for="item in options2"
 						 :key="item.value"
 						 :label="item.label"
 						 :value="item.value">
@@ -278,16 +278,16 @@
 				
 				<el-col :span="12">
 					<label>处罚金额：</label>
-					<el-input style="width: 218px;" v-model="sele3" placeholder="请输入内容"></el-input>
+					<el-input  :disabled="dis==2?false:true" style="width: 218px;" v-model="sele3" placeholder="请输入内容"></el-input>
 				</el-col>
 			  </el-row>
 			  
 			  <el-row style="margin-top: 20px;">
 				<el-col>
 					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;质检员：</label>
-					 <el-select v-model="sele5">
+					 <el-select v-model="sele5" :disabled="dis==2?true:false">
 					   <el-option
-						 v-for="item in options"
+						 v-for="item in options4"
 						 :key="item.value"
 						 :label="item.label"
 						 :value="item.value">
@@ -299,9 +299,9 @@
 			  <el-row style="margin-top: 20px;">
 				<el-col>
 					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;责任人：</label>
-					 <el-select v-model="sele6">
+					 <el-select v-model="sele6" :disabled="dis==2?true:false">
 					   <el-option
-						 v-for="item in options"
+						 v-for="item in options6"
 						 :key="item.value"
 						 :label="item.label"
 						 :value="item.value">
@@ -313,7 +313,7 @@
 			  <el-row style="margin-top: 20px;">
 				<el-col>
 					<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;处罚金额：</label>
-					<el-input style="width: 218px;" v-model="input1" placeholder="请输入内容"></el-input>
+					<el-input :disabled="dis==2?true:false" style="width: 218px;" v-model="input1" placeholder="请输入内容"></el-input>
 				</el-col>
 			  </el-row>
 			  <span slot="footer" class="dialog-footer">
@@ -359,6 +359,7 @@
 					el:".tit",
 					data(){
 						return {
+							dis:false,
 							isok:false,
 							isno:true,
 							sele1:'',
@@ -384,6 +385,44 @@
 								  value: '选项5',
 								  label: '北京烤鸭'
 							}],
+							options2: [{
+								  value: '选项1',
+								  label: '买件不及时'
+								}, {
+								  value: '选项2',
+								  label: '偷懒了'
+								}, {
+								  value: '选项3',
+								  label: '遇到难题了'
+							}],
+							options3: [{
+								  value: '选项1',
+								  label: '配件质量问题'
+								}, {
+								  value: '选项2',
+								  label: '维修技术问题'
+							}],
+							options4: [{
+								  value: '选项1',
+								  label: '超级管理员'
+								}, {
+								  value: '选项2',
+								  label: '总经理'
+							}],
+							options5: [{
+								  value: '选项1',
+								  label: '超级管理员'
+								}, {
+								  value: '选项2',
+								  label: '总经理'
+							}],
+							options6: [{
+								  value: '选项1',
+								  label: '超级管理员'
+								}, {
+								  value: '选项2',
+								  label: '总经理'
+							}],
 							value: '',
 							radio:'1',
 							dialogVisible: false,
@@ -399,6 +438,10 @@
 						};
 					},
 					methods:{
+						dan(val){
+							// console.log(val);
+							this.dis = val;
+						},
 						jianyan(){
 							var that = this;
 							var che = JSON.stringify(this.page);
