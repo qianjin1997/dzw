@@ -12,7 +12,11 @@ public class Section {
     
     private Integer qjudge;
     
-    private List<Section> sect=new ArrayList<>() ;
+    private List<Section> sect=new ArrayList<>();
+    
+    private List<Section> children;
+    
+    private String bmname;
     
     
     public List<Section> getSect() {
@@ -23,7 +27,11 @@ public class Section {
 		this.sect = sect;
 	}
 
-	public Integer getQid() {
+    
+    
+    
+
+    public Integer getQid() {
         return qid;
     }
 
@@ -46,12 +54,27 @@ public class Section {
     public void setQparentid(Integer qparentid) {
         this.qparentid = qparentid;
     }
+    public Integer getQjudge() {
+        return qjudge;
+    }
 
-	public Integer getQjudge() {
-		return qjudge;
+    public void setQjudge(Integer qjudge) {
+        this.qjudge = qjudge;
+    }
+
+	public List<Section> getChildren() {
+		return children;
 	}
 
-	public void setQjudge(Integer qjudge) {
-		this.qjudge = qjudge;
+	public void setChildren(List<Section> children) {
+		this.children = children;
+	}
+
+	public String getBmname() {
+		return bmname;
+	}
+
+	public void setBmname(String bmname) {
+		this.bmname = bmname;
 	}
 }

@@ -54,7 +54,7 @@ public class MyWebConfig extends WebMvcConfigurationSupport {
 	protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
 		converters.add(new MappingJackson2HttpMessageConverter());//复杂数据序列化
-//		converters.add(new ByteArrayHttpMessageConverter());//文件字节序列化
+		converters.add(new ByteArrayHttpMessageConverter());//文件字节序列化
 		
 		super.configureMessageConverters(converters);
 	}

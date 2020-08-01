@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.CartypeMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Cartype" >
+    <id column="jid" property="jid" jdbcType="INTEGER" />
+    <result column="jtypename" property="jtypename" jdbcType="VARCHAR" />
+    <result column="jprice" property="jprice" jdbcType="REAL" />
+    <result column="jmj" property="jmj" jdbcType="REAL" />
+    <result column="jgas" property="jgas" jdbcType="VARCHAR" />
+    <result column="jisdomestic" property="jisdomestic" jdbcType="INTEGER" />
+    <result column="jfuelid" property="jfuelid" jdbcType="INTEGER" />
+    <result column="jfourType" property="jfourtype" jdbcType="VARCHAR" />
+    <result column="jbrandid" property="jbrandid" jdbcType="INTEGER" />
+    <result column="jeid" property="jeid" jdbcType="INTEGER" />
+    <result column="jpower" property="jpower" jdbcType="VARCHAR" />
+    <result column="jload" property="jload" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    jid, jtypename, jprice, jmj, jgas, jisdomestic, jfuelid, jfourType, jbrandid, jeid, 
+    jpower, jload
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CartypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cartype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cartype
+    where jid = #{jid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cartype
+    where jid = #{jid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CartypeExample" >
+    delete from cartype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Cartype" >
+    insert into cartype (jid, jtypename, jprice, 
+      jmj, jgas, jisdomestic, 
+      jfuelid, jfourType, jbrandid, 
+      jeid, jpower, jload
+      )
+    values (#{jid,jdbcType=INTEGER}, #{jtypename,jdbcType=VARCHAR}, #{jprice,jdbcType=REAL}, 
+      #{jmj,jdbcType=REAL}, #{jgas,jdbcType=VARCHAR}, #{jisdomestic,jdbcType=INTEGER}, 
+      #{jfuelid,jdbcType=INTEGER}, #{jfourtype,jdbcType=VARCHAR}, #{jbrandid,jdbcType=INTEGER}, 
+      #{jeid,jdbcType=INTEGER}, #{jpower,jdbcType=VARCHAR}, #{jload,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Cartype" >
+    insert into cartype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        jid,
+      </if>
+      <if test="jtypename != null" >
+        jtypename,
+      </if>
+      <if test="jprice != null" >
+        jprice,
+      </if>
+      <if test="jmj != null" >
+        jmj,
+      </if>
+      <if test="jgas != null" >
+        jgas,
+      </if>
+      <if test="jisdomestic != null" >
+        jisdomestic,
+      </if>
+      <if test="jfuelid != null" >
+        jfuelid,
+      </if>
+      <if test="jfourtype != null" >
+        jfourType,
+      </if>
+      <if test="jbrandid != null" >
+        jbrandid,
+      </if>
+      <if test="jeid != null" >
+        jeid,
+      </if>
+      <if test="jpower != null" >
+        jpower,
+      </if>
+      <if test="jload != null" >
+        jload,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="jtypename != null" >
+        #{jtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="jprice != null" >
+        #{jprice,jdbcType=REAL},
+      </if>
+      <if test="jmj != null" >
+        #{jmj,jdbcType=REAL},
+      </if>
+      <if test="jgas != null" >
+        #{jgas,jdbcType=VARCHAR},
+      </if>
+      <if test="jisdomestic != null" >
+        #{jisdomestic,jdbcType=INTEGER},
+      </if>
+      <if test="jfuelid != null" >
+        #{jfuelid,jdbcType=INTEGER},
+      </if>
+      <if test="jfourtype != null" >
+        #{jfourtype,jdbcType=VARCHAR},
+      </if>
+      <if test="jbrandid != null" >
+        #{jbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="jeid != null" >
+        #{jeid,jdbcType=INTEGER},
+      </if>
+      <if test="jpower != null" >
+        #{jpower,jdbcType=VARCHAR},
+      </if>
+      <if test="jload != null" >
+        #{jload,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CartypeExample" resultType="java.lang.Integer" >
+    select count(*) from cartype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cartype
+    <set >
+      <if test="record.jid != null" >
+        jid = #{record.jid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jtypename != null" >
+        jtypename = #{record.jtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jprice != null" >
+        jprice = #{record.jprice,jdbcType=REAL},
+      </if>
+      <if test="record.jmj != null" >
+        jmj = #{record.jmj,jdbcType=REAL},
+      </if>
+      <if test="record.jgas != null" >
+        jgas = #{record.jgas,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jisdomestic != null" >
+        jisdomestic = #{record.jisdomestic,jdbcType=INTEGER},
+      </if>
+      <if test="record.jfuelid != null" >
+        jfuelid = #{record.jfuelid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jfourtype != null" >
+        jfourType = #{record.jfourtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jbrandid != null" >
+        jbrandid = #{record.jbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jeid != null" >
+        jeid = #{record.jeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jpower != null" >
+        jpower = #{record.jpower,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jload != null" >
+        jload = #{record.jload,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cartype
+    set jid = #{record.jid,jdbcType=INTEGER},
+      jtypename = #{record.jtypename,jdbcType=VARCHAR},
+      jprice = #{record.jprice,jdbcType=REAL},
+      jmj = #{record.jmj,jdbcType=REAL},
+      jgas = #{record.jgas,jdbcType=VARCHAR},
+      jisdomestic = #{record.jisdomestic,jdbcType=INTEGER},
+      jfuelid = #{record.jfuelid,jdbcType=INTEGER},
+      jfourType = #{record.jfourtype,jdbcType=VARCHAR},
+      jbrandid = #{record.jbrandid,jdbcType=INTEGER},
+      jeid = #{record.jeid,jdbcType=INTEGER},
+      jpower = #{record.jpower,jdbcType=VARCHAR},
+      jload = #{record.jload,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Cartype" >
+    update cartype
+    <set >
+      <if test="jtypename != null" >
+        jtypename = #{jtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="jprice != null" >
+        jprice = #{jprice,jdbcType=REAL},
+      </if>
+      <if test="jmj != null" >
+        jmj = #{jmj,jdbcType=REAL},
+      </if>
+      <if test="jgas != null" >
+        jgas = #{jgas,jdbcType=VARCHAR},
+      </if>
+      <if test="jisdomestic != null" >
+        jisdomestic = #{jisdomestic,jdbcType=INTEGER},
+      </if>
+      <if test="jfuelid != null" >
+        jfuelid = #{jfuelid,jdbcType=INTEGER},
+      </if>
+      <if test="jfourtype != null" >
+        jfourType = #{jfourtype,jdbcType=VARCHAR},
+      </if>
+      <if test="jbrandid != null" >
+        jbrandid = #{jbrandid,jdbcType=INTEGER},
+      </if>
+      <if test="jeid != null" >
+        jeid = #{jeid,jdbcType=INTEGER},
+      </if>
+      <if test="jpower != null" >
+        jpower = #{jpower,jdbcType=VARCHAR},
+      </if>
+      <if test="jload != null" >
+        jload = #{jload,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Cartype" >
+    update cartype
+    set jtypename = #{jtypename,jdbcType=VARCHAR},
+      jprice = #{jprice,jdbcType=REAL},
+      jmj = #{jmj,jdbcType=REAL},
+      jgas = #{jgas,jdbcType=VARCHAR},
+      jisdomestic = #{jisdomestic,jdbcType=INTEGER},
+      jfuelid = #{jfuelid,jdbcType=INTEGER},
+      jfourType = #{jfourtype,jdbcType=VARCHAR},
+      jbrandid = #{jbrandid,jdbcType=INTEGER},
+      jeid = #{jeid,jdbcType=INTEGER},
+      jpower = #{jpower,jdbcType=VARCHAR},
+      jload = #{jload,jdbcType=INTEGER}
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+</mapper>

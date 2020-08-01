@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Customer" >
+    <id column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="ecustomerid" property="ecustomerid" jdbcType="VARCHAR" />
+    <result column="ecustomername" property="ecustomername" jdbcType="VARCHAR" />
+    <result column="eaddress" property="eaddress" jdbcType="VARCHAR" />
+    <result column="elinkman" property="elinkman" jdbcType="VARCHAR" />
+    <result column="ephone" property="ephone" jdbcType="VARCHAR" />
+    <result column="ebirthday" property="ebirthday" jdbcType="DATE" />
+    <result column="ememberid" property="ememberid" jdbcType="INTEGER" />
+    <result column="eremark" property="eremark" jdbcType="VARCHAR" />
+    <result column="edocumentdate" property="edocumentdate" jdbcType="DATE" />
+    <result column="econsultantid" property="econsultantid" jdbcType="INTEGER" />
+    <result column="esalesphone" property="esalesphone" jdbcType="VARCHAR" />
+    <result column="epaymentdays" property="epaymentdays" jdbcType="INTEGER" />
+    <result column="epaymentamount" property="epaymentamount" jdbcType="REAL" />
+    <result column="ecumtrapz" property="ecumtrapz" jdbcType="INTEGER" />
+    <result column="ebalance" property="ebalance" jdbcType="REAL" />
+    <result column="eprovince" property="eprovince" jdbcType="VARCHAR" />
+    <result column="ecity" property="ecity" jdbcType="VARCHAR" />
+    <result column="edistrict" property="edistrict" jdbcType="VARCHAR" />
+    <result column="etaxpayer" property="etaxpayer" jdbcType="VARCHAR" />
+    <result column="eregisterphone" property="eregisterphone" jdbcType="VARCHAR" />
+    <result column="edepositbank" property="edepositbank" jdbcType="VARCHAR" />
+    <result column="ebankaccount" property="ebankaccount" jdbcType="VARCHAR" />
+    <result column="eregisteraddress" property="eregisteraddress" jdbcType="VARCHAR" />
+    <result column="erestsone" property="erestsone" jdbcType="VARCHAR" />
+    <result column="ereststwo" property="ereststwo" jdbcType="VARCHAR" />
+    <result column="ereststhree" property="ereststhree" jdbcType="VARCHAR" />
+    <result column="erestsfour" property="erestsfour" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    eid, ecustomerid, ecustomername, eaddress, elinkman, ephone, ebirthday, ememberid, 
+    eremark, edocumentdate, econsultantid, esalesphone, epaymentdays, epaymentamount, 
+    ecumtrapz, ebalance, eprovince, ecity, edistrict, etaxpayer, eregisterphone, edepositbank, 
+    ebankaccount, eregisteraddress, erestsone, ereststwo, ereststhree, erestsfour
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.CustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where eid = #{eid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer
+    where eid = #{eid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.CustomerExample" >
+    delete from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Customer" >
+    insert into customer (eid, ecustomerid, ecustomername, 
+      eaddress, elinkman, ephone, 
+      ebirthday, ememberid, eremark, 
+      edocumentdate, econsultantid, esalesphone, 
+      epaymentdays, epaymentamount, ecumtrapz, 
+      ebalance, eprovince, ecity, 
+      edistrict, etaxpayer, eregisterphone, 
+      edepositbank, ebankaccount, eregisteraddress, 
+      erestsone, ereststwo, ereststhree, 
+      erestsfour)
+    values (#{eid,jdbcType=INTEGER}, #{ecustomerid,jdbcType=VARCHAR}, #{ecustomername,jdbcType=VARCHAR}, 
+      #{eaddress,jdbcType=VARCHAR}, #{elinkman,jdbcType=VARCHAR}, #{ephone,jdbcType=VARCHAR}, 
+      #{ebirthday,jdbcType=DATE}, #{ememberid,jdbcType=INTEGER}, #{eremark,jdbcType=VARCHAR}, 
+      #{edocumentdate,jdbcType=DATE}, #{econsultantid,jdbcType=INTEGER}, #{esalesphone,jdbcType=VARCHAR}, 
+      #{epaymentdays,jdbcType=INTEGER}, #{epaymentamount,jdbcType=REAL}, #{ecumtrapz,jdbcType=INTEGER}, 
+      #{ebalance,jdbcType=REAL}, #{eprovince,jdbcType=VARCHAR}, #{ecity,jdbcType=VARCHAR}, 
+      #{edistrict,jdbcType=VARCHAR}, #{etaxpayer,jdbcType=VARCHAR}, #{eregisterphone,jdbcType=VARCHAR}, 
+      #{edepositbank,jdbcType=VARCHAR}, #{ebankaccount,jdbcType=VARCHAR}, #{eregisteraddress,jdbcType=VARCHAR}, 
+      #{erestsone,jdbcType=VARCHAR}, #{ereststwo,jdbcType=VARCHAR}, #{ereststhree,jdbcType=VARCHAR}, 
+      #{erestsfour,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="ecustomerid != null" >
+        ecustomerid,
+      </if>
+      <if test="ecustomername != null" >
+        ecustomername,
+      </if>
+      <if test="eaddress != null" >
+        eaddress,
+      </if>
+      <if test="elinkman != null" >
+        elinkman,
+      </if>
+      <if test="ephone != null" >
+        ephone,
+      </if>
+      <if test="ebirthday != null" >
+        ebirthday,
+      </if>
+      <if test="ememberid != null" >
+        ememberid,
+      </if>
+      <if test="eremark != null" >
+        eremark,
+      </if>
+      <if test="edocumentdate != null" >
+        edocumentdate,
+      </if>
+      <if test="econsultantid != null" >
+        econsultantid,
+      </if>
+      <if test="esalesphone != null" >
+        esalesphone,
+      </if>
+      <if test="epaymentdays != null" >
+        epaymentdays,
+      </if>
+      <if test="epaymentamount != null" >
+        epaymentamount,
+      </if>
+      <if test="ecumtrapz != null" >
+        ecumtrapz,
+      </if>
+      <if test="ebalance != null" >
+        ebalance,
+      </if>
+      <if test="eprovince != null" >
+        eprovince,
+      </if>
+      <if test="ecity != null" >
+        ecity,
+      </if>
+      <if test="edistrict != null" >
+        edistrict,
+      </if>
+      <if test="etaxpayer != null" >
+        etaxpayer,
+      </if>
+      <if test="eregisterphone != null" >
+        eregisterphone,
+      </if>
+      <if test="edepositbank != null" >
+        edepositbank,
+      </if>
+      <if test="ebankaccount != null" >
+        ebankaccount,
+      </if>
+      <if test="eregisteraddress != null" >
+        eregisteraddress,
+      </if>
+      <if test="erestsone != null" >
+        erestsone,
+      </if>
+      <if test="ereststwo != null" >
+        ereststwo,
+      </if>
+      <if test="ereststhree != null" >
+        ereststhree,
+      </if>
+      <if test="erestsfour != null" >
+        erestsfour,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="ecustomerid != null" >
+        #{ecustomerid,jdbcType=VARCHAR},
+      </if>
+      <if test="ecustomername != null" >
+        #{ecustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="eaddress != null" >
+        #{eaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="elinkman != null" >
+        #{elinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="ephone != null" >
+        #{ephone,jdbcType=VARCHAR},
+      </if>
+      <if test="ebirthday != null" >
+        #{ebirthday,jdbcType=DATE},
+      </if>
+      <if test="ememberid != null" >
+        #{ememberid,jdbcType=INTEGER},
+      </if>
+      <if test="eremark != null" >
+        #{eremark,jdbcType=VARCHAR},
+      </if>
+      <if test="edocumentdate != null" >
+        #{edocumentdate,jdbcType=DATE},
+      </if>
+      <if test="econsultantid != null" >
+        #{econsultantid,jdbcType=INTEGER},
+      </if>
+      <if test="esalesphone != null" >
+        #{esalesphone,jdbcType=VARCHAR},
+      </if>
+      <if test="epaymentdays != null" >
+        #{epaymentdays,jdbcType=INTEGER},
+      </if>
+      <if test="epaymentamount != null" >
+        #{epaymentamount,jdbcType=REAL},
+      </if>
+      <if test="ecumtrapz != null" >
+        #{ecumtrapz,jdbcType=INTEGER},
+      </if>
+      <if test="ebalance != null" >
+        #{ebalance,jdbcType=REAL},
+      </if>
+      <if test="eprovince != null" >
+        #{eprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="ecity != null" >
+        #{ecity,jdbcType=VARCHAR},
+      </if>
+      <if test="edistrict != null" >
+        #{edistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="etaxpayer != null" >
+        #{etaxpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="eregisterphone != null" >
+        #{eregisterphone,jdbcType=VARCHAR},
+      </if>
+      <if test="edepositbank != null" >
+        #{edepositbank,jdbcType=VARCHAR},
+      </if>
+      <if test="ebankaccount != null" >
+        #{ebankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="eregisteraddress != null" >
+        #{eregisteraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="erestsone != null" >
+        #{erestsone,jdbcType=VARCHAR},
+      </if>
+      <if test="ereststwo != null" >
+        #{ereststwo,jdbcType=VARCHAR},
+      </if>
+      <if test="ereststhree != null" >
+        #{ereststhree,jdbcType=VARCHAR},
+      </if>
+      <if test="erestsfour != null" >
+        #{erestsfour,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.CustomerExample" resultType="java.lang.Integer" >
+    select count(*) from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update customer
+    <set >
+      <if test="record.eid != null" >
+        eid = #{record.eid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ecustomerid != null" >
+        ecustomerid = #{record.ecustomerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ecustomername != null" >
+        ecustomername = #{record.ecustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eaddress != null" >
+        eaddress = #{record.eaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elinkman != null" >
+        elinkman = #{record.elinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ephone != null" >
+        ephone = #{record.ephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ebirthday != null" >
+        ebirthday = #{record.ebirthday,jdbcType=DATE},
+      </if>
+      <if test="record.ememberid != null" >
+        ememberid = #{record.ememberid,jdbcType=INTEGER},
+      </if>
+      <if test="record.eremark != null" >
+        eremark = #{record.eremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edocumentdate != null" >
+        edocumentdate = #{record.edocumentdate,jdbcType=DATE},
+      </if>
+      <if test="record.econsultantid != null" >
+        econsultantid = #{record.econsultantid,jdbcType=INTEGER},
+      </if>
+      <if test="record.esalesphone != null" >
+        esalesphone = #{record.esalesphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.epaymentdays != null" >
+        epaymentdays = #{record.epaymentdays,jdbcType=INTEGER},
+      </if>
+      <if test="record.epaymentamount != null" >
+        epaymentamount = #{record.epaymentamount,jdbcType=REAL},
+      </if>
+      <if test="record.ecumtrapz != null" >
+        ecumtrapz = #{record.ecumtrapz,jdbcType=INTEGER},
+      </if>
+      <if test="record.ebalance != null" >
+        ebalance = #{record.ebalance,jdbcType=REAL},
+      </if>
+      <if test="record.eprovince != null" >
+        eprovince = #{record.eprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ecity != null" >
+        ecity = #{record.ecity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edistrict != null" >
+        edistrict = #{record.edistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etaxpayer != null" >
+        etaxpayer = #{record.etaxpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eregisterphone != null" >
+        eregisterphone = #{record.eregisterphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edepositbank != null" >
+        edepositbank = #{record.edepositbank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ebankaccount != null" >
+        ebankaccount = #{record.ebankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eregisteraddress != null" >
+        eregisteraddress = #{record.eregisteraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erestsone != null" >
+        erestsone = #{record.erestsone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ereststwo != null" >
+        ereststwo = #{record.ereststwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ereststhree != null" >
+        ereststhree = #{record.ereststhree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erestsfour != null" >
+        erestsfour = #{record.erestsfour,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update customer
+    set eid = #{record.eid,jdbcType=INTEGER},
+      ecustomerid = #{record.ecustomerid,jdbcType=VARCHAR},
+      ecustomername = #{record.ecustomername,jdbcType=VARCHAR},
+      eaddress = #{record.eaddress,jdbcType=VARCHAR},
+      elinkman = #{record.elinkman,jdbcType=VARCHAR},
+      ephone = #{record.ephone,jdbcType=VARCHAR},
+      ebirthday = #{record.ebirthday,jdbcType=DATE},
+      ememberid = #{record.ememberid,jdbcType=INTEGER},
+      eremark = #{record.eremark,jdbcType=VARCHAR},
+      edocumentdate = #{record.edocumentdate,jdbcType=DATE},
+      econsultantid = #{record.econsultantid,jdbcType=INTEGER},
+      esalesphone = #{record.esalesphone,jdbcType=VARCHAR},
+      epaymentdays = #{record.epaymentdays,jdbcType=INTEGER},
+      epaymentamount = #{record.epaymentamount,jdbcType=REAL},
+      ecumtrapz = #{record.ecumtrapz,jdbcType=INTEGER},
+      ebalance = #{record.ebalance,jdbcType=REAL},
+      eprovince = #{record.eprovince,jdbcType=VARCHAR},
+      ecity = #{record.ecity,jdbcType=VARCHAR},
+      edistrict = #{record.edistrict,jdbcType=VARCHAR},
+      etaxpayer = #{record.etaxpayer,jdbcType=VARCHAR},
+      eregisterphone = #{record.eregisterphone,jdbcType=VARCHAR},
+      edepositbank = #{record.edepositbank,jdbcType=VARCHAR},
+      ebankaccount = #{record.ebankaccount,jdbcType=VARCHAR},
+      eregisteraddress = #{record.eregisteraddress,jdbcType=VARCHAR},
+      erestsone = #{record.erestsone,jdbcType=VARCHAR},
+      ereststwo = #{record.ereststwo,jdbcType=VARCHAR},
+      ereststhree = #{record.ereststhree,jdbcType=VARCHAR},
+      erestsfour = #{record.erestsfour,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Customer" >
+    update customer
+    <set >
+      <if test="ecustomerid != null" >
+        ecustomerid = #{ecustomerid,jdbcType=VARCHAR},
+      </if>
+      <if test="ecustomername != null" >
+        ecustomername = #{ecustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="eaddress != null" >
+        eaddress = #{eaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="elinkman != null" >
+        elinkman = #{elinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="ephone != null" >
+        ephone = #{ephone,jdbcType=VARCHAR},
+      </if>
+      <if test="ebirthday != null" >
+        ebirthday = #{ebirthday,jdbcType=DATE},
+      </if>
+      <if test="ememberid != null" >
+        ememberid = #{ememberid,jdbcType=INTEGER},
+      </if>
+      <if test="eremark != null" >
+        eremark = #{eremark,jdbcType=VARCHAR},
+      </if>
+      <if test="edocumentdate != null" >
+        edocumentdate = #{edocumentdate,jdbcType=DATE},
+      </if>
+      <if test="econsultantid != null" >
+        econsultantid = #{econsultantid,jdbcType=INTEGER},
+      </if>
+      <if test="esalesphone != null" >
+        esalesphone = #{esalesphone,jdbcType=VARCHAR},
+      </if>
+      <if test="epaymentdays != null" >
+        epaymentdays = #{epaymentdays,jdbcType=INTEGER},
+      </if>
+      <if test="epaymentamount != null" >
+        epaymentamount = #{epaymentamount,jdbcType=REAL},
+      </if>
+      <if test="ecumtrapz != null" >
+        ecumtrapz = #{ecumtrapz,jdbcType=INTEGER},
+      </if>
+      <if test="ebalance != null" >
+        ebalance = #{ebalance,jdbcType=REAL},
+      </if>
+      <if test="eprovince != null" >
+        eprovince = #{eprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="ecity != null" >
+        ecity = #{ecity,jdbcType=VARCHAR},
+      </if>
+      <if test="edistrict != null" >
+        edistrict = #{edistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="etaxpayer != null" >
+        etaxpayer = #{etaxpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="eregisterphone != null" >
+        eregisterphone = #{eregisterphone,jdbcType=VARCHAR},
+      </if>
+      <if test="edepositbank != null" >
+        edepositbank = #{edepositbank,jdbcType=VARCHAR},
+      </if>
+      <if test="ebankaccount != null" >
+        ebankaccount = #{ebankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="eregisteraddress != null" >
+        eregisteraddress = #{eregisteraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="erestsone != null" >
+        erestsone = #{erestsone,jdbcType=VARCHAR},
+      </if>
+      <if test="ereststwo != null" >
+        ereststwo = #{ereststwo,jdbcType=VARCHAR},
+      </if>
+      <if test="ereststhree != null" >
+        ereststhree = #{ereststhree,jdbcType=VARCHAR},
+      </if>
+      <if test="erestsfour != null" >
+        erestsfour = #{erestsfour,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Customer" >
+    update customer
+    set ecustomerid = #{ecustomerid,jdbcType=VARCHAR},
+      ecustomername = #{ecustomername,jdbcType=VARCHAR},
+      eaddress = #{eaddress,jdbcType=VARCHAR},
+      elinkman = #{elinkman,jdbcType=VARCHAR},
+      ephone = #{ephone,jdbcType=VARCHAR},
+      ebirthday = #{ebirthday,jdbcType=DATE},
+      ememberid = #{ememberid,jdbcType=INTEGER},
+      eremark = #{eremark,jdbcType=VARCHAR},
+      edocumentdate = #{edocumentdate,jdbcType=DATE},
+      econsultantid = #{econsultantid,jdbcType=INTEGER},
+      esalesphone = #{esalesphone,jdbcType=VARCHAR},
+      epaymentdays = #{epaymentdays,jdbcType=INTEGER},
+      epaymentamount = #{epaymentamount,jdbcType=REAL},
+      ecumtrapz = #{ecumtrapz,jdbcType=INTEGER},
+      ebalance = #{ebalance,jdbcType=REAL},
+      eprovince = #{eprovince,jdbcType=VARCHAR},
+      ecity = #{ecity,jdbcType=VARCHAR},
+      edistrict = #{edistrict,jdbcType=VARCHAR},
+      etaxpayer = #{etaxpayer,jdbcType=VARCHAR},
+      eregisterphone = #{eregisterphone,jdbcType=VARCHAR},
+      edepositbank = #{edepositbank,jdbcType=VARCHAR},
+      ebankaccount = #{ebankaccount,jdbcType=VARCHAR},
+      eregisteraddress = #{eregisteraddress,jdbcType=VARCHAR},
+      erestsone = #{erestsone,jdbcType=VARCHAR},
+      ereststwo = #{ereststwo,jdbcType=VARCHAR},
+      ereststhree = #{ereststhree,jdbcType=VARCHAR},
+      erestsfour = #{erestsfour,jdbcType=VARCHAR}
+    where eid = #{eid,jdbcType=INTEGER}
+  </update>
+</mapper>

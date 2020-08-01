@@ -10,6 +10,9 @@
   			SELECT  *  FROM `documentstatus` WHERE zid=#{zid}
   </select>
   
+  <select resultMap="BaseResultMap" id="findby">
+  	select * from Documentstatus where zid = #{zid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -8,7 +8,9 @@ import org.apache.ibatis.annotations.Param;
 public interface SectionMapper {
 	  Section findById(@Param("qid") Integer bzid);
 	
-	 int countByExample(SectionExample example);
+	  int countByExample(SectionExample example);
+	  List<Section> find(Integer parentid);
+	
 
 	    int deleteByExample(SectionExample example);
 

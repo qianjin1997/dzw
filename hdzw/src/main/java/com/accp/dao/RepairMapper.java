@@ -7,6 +7,10 @@ import org.apache.ibatis.annotations.Param;
 
 public interface RepairMapper {
 	List<Repair> findAll();
+	Repair findone(Integer wid);
+	
+	List<Repair> find(Integer wuid);
+	
     int countByExample(RepairExample example);
 
     int deleteByExample(RepairExample example);

@@ -51,6 +51,10 @@
   <select id="findById" resultMap="BaseResultMap">
   			SELECT * FROM `customer` WHERE eid=#{eid}
   </select>
+  
+  <select resultMap="BaseResultMap" id="findby">
+  	select * from customer where eid = #{eid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

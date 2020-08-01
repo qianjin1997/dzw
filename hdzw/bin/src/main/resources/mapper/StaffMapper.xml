@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.StaffMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Staff" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pjobid" property="pjobid" jdbcType="VARCHAR" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="psectionid" property="psectionid" jdbcType="INTEGER" />
+    <result column="psex" property="psex" jdbcType="VARCHAR" />
+    <result column="pjobname" property="pjobname" jdbcType="VARCHAR" />
+    <result column="pbodystatus" property="pbodystatus" jdbcType="VARCHAR" />
+    <result column="pheight" property="pheight" jdbcType="VARCHAR" />
+    <result column="pOrigo" property="porigo" jdbcType="VARCHAR" />
+    <result column="pethnic" property="pethnic" jdbcType="VARCHAR" />
+    <result column="pmaritalstatus" property="pmaritalstatus" jdbcType="VARCHAR" />
+    <result column="peducation" property="peducation" jdbcType="VARCHAR" />
+    <result column="pSchoolTag" property="pschooltag" jdbcType="VARCHAR" />
+    <result column="pprofession" property="pprofession" jdbcType="VARCHAR" />
+    <result column="pqualification" property="pqualification" jdbcType="VARCHAR" />
+    <result column="pdegree" property="pdegree" jdbcType="VARCHAR" />
+    <result column="pstaffing" property="pstaffing" jdbcType="VARCHAR" />
+    <result column="pidnumber" property="pidnumber" jdbcType="VARCHAR" />
+    <result column="paccountadd" property="paccountadd" jdbcType="VARCHAR" />
+    <result column="ppostcode" property="ppostcode" jdbcType="VARCHAR" />
+    <result column="pphone" property="pphone" jdbcType="VARCHAR" />
+    <result column="pthisaddress" property="pthisaddress" jdbcType="VARCHAR" />
+    <result column="ptrialdate" property="ptrialdate" jdbcType="DATE" />
+    <result column="pentrydate" property="pentrydate" jdbcType="DATE" />
+    <result column="pbirthdate" property="pbirthdate" jdbcType="DATE" />
+    <result column="pbegindate" property="pbegindate" jdbcType="DATE" />
+    <result column="poverdate" property="poverdate" jdbcType="DATE" />
+    <result column="pbirthday" property="pbirthday" jdbcType="DATE" />
+    <result column="page" property="page" jdbcType="INTEGER" />
+    <result column="puid" property="puid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pid, pjobid, pname, psectionid, psex, pjobname, pbodystatus, pheight, pOrigo, pethnic, 
+    pmaritalstatus, peducation, pSchoolTag, pprofession, pqualification, pdegree, pstaffing, 
+    pidnumber, paccountadd, ppostcode, pphone, pthisaddress, ptrialdate, pentrydate, 
+    pbirthdate, pbegindate, poverdate, pbirthday, page, puid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.StaffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from staff
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from staff
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.StaffExample" >
+    delete from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Staff" >
+    insert into staff (pid, pjobid, pname, 
+      psectionid, psex, pjobname, 
+      pbodystatus, pheight, pOrigo, 
+      pethnic, pmaritalstatus, peducation, 
+      pSchoolTag, pprofession, pqualification, 
+      pdegree, pstaffing, pidnumber, 
+      paccountadd, ppostcode, pphone, 
+      pthisaddress, ptrialdate, pentrydate, 
+      pbirthdate, pbegindate, poverdate, 
+      pbirthday, page, puid)
+    values (#{pid,jdbcType=INTEGER}, #{pjobid,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, 
+      #{psectionid,jdbcType=INTEGER}, #{psex,jdbcType=VARCHAR}, #{pjobname,jdbcType=VARCHAR}, 
+      #{pbodystatus,jdbcType=VARCHAR}, #{pheight,jdbcType=VARCHAR}, #{porigo,jdbcType=VARCHAR}, 
+      #{pethnic,jdbcType=VARCHAR}, #{pmaritalstatus,jdbcType=VARCHAR}, #{peducation,jdbcType=VARCHAR}, 
+      #{pschooltag,jdbcType=VARCHAR}, #{pprofession,jdbcType=VARCHAR}, #{pqualification,jdbcType=VARCHAR}, 
+      #{pdegree,jdbcType=VARCHAR}, #{pstaffing,jdbcType=VARCHAR}, #{pidnumber,jdbcType=VARCHAR}, 
+      #{paccountadd,jdbcType=VARCHAR}, #{ppostcode,jdbcType=VARCHAR}, #{pphone,jdbcType=VARCHAR}, 
+      #{pthisaddress,jdbcType=VARCHAR}, #{ptrialdate,jdbcType=DATE}, #{pentrydate,jdbcType=DATE}, 
+      #{pbirthdate,jdbcType=DATE}, #{pbegindate,jdbcType=DATE}, #{poverdate,jdbcType=DATE}, 
+      #{pbirthday,jdbcType=DATE}, #{page,jdbcType=INTEGER}, #{puid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Staff" >
+    insert into staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="pjobid != null" >
+        pjobid,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="psectionid != null" >
+        psectionid,
+      </if>
+      <if test="psex != null" >
+        psex,
+      </if>
+      <if test="pjobname != null" >
+        pjobname,
+      </if>
+      <if test="pbodystatus != null" >
+        pbodystatus,
+      </if>
+      <if test="pheight != null" >
+        pheight,
+      </if>
+      <if test="porigo != null" >
+        pOrigo,
+      </if>
+      <if test="pethnic != null" >
+        pethnic,
+      </if>
+      <if test="pmaritalstatus != null" >
+        pmaritalstatus,
+      </if>
+      <if test="peducation != null" >
+        peducation,
+      </if>
+      <if test="pschooltag != null" >
+        pSchoolTag,
+      </if>
+      <if test="pprofession != null" >
+        pprofession,
+      </if>
+      <if test="pqualification != null" >
+        pqualification,
+      </if>
+      <if test="pdegree != null" >
+        pdegree,
+      </if>
+      <if test="pstaffing != null" >
+        pstaffing,
+      </if>
+      <if test="pidnumber != null" >
+        pidnumber,
+      </if>
+      <if test="paccountadd != null" >
+        paccountadd,
+      </if>
+      <if test="ppostcode != null" >
+        ppostcode,
+      </if>
+      <if test="pphone != null" >
+        pphone,
+      </if>
+      <if test="pthisaddress != null" >
+        pthisaddress,
+      </if>
+      <if test="ptrialdate != null" >
+        ptrialdate,
+      </if>
+      <if test="pentrydate != null" >
+        pentrydate,
+      </if>
+      <if test="pbirthdate != null" >
+        pbirthdate,
+      </if>
+      <if test="pbegindate != null" >
+        pbegindate,
+      </if>
+      <if test="poverdate != null" >
+        poverdate,
+      </if>
+      <if test="pbirthday != null" >
+        pbirthday,
+      </if>
+      <if test="page != null" >
+        page,
+      </if>
+      <if test="puid != null" >
+        puid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pjobid != null" >
+        #{pjobid,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="psectionid != null" >
+        #{psectionid,jdbcType=INTEGER},
+      </if>
+      <if test="psex != null" >
+        #{psex,jdbcType=VARCHAR},
+      </if>
+      <if test="pjobname != null" >
+        #{pjobname,jdbcType=VARCHAR},
+      </if>
+      <if test="pbodystatus != null" >
+        #{pbodystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pheight != null" >
+        #{pheight,jdbcType=VARCHAR},
+      </if>
+      <if test="porigo != null" >
+        #{porigo,jdbcType=VARCHAR},
+      </if>
+      <if test="pethnic != null" >
+        #{pethnic,jdbcType=VARCHAR},
+      </if>
+      <if test="pmaritalstatus != null" >
+        #{pmaritalstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="peducation != null" >
+        #{peducation,jdbcType=VARCHAR},
+      </if>
+      <if test="pschooltag != null" >
+        #{pschooltag,jdbcType=VARCHAR},
+      </if>
+      <if test="pprofession != null" >
+        #{pprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="pqualification != null" >
+        #{pqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="pdegree != null" >
+        #{pdegree,jdbcType=VARCHAR},
+      </if>
+      <if test="pstaffing != null" >
+        #{pstaffing,jdbcType=VARCHAR},
+      </if>
+      <if test="pidnumber != null" >
+        #{pidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="paccountadd != null" >
+        #{paccountadd,jdbcType=VARCHAR},
+      </if>
+      <if test="ppostcode != null" >
+        #{ppostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pphone != null" >
+        #{pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pthisaddress != null" >
+        #{pthisaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ptrialdate != null" >
+        #{ptrialdate,jdbcType=DATE},
+      </if>
+      <if test="pentrydate != null" >
+        #{pentrydate,jdbcType=DATE},
+      </if>
+      <if test="pbirthdate != null" >
+        #{pbirthdate,jdbcType=DATE},
+      </if>
+      <if test="pbegindate != null" >
+        #{pbegindate,jdbcType=DATE},
+      </if>
+      <if test="poverdate != null" >
+        #{poverdate,jdbcType=DATE},
+      </if>
+      <if test="pbirthday != null" >
+        #{pbirthday,jdbcType=DATE},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=INTEGER},
+      </if>
+      <if test="puid != null" >
+        #{puid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.StaffExample" resultType="java.lang.Integer" >
+    select count(*) from staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update staff
+    <set >
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pjobid != null" >
+        pjobid = #{record.pjobid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psectionid != null" >
+        psectionid = #{record.psectionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.psex != null" >
+        psex = #{record.psex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjobname != null" >
+        pjobname = #{record.pjobname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pbodystatus != null" >
+        pbodystatus = #{record.pbodystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pheight != null" >
+        pheight = #{record.pheight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.porigo != null" >
+        pOrigo = #{record.porigo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pethnic != null" >
+        pethnic = #{record.pethnic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pmaritalstatus != null" >
+        pmaritalstatus = #{record.pmaritalstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peducation != null" >
+        peducation = #{record.peducation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pschooltag != null" >
+        pSchoolTag = #{record.pschooltag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pprofession != null" >
+        pprofession = #{record.pprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pqualification != null" >
+        pqualification = #{record.pqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pdegree != null" >
+        pdegree = #{record.pdegree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pstaffing != null" >
+        pstaffing = #{record.pstaffing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pidnumber != null" >
+        pidnumber = #{record.pidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paccountadd != null" >
+        paccountadd = #{record.paccountadd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ppostcode != null" >
+        ppostcode = #{record.ppostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pphone != null" >
+        pphone = #{record.pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pthisaddress != null" >
+        pthisaddress = #{record.pthisaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptrialdate != null" >
+        ptrialdate = #{record.ptrialdate,jdbcType=DATE},
+      </if>
+      <if test="record.pentrydate != null" >
+        pentrydate = #{record.pentrydate,jdbcType=DATE},
+      </if>
+      <if test="record.pbirthdate != null" >
+        pbirthdate = #{record.pbirthdate,jdbcType=DATE},
+      </if>
+      <if test="record.pbegindate != null" >
+        pbegindate = #{record.pbegindate,jdbcType=DATE},
+      </if>
+      <if test="record.poverdate != null" >
+        poverdate = #{record.poverdate,jdbcType=DATE},
+      </if>
+      <if test="record.pbirthday != null" >
+        pbirthday = #{record.pbirthday,jdbcType=DATE},
+      </if>
+      <if test="record.page != null" >
+        page = #{record.page,jdbcType=INTEGER},
+      </if>
+      <if test="record.puid != null" >
+        puid = #{record.puid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update staff
+    set pid = #{record.pid,jdbcType=INTEGER},
+      pjobid = #{record.pjobid,jdbcType=VARCHAR},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      psectionid = #{record.psectionid,jdbcType=INTEGER},
+      psex = #{record.psex,jdbcType=VARCHAR},
+      pjobname = #{record.pjobname,jdbcType=VARCHAR},
+      pbodystatus = #{record.pbodystatus,jdbcType=VARCHAR},
+      pheight = #{record.pheight,jdbcType=VARCHAR},
+      pOrigo = #{record.porigo,jdbcType=VARCHAR},
+      pethnic = #{record.pethnic,jdbcType=VARCHAR},
+      pmaritalstatus = #{record.pmaritalstatus,jdbcType=VARCHAR},
+      peducation = #{record.peducation,jdbcType=VARCHAR},
+      pSchoolTag = #{record.pschooltag,jdbcType=VARCHAR},
+      pprofession = #{record.pprofession,jdbcType=VARCHAR},
+      pqualification = #{record.pqualification,jdbcType=VARCHAR},
+      pdegree = #{record.pdegree,jdbcType=VARCHAR},
+      pstaffing = #{record.pstaffing,jdbcType=VARCHAR},
+      pidnumber = #{record.pidnumber,jdbcType=VARCHAR},
+      paccountadd = #{record.paccountadd,jdbcType=VARCHAR},
+      ppostcode = #{record.ppostcode,jdbcType=VARCHAR},
+      pphone = #{record.pphone,jdbcType=VARCHAR},
+      pthisaddress = #{record.pthisaddress,jdbcType=VARCHAR},
+      ptrialdate = #{record.ptrialdate,jdbcType=DATE},
+      pentrydate = #{record.pentrydate,jdbcType=DATE},
+      pbirthdate = #{record.pbirthdate,jdbcType=DATE},
+      pbegindate = #{record.pbegindate,jdbcType=DATE},
+      poverdate = #{record.poverdate,jdbcType=DATE},
+      pbirthday = #{record.pbirthday,jdbcType=DATE},
+      page = #{record.page,jdbcType=INTEGER},
+      puid = #{record.puid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Staff" >
+    update staff
+    <set >
+      <if test="pjobid != null" >
+        pjobid = #{pjobid,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="psectionid != null" >
+        psectionid = #{psectionid,jdbcType=INTEGER},
+      </if>
+      <if test="psex != null" >
+        psex = #{psex,jdbcType=VARCHAR},
+      </if>
+      <if test="pjobname != null" >
+        pjobname = #{pjobname,jdbcType=VARCHAR},
+      </if>
+      <if test="pbodystatus != null" >
+        pbodystatus = #{pbodystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pheight != null" >
+        pheight = #{pheight,jdbcType=VARCHAR},
+      </if>
+      <if test="porigo != null" >
+        pOrigo = #{porigo,jdbcType=VARCHAR},
+      </if>
+      <if test="pethnic != null" >
+        pethnic = #{pethnic,jdbcType=VARCHAR},
+      </if>
+      <if test="pmaritalstatus != null" >
+        pmaritalstatus = #{pmaritalstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="peducation != null" >
+        peducation = #{peducation,jdbcType=VARCHAR},
+      </if>
+      <if test="pschooltag != null" >
+        pSchoolTag = #{pschooltag,jdbcType=VARCHAR},
+      </if>
+      <if test="pprofession != null" >
+        pprofession = #{pprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="pqualification != null" >
+        pqualification = #{pqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="pdegree != null" >
+        pdegree = #{pdegree,jdbcType=VARCHAR},
+      </if>
+      <if test="pstaffing != null" >
+        pstaffing = #{pstaffing,jdbcType=VARCHAR},
+      </if>
+      <if test="pidnumber != null" >
+        pidnumber = #{pidnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="paccountadd != null" >
+        paccountadd = #{paccountadd,jdbcType=VARCHAR},
+      </if>
+      <if test="ppostcode != null" >
+        ppostcode = #{ppostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pphone != null" >
+        pphone = #{pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pthisaddress != null" >
+        pthisaddress = #{pthisaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ptrialdate != null" >
+        ptrialdate = #{ptrialdate,jdbcType=DATE},
+      </if>
+      <if test="pentrydate != null" >
+        pentrydate = #{pentrydate,jdbcType=DATE},
+      </if>
+      <if test="pbirthdate != null" >
+        pbirthdate = #{pbirthdate,jdbcType=DATE},
+      </if>
+      <if test="pbegindate != null" >
+        pbegindate = #{pbegindate,jdbcType=DATE},
+      </if>
+      <if test="poverdate != null" >
+        poverdate = #{poverdate,jdbcType=DATE},
+      </if>
+      <if test="pbirthday != null" >
+        pbirthday = #{pbirthday,jdbcType=DATE},
+      </if>
+      <if test="page != null" >
+        page = #{page,jdbcType=INTEGER},
+      </if>
+      <if test="puid != null" >
+        puid = #{puid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Staff" >
+    update staff
+    set pjobid = #{pjobid,jdbcType=VARCHAR},
+      pname = #{pname,jdbcType=VARCHAR},
+      psectionid = #{psectionid,jdbcType=INTEGER},
+      psex = #{psex,jdbcType=VARCHAR},
+      pjobname = #{pjobname,jdbcType=VARCHAR},
+      pbodystatus = #{pbodystatus,jdbcType=VARCHAR},
+      pheight = #{pheight,jdbcType=VARCHAR},
+      pOrigo = #{porigo,jdbcType=VARCHAR},
+      pethnic = #{pethnic,jdbcType=VARCHAR},
+      pmaritalstatus = #{pmaritalstatus,jdbcType=VARCHAR},
+      peducation = #{peducation,jdbcType=VARCHAR},
+      pSchoolTag = #{pschooltag,jdbcType=VARCHAR},
+      pprofession = #{pprofession,jdbcType=VARCHAR},
+      pqualification = #{pqualification,jdbcType=VARCHAR},
+      pdegree = #{pdegree,jdbcType=VARCHAR},
+      pstaffing = #{pstaffing,jdbcType=VARCHAR},
+      pidnumber = #{pidnumber,jdbcType=VARCHAR},
+      paccountadd = #{paccountadd,jdbcType=VARCHAR},
+      ppostcode = #{ppostcode,jdbcType=VARCHAR},
+      pphone = #{pphone,jdbcType=VARCHAR},
+      pthisaddress = #{pthisaddress,jdbcType=VARCHAR},
+      ptrialdate = #{ptrialdate,jdbcType=DATE},
+      pentrydate = #{pentrydate,jdbcType=DATE},
+      pbirthdate = #{pbirthdate,jdbcType=DATE},
+      pbegindate = #{pbegindate,jdbcType=DATE},
+      poverdate = #{poverdate,jdbcType=DATE},
+      pbirthday = #{pbirthday,jdbcType=DATE},
+      page = #{page,jdbcType=INTEGER},
+      puid = #{puid,jdbcType=INTEGER}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>

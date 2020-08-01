@@ -4,6 +4,15 @@ public class Repair {
 	private Section secti; //班组
 	
 	private Staff sta; //员工
+	private Maintainxm xm;
+	
+	private Income come;
+	
+	private Customer cus;
+	
+	private Documentstatus staa;
+	
+	private Car car;
 	
     private Integer wid;
 
@@ -65,6 +74,12 @@ public class Repair {
     private Integer bjid;
 
     private Integer ygid;
+
+    private Integer wuid;
+
+    private Integer wzid;
+
+    private Integer wcarid;
 
     public Integer getWid() {
         return wid;
@@ -240,5 +255,68 @@ public class Repair {
 
 	public void setSta(Staff sta) {
 		this.sta = sta;
+	}
+    public Integer getWuid() {
+        return wuid;
+    }
+
+    public void setWuid(Integer wuid) {
+        this.wuid = wuid;
+    }
+
+    public Integer getWzid() {
+        return wzid;
+    }
+
+    public void setWzid(Integer wzid) {
+        this.wzid = wzid;
+    }
+
+    public Integer getWcarid() {
+        return wcarid;
+    }
+
+    public void setWcarid(Integer wcarid) {
+        this.wcarid = wcarid;
+    }
+
+	public Maintainxm getXm() {
+		return xm;
+	}
+
+	public void setXm(Maintainxm xm) {
+		this.xm = xm;
+	}
+
+	public Income getCome() {
+		return come;
+	}
+
+	public void setCome(Income come) {
+		this.come = come;
+	}
+
+	public Customer getCus() {
+		return cus;
+	}
+
+	public void setCus(Customer cus) {
+		this.cus = cus;
+	}
+
+	public Documentstatus getStaa() {
+		return staa;
+	}
+
+	public void setStaa(Documentstatus staa) {
+		this.staa = staa;
+	}
+
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
 	}
 }

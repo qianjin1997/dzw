@@ -37,6 +37,9 @@
   </resultMap>
   <select id="findByid" resultMap="BaseResultMap">
 		select * from car where hid=#{hid}
+		</select>
+  <select resultMap="BaseResultMapExtends" id="findby">
+  	select * from car where hid = #{hid}
   </select>
   <select id="findAll" resultMap="BaseResultMapExtends" >
   	select * from car
