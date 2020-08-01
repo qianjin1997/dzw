@@ -443,6 +443,10 @@
 							this.dis = val;
 						},
 						jianyan(){
+							if(this.dis == 2){
+								this.dialogVisible = false;
+								return;
+							}
 							var that = this;
 							var che = JSON.stringify(this.page);
 							// console.log(che);

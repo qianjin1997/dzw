@@ -58,10 +58,10 @@
 					
 					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 180px; display: inline-block; " class="form-control" type="text">
 					<span  style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆型号</span>
-					<input v-model="cla.car.carty.jtypename" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 141px; display: inline-block; " class="form-control" type="text">
+					<input v-model="cla.car.cartype.jtypename" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 141px; display: inline-block; " class="form-control" type="text">
 					
 					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆品牌</span>
-					<input v-model="cla.car.carbr.ibrandname" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<input v-model="cla.car.carbrand.ibrandname" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
 				</p>
 				<p>
 					<span style=" font-size:16px;color: #6B696B; margin-left: 10px;">发动机号</span>
@@ -168,8 +168,8 @@
 									<td style=" font-size: 16px; ">{{item.wyhhouamount}}</td>
 									<td style=" font-size: 16px; ">{{item.wproblem}}</td>
 									<td style=" font-size: 16px; ">{{item.wdescribe}}</td>
-									<td style=" font-size: 16px; ">{{item.secti.qname}}</td>
-									<td style=" font-size: 16px; ">{{item.sta.pname}}</td>
+									<!-- <td style=" font-size: 16px; ">{{item.secti.qname}}</td>
+									<td style=" font-size: 16px; ">{{item.sta.pname}}</td> -->
 								</tr>
 							</table>
 					    </div>
@@ -226,8 +226,8 @@
 						list:[],
 						cla:{
 							car:{
-								carbr:{},
-								carty:{}
+								carbrand:{},
+								cartype:{}
 							},
 							docu:{
 								
