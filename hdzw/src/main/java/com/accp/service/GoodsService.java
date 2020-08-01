@@ -33,14 +33,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import com.accp.domain.Goods;
+import com.accp.domain.GoodsExample;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 @Transactional
 public class GoodsService {
 	
 	@Autowired
-	GoodsMapper mapper;
+	private GoodsMapper mapper;
 	
 	//查询所有信息
 	public List<Goods> findAll(String goods) {
@@ -143,9 +146,5 @@ public class GoodsService {
 	
 	public List<Wares> find8(){
 		return g9mapper.selectByExample(null);
-	}
-	
-	public Page<Goods> findByPage(Integer pageNum, Integer pageSize){
-		return null;
 	}
 }

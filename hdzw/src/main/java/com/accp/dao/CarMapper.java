@@ -8,6 +8,10 @@ import org.apache.ibatis.annotations.Param;
 public interface CarMapper {
 	List<Car> findAll( @Param("hid") Integer hid, @Param("name") String name);
 	
+	Car findById(@Param("hid")Integer hid);
+	
+	Car csytjId(@Param("hid")Integer hid);
+	
     int countByExample(CarExample example);
 
     int deleteByExample(CarExample example);

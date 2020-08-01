@@ -13,6 +13,15 @@
     <result column="wdeal" property="wdeal" jdbcType="REAL" />
     <result column="wclaim" property="wclaim" jdbcType="REAL" />
     <result column="wicbcprice" property="wicbcprice" jdbcType="REAL" />
+    <result column="wsum" property="wsum" jdbcType="INTEGER" />
+    <result column="wpriceclass" property="wpriceclass" jdbcType="VARCHAR" />
+    <result column="wyhqianprice" property="wyhqianprice" jdbcType="INTEGER" />
+    <result column="wthhouprice" property="wthhouprice" jdbcType="INTEGER" />
+    <result column="wyhhouamount" property="wyhhouamount" jdbcType="INTEGER" />
+    <result column="wproblem" property="wproblem" jdbcType="VARCHAR" />
+    <result column="wdescribe" property="wdescribe" jdbcType="VARCHAR" />
+    <result column="bjid" property="bjid" jdbcType="INTEGER" />
+    <result column="ygid" property="ygid" jdbcType="INTEGER" />
   </resultMap>
   
   <resultMap type="com.accp.domain.Repair" id="BaseResultMapTwo" extends="BaseResultMap">
@@ -46,6 +55,16 @@
 		</if>
 	</where>
   </select>
+  <resultMap extends="BaseResultMap" 	type="com.accp.domain.Repair" 	id="BaseResultMapExtends">
+  			<association property="secti" column="bjid" javaType="com.accp.domain.Section" select="com.accp.dao.SectionMapper.findById">
+  			</association>
+  			<association property="sta" column="ygid" javaType="com.accp.domain.Staff" select="com.accp.dao.StaffMapper.findById">
+  			</association>
+  </resultMap>
+  <select id="findAll" resultMap="BaseResultMapExtends">
+  			SELECT * FROM `repair`
+  </select>
+  
   
   <sql id="Example_Where_Clause" >
     <where >
@@ -107,7 +126,8 @@
   </sql>
   <sql id="Base_Column_List" >
     wid, wmid, wmname, wincomeid, wremark, wsprice, wmemberprice, wvipice, wdeal, wclaim, 
-    wicbcprice
+    wicbcprice, wsum, wpriceclass, wyhqianprice, wthhouprice, wyhhouamount, wproblem, 
+    wdescribe, bjid, ygid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.RepairExample" >
     select
@@ -143,11 +163,17 @@
     insert into repair (wid, wmid, wmname, 
       wincomeid, wremark, wsprice, 
       wmemberprice, wvipice, wdeal, 
-      wclaim, wicbcprice)
+      wclaim, wicbcprice, wsum, 
+      wpriceclass, wyhqianprice, wthhouprice, 
+      wyhhouamount, wproblem, wdescribe, 
+      bjid, ygid)
     values (#{wid,jdbcType=INTEGER}, #{wmid,jdbcType=INTEGER}, #{wmname,jdbcType=VARCHAR}, 
       #{wincomeid,jdbcType=INTEGER}, #{wremark,jdbcType=VARCHAR}, #{wsprice,jdbcType=REAL}, 
       #{wmemberprice,jdbcType=REAL}, #{wvipice,jdbcType=REAL}, #{wdeal,jdbcType=REAL}, 
-      #{wclaim,jdbcType=REAL}, #{wicbcprice,jdbcType=REAL})
+      #{wclaim,jdbcType=REAL}, #{wicbcprice,jdbcType=REAL}, #{wsum,jdbcType=INTEGER}, 
+      #{wpriceclass,jdbcType=VARCHAR}, #{wyhqianprice,jdbcType=INTEGER}, #{wthhouprice,jdbcType=INTEGER}, 
+      #{wyhhouamount,jdbcType=INTEGER}, #{wproblem,jdbcType=VARCHAR}, #{wdescribe,jdbcType=VARCHAR}, 
+      #{bjid,jdbcType=INTEGER}, #{ygid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.accp.domain.Repair" >
     insert into repair
@@ -185,6 +211,33 @@
       <if test="wicbcprice != null" >
         wicbcprice,
       </if>
+      <if test="wsum != null" >
+        wsum,
+      </if>
+      <if test="wpriceclass != null" >
+        wpriceclass,
+      </if>
+      <if test="wyhqianprice != null" >
+        wyhqianprice,
+      </if>
+      <if test="wthhouprice != null" >
+        wthhouprice,
+      </if>
+      <if test="wyhhouamount != null" >
+        wyhhouamount,
+      </if>
+      <if test="wproblem != null" >
+        wproblem,
+      </if>
+      <if test="wdescribe != null" >
+        wdescribe,
+      </if>
+      <if test="bjid != null" >
+        bjid,
+      </if>
+      <if test="ygid != null" >
+        ygid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="wid != null" >
@@ -219,6 +272,33 @@
       </if>
       <if test="wicbcprice != null" >
         #{wicbcprice,jdbcType=REAL},
+      </if>
+      <if test="wsum != null" >
+        #{wsum,jdbcType=INTEGER},
+      </if>
+      <if test="wpriceclass != null" >
+        #{wpriceclass,jdbcType=VARCHAR},
+      </if>
+      <if test="wyhqianprice != null" >
+        #{wyhqianprice,jdbcType=INTEGER},
+      </if>
+      <if test="wthhouprice != null" >
+        #{wthhouprice,jdbcType=INTEGER},
+      </if>
+      <if test="wyhhouamount != null" >
+        #{wyhhouamount,jdbcType=INTEGER},
+      </if>
+      <if test="wproblem != null" >
+        #{wproblem,jdbcType=VARCHAR},
+      </if>
+      <if test="wdescribe != null" >
+        #{wdescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="bjid != null" >
+        #{bjid,jdbcType=INTEGER},
+      </if>
+      <if test="ygid != null" >
+        #{ygid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -264,6 +344,33 @@
       <if test="record.wicbcprice != null" >
         wicbcprice = #{record.wicbcprice,jdbcType=REAL},
       </if>
+      <if test="record.wsum != null" >
+        wsum = #{record.wsum,jdbcType=INTEGER},
+      </if>
+      <if test="record.wpriceclass != null" >
+        wpriceclass = #{record.wpriceclass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wyhqianprice != null" >
+        wyhqianprice = #{record.wyhqianprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.wthhouprice != null" >
+        wthhouprice = #{record.wthhouprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.wyhhouamount != null" >
+        wyhhouamount = #{record.wyhhouamount,jdbcType=INTEGER},
+      </if>
+      <if test="record.wproblem != null" >
+        wproblem = #{record.wproblem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wdescribe != null" >
+        wdescribe = #{record.wdescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bjid != null" >
+        bjid = #{record.bjid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ygid != null" >
+        ygid = #{record.ygid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -281,7 +388,16 @@
       wvipice = #{record.wvipice,jdbcType=REAL},
       wdeal = #{record.wdeal,jdbcType=REAL},
       wclaim = #{record.wclaim,jdbcType=REAL},
-      wicbcprice = #{record.wicbcprice,jdbcType=REAL}
+      wicbcprice = #{record.wicbcprice,jdbcType=REAL},
+      wsum = #{record.wsum,jdbcType=INTEGER},
+      wpriceclass = #{record.wpriceclass,jdbcType=VARCHAR},
+      wyhqianprice = #{record.wyhqianprice,jdbcType=INTEGER},
+      wthhouprice = #{record.wthhouprice,jdbcType=INTEGER},
+      wyhhouamount = #{record.wyhhouamount,jdbcType=INTEGER},
+      wproblem = #{record.wproblem,jdbcType=VARCHAR},
+      wdescribe = #{record.wdescribe,jdbcType=VARCHAR},
+      bjid = #{record.bjid,jdbcType=INTEGER},
+      ygid = #{record.ygid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -319,6 +435,33 @@
       <if test="wicbcprice != null" >
         wicbcprice = #{wicbcprice,jdbcType=REAL},
       </if>
+      <if test="wsum != null" >
+        wsum = #{wsum,jdbcType=INTEGER},
+      </if>
+      <if test="wpriceclass != null" >
+        wpriceclass = #{wpriceclass,jdbcType=VARCHAR},
+      </if>
+      <if test="wyhqianprice != null" >
+        wyhqianprice = #{wyhqianprice,jdbcType=INTEGER},
+      </if>
+      <if test="wthhouprice != null" >
+        wthhouprice = #{wthhouprice,jdbcType=INTEGER},
+      </if>
+      <if test="wyhhouamount != null" >
+        wyhhouamount = #{wyhhouamount,jdbcType=INTEGER},
+      </if>
+      <if test="wproblem != null" >
+        wproblem = #{wproblem,jdbcType=VARCHAR},
+      </if>
+      <if test="wdescribe != null" >
+        wdescribe = #{wdescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="bjid != null" >
+        bjid = #{bjid,jdbcType=INTEGER},
+      </if>
+      <if test="ygid != null" >
+        ygid = #{ygid,jdbcType=INTEGER},
+      </if>
     </set>
     where wid = #{wid,jdbcType=INTEGER}
   </update>
@@ -333,7 +476,16 @@
       wvipice = #{wvipice,jdbcType=REAL},
       wdeal = #{wdeal,jdbcType=REAL},
       wclaim = #{wclaim,jdbcType=REAL},
-      wicbcprice = #{wicbcprice,jdbcType=REAL}
+      wicbcprice = #{wicbcprice,jdbcType=REAL},
+      wsum = #{wsum,jdbcType=INTEGER},
+      wpriceclass = #{wpriceclass,jdbcType=VARCHAR},
+      wyhqianprice = #{wyhqianprice,jdbcType=INTEGER},
+      wthhouprice = #{wthhouprice,jdbcType=INTEGER},
+      wyhhouamount = #{wyhhouamount,jdbcType=INTEGER},
+      wproblem = #{wproblem,jdbcType=VARCHAR},
+      wdescribe = #{wdescribe,jdbcType=VARCHAR},
+      bjid = #{bjid,jdbcType=INTEGER},
+      ygid = #{ygid,jdbcType=INTEGER}
     where wid = #{wid,jdbcType=INTEGER}
   </update>
 </mapper>

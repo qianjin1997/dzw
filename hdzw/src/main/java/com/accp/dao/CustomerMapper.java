@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface CustomerMapper {
 	
+	Customer findById(@Param("scusno") Integer eid);
 	
     int countByExample(CustomerExample example);
 

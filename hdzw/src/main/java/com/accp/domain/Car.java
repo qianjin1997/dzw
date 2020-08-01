@@ -42,7 +42,11 @@ public class Car {
 	}
 
 	private Integer hid;
-
+	
+	private Carbrand carbr;//车牌
+	
+	private Cartype carty; //车型
+	
     private String hlicenseno;
 
     private Integer hbrandid;
@@ -306,5 +310,21 @@ public class Car {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+	
+	public Carbrand getCarbr() {
+		return carbr;
+	}
+
+	public void setCarbr(Carbrand carbr) {
+		this.carbr = carbr;
+	}
+
+	public Cartype getCarty() {
+		return carty;
+	}
+
+	public void setCarty(Cartype carty) {
+		this.carty = carty;
 	}
 }

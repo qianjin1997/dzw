@@ -60,6 +60,15 @@
   	</foreach>
   </insert>-->
   
+  <select id="csytjId" resultMap="BaseResultMapExtends">
+  			select * from car where hid=#{hid}
+  </select>
+  
+  
+  <select id="findById" resultMap="BaseResultMap">
+  			select * from car where hid=#{hid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -153,7 +162,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Car">
+  <insert id="insert" parameterType="com.accp.domain.Car" keyColumn="hid" keyProperty="hid" useGeneratedKeys="true">
     insert into car (hid, hlicenseno, hbrandid, 
       htypeid, hdriverid, hvehicleownership, 
       hvin, hengineid, hengineno, 

@@ -3,8 +3,12 @@ package com.accp.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.accp.domain.SectionExample.Criteria;
+import com.accp.domain.SectionExample.Criterion;
+import com.accp.domain.SectionExample.GeneratedCriteria;
+
 public class SectionExample {
-    protected String orderByClause;
+	protected String orderByClause;
 
     protected boolean distinct;
 
@@ -291,6 +295,66 @@ public class SectionExample {
 
         public Criteria andQparentidNotBetween(Integer value1, Integer value2) {
             addCriterion("qparentid not between", value1, value2, "qparentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeIsNull() {
+            addCriterion("qjudge is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeIsNotNull() {
+            addCriterion("qjudge is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeEqualTo(Integer value) {
+            addCriterion("qjudge =", value, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeNotEqualTo(Integer value) {
+            addCriterion("qjudge <>", value, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeGreaterThan(Integer value) {
+            addCriterion("qjudge >", value, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("qjudge >=", value, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeLessThan(Integer value) {
+            addCriterion("qjudge <", value, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeLessThanOrEqualTo(Integer value) {
+            addCriterion("qjudge <=", value, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeIn(List<Integer> values) {
+            addCriterion("qjudge in", values, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeNotIn(List<Integer> values) {
+            addCriterion("qjudge not in", values, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeBetween(Integer value1, Integer value2) {
+            addCriterion("qjudge between", value1, value2, "qjudge");
+            return (Criteria) this;
+        }
+
+        public Criteria andQjudgeNotBetween(Integer value1, Integer value2) {
+            addCriterion("qjudge not between", value1, value2, "qjudge");
             return (Criteria) this;
         }
     }

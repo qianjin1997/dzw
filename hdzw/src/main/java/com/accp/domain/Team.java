@@ -1,7 +1,17 @@
 package com.accp.domain;
 
 public class Team {
-    private Integer uid;
+	private Section section;
+	
+    public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
+
+	private Integer uid;
 
     private Integer uteamid;
 
