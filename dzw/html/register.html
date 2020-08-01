@@ -149,7 +149,7 @@
 				    </el-table-column>
 				    <el-table-column
 					show-overflow-tooltip
-				      property="sta.zstatus"
+				      property="staa.zstatus"
 				      label="单据状态"
 				      width="120">
 				    </el-table-column>
@@ -421,7 +421,7 @@
 						var that = this;
 						var bool = true;
 						for(var i=0;i<that.reg.length;i++){
-							if(that.reg[i].car.hlicenseno==that.plist.car.hlicenseno&&that.reg[i].sta.zstatus=="接车"){
+							if(that.reg[i].car.hlicenseno==that.plist.car.hlicenseno&&that.reg[i].staa.zstatus=="接车"){
 								//alert("ss")
 								bool=false;
 							}
@@ -446,14 +446,14 @@
 					},
 					lishi(){
 						var that=this;
-						var url="http://localhost:8888/repair/find?wuid="+that.car.customer.eid;
+						var url="http://localhost:8888/tdrepair/find?wuid="+that.car.customer.eid;
 						$.ajax({
 							url:url,
 							success:function(result){
 								console.log(result);
 								for(var i=0;i<result.length;i++){
 									
-									if(result[i].sta.zstatus!="完工"){
+									if(result[i].staa.zstatus!="完工"){
 									//	alert(i)
 										result.splice(i,1);
 										
@@ -469,13 +469,14 @@
 					findbyid(){
 						
 						var that=this;
-						//alert(that.car.customer.eid)
-						var url="http://localhost:8888/repair/find?wuid="+that.car.customer.eid;
+						alert(that.car.customer.eid)
+						var url="http://localhost:8888/tdrepair/find?wuid="+that.car.customer.eid;
 						$.ajax({
 							url:url,
 							success:function(result){
+								console.log(result)
 								for(var i=0;i<result.length;i++){
-									if(result[i].sta.zstatus=="完工"){
+									if(result[i].staa.zstatus=="完工"){
 										result.splice(i,1);
 											--i;
 									}
@@ -490,6 +491,7 @@
 					},
 					handleCurrentChange(val) {
 						this.car = val;
+						console.log(this.car)
 						this.pdid=this.car.customer.eid;
 						console.log(this.pdid);
 						$('#two').modal('hide');

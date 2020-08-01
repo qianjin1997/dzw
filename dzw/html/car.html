@@ -158,6 +158,7 @@
 					that.xuan.vid="";
 					console.log(that.xuan);
 					var str=JSON.stringify(that.xuan);
+					console.log(str);
 					$.ajax({
 						url:"http://localhost:8888/fxmcar/caradd",
 						data:str,
@@ -183,12 +184,15 @@
 						success:function(rel){
 							alert(rel);
 							that.getfindpage(1);
+							that.xuan.car="";
+							that.xuan.carbrand="";
+							that.xuan.cartype="";
 						}
 					})
 				},
 				jzxoifj(date){
 					
-					alert(this.xuan.section.qid=date.qid);
+					// alert(this.xuan.section.qid=date.qid);
 					this.xuan.section.qname=date.qname;
 					this.xuan.section.qid=date.qid
 				},

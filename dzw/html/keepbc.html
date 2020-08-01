@@ -340,7 +340,21 @@
 							cus:{},
 							come:{},
 							xm:{}
+							// sta:{
+							// 	pid:""
+							// },
+							// r2:{
+							// 	xid:""
+							// },
+							// r3:{
+							// 	yid:""
+							// },
+							// secti:{
+							// 	qid:""
+							// }
+							
 						},
+						
 						fwtype:[],
 						income:[],
 						fwtypet:[],
@@ -419,7 +433,17 @@
 					carok(){
 						var that=this;
 						that.reg.wid = 0;
+						// that.reg.sta.pid=1;
+						// that.reg.secti.qid=1;
+						// that.reg.r2.xid=1;
+						// that.reg.r3.yid=1;
 						
+						// delete that.reg.sta;
+						// delete that.reg.secti;
+						// delete that.reg.r2;
+						// delete that.reg.r3;
+						// delete that.reg.xm.ma;
+						// delete that.reg.car.carbrand;
 						for(var i=0;i<that.fwtype.length;i++){
 							if(that.fwtype[i].xmaintainname==that.reg.xm.xmaintainname){
 								that.reg.xm.xid = that.fwtype[i].xid;
@@ -430,14 +454,15 @@
 								that.reg.come.yid = that.income[i].yid
 							}
 						}
+						
 						var reg = JSON.stringify(that.reg);
-						var url="http://localhost:8888/repair/add";
+						console.log(reg)
+						var url="http://localhost:8888/tdrepair/add";
 						$.ajax({
 							url:url,
 							data:reg,
 							type:"post",
 							contentType:"application/json;charset=utf-8",
-							dataType:"text",
 							success:function(result){
 								if(result=="000"){
 									alert('接车成功');
@@ -451,7 +476,7 @@
 					},
 					findone(){
 						var that=this;
-						var url="http://localhost:8888/repair/findone?wid="+wid;
+						var url="http://localhost:8888/tdrepair/findone?wid="+wid;
 						$.ajax({
 							url:url,
 							success:function(result){
