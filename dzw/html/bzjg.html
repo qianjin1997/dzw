@@ -34,8 +34,8 @@
 			  <div class="panel-heading" style="position: relative;background-color: #F7FFFF;">
 			    <h3 class="panel-title" style="font-size: 20px;font-weight: 800;">班组技工</h3>
 				<div style="position: absolute; right: 20px;top:5px">
-					<input  placeholder="匹配工号/手机/姓名" />
-					<el-button size="mini" type="warning">搜索</el-button>
+					<input v-model="name" placeholder="匹配工号/姓名" />
+					<el-button @click="getjffind(1)" size="mini" type="warning">搜索</el-button>
 					<el-button size="mini" type="info">关闭</el-button>
 					
 				</div>
@@ -52,7 +52,7 @@
 					</el-col>
 					<el-col :span="1.5">
 						<span  style="color: #fbb347;" class="glyphicon glyphicon-remove-sign" ></span>
-						<span>删除</span>
+						<span @click="getshan" >删除</span>
 					</el-col>
 					<el-col :span="1.5">
 						<span style="color: #fbb347;" class="glyphicon glyphicon-search" ></span>
@@ -68,7 +68,7 @@
 					</el-col>
 					<el-col :span="1.5">
 						<span  style="color: #fbb347;" class="glyphicon glyphicon-export"></span>
-						<span >导出</span>
+						<span @click="daochu">导出</span>
 					</el-col>
 				  </el-row>
 			  </div>
@@ -76,35 +76,86 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-2" >
-						<el-tree :data="data" :props="defaultProps" ></el-tree>
+						<el-tree :data="data" :props="defaultProps" node-key="id" 
+						   default-expand-all
+						   :expand-on-click-node="false"
+						>
+							<span class="custom-tree-node" slot-scope="{ node, data }">
+							        <span>{{ node.label }}</span>
+							        <span>
+							          <el-button 
+										v-if="data.qjudge==1"
+							            type="text"
+							            size="mini"
+							            @click="() => append(data)">
+							            添加班组
+							          </el-button>
+							          <el-button v-if="data.sect.length==0"
+							            type="text"
+							            size="mini"
+							            @click="() => remove(data)">
+							            删除
+							          </el-button>
+							        </span>
+							      </span>
+							
+						</el-tree>
 					</div>
 					<div class="col-md-10">
 						<template >
-						  <el-table  :header-cell-style="{background:'#39CEDE',color:'#606266'}"  ref="singleTable"  :data="tableData"  highlight-current-row   style="width: 100%;height: 500px;">
+						  <el-table @row-click="getbg" :header-cell-style="{background:'#39CEDE',color:'#606266'}"  ref="singleTable"  :data="page.list"  highlight-current-row   style="width: 100%;height: 500px;">
 						    <el-table-column  type="index"  width="50"></el-table-column>
-						    <el-table-column  property="date"  label="日期"  width="120"></el-table-column>
-						    <el-table-column  property="name"  label="姓名"  width="120"> </el-table-column>
-						    <el-table-column  property="address"  label="地址"></el-table-column>
+						    <el-table-column  property="pjobid"  label="工号"  width="120"></el-table-column>
+							<el-table-column  property="sect.qname"  label="班组名称"  width="120"></el-table-column>
+						    <el-table-column  property="pname"  label="姓名"  width="120"> </el-table-column>
+						    <el-table-column  property="psex"  label="性别"></el-table-column>
+							<el-table-column  property="pphone"  label="手机"></el-table-column>
+							<el-table-column  property="pbodystatus"  label="身体状况"></el-table-column>
+							<el-table-column  property="pheight"  label="身高"></el-table-column>
+							<el-table-column  property="porigo"  label="籍贯"></el-table-column>
+							<el-table-column  property="pmaritalstatus"  label="婚姻状况"></el-table-column>
+							<el-table-column  property="pbirthday"  label="出生日期" show-overflow-tooltip></el-table-column>
+							<el-table-column  property="peducation"  label="学历"></el-table-column>
+							<el-table-column  property="pidnumber"  label="身份证号" show-overflow-tooltip></el-table-column>
+							<el-table-column  property="paccountadd"  label="户口地址" ></el-table-column>
+							<el-table-column  property="pschooltag"  label="毕业院校" show-overflow-tooltip></el-table-column>
+							
 						  </el-table>
 						</template>
-						<el-pagination  style="margin: 10px 0px 0px 300px;" background  layout="prev, pager, next"  :total="1000"></el-pagination>
+						<el-pagination  style="margin: 10px 0px 0px 300px;" background  
+						layout="prev, pager, next"  
+						@current-change="fenye"
+						:page-size="2"
+						:total="page.total"
+						>
+							
+						</el-pagination>
 					</div>
 				</div>
 				
-				<div class="row" style=" background-color:#FAFAFA ">
-					<h5 >共计：8条</h5>
-				</div>
+
 			</div>
 			
+			<el-dialog title="班组添加" :visible.sync="dialogVisible5" width="40%" :before-close="handleClose" >
+					<div style="margin-left: 60px;">
+						
+						<span style="color:#40AFFF;margin-right: 15px;">班组名称</span><input v-model="bj.qname"/>
+						<h3 style="color:#40AFFF ;"></h3><input type="hidden" v-model="bj.qparentid"/>
+					</div>
+					<span slot="footer" class="dialog-footer">
+						<el-button @click="dialogVisible5 = false">取 消</el-button>
+						<el-button type="primary" @click="getbjadd()">确 定</el-button>
+					</span>
+			</el-dialog>
 			<!--  单击增加按钮打开-->
 			<el-dialog title="技工添加" :visible.sync="dialogVisible1" width="55%" :before-close="handleClose">
 				  <!-- <el-button type="primary" icon="el-icon-search">搜索</el-button> -->
 				  <div style="background-color: #FAFAFA ;" id="zj">
-					  <span style="margin-right: 10px;">技工编号<input disabled="disabled"/></span>
-					  <span style="margin-right: 10px;">技工名称<input /></span>
+					  <span style="margin-right: 10px;">技工编号<input v-model="xuan1.pjobid"/></span>
+					  <span style="margin-right: 10px;">技工名称<input v-model="xuan1.pname"/></span>
 					  <span  style="margin-right: 10px;" class="dropdown">
 						   <span>性别</span>
-						   <select  style="width: 50px;height: 26px;">
+						   <select v-model="xuan1.psex"  style="width: 50px;height: 26px;">
 							   <option>男</option>
 							   <option>女</option>
 							   <option>人妖</option>
@@ -112,108 +163,88 @@
 						   </select>
 						   
 					 </span>
-					 <input type="checkbox" /><span>组长</span><br/>
+					<!-- <input type="checkbox" /><span>组长</span><br/> -->
 					 <div style="margin: 10px 0px;">
 						 <span>所在班组</span>
-						 <input disabled="disabled"/>
+						 <input disabled="disabled" v-model="xuan.sect.qname"/>
 						 <span style="margin: 0px 10px 0px -20px;" @click="dialogVisible3= true"  class="el-icon-caret-bottom"></span>
-						 <span style="margin-right: 10px; ">手机<input style="width: 140px;" /></span>
-						 <span style="margin-right: 10px; ">登录账号<input style="width: 140px;"/></span>
+						 <span style="margin-right: 10px; ">手机<input v-model="xuan1.pphone" style="width: 140px;" /></span>
+						 <span style="margin-right: 10px; ">身体状况<input v-model="xuan1.pbodystatus" style="width: 140px;"/></span>
 					  </div>
 					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px; ">地址<input style="margin-left: 20px;" /></span>
-						  <span style="margin-right: 10px; ">出生日期<input style="width: 140px;" type="date"/></span>
-						  <span style="margin-right: 10px; ">微信号<input style="width: 140px;"/></span>
+						  <span style="margin-right: 10px; ">籍贯<input v-model="xuan1.porigo" style="margin-left: 20px;" /></span>
+						  <span style="margin-right: 10px; ">出生日期<input v-model="xuan1.pbirthday" style="width: 140px;" type="date"/></span>
+						  <span style="margin-right: 10px; ">身高<input v-model="xuan1.pheight"  style="width: 140px;"/></span>
 					  </div>
 					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px; ">身份证号<input/></span>
-						  <span style="margin-right: 10px; ">户口地址<input/></span>
+						  <span style="margin-right: 10px; ">身份证号<input v-model="xuan1.pidnumber"/></span>
+						  <span style="margin-right: 10px; ">户口地址<input v-model="xuan1.paccountadd"/></span>
+						  
 					  </div>
 					  <div style="margin: 10px 0px;">
-						  <span>开户银行</span>
-						  <select style="margin-right: 10px;width: 140px;height: 26px;">
-						  		<option>1</option>
-						  </select>
-						  <span style="margin-right: 10px; ">银行账号<input style="width: 140px;" /></span>
-						  <span>技工星级</span>
-						  <select style="margin-right: 10px;width: 140px;height: 26px;">
-						  		
-						  </select>
-					  </div>
-					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px;">维修工种</span><input style="width: 80%;"/>
-					  </div>
-					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px;">维修品牌</span><input style="width: 80%;"/>
+						  <span style="margin-right: 10px; ">婚姻状况<input v-model="xuan1.pmaritalstatus" style="width: 120px;"/></span>
+						  <span style="margin-right: 10px; ">学历<input v-model="xuan1.peducation" style="width: 120px;"/></span>
+						  <span style="margin-right: 10px; ">毕业院校<input v-model="xuan1.pschooltag" style="width: 120px;"/></span>
 					  </div>
 				  </div>
 				  <span slot="footer" class="dialog-footer">
 					<el-button @click="dialogVisible1 = false">取 消</el-button>
-					<el-button type="primary" >确 定</el-button>
+					<el-button type="primary" @click="getjgadd" >确 定</el-button>
 				  </span>
 			</el-dialog>
 			<!--下拉事件触发-->
-			<el-dialog title="维修班组"  :visible.sync="dialogVisible3"  width="30%"  :before-close="handleClose">
+			<el-dialog title="班组"  :visible.sync="dialogVisible3"  width="30%"  :before-close="handleClose">
 			  <div>
-				  <el-tree :data="data" :props="defaultProps" ></el-tree>
+				  <el-tree :data="data" :props="defaultProps" @node-click="xgbj"></el-tree>
 			  </div>
 			  <span slot="footer" class="dialog-footer">
-			    <el-button @click="dialogVisible3 = false">取 消</el-button>
-			    <el-button type="primary" >选择</el-button>
+			    <el-button @click="dialogVisible3 = false" type="primary" >保存</el-button>
 			  </span>
 			</el-dialog>
 			
 			<!--单击修改按钮打开-->
 			<el-dialog title="技工资料" :visible.sync="dialogVisible" width="55%" :before-close="handleClose">
 				  <div style="background-color: #FAFAFA ;" id="zj">
-					  <span style="margin-right: 10px;">技工编号<input disabled="disabled"/></span>
-					  <span style="margin-right: 10px;">技工名称<input/></span>
+					  <span style="margin-right: 10px;">技工编号<input v-model="xuan.pjobid" disabled="disabled"/></span>
+					  <span style="margin-right: 10px;">技工名称<input v-model="xuan.pname" /></span>
 					  <span  style="margin-right: 10px;" class="dropdown">
-						   <select  style="width: 50px;height: 26px;">
+						   <select v-model="xuan.psex" style="width: 50px;height: 26px;">
 						   			<option>男</option>
 						   			<option>女</option>
 						   			<option>人妖</option>
 						   							   
 						   </select>
 					 </span>
-					 <input type="checkbox" /><span>组长</span><br/>
+					 <!-- <input type="checkbox" /><span>组长</span><br/> -->
 					 <div style="margin: 10px 0px;">
 						 <span>所在班组</span>
-						 <input disabled="disabled"/>
+						 <input disabled="disabled" v-model="xuan.sect.qname"/>
 						 <span style="margin: 0px 10px 0px -20px;" @click="dialogVisible3= true"  class="el-icon-caret-bottom"></span>
-						 <span style="margin-right: 10px; ">手机<input style="width: 140px;" /></span>
-						 <span style="margin-right: 10px; ">登录账号<input style="width: 140px;"/></span>
+						 <span style="margin-right: 10px; ">手机<input v-model="xuan.pphone" style="width: 140px;" /></span>
+						 <span style="margin-right: 10px; ">身体状况<input  v-model="xuan.pbodystatus" style="width: 140px;"/></span>
 					  </div>
 					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px; ">地址<input style="margin-left: 20px;" /></span>
-						  <span style="margin-right: 10px; ">出生日期<input style="width: 140px;" type="date"/></span>
-						  <span style="margin-right: 10px; ">微信号<input style="width: 140px;"/></span>
+						  <span style="margin-right: 10px; ">籍贯<input v-model="xuan.porigo" style="margin-left: 20px;" /></span>
+						  <span style="margin-right: 10px; ">出生日期<input v-model="xuan.pbirthday" style="width: 140px;" type="date"/></span>
+						  <span style="margin-right: 10px; ">身高<input v-model="xuan.pheight" style="width: 140px;"/></span>
 					  </div>
 					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px; ">身份证号<input/></span>
-						  <span style="margin-right: 10px; ">户口地址<input/></span>
+						  <span style="margin-right: 10px; ">身份证号<input v-model="xuan.pidnumber"/></span>
+						  <span style="margin-right: 10px; ">户口地址<input v-model="xuan.paccountadd"/></span>
 					  </div>
 					  <div style="margin: 10px 0px;">
-						  <span>开户银行</span>
-						  <select style="margin-right: 10px;width: 140px;height: 26px;">
-						  		<option>1</option>
+						  <span>婚姻状态</span>
+						  <select v-model="xuan.pmaritalstatus" style="margin-right: 10px;width: 140px;height: 26px;">
+						  		<option>已婚</option>
+								<option>未婚</option>
 						  </select>
-						  <span style="margin-right: 10px; ">银行账号<input style="width: 140px;" /></span>
-						  <span>技工星级</span>
-						  <select style="margin-right: 10px;width: 140px;height: 26px;">
-						  		<option>1</option>
-						  </select>
-					  </div>
-					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px;">维修工种</span><input style="width: 80%;"/>
-					  </div>
-					  <div style="margin: 10px 0px;">
-						  <span style="margin-right: 10px;">维修品牌</span><input style="width: 80%;"/>
+						  <span style="margin-right: 10px; ">毕业院校<input v-model="xuan.pschooltag" style="width: 140px;" /></span>
+						  <span style="margin-right: 10px; ">学历<input v-model="xuan.peducation" style="width: 120px;"/></span>
 					  </div>
 				  </div>
 				  <span slot="footer" class="dialog-footer">
 					<el-button @click="dialogVisible = false">取 消</el-button>
-					<el-button type="primary" >确 定</el-button>
+					<el-button type="primary" @click="getxiu()">确 定</el-button>
 				  </span>
 			</el-dialog>
 			
@@ -223,8 +254,8 @@
 				  <div class="panel-heading" style="position: relative">
 				    <h3 class="panel-title">班组权重</h3>
 					<div style="position: absolute; right: 0px;top:5px">
-						<input   />
-						<el-button size="mini" type="success">搜索</el-button>
+						<input  placeholder="匹配班组名称" v-model="name1"/>
+						<el-button size="mini" type="success" @click="getbjqzcsy">搜索</el-button>
 						<el-button @click="dialogTableVisible = false"  size="mini" type="info">关闭</el-button>
 					</div>
 				  </div>
@@ -236,28 +267,26 @@
 				  </div>
 				</div>
 				<div class="row">
-					<div class="col-md-3" style="border: 1px solid red; ">
+					<div class="col-md-3">
 						<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
 					</div>
 					<div class="col-md-9">
 						<template>
-						  <el-table ref="multipleTable"  height="300"  :data="tableData" tooltip-effect="dark"style="width: 100%" >
+						  <el-table ref="multipleTable"  height="300"  :data="quanzhong" tooltip-effect="dark" style="width: 100%" >
 						    <el-table-column type="selection"width="55"></el-table-column>
-						    <el-table-column label="日期" width="120"><template slot-scope="scope">{{ scope.row.date }}</template></el-table-column>
-						    <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
-						    <el-table-column  prop="address"  label="地址"  show-overflow-tooltip></el-table-column>
-							<el-table-column prop="b"label="四" width="120"></el-table-column>
-							<el-table-column prop="a"label="四" width="120"></el-table-column>
+							<el-table-column prop="section.qname" label="班组名称" width="120"></el-table-column>
+						    <el-table-column prop="uznbai" label="站内白天" width="120"></el-table-column>
+						    <el-table-column prop="uznwan" label="站内晚上" width="120"> </el-table-column>
+						    <el-table-column  prop="uzwbai" label="站外白天"  show-overflow-tooltip></el-table-column>
+							<el-table-column prop="uzwwan"label="站外晚上" width="120"></el-table-column>
+							<el-table-column prop="uztbai"label="站台白天" width="120"></el-table-column>
+							<el-table-column prop="uztwan"label="站台晚上" width="120"></el-table-column>
+							<el-table-column prop="uranyouf"label="燃油费" width="120"></el-table-column>
 							
 						  </el-table>
 						</template>
-						<el-footer>
-							<el-pagination background  layout="prev, pager, next"  :total="1000"></el-pagination>
-						</el-footer>
+						
 					</div>
-				</div>
-				<div class="row" style=" background-color:#FAFAFA ">
-					<h5 >共计：8条</h5>
 				</div>
 			</el-dialog>	
 			
@@ -272,84 +301,157 @@
 				el:"#ctx",
 				data(){
 					return {
+						name1:"",
+						bj:{},//添加班组时使用
+						quanzhong:[
+							
+						],
+						page:{
+							
+						},
+						xuan:{
+							sect:{}
+						},
+						xuan1:{
+							sect:{
+								
+							}
+						},
+						name:"",
 						/** 关闭模态框判断使用 */
 						dialogVisible: false,
+						dialogVisible5:false,
 						dialogVisible1: false,
 						dialogVisible3:false,
 						dialogTableVisible: false,
-						 tableData: [{
-							  date: '2016-05-03',
-							  name: '王小虎',
-							  address: '上海市普陀区金沙江路 1518 弄',
-							  b: '1',
-							  a: '1',
-							  s: '1',
-							  d: '1',
-							  f: '1',
-							  g: '1'
-							}, {
-							  date: '2016-05-02',
-							  name: '王小虎',
-							  address: '上海市普陀区金沙江路 1518 弄',
-							  b: '1',
-							  a: '1',
-							  s: '1',
-							  d: '1',
-							  f: '1',
-							  g: '1'
-							}, {
-							  date: '2016-05-04',
-							  name: '王小虎',
-							  address: '上海市普陀区金沙江路 1518 弄',
-							  b: '1',
-							  a: '1',
-							  s: '1',
-							  d: '1',
-							  f: '1',
-							  g: '1'
-							}],
-							data: [{
-							          label: '一级 1',
-							          children: [{
-							            label: '二级 1-1',
-							            children: [{
-							              label: '三级 1-1-1'
-							            }]
-							          }]
-							        }, {
-							          label: '一级 2',
-							          children: [{
-							            label: '二级 2-1',
-							            children: [{
-							              label: '三级 2-1-1'
-							            }]
-							          }, {
-							            label: '二级 2-2',
-							            children: [{
-							              label: '三级 2-2-1'
-							            }]
-							          }]
-							        }, {
-							          label: '一级 3',
-							          children: [{
-							            label: '二级 3-1',
-							            children: [{
-							              label: '三级 3-1-1'
-							            }]
-							          }, {
-							            label: '二级 3-2',
-							            children: [{
-							              label: '三级 3-2-1'
-							            }]
-							          }]
-							        }],
-							        defaultProps: {
-							          children: 'children',
-							          label: 'label'
-							        }
+						tableData: [],
+						data:[
+							
+						],
+						defaultProps: {
+							id:'qid',
+							children:'sect',
+							label: 'qname'
+						}
+						
 					}		
 				},
 				methods: {
+					//添加员工
+					getjgadd(){
+						alert(1);
+						var that=this;
+						console.log(that.xuan);
+						that.xuan1.sect=that.xuan.sect;
+						console.log(that.xuan1);
+						
+						var str=JSON.stringify(that.xuan1);
+						 $.ajax({
+							 url:"http://localhost:8888/fxmbzjg/jgadd",
+							 data:str,
+							 contentType:"application/json;charset=utf-8",
+							 type:"post",
+							 success:function(rel){
+								 that.xuan1.sect="";
+								 that.xuan1="";
+								 alert(rel);
+								 that.dialogVisible1=false;
+								 that.getjffind(1);
+								 
+								
+							 }
+						 })
+					},
+					//修改员工
+					getxiu(){
+						
+						var that=this;
+						if(that.xuan.sect.qid==null||that.xuan.pid==null){
+							alert("请选择数据在进行操作，亲");
+							that.dialogVisible=false;
+							return;
+						}
+						console.log(that.xuan);
+						var str=JSON.stringify(that.xuan);
+						$.ajax({
+							url:"http://localhost:8888/fxmbzjg/jgupdate",
+							data:str,
+							contentType:"application/json;charset=utf-8",
+							type:"post",
+							success:function(rel){
+								alert(rel);
+								that.dialogVisible=false;
+							}
+						})
+					},
+					//班组添加
+					getbjadd(){	
+						var that=this;
+						that.dialogVisible5=false;
+						$.ajax({
+							url:"http://localhost:8888/fxmbzjg/bjadd",
+							data:that.bj,
+							success:function(rel){
+								alert(rel);
+								that.getright();
+							}
+						})
+					},
+					//班组权重查询所有
+					getbjqzcsy(){
+						var that=this;
+						console.log(that.name1);
+						var ab=that.name1;
+						$.ajax({
+							url:"http://localhost:8888/fxmbzjg/bjqzcsy?name1="+that.name1,
+							success:function(rel){
+								console.log(rel);
+								that.quanzhong=rel;
+							}
+						})
+					},
+					fenye(val){
+						this.getjffind(val);
+					},
+					xgbj(date){
+						var that=this;
+						
+						that.xuan.sect=date;
+						console.log(that.xuan.sect);
+						//that.xuan1.sect1=date;
+					},
+					  /**单击表格**/
+					  getbg(val){
+						var that=this;
+						if(that.xuan!=null){
+							that.xuan=val;
+							that.xuan1=val;
+							console.log(that.xuan);
+						}
+					  },
+					  /**删除单击触发**/
+					  getshan(){
+						  var that=this;
+						  if(that.xuan.pjobid==undefined){
+							 alert("请选中数据在进行操作");
+							 return;
+						  };
+						  var str=JSON.stringify(that.xuan);
+						  $.ajax({
+							  url:"http://localhost:8888/fxmbzjg/bzjgshan",
+							  data:str,
+							  type:"post",
+							  contentType:"application/json;charset=utf-8",
+							  success:function(rel){
+								  alert(rel);
+							  }
+						  })
+					  },
+					  /**导出**/
+					  daochu(){
+						  var that=this;
+						  window.location.href="http://localhost:8888/fxmbzjg/exportExcel?name="+that.name;
+					  },
 				      handleNodeClick(data) {
 				        console.log(data);
 				      },
@@ -363,7 +465,63 @@
 					              done();
 					            })
 					            .catch(_ => {});
-					  }
+					  },
+					  getjffind(val){
+						  var that=this;
+						  $.ajax({
+							  url:"http://localhost:8888/fxmbzjg/bzjgcsy",
+							  data:{
+								  pageNum:val,
+								  pageSize:2,
+								  name:that.name
+							  },
+							  success:function(rel){
+								  console.log(rel);
+								  that.page=rel;
+							  }
+						  })
+					  },
+					  getright(){
+					  	var that=this;
+					  	$.ajax({
+					  		url:"http://localhost:8888/fxmbzjg/bzjgright",
+					  		success:function(rel){
+					  			that.data=rel;
+					  			console.log(that.data)
+					  		}
+					  	})
+					  	
+					  },
+					  append(data) {
+						  console.log(data);
+						  alert(data.qid);
+						  alert(data.qjudge)
+						  this.dialogVisible5=true;
+						  this.bj.qparentid=data.qid;
+					  },
+					  //班组删除
+					  remove(data) {
+						  alert(data.qid);
+						  var that=this;
+						  that.bj.qid=data.qid;
+						  $.ajax({
+							  url:"http://localhost:8888/fxmbzjg/bjshan",
+							  data:that.bj,
+							  success:function(rel){
+								  alert(rel);
+								  that.getright();
+							  }
+						  })
+					  },
+			  
+					renderContent(h, { node, data, store }) {
+					  
+					}
+				},
+				created(){
+					this.getjffind(1);
+					this.getright();
+					this.getbjqzcsy();
 				}
 			
 			});

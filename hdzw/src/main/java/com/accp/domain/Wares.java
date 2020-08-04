@@ -36,8 +36,18 @@ public class Wares {
     private Integer afpaymentdays;
 
     private String afremark;
+    
+    private Ghaddress address;
 
-    public Integer getAfid() {
+    public Ghaddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(Ghaddress address) {
+		this.address = address;
+	}
+
+	public Integer getAfid() {
         return afid;
     }
 

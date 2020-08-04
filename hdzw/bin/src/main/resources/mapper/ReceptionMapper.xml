@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.ReceptionMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Reception" >
+    <id column="akid" property="akid" jdbcType="INTEGER" />
+    <result column="akstateid" property="akstateid" jdbcType="INTEGER" />
+    <result column="akbusinesstypeid" property="akbusinesstypeid" jdbcType="INTEGER" />
+    <result column="akcustomerid" property="akcustomerid" jdbcType="INTEGER" />
+    <result column="akcarid" property="akcarid" jdbcType="INTEGER" />
+    <result column="akbilltype" property="akbilltype" jdbcType="VARCHAR" />
+    <result column="akbillingdate" property="akbillingdate" jdbcType="DATE" />
+    <result column="akftc" property="akftc" jdbcType="DATE" />
+    <result column="akftcdate" property="akftcdate" jdbcType="DATE" />
+    <result column="akcleardate" property="akcleardate" jdbcType="DATE" />
+    <result column="akestimate" property="akestimate" jdbcType="REAL" />
+    <result column="akAdvisor" property="akadvisor" jdbcType="INTEGER" />
+    <result column="akpickone" property="akpickone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    akid, akstateid, akbusinesstypeid, akcustomerid, akcarid, akbilltype, akbillingdate, 
+    akftc, akftcdate, akcleardate, akestimate, akAdvisor, akpickone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.ReceptionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reception
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reception
+    where akid = #{akid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reception
+    where akid = #{akid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.ReceptionExample" >
+    delete from reception
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Reception" >
+    insert into reception (akid, akstateid, akbusinesstypeid, 
+      akcustomerid, akcarid, akbilltype, 
+      akbillingdate, akftc, akftcdate, 
+      akcleardate, akestimate, akAdvisor, 
+      akpickone)
+    values (#{akid,jdbcType=INTEGER}, #{akstateid,jdbcType=INTEGER}, #{akbusinesstypeid,jdbcType=INTEGER}, 
+      #{akcustomerid,jdbcType=INTEGER}, #{akcarid,jdbcType=INTEGER}, #{akbilltype,jdbcType=VARCHAR}, 
+      #{akbillingdate,jdbcType=DATE}, #{akftc,jdbcType=DATE}, #{akftcdate,jdbcType=DATE}, 
+      #{akcleardate,jdbcType=DATE}, #{akestimate,jdbcType=REAL}, #{akadvisor,jdbcType=INTEGER}, 
+      #{akpickone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Reception" >
+    insert into reception
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="akid != null" >
+        akid,
+      </if>
+      <if test="akstateid != null" >
+        akstateid,
+      </if>
+      <if test="akbusinesstypeid != null" >
+        akbusinesstypeid,
+      </if>
+      <if test="akcustomerid != null" >
+        akcustomerid,
+      </if>
+      <if test="akcarid != null" >
+        akcarid,
+      </if>
+      <if test="akbilltype != null" >
+        akbilltype,
+      </if>
+      <if test="akbillingdate != null" >
+        akbillingdate,
+      </if>
+      <if test="akftc != null" >
+        akftc,
+      </if>
+      <if test="akftcdate != null" >
+        akftcdate,
+      </if>
+      <if test="akcleardate != null" >
+        akcleardate,
+      </if>
+      <if test="akestimate != null" >
+        akestimate,
+      </if>
+      <if test="akadvisor != null" >
+        akAdvisor,
+      </if>
+      <if test="akpickone != null" >
+        akpickone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="akid != null" >
+        #{akid,jdbcType=INTEGER},
+      </if>
+      <if test="akstateid != null" >
+        #{akstateid,jdbcType=INTEGER},
+      </if>
+      <if test="akbusinesstypeid != null" >
+        #{akbusinesstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="akcustomerid != null" >
+        #{akcustomerid,jdbcType=INTEGER},
+      </if>
+      <if test="akcarid != null" >
+        #{akcarid,jdbcType=INTEGER},
+      </if>
+      <if test="akbilltype != null" >
+        #{akbilltype,jdbcType=VARCHAR},
+      </if>
+      <if test="akbillingdate != null" >
+        #{akbillingdate,jdbcType=DATE},
+      </if>
+      <if test="akftc != null" >
+        #{akftc,jdbcType=DATE},
+      </if>
+      <if test="akftcdate != null" >
+        #{akftcdate,jdbcType=DATE},
+      </if>
+      <if test="akcleardate != null" >
+        #{akcleardate,jdbcType=DATE},
+      </if>
+      <if test="akestimate != null" >
+        #{akestimate,jdbcType=REAL},
+      </if>
+      <if test="akadvisor != null" >
+        #{akadvisor,jdbcType=INTEGER},
+      </if>
+      <if test="akpickone != null" >
+        #{akpickone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.ReceptionExample" resultType="java.lang.Integer" >
+    select count(*) from reception
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update reception
+    <set >
+      <if test="record.akid != null" >
+        akid = #{record.akid,jdbcType=INTEGER},
+      </if>
+      <if test="record.akstateid != null" >
+        akstateid = #{record.akstateid,jdbcType=INTEGER},
+      </if>
+      <if test="record.akbusinesstypeid != null" >
+        akbusinesstypeid = #{record.akbusinesstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.akcustomerid != null" >
+        akcustomerid = #{record.akcustomerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.akcarid != null" >
+        akcarid = #{record.akcarid,jdbcType=INTEGER},
+      </if>
+      <if test="record.akbilltype != null" >
+        akbilltype = #{record.akbilltype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.akbillingdate != null" >
+        akbillingdate = #{record.akbillingdate,jdbcType=DATE},
+      </if>
+      <if test="record.akftc != null" >
+        akftc = #{record.akftc,jdbcType=DATE},
+      </if>
+      <if test="record.akftcdate != null" >
+        akftcdate = #{record.akftcdate,jdbcType=DATE},
+      </if>
+      <if test="record.akcleardate != null" >
+        akcleardate = #{record.akcleardate,jdbcType=DATE},
+      </if>
+      <if test="record.akestimate != null" >
+        akestimate = #{record.akestimate,jdbcType=REAL},
+      </if>
+      <if test="record.akadvisor != null" >
+        akAdvisor = #{record.akadvisor,jdbcType=INTEGER},
+      </if>
+      <if test="record.akpickone != null" >
+        akpickone = #{record.akpickone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update reception
+    set akid = #{record.akid,jdbcType=INTEGER},
+      akstateid = #{record.akstateid,jdbcType=INTEGER},
+      akbusinesstypeid = #{record.akbusinesstypeid,jdbcType=INTEGER},
+      akcustomerid = #{record.akcustomerid,jdbcType=INTEGER},
+      akcarid = #{record.akcarid,jdbcType=INTEGER},
+      akbilltype = #{record.akbilltype,jdbcType=VARCHAR},
+      akbillingdate = #{record.akbillingdate,jdbcType=DATE},
+      akftc = #{record.akftc,jdbcType=DATE},
+      akftcdate = #{record.akftcdate,jdbcType=DATE},
+      akcleardate = #{record.akcleardate,jdbcType=DATE},
+      akestimate = #{record.akestimate,jdbcType=REAL},
+      akAdvisor = #{record.akadvisor,jdbcType=INTEGER},
+      akpickone = #{record.akpickone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Reception" >
+    update reception
+    <set >
+      <if test="akstateid != null" >
+        akstateid = #{akstateid,jdbcType=INTEGER},
+      </if>
+      <if test="akbusinesstypeid != null" >
+        akbusinesstypeid = #{akbusinesstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="akcustomerid != null" >
+        akcustomerid = #{akcustomerid,jdbcType=INTEGER},
+      </if>
+      <if test="akcarid != null" >
+        akcarid = #{akcarid,jdbcType=INTEGER},
+      </if>
+      <if test="akbilltype != null" >
+        akbilltype = #{akbilltype,jdbcType=VARCHAR},
+      </if>
+      <if test="akbillingdate != null" >
+        akbillingdate = #{akbillingdate,jdbcType=DATE},
+      </if>
+      <if test="akftc != null" >
+        akftc = #{akftc,jdbcType=DATE},
+      </if>
+      <if test="akftcdate != null" >
+        akftcdate = #{akftcdate,jdbcType=DATE},
+      </if>
+      <if test="akcleardate != null" >
+        akcleardate = #{akcleardate,jdbcType=DATE},
+      </if>
+      <if test="akestimate != null" >
+        akestimate = #{akestimate,jdbcType=REAL},
+      </if>
+      <if test="akadvisor != null" >
+        akAdvisor = #{akadvisor,jdbcType=INTEGER},
+      </if>
+      <if test="akpickone != null" >
+        akpickone = #{akpickone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where akid = #{akid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Reception" >
+    update reception
+    set akstateid = #{akstateid,jdbcType=INTEGER},
+      akbusinesstypeid = #{akbusinesstypeid,jdbcType=INTEGER},
+      akcustomerid = #{akcustomerid,jdbcType=INTEGER},
+      akcarid = #{akcarid,jdbcType=INTEGER},
+      akbilltype = #{akbilltype,jdbcType=VARCHAR},
+      akbillingdate = #{akbillingdate,jdbcType=DATE},
+      akftc = #{akftc,jdbcType=DATE},
+      akftcdate = #{akftcdate,jdbcType=DATE},
+      akcleardate = #{akcleardate,jdbcType=DATE},
+      akestimate = #{akestimate,jdbcType=REAL},
+      akAdvisor = #{akadvisor,jdbcType=INTEGER},
+      akpickone = #{akpickone,jdbcType=VARCHAR}
+    where akid = #{akid,jdbcType=INTEGER}
+  </update>
+</mapper>

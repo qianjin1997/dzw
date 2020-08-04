@@ -6,6 +6,18 @@
     <result column="xmaintainname" property="xmaintainname" jdbcType="VARCHAR" />
     <result column="xparentid" property="xparentid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.Maintainxm" id="BaseResultMapTwo" extends="BaseResultMap">
+  	<collection property="ma" column="xid" select="findAll"></collection>
+  </resultMap>
+  
+  <select id="findAll" resultMap="BaseResultMapTwo">
+  	select * from maintainxm where xparentid = #{id}
+  </select>
+  
+  <select resultMap="BaseResultMap" id="findby">
+  	select * from maintainxm where xid = #{xid}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

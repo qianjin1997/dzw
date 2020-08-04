@@ -52,9 +52,9 @@
 				  
 					<div class="navbar-form navbar-left" class="layui-col-md6 ">
 						<div class="form-group">
-						  <input type="text" class="form-control" placeholder="查询客户" style="width: 400px;">
+						  <input type="text" class="form-control" placeholder="查询客户" style="width: 400px; " v-model="ssname">
 						</div>
-						<el-button type="warning" plain>搜索</el-button> <el-button type="info" plain>关闭</el-button>
+						<el-button type="warning" plain @click="ss">搜索</el-button> <el-button type="info" plain>关闭</el-button>
 					</div>		
 				</div>
 				</div>
@@ -1463,7 +1463,7 @@
 						lxid:null,
 						pp:{},
 						lx:{},
-						
+						ssname:"",
 						ppname:null,
 					   gridData: [{
 							 date: '2016-05-02',
@@ -1497,8 +1497,6 @@
 					 
 					   value1: '',
 					   value1: '',
-					
-					 
 					    checked: true,
 					    dialogVisible: false,
 						 dialogVisible1: false,
@@ -1587,9 +1585,14 @@
 					  				
 					  handleCurrentChange(val) {
 						  var that=this;
+						  var clicarr = sessionStorage.getItem("clicar");
+						 if(clicarr=="888"){
+						 	parent.vm.ceshi(val.eid,val.ecustomername);
+							sessionStorage.setItem("clicar","");
+							var index=parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index);
+						 }
 						  that.currentRow1=val;
-						  
-						  
 						 	this.findcarbyid();
 							console.log(val); 
 					  },
@@ -1659,7 +1662,6 @@
 							
 						}else{
 							that.xgkh=this.currentRow1;
-							
 							this.tj3 = true;
 							}
 					},
@@ -1928,6 +1930,17 @@
 						}
 						
 					},
+					ss(){
+						var that=this;
+						var url="http://localhost:8888/wsbcutomer/byck/?ssname="+that.ssname;
+						$.ajax({
+							url:url,
+							success:function(result){
+								console.log(result);
+								that.page.list=result;
+							}
+						});
+					}
 					},
 				  created() {
 				  	this.findpage(1);

@@ -1,7 +1,17 @@
 package com.accp.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.accp.dao.CustomerMapper;
+import com.accp.domain.Customer;
 
 
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +34,10 @@ public class wsbcustomenrController {
 	@GetMapping("/{id}")
 	public Customer findbyid(@PathVariable ("id") Integer id) {
 		return customer.findbyid(id);
+	}
+	@GetMapping("/byck")
+	public List<Customer> findck(String name){
+		return customer.find(name);
 	}
 	@GetMapping("/{pageNum}/{pageSize}")
 	public PageInfo<Customer> findall(@PathVariable ("pageSize") Integer pageSize,@PathVariable ("pageNum") Integer pageNum){

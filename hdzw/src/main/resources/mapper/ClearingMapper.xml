@@ -19,6 +19,42 @@
     <result column="scompletedate" property="scompletedate" jdbcType="DATE" />
     <result column="sremark" property="sremark" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Clearing"  id="BaseResultMapExtends">
+  			<association property="docu" column="sstatusid" javaType="com.accp.domain.Documentstatus" select="com.accp.dao.DocumentstatusMapper.findById">
+  			
+  			</association>
+  			<association property="cust" column="scusno" javaType="com.accp.domain.Customer" select="com.accp.dao.CustomerMapper.findById">
+  			
+  			</association>
+  			<association property="car" column="scarno" javaType="com.accp.domain.Car" select="com.accp.dao.CarMapper.csytjId">
+  			
+  			</association>
+  </resultMap>
+  <select id="findAll" resultMap="BaseResultMapExtends">
+  			SELECT * FROM `clearing` AS a
+			INNER JOIN `documentstatus` AS b ON a.`sstatusid`=b.`zid`
+			INNER JOIN  `customer` AS c ON  a.`scusno`=c.`eid`
+			INNER JOIN  `car` AS d ON a.`scarno` =d.`hid`
+  			
+  			<where>
+  				<if test="sj1 !=null and sj2 !=null and sj1 != '' and sj2 != ''  ">
+  					a.ssettlementdate BETWEEN #{sj1} AND #{sj2}
+  				</if>
+  				<if test="ssellno !=null">
+  					AND a.ssellno LIKE concat ('%',#{ssellno},'%')
+  				</if>
+  				<if test="ssettlementstatus !=null">
+  					AND a.ssettlementstatus LIKE concat ('%',#{ssettlementstatus},'%')
+  				</if>
+  				<if test="ecustomername != null">
+  					AND c.ecustomername LIKE concat ('%',#{ecustomername},'%')
+  				</if>
+  				<if test="hlicenseno != null">
+  					AND d.hlicenseno LIKE concat ('%',#{hlicenseno},'%')
+  				</if>
+  			</where>
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

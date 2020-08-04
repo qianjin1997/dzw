@@ -31,18 +31,29 @@
     <result column="ereststhree" property="ereststhree" jdbcType="VARCHAR" />
     <result column="erestsfour" property="erestsfour" jdbcType="VARCHAR" />
   </resultMap>
-    <resultMap extends="BaseResultMap" type="com.accp.domain.Customer" id="BaseResultMapExtends"><!--  -->
+  
+    <resultMap extends="BaseResultMap" type="com.accp.domain.Customer" id="BaseResultMapExtends">
   		<association property="member" column="ememberid" javaType="com.accp.domain.Member" select="com.accp.dao.MemberMapper.findBy"></association><!--车辆品牌  -->
- 
   </resultMap>
-
   
   <select id="findAll" resultMap="BaseResultMapExtends" >
-  	select * from customer
+  	select * from customer 
+  		<where>
+  		<if test="name != null">
+  		 	or  ecustomerid like concat ('%',#{name},'%') or ecustomername like concat ('%',#{name},'%')or  eaddress like concat ('%',#{name},'%') 
+  		 </if>
+  		</where>
   </select>
-  
+ 
  <select id="findByid" resultMap="BaseResultMap">
 		select * from customer where eid=#{huid}
+</select>  
+  <select id="findById" resultMap="BaseResultMap">
+  			SELECT * FROM `customer` WHERE eid=#{eid}
+  </select>
+  
+  <select resultMap="BaseResultMap" id="findby">
+  	select * from customer where eid = #{eid}
   </select>
   <sql id="Example_Where_Clause" >
     <where >

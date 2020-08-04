@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>维修单</title>
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../elementui/index.css">
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tit">
+			<div style="background-color: #F7FFFF;border: 1px solid #E7E7E7;" class="row">
+				<div class="col-xs-3">
+					<h3 style="margin:15px; display: inline-block; color: #737173; line-height: 15px;">维修单</h3>
+				</div>
+				<div class="col-xs-8" style="text-align: right; height: 47px; width: 1020px;">
+					<input style="margin-top: 5px;  width: 270px; display: inline-block; " class="form-control" type="text">
+					<button style=" margin-left:15px;width: 80px;height: 32px;" class="btn btn-warning">搜索</button>
+					<button style=" margin-left:15px;width: 52px;height: 32px; color: #fffff;background-color: #737373;" class="btn btn-danger">关闭</button>
+				</div>
+			</div>
+			<div style="background-color: #F7F7F7;height:35px;">
+				<div style=" height: 30px;line-height: 30px; text-align: right;">
+					<span style="padding-right:880px;">
+						<span style="font-size: 15px; color: #525152;">单号：{{reg.wid}}</span>
+					</span>
+					<span style="padding-right:25px;">
+						<span style="color: #FFAE21;" class="glyphicon glyphicon-trash"></span>
+						<a @click="carok()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">接车完</a>
+					</span>
+					<span style="padding-right:25px;">
+						<span style="color: #FFAE21;" class="glyphicon glyphicon-user"></span>
+						<a @click="open()"  href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">委托书</a>
+					</span>
+					<span style="padding-right:25px;">
+						<span style="color: #FFAE21;" class="glyphicon glyphicon-print"></span>
+						<a @click="open()" href="javascript:void(0)" style="font-size: 15px; color: #525152; font-weight: bold;">结算单</a>
+					</span>
+				</div>
+			</div>
+			<!---->
+			<div style="width: 1300px;height: 400px; margin: auto;">
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px; color: #6B696B;">车牌号码</span>
+					<input v-model="reg.car.hlicenseno" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车架号</span>
+					<input v-model="reg.car.hvin" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 180px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆型号</span>
+					<input v-model="reg.car.cartype.jtypename" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 141px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">车辆品牌</span>
+					<input v-model="reg.car.carbrand.ibrandname" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style=" font-size:16px;color: #6B696B; margin-left: 10px;">发动机号</span>
+					<input v-model="reg.car.hengineno" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 145px;">发动机品牌</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 250px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px;color: #6B696B; margin-left: 13px;">服务顾问</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">车主姓名</span>
+					<input v-model="reg.cus.ecustomername" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 350px; display: inline-block; " class="form-control" type="text">
+					<span style="font-size: 8px; margin-left: 3px;">✡</span>
+					<span  style=" font-size:16px; margin-left: 10px;color: #6B696B;">驾驶员</span>
+					<input v-model="reg.car.driver.oname" readonly="readonly"  style="margin-top: 5px;margin-left:17px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">联系电话</span>
+					<input v-model="reg.cus.ephone" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style=" font-size:16px;margin-left: 10px;color: #6B696B;">进厂里程</span>
+					<input v-model="reg.car.mileage" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">进厂油量</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 23px;color: #6B696B;">上次里程</span>
+					<input v-model="reg.car.mileage" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">进厂时间</span>
+					<input v-model="reg.car.bldate" readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">业务类别</span>
+					<select  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; "class="form-control">
+						<option v-for="item in fwtype" >{{item.xmaintainname}}</option>
+					</select>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px; margin-left: 0px;color: #6B696B;">施工班次</span>
+					<select style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; "class="form-control">
+						<option>白天</option>
+						<option>中午</option>
+						<option>夜晚</option>
+					</select>
+					<span style=" font-size:16px; margin-left: 23px;color: #6B696B;">接车人</span>
+					<input value="超级用户" readonly="readonly"  style="margin-top: 5px;margin-left:20px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">预计完工</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">结算方式</span>
+					<select v-model="reg.come.yname" style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; "class="form-control">
+						<option v-for="item in income" >{{item.yname}}</option>
+					</select>
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">赔款公司</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 23px;color: #6B696B;">完工时间</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 168px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">上次进厂</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<span style="font-size: 8px;">✡</span>
+					<span style=" font-size:16px;color: #6B696B;">预估金额</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 130px; display: inline-block; " class="form-control" type="text">
+					<span style=" font-size:16px; margin-left: 13px;color: #6B696B;">接待备注</span>
+					<input readonly="readonly"  style="margin-top: 5px;margin-left:5px;width: 618px; display: inline-block; " class="form-control" type="text">
+				</p>
+				<p>
+					<div style="float:left;color: #6B696B;border: 1px solid #000000; width: 100px; height: 50px;line-height: 46px; text-align: center;">
+						报修陈述
+					</div>
+				    <textarea readonly="readonly"  style="color: #6B696B;border: 1px solid #000000; width: 825px; height: 50px;">
+					</textarea>
+					
+				</p>
+			</div>
+			<!--
+            	作者：offline
+            	时间：2020-07-16
+            	描述：
+            -->
+            <div style="width: 1300px; height: 300px;margin: auto;">
+            	<div>
+					  <!-- Nav tabs -->
+					  <ul class="nav nav-tabs" role="tablist">
+					    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">维修项目</a></li>
+					    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">领料情况</a></li>
+					    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">附加项目</a></li>
+					    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">结算信息</a></li>
+					  </ul>
+						<table style="width: 200px;margin: 0;" class="table">
+							<tr style="background-color: #39CFDE; text-align: center;">
+								<td style="color:#FFFFFF"><a @click="openregadd()" href="javascript:void(0)">单个添加</a></td>
+							</tr>
+						</table>
+						
+					  <!-- Tab panes -->
+					  <div class="tab-content">
+					    <div role="tabpanel" class="tab-pane active" id="home">
+					    	<table   class="table table-bordered">
+								<tr style="background-color: #39CFDE; text-align: center;">
+									<td> </td>
+									<td style=" color: #FFFFFF; font-size: 16px; width: 50px;">选择</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">项目编码</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">项目名称</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">数量</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">价类</td>
+									<td style="color: #FFFFFF; font-size: 16px; ">优惠前单价</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">优惠后单价</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">优惠后金额</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">故障描述</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">故障原因</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">维修班组</td>
+									<td style=" color: #FFFFFF; font-size: 16px; ">作业人员</td>
+								</tr>
+								<tr  style="text-align: center;">
+									<td style="background-color: #D6D7CE;"> </td>
+									<td style=" width:250px; font-size: 16px; width: 50px;">
+										<input type="checkbox">
+									</td>
+									<td style=" font-size: 16px; ">{{xianshi.xid}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xname}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xnum}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xjialei}}</td>
+									<td style=" font-size: 16px; ">{{xianshi.xqmoney}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xhmoney}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xhmoney}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xms}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xyy}}</td>
+									<td style="  font-size: 16px; ">{{xianshi.xbz}}</td>
+									<td style="  font-size: 16px; "></td>
+								</tr>
+							</table>
+					    </div>
+					    <div role="tabpanel" class="tab-pane" id="profile">
+					    	
+					    </div>
+					    <div role="tabpanel" class="tab-pane" id="messages">
+					    	
+					    </div>
+					    <div role="tabpanel" class="tab-pane" id="settings">
+					    	
+					    </div>
+					  </div>
+				</div>
+            </div>
+            
+			
+			<div id="twoo" class="modal fade" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document" style="width: 730px;">
+				    <div class="modal-content">
+				      <div class="modal-body">
+				        <div style="width: 100%; height: 100%;">
+							<div style=" margin: auto; width: 700px; height: 500px;">
+								<div style="width: 4px; margin-left: 30px; height: 25px; background-color: #F7A621;float: left;margin-top: 4px;"></div>
+								<h3 style="color: #6B696B; float:left;margin-top: 5px;margin-left: 10px;">维修项目</h3>
+								<button @click="okadd()" type="button" style="width: 100px; margin-left: 400px;"  class="btn btn-success"><i style="font-size: 12px;margin-right: 5px;">√</i>确定</button>
+								<div style="height: 430px;margin: 20px 10px;">
+									<p style="padding:0 20px;margin-top: 5px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">维修项目</span>
+										<input  style="margin:10px 10px;width: 300px; display: inline-block; " class="form-control" type="text">
+										<select v-model="reg.xm.xmaintainname"  style="margin:0px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option v-for="item in fwtypet" >{{item.xmaintainname}}</option>
+										</select>
+									</p>
+									<p style="padding: 0px 20px;" >
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">价类</span>
+										<select v-model="xianshii.xjialei"  style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option>自费</option>
+										</select>
+										
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">免单原因</span>
+										<select  readonly="readonly" style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option ></option>
+										</select>
+									</p>
+									<p style="padding: 0px 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">服务顾问</span>
+										<select style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option v-for="item in staffs">{{item.pname}}</option>
+										</select>
+										
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">数量</span>
+										<input v-model="xianshii.xnum" style="margin:5px 10px;width: 130px; display: inline-block; " class="form-control" type="number">
+																			
+									</p>
+									<p style="padding: 0px 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">优惠前价格</span>
+										<input v-model="xianshii.xqmoney" style="margin:5px 10px;width: 130px; display: inline-block; " class="form-control" type="text">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">优惠后价格</span>
+										<input v-model="xianshii.xhmoney" style="margin:5px 10px;width: 130px; display: inline-block; " class="form-control" type="text">
+																			
+									</p>
+									<p style="padding:0 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">故障描述</span>
+										<input v-model="xianshi.xms"  style="margin:10px 10px;width: 500px; display: inline-block; " class="form-control" type="text">
+									</p>
+									<p style="padding:0 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">故障原因</span>
+										<input v-model="xianshii.xyy" style="margin:10px 10px;width: 500px; display: inline-block; " class="form-control" type="text">
+									</p>
+									<p style="padding: 0px 20px;">
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">维修班组</span>
+										<select v-model="xianshii.xbz"  style="margin:5px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option>第一组</option>
+											<option>第二组</option>
+											<option>第三组</option>
+										</select>
+										<span style="font-size: 8px;">✡</span>
+										<span style="width: 80px; display: inline-block; font-size:16px; color: #6B696B;">工单号</span>
+										<select  style="margin:0px 10px;width: 130px; display: inline-block; "class="form-control">
+											<option></option>
+										</select>
+																			
+									</p>
+								</div>	
+							</div>
+						</div>
+				     </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->	
+			
+			
+			
+            
+            <div id="two" class="modal fade" tabindex="-1" role="dialog">
+				  <div class="modal-dialog" role="document" style="width: 530px;">
+				    <div class="modal-content">
+				      <div class="modal-body">
+				       		<div style="width: 500px; height:220px;border: 1px solid white;">
+					    		<div style="width: 4px; margin-left: 30px; height: 25px; background-color: #F7A621;float: left;margin-top: 14px;"></div>
+									<h3 style="color: #6B696B; float:left;margin-top: 15px;margin-left: 10px;">报表打印</h3>
+									<div style="text-align: center;border: 1px solid #CEEFF7; margin:50px auto; width: 450px; height: 150px; padding: 5px;">
+										<select style="margin-top:25px;width: 200px; display: inline-block; " class="form-control">
+							 				 <option>维修委托书</option>
+										</select>
+										<div style="margin-top: 20px;">
+											<button type="button" style="width: 100px;"  class="btn btn-success"><i class="glyphicon glyphicon-print" style="font-size: 12px;margin-right: 5px;"></i>打印</button>
+											<button type="button" style="width: 100px; margin-left: 20px;"  class="btn btn-success"><i class="glyphicon glyphicon-print" style="font-size: 12px;margin-right: 5px;"></i>预览</button>
+											<button type="button" style="width: 100px; margin-left: 20px;"  class="btn btn-success"><i class="glyphicon glyphicon-print" style="font-size: 12px;margin-right: 5px;"></i>设计</button>
+										</div>
+									</div>
+								</div>
+					    	</div>
+				     </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->	
+		</div>
+	
+		<script src="../js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			let wid=0;
+			let num=0;
+			var thisURL = document.URL;
+			var getval =thisURL.split('?')[1]; 
+			var showval= getval.split("=")[1];
+			wid=showval;
+		var vm = new Vue({
+				el:".tit",
+				data(){
+					return {
+						
+						reg:{
+							car:{
+								carbrand:{},
+								cartype:{},
+								driver:{}
+							},
+							cus:{},
+							come:{},
+							xm:{}
+							// sta:{
+							// 	pid:""
+							// },
+							// r2:{
+							// 	xid:""
+							// },
+							// r3:{
+							// 	yid:""
+							// },
+							// secti:{
+							// 	qid:""
+							// }
+							
+						},
+						
+						fwtype:[],
+						income:[],
+						fwtypet:[],
+						staffs:[],
+						dimssions:[],
+						xianshi:{},
+						xianshii:{}
+					};
+				},
+				methods:{
+					okadd(){
+						var that = this;
+						that.xianshii.xname=that.reg.xm.xmaintainname;
+						num=num+1;
+						that.xianshii.xid=num;
+						
+						that.xianshi = that.xianshii;
+						that.reg.xm.wsprice = that.xianshi.xqmoney;
+						that.reg.xm.wmemberprice = that.xianshi.xhmoney;
+						that.reg.xm.wvipice =that.xianshi.xhmoney;
+						alert("添加成功");
+						$('#twoo').modal('hide');
+					},
+					findall(){
+						var that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/dimission/findall",
+							type:"get",
+							success:function(result){
+								console.log(result)
+								that.dimssions =result;
+							}	
+						})
+					},
+					staff(){
+						var that =this;
+						$.ajax({
+							url:"http://127.0.0.1:8888/staff/find",
+							type:"get",
+							success:function(result){
+								for(var i=0;i<result.length;i++){
+									for(var j=0;j<that.dimssions.length;j++){
+										if(result[i].pid==that.dimssions[j].amyid){
+										//	alert(that.dimssions[that.dimssions.length-1].amid)
+											result.splice(i,1);
+										}
+									}
+								}
+								console.log(result)
+								that.staffs =result;
+							}	
+						})
+					},
+					openregadd(){
+						var that=this;
+						var url="http://localhost:8888/maintainxm/find";
+						$.ajax({
+							url:url,
+							success:function(result){
+								for(var i=0;i<result.length;i++){
+									if(result[i].xparentid==1||result[i].xparentid==0){
+										result.splice(i,1);
+										--i;
+									}
+								}
+								console.log(result);
+								that.fwtypet = result;
+							}
+						});
+						that.staff();
+						$('#twoo').modal('show');
+					},
+					open(){
+						$('#two').modal('show');
+					},
+					carok(){
+						var that=this;
+						that.reg.wid = 0;
+						// that.reg.sta.pid=1;
+						// that.reg.secti.qid=1;
+						// that.reg.r2.xid=1;
+						// that.reg.r3.yid=1;
+						
+						// delete that.reg.sta;
+						// delete that.reg.secti;
+						// delete that.reg.r2;
+						// delete that.reg.r3;
+						// delete that.reg.xm.ma;
+						// delete that.reg.car.carbrand;
+						for(var i=0;i<that.fwtype.length;i++){
+							if(that.fwtype[i].xmaintainname==that.reg.xm.xmaintainname){
+								that.reg.xm.xid = that.fwtype[i].xid;
+							}
+						}
+						for(var i=0;i<that.income.length;i++){
+							if(that.income[i].yname==that.reg.come.yname){
+								that.reg.come.yid = that.income[i].yid
+							}
+						}
+						
+						var reg = JSON.stringify(that.reg);
+						console.log(reg)
+						var url="http://localhost:8888/tdrepair/add";
+						$.ajax({
+							url:url,
+							data:reg,
+							type:"post",
+							contentType:"application/json;charset=utf-8",
+							success:function(result){
+								if(result=="000"){
+									alert('接车成功');
+									window.location.href = "register.html";
+								}
+								else{
+									alert('接车失败');
+								}
+							}
+						});
+					},
+					findone(){
+						var that=this;
+						var url="http://localhost:8888/tdrepair/findone?wid="+wid;
+						$.ajax({
+							url:url,
+							success:function(result){
+								console.log(result);
+								that.reg = result;
+							}
+						});
+					},
+					findfwtype(){
+						var that=this;
+						var url="http://localhost:8888/maintainxm/find";
+						$.ajax({
+							url:url,
+							success:function(result){
+								for(var i=0;i<result.length;i++){
+									if(result[i].xparentid!=1){
+										result.splice(i,1);
+											--i;
+									}
+								}
+								console.log(result);
+								that.fwtype = result;
+							}
+						});
+					},
+					findincome(){
+						var that=this;
+						var url="http://localhost:8888/maintainxm/findincome";
+						$.ajax({
+							url:url,
+							success:function(result){
+								that.income = result;
+							}
+						});
+					}
+				},
+				created(){
+					this.findone();
+					this.findfwtype();
+					this.findincome();
+					this.findall();
+				}
+			});
+	</script>
+	</body>
+</html>

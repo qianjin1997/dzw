@@ -26,6 +26,91 @@
     <result column="abpcode" property="abpcode" jdbcType="VARCHAR" />
     <result column="abaccording" property="abaccording" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Goods" id="BaseResultMapTwo">
+  		<association property="g2" column="abshopbrandid" javaType="com.accp.domain.Goodsbrand">
+  			<id column="id" property="id" jdbcType="INTEGER" />
+   			<result column="name" property="name" jdbcType="VARCHAR" />
+  		</association>
+  		<association property="g3" javaType="com.accp.domain.Unit">
+  			<id column="adid" property="adid" jdbcType="INTEGER" />
+   			<result column="adname" property="adname" jdbcType="VARCHAR" />
+  		</association>
+  		<association property="g4" column="abshoplid" javaType="com.accp.domain.Goodstype">
+  			<id column="aeid" property="aeid" jdbcType="INTEGER" />
+		    <result column="aelname" property="aelname" jdbcType="VARCHAR" />
+		    <result column="aeparentid" property="aeparentid" jdbcType="INTEGER" />
+  		</association>
+  		<association property="g5" column="abincome" javaType="com.accp.domain.Brackets">
+  			<id column="agid" property="agid" jdbcType="INTEGER" />
+    		<result column="agname" property="agname" jdbcType="VARCHAR" />
+  		</association>
+  		<association property="g6" column="abOriginal" javaType="com.accp.domain.Original">
+  			<id column="ahid" property="ahid" jdbcType="INTEGER" />
+    		<result column="ahname" property="ahname" jdbcType="VARCHAR" />
+  		</association>
+  		<association property="g7" column="abshopgrade" javaType="com.accp.domain.Goodsdj">
+  			<id column="aiid" property="aiid" jdbcType="INTEGER" />
+    		<result column="ainame" property="ainame" jdbcType="VARCHAR" />
+  		</association>
+  		<association property="g8" column="abshoparea" javaType="com.accp.domain.Goodsplace">
+  			<id column="ajid" property="ajid" jdbcType="INTEGER" />
+   			<result column="ajname" property="ajname" jdbcType="VARCHAR" />
+  		</association>
+  		<association property="g9" column="abtradename" javaType="com.accp.domain.Wares">
+  			<id column="afid" property="afid" jdbcType="INTEGER" />
+		    <result column="afvendorcode" property="afvendorcode" jdbcType="VARCHAR" />
+		    <result column="aftradename" property="aftradename" jdbcType="VARCHAR" />
+		    <result column="afaddress" property="afaddress" jdbcType="VARCHAR" />
+		    <result column="afoperation" property="afoperation" jdbcType="VARCHAR" />
+		    <result column="afurl" property="afurl" jdbcType="VARCHAR" />
+		    <result column="afopeningbank" property="afopeningbank" jdbcType="VARCHAR" />
+		    <result column="afbankaccount" property="afbankaccount" jdbcType="VARCHAR" />
+		    <result column="affkmethod" property="affkmethod" jdbcType="VARCHAR" />
+		    <result column="afvendorrating" property="afvendorrating" jdbcType="VARCHAR" />
+		    <result column="afrunbrand" property="afrunbrand" jdbcType="VARCHAR" />
+		    <result column="afvendortype" property="afvendortype" jdbcType="VARCHAR" />
+		    <result column="aflinkman" property="aflinkman" jdbcType="VARCHAR" />
+		    <result column="afcall" property="afcall" jdbcType="VARCHAR" />
+		    <result column="afphone" property="afphone" jdbcType="VARCHAR" />
+		    <result column="afemail" property="afemail" jdbcType="VARCHAR" />
+		    <result column="afpaymentdays" property="afpaymentdays" jdbcType="INTEGER" />
+		    <result column="afremark" property="afremark" jdbcType="VARCHAR" />
+  		</association>
+  </resultMap>
+  
+  <select id="findAll" resultMap="BaseResultMapTwo">
+  	SELECT * FROM goods AS g1 INNER JOIN `goodsbrand` AS g2 ON(g1.`abshopbrandid`=g2.`id`)
+	 INNER JOIN `unit` AS g3 ON(g1.`abuoq`=g3.`adid`)
+	 INNER JOIN `goodstype` AS g4 ON(g1.`abshoplid`=g4.`aeid`)
+	 INNER JOIN `brackets` AS g5 ON(g1.`abincome`=g5.`agid`)
+	 INNER JOIN `original` AS g6 ON(g1.`abOriginal`=g6.`ahid`)
+	 INNER JOIN `goodsdj` AS g7 ON(g1.`abshopgrade`=g7.`aiid`)
+	 INNER JOIN `goodsplace` AS g8 ON(g1.`abshoparea`=g8.`ajid`)
+	 INNER JOIN `wares` AS g9 ON(g1.`abtradename`=g9.`afid`) 
+	 <where>
+	 	<if test="abcode != null ">
+  			or abcode like concat('%',#{abcode},'%') or abshopname like concat('%',#{abcode},'%')
+  		</if>
+	 </where>
+  </select>
+  
+  <select id="findAll1" resultMap="BaseResultMapTwo">
+  	SELECT * FROM goods AS g1 INNER JOIN `goodsbrand` AS g2 ON(g1.`abshopbrandid`=g2.`id`)
+	 INNER JOIN `unit` AS g3 ON(g1.`abuoq`=g3.`adid`)
+	 INNER JOIN `goodstype` AS g4 ON(g1.`abshoplid`=g4.`aeid`)
+	 INNER JOIN `brackets` AS g5 ON(g1.`abincome`=g5.`agid`)
+	 INNER JOIN `original` AS g6 ON(g1.`abOriginal`=g6.`ahid`)
+	 INNER JOIN `goodsdj` AS g7 ON(g1.`abshopgrade`=g7.`aiid`)
+	 INNER JOIN `goodsplace` AS g8 ON(g1.`abshoparea`=g8.`ajid`)
+	 INNER JOIN `wares` AS g9 ON(g1.`abtradename`=g9.`afid`) 
+	 <where>
+	 	<if test="abshoplid != null ">
+  			or abshoplid = #{abshoplid}
+  		</if>
+	 </where>
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

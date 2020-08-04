@@ -1611,6 +1611,66 @@ public class CarExample {
             addCriterion("huid not between", value1, value2, "huid");
             return (Criteria) this;
         }
+
+        public Criteria andHweiidIsNull() {
+            addCriterion("hweiid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidIsNotNull() {
+            addCriterion("hweiid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidEqualTo(Integer value) {
+            addCriterion("hweiid =", value, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidNotEqualTo(Integer value) {
+            addCriterion("hweiid <>", value, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidGreaterThan(Integer value) {
+            addCriterion("hweiid >", value, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("hweiid >=", value, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidLessThan(Integer value) {
+            addCriterion("hweiid <", value, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidLessThanOrEqualTo(Integer value) {
+            addCriterion("hweiid <=", value, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidIn(List<Integer> values) {
+            addCriterion("hweiid in", values, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidNotIn(List<Integer> values) {
+            addCriterion("hweiid not in", values, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidBetween(Integer value1, Integer value2) {
+            addCriterion("hweiid between", value1, value2, "hweiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andHweiidNotBetween(Integer value1, Integer value2) {
+            addCriterion("hweiid not between", value1, value2, "hweiid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

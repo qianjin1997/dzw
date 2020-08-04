@@ -6,6 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface RepairMapper {
+	List<Repair> findAll();
+	Repair findone(Integer wid);
+	
+	List<Repair> find(Integer wuid);
+	
     int countByExample(RepairExample example);
 
     int deleteByExample(RepairExample example);
@@ -27,4 +32,9 @@ public interface RepairMapper {
     int updateByPrimaryKeySelective(Repair record);
 
     int updateByPrimaryKey(Repair record);
+    
+    //----------------------------------
+    List<Repair> findAlls(String wmname);
+    
+    List<Repair> findAlls1(Integer wmid);
 }

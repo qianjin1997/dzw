@@ -462,73 +462,63 @@ public class StaffExample {
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameIsNull() {
-            addCriterion("pjobname is null");
+        public Criteria andPgjobidIsNull() {
+            addCriterion("pgjobid is null");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameIsNotNull() {
-            addCriterion("pjobname is not null");
+        public Criteria andPgjobidIsNotNull() {
+            addCriterion("pgjobid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameEqualTo(String value) {
-            addCriterion("pjobname =", value, "pjobname");
+        public Criteria andPgjobidEqualTo(Integer value) {
+            addCriterion("pgjobid =", value, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameNotEqualTo(String value) {
-            addCriterion("pjobname <>", value, "pjobname");
+        public Criteria andPgjobidNotEqualTo(Integer value) {
+            addCriterion("pgjobid <>", value, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameGreaterThan(String value) {
-            addCriterion("pjobname >", value, "pjobname");
+        public Criteria andPgjobidGreaterThan(Integer value) {
+            addCriterion("pgjobid >", value, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameGreaterThanOrEqualTo(String value) {
-            addCriterion("pjobname >=", value, "pjobname");
+        public Criteria andPgjobidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("pgjobid >=", value, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameLessThan(String value) {
-            addCriterion("pjobname <", value, "pjobname");
+        public Criteria andPgjobidLessThan(Integer value) {
+            addCriterion("pgjobid <", value, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameLessThanOrEqualTo(String value) {
-            addCriterion("pjobname <=", value, "pjobname");
+        public Criteria andPgjobidLessThanOrEqualTo(Integer value) {
+            addCriterion("pgjobid <=", value, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameLike(String value) {
-            addCriterion("pjobname like", value, "pjobname");
+        public Criteria andPgjobidIn(List<Integer> values) {
+            addCriterion("pgjobid in", values, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameNotLike(String value) {
-            addCriterion("pjobname not like", value, "pjobname");
+        public Criteria andPgjobidNotIn(List<Integer> values) {
+            addCriterion("pgjobid not in", values, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameIn(List<String> values) {
-            addCriterion("pjobname in", values, "pjobname");
+        public Criteria andPgjobidBetween(Integer value1, Integer value2) {
+            addCriterion("pgjobid between", value1, value2, "pgjobid");
             return (Criteria) this;
         }
 
-        public Criteria andPjobnameNotIn(List<String> values) {
-            addCriterion("pjobname not in", values, "pjobname");
-            return (Criteria) this;
-        }
-
-        public Criteria andPjobnameBetween(String value1, String value2) {
-            addCriterion("pjobname between", value1, value2, "pjobname");
-            return (Criteria) this;
-        }
-
-        public Criteria andPjobnameNotBetween(String value1, String value2) {
-            addCriterion("pjobname not between", value1, value2, "pjobname");
+        public Criteria andPgjobidNotBetween(Integer value1, Integer value2) {
+            addCriterion("pgjobid not between", value1, value2, "pgjobid");
             return (Criteria) this;
         }
 

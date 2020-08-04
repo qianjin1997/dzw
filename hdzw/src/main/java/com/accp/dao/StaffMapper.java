@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface StaffMapper {
+	Staff findById(@Param("pid") Integer ygid);
     int countByExample(StaffExample example);
 
     int deleteByExample(StaffExample example);

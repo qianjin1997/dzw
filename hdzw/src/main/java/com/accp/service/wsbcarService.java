@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.accp.dao.CarMapper;
 import com.accp.dao.CarbrandMapper;
 import com.accp.dao.CartypeMapper;
+import com.accp.domain.Car;
+import com.accp.domain.Carbrand;
+import com.accp.domain.Cartype;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.accp.dao.DriverMapper;
 import com.accp.dao.FuelMapper;
 import com.accp.domain.Car;
@@ -51,7 +57,7 @@ public class wsbcarService {
 	//车辆查询
 	public PageInfo<Car> findcarpage(Integer pageNum,Integer pageSize){
 		Page<Car> page=PageHelper.startPage(pageNum, pageSize);
-		car.findAll(null);
+		car.findAll(null,null);
 		return page.toPageInfo();
 	}
 	//车辆型号
@@ -63,11 +69,11 @@ public class wsbcarService {
 	public List<Car> findbyid(Integer id) {
 		/*CarExample example =new CarExample();
 		example.createCriteria().andHuidEqualTo(id);*/
-		return car.findAll(id);
+		return car.findAll(id,null);
 		
 	}
 	public List<Car> find(){
-		return car.findAll(null);
+		return car.findAll(null,null);
 	}
 	//车俩删除
 	public int delete(Integer hid) {
@@ -86,5 +92,11 @@ public class wsbcarService {
 	
 	public List<Cartype> findAll(){
 		return cartype.selectByExample(null);
+	}
+	public List<Car> findmhcar(String name){
+		/*CarExample ex=new CarExample();
+		ex.createCriteria().andHlicensenoLike("%"+name+"%");
+		return car.selectByExample(ex);*/
+		return car.findAll(null, name);
 	}
 }

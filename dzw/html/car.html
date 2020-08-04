@@ -22,17 +22,17 @@
 				  </div>
 				  <div class="panel-body" style="position: relative">
 					  <div style="position: absolute; right: 0px;top:10px">
-						  <span  class="glyphicon glyphicon-eye-open" style="margin-right: 20px;">增加</span>
-						  <span class="glyphicon glyphicon-remove-sign" style="margin-right: 20px;">删除</span>
-						  <span class="el-icon-dish-1" style="margin-right: 20px;">保存</span>
+						  <span @click="getadd()" class="glyphicon glyphicon-eye-open" style="margin-right: 20px;">增加</span>
+						  <span @click="getshan()" class="glyphicon glyphicon-remove-sign" style="margin-right: 20px;">删除</span>
+						  <span @click="getbc()" class="el-icon-dish-1" style="margin-right: 20px;">保存</span>
 					  </div>
-					  <div style="margin-top: 20px;" id="tou">
-						  <span>车牌号<input style="width: 120px;"></span>
-						  <span>品牌<input style="width: 120px;"></span>
-						  <span>车型<input style="width: 120px;"></span>
-						  <span>当前里程<input style="width: 120px;"></span>
+					  <div style="margin-top: 20px;" id="tou" >
+						  <span>车牌号<input v-model="xuan.car.hlicenseno" style="width: 120px;"></span>
+						  <span>品牌<input  v-model="xuan.carbrand.ibrandname" style="width: 120px;"></span>
+						  <span>车型<input  v-model="xuan.cartype.jtypename" style="width: 120px;"></span>
+						  <span>当前里程<input v-model="xuan.car.hmileage" style="width: 120px;"></span>
 						  <span>班组</span>
-						  <input disabled="disabled" style="width: 120px;"/>
+						  <input disabled="disabled" style="width: 120px;" v-model="xuan.section.qname"/>
 						  <span style="margin: 0px 10px 0px -20px;" @click="dialogVisible = true"  class="el-icon-caret-bottom"></span>
 						  
 					  </div>
@@ -40,20 +40,26 @@
 				</div>
 				<div>
 					<template>
-					  <el-table :header-cell-style="{background:'#39CEDE',color:'#606266'}" ref="singleTable"  :data="tableData"  highlight-current-row   style="width: 100%">
+					  <el-table @row-click="hhh"  :header-cell-style="{background:'#39CEDE',color:'#606266'}" ref="singleTable"  :data="page.list"  highlight-current-row   style="width: 100%">
 					    <el-table-column type="index" width="50"></el-table-column>
-					    <el-table-column  property="date"  label="日期"  width="120"></el-table-column>
-					    <el-table-column  property="name"  label="姓名"  width="120"></el-table-column>
-					    <el-table-column  property="address"  label="地址"></el-table-column>
+					    <el-table-column  property="car.hlicenseno"  label="车牌号"  width="120"></el-table-column>
+					    <el-table-column  property="carbrand.ibrandname"  label="品牌"  width="120"></el-table-column>
+					    <el-table-column  property="cartype.jtypename"  label="车型" width="120"></el-table-column>
+						<el-table-column  property="car.hmileage"  label="当前里程" width="120"></el-table-column>
+						<el-table-column  property="section.qname"  label="归属班组" width="120"></el-table-column>
 					  </el-table> 
 					</template>
-					<el-pagination style="margin:10px 0px 0px 500px;" background  layout="prev, pager, next" :total="1000">
+					<el-pagination style="margin:10px 0px 0px 500px;" background  layout="prev, pager, next" 
+					@current-change="fenye"
+					:page-size="2"
+					:total="page.total">
 					</el-pagination>
 				</div>
 				<!--下拉事件触发-->
 				<el-dialog title="维修班组"  :visible.sync="dialogVisible"  width="30%"  :before-close="handleClose">
 				  <div>
-					  <el-tree :data="data" :props="defaultProps" ></el-tree>
+					  <el-tree v-model="aa"   :data="data" :props="defaultProps"  @node-click="jzxoifj"></el-tree>
+					  
 				  </div>
 				  <span slot="footer" class="dialog-footer">
 				    <el-button @click="dialogVisible = false">取 消</el-button>
@@ -71,74 +77,141 @@
 			el:"#ctx",
 			data(){
 				return {
+					page:{
+						
+					},
+					xuan:{
+						car:{},
+						carbrand:{},
+						cartype:{},
+						section:{}
+					},
+					aa:"",
 					// 关闭对话框时判断使用
-					 dialogVisible: false,
-					 tableData: [{
-					          date: '2016-05-02',
-					          name: '王小虎',
-					          address: '上海市普陀区金沙江路 1518 弄'
-					        }, {
-					          date: '2016-05-04',
-					          name: '王小虎',
-					          address: '上海市普陀区金沙江路 1517 弄'
-					        }, {
-					          date: '2016-05-01',
-					          name: '王小虎',
-					          address: '上海市普陀区金沙江路 1519 弄'
-					        }, {
-					          date: '2016-05-03',
-					          name: '王小虎',
-					          address: '上海市普陀区金沙江路 1516 弄'
-					        }],
-					data: [{
-					          label: '一级 1',
-					          children: [{
-					            label: '二级 1-1',
-					            children: [{
-					              label: '三级 1-1-1'
-					            }]
-					          }]
-					        }, {
-					          label: '一级 2',
-					          children: [{
-					            label: '二级 2-1',
-					            children: [{
-					              label: '三级 2-1-1'
-					            }]
-					          }, {
-					            label: '二级 2-2',
-					            children: [{
-					              label: '三级 2-2-1'
-					            }]
-					          }]
-					        }, {
-					          label: '一级 3',
-					          children: [{
-					            label: '二级 3-1',
-					            children: [{
-					              label: '三级 3-1-1'
-					            }]
-					          }, {
-					            label: '二级 3-2',
-					            children: [{
-					              label: '三级 3-2-1'
-					            }]
-					          }]
-					        }],
-					        defaultProps: {
-					          children: 'children',
-					          label: 'label'
+					dialogVisible: false,
+					 data:[
+						 
+					 ],
+					defaultProps: {
+						id:'qid',
+						children: 'sect',
+						label: 'qname'
 					}
 				}
 			},
 			methods:{
+				fenye(val){
+					this.getfindpage(val);
+				},
+				hhh(val){
+					if(this.xuan!=null){
+						this.xuan=val;
+						console.log(val);
+					}
+					
+				},
 				handleClose(done) {
+						alert(this.aa)
 				        this.$confirm('确认关闭？')
 				          .then(_ => {
 				            done();
 				          })
 				          .catch(_ => {});
+				},
+				getfindpage(pageNum){
+					var that=this;
+					$.ajax({
+						url:"http://localhost:8888/fxmcar/carcsy?pageNum="+pageNum+"&pageSize=2",
+						success:function(rel){
+							//console.log(rel+"123");
+							that.page=rel;
+							//that.list=rel.list;
+							//console.log(that.page);
+						}
+					})
+				},
+				getshan(){
+					var that=this;
+					var vid=that.xuan.vid;
+					console.log(vid);
+					if(that.xuan.car.hid==undefined){
+						alert("请先选中你要删除的数据")
+						return;
+					}
+					$.ajax({
+						url:"http://localhost:8888/fxmcar/carshan?vid="+vid,
+						success:function(rel){
+							alert(rel);
+							that.getfindpage(1);
+						}
+					})
+				},
+				getadd(){
+					var that=this;
+					if(that.xuan.car.hlicenseno==null){
+							alert("请勿为空值");
+							return;
+					}
+					that.xuan.car.hid="";
+					that.xuan.carbrand.iid="";
+					that.xuan.cartype.jid="";
+					that.xuan.vid="";
+					console.log(that.xuan);
+					var str=JSON.stringify(that.xuan);
+					console.log(str);
+					$.ajax({
+						url:"http://localhost:8888/fxmcar/caradd",
+						data:str,
+						contentType:"application/json;charset=utf-8",
+						type:"post",
+						success:function(rel){
+							alert(rel);
+							that.xuan.car="";
+							that.xuan.carbrand="";
+							that.xuan.cartype="";
+						}
+					})
+					
+				},
+				getbc(){
+					var that=this;
+					var str=JSON.stringify(that.xuan);
+					$.ajax({
+						url:"http://localhost:8888/fxmcar/carxiu",
+						data:str,
+						contentType:"application/json;charset=utf-8",
+						type:"post",
+						success:function(rel){
+							alert(rel);
+							that.getfindpage(1);
+							that.xuan.car="";
+							that.xuan.carbrand="";
+							that.xuan.cartype="";
+						}
+					})
+				},
+				jzxoifj(date){
+					
+					// alert(this.xuan.section.qid=date.qid);
+					this.xuan.section.qname=date.qname;
+					this.xuan.section.qid=date.qid
+				},
+				getright(){
+					var that=this;
+					$.ajax({
+						url:"http://localhost:8888/fxmcar/carright",
+						success:function(rel){
+							that.data=rel;
+							console.log(that.data)
+						}
+					})
+					
 				}
+			},
+			created(){
+				this.getfindpage(1);
+				this.getright();
+				
 			}
 			
 		})
