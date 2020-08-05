@@ -17,7 +17,19 @@ public class Member {
 
     private Integer gtypeid;
 
-    public Integer getGid() {
+    private  Customertype customerType;
+    
+   
+
+	public Customertype getCustomerType() {
+		return customerType;
+	}
+
+	public void setCustomerType(Customertype customerType) {
+		this.customerType = customerType;
+	}
+
+	public Integer getGid() {
         return gid;
     }
 

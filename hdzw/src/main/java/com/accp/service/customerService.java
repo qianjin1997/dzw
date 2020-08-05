@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.dao.CarMapper;
 import com.accp.dao.CustomerMapper;
+import com.accp.domain.CarExample;
 import com.accp.domain.Customer;
 
 import java.util.List;
@@ -25,6 +27,9 @@ import com.github.pagehelper.PageInfo;
 public class customerService {
 	@Autowired
 	CustomerMapper customer;
+	
+	@Autowired
+	CarMapper car;
 	//根据id查客户
 	public Customer findbyid(Integer id) {
 		return customer.selectByPrimaryKey(id);
@@ -44,6 +49,9 @@ public class customerService {
 	}
 	//删除客户
 	public int remove(Integer id) {
+		CarExample ex=new CarExample();
+		ex.createCriteria().andHuidEqualTo(id);
+		car.deleteByExample(ex);
 		return customer.deleteByPrimaryKey(id);
 	}
 	//修改客户

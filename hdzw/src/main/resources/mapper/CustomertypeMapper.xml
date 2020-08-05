@@ -5,6 +5,10 @@
     <id column="fid" property="fid" jdbcType="INTEGER" />
     <result column="fname" property="fname" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="findBy" resultMap="BaseResultMap">
+		select * from Customertype where fid=#{gcustomertypeid}  
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

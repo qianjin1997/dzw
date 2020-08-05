@@ -9,7 +9,12 @@
     <result column="gcustomertypeid" property="gcustomertypeid" jdbcType="INTEGER" />
     <result column="gtypeid" property="gtypeid" jdbcType="INTEGER" />
   </resultMap>
-   <select id="findBy" resultMap="BaseResultMap">
+  
+  <resultMap extends="BaseResultMap" type="com.accp.domain.Member" id="BaseResultMapExtends">
+  		<association property="customerType" column="gcustomertypeid" javaType="com.accp.domain.Customertype" select="com.accp.dao.CustomertypeMapper.findBy"></association><!--车辆品牌  -->
+  </resultMap>
+  
+   <select id="findBy" resultMap="BaseResultMapExtends">
 		select * from member where gid=#{ememberid}  
   </select>
   <sql id="Example_Where_Clause" >

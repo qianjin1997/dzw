@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.dao.CustomerMapper;
+import com.accp.domain.CarExample;
 import com.accp.domain.Customer;
 
 
@@ -25,19 +26,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.accp.domain.Customer;
 import com.accp.service.customerService;
+import com.accp.service.wsbcarService;
 import com.github.pagehelper.PageInfo;
 @RestController
 @RequestMapping("wsbcutomer")
 public class wsbcustomenrController {
 	@Autowired
 	customerService customer;
+	
+	@Autowired
+	wsbcarService car;
 	@GetMapping("/{id}")
 	public Customer findbyid(@PathVariable ("id") Integer id) {
 		return customer.findbyid(id);
 	}
 	@GetMapping("/byck")
-	public List<Customer> findck(String name){
-		return customer.find(name);
+	public List<Customer> findck(String ssname){
+		return customer.find(ssname);
 	}
 	@GetMapping("/{pageNum}/{pageSize}")
 	public PageInfo<Customer> findall(@PathVariable ("pageSize") Integer pageSize,@PathVariable ("pageNum") Integer pageNum){

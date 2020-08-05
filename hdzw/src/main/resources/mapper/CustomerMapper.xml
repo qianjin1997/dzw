@@ -39,9 +39,9 @@
   <select id="findAll" resultMap="BaseResultMapExtends" >
   	select * from customer 
   		<where>
-  		<if test="name != null">
-  		 	or  ecustomerid like concat ('%',#{name},'%') or ecustomername like concat ('%',#{name},'%')or  eaddress like concat ('%',#{name},'%') 
-  		 </if>
+	  		<if test="name!=null">
+	  		 	or  ecustomerid like concat ('%',#{name},'%') or ecustomername like concat ('%',#{name},'%') or eaddress like concat ('%',#{name},'%') 
+	  		 </if>
   		</where>
   </select>
  
